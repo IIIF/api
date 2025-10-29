@@ -345,15 +345,78 @@ The fragment example above can be expressed using a Specific Resource:
 
 ## Navigational Resources
 
+Navigational resources provide structure for IIIF resources that allow viewing clients to guide users through IIIF content and collections. They define how resources are organized for discovery and interaction across multiple resources, like Collections, or within a resource, like Ranges, that help clients construct meaningful navigational interfaces, such as hierarchies, groupings, lists, or tables of contents.
+
 ### Collection
 
-IIIF Collections are ordered lists of Manifests, Collections, and/or Specific Resources. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
+IIIF Collections are ordered lists of Manifests and Collections. Collections allow these resources to be grouped in a hierarchical structure for navigation and other purposes.
+
+Collections may include both other Collections and Manifests, forming a tree-structured hierarchy that expresses relationships among IIIF resources. This organization can represent archival or curatorial structures, logical groupings such as volumes or series, or dynamically generated sets of related items. As such, they enable clients to load predefined sets of resources at initialization, render dynamically generated sets such as search results, visualize lists or hierarchies of related content, and facilitate navigation through structured aggregations of Manifests and Collections.
+
+```json
+{
+  "id": "https://iiif.example.org/collection/top",
+  "type": "Collection",
+  "label": { "en": ["Top-level Collection"] },
+  "items": [
+    {
+      "id": "https://iiif.example.org/collection/sub1",
+      "type": "Collection",
+      "label": { "en": ["Sub-Collection 1"] }
+    },
+    {
+      "id": "https://iiif.example.org/manifest/1",
+      "type": "Manifest",
+      "label": { "en": ["Manifest 1"] }
+    },
+    {
+      "id": "https://iiif.example.org/manifest/2",
+      "type": "Manifest",
+      "label": { "en": ["Manifest 2"] }
+    }
+  ]
+}
+```
 
 :eyes:
 
 ### Range
 
-IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Example uses include newspaper sections or articles, chapters within a book for a table of contents, or movements within a piece of music. Ranges can include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating a tree structure like a table of contents. The typical intent of adding a Range to the Manifest is to allow the client to display a linear or hierarchical navigation interface to enable the user to quickly move through the object's content.
+IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Ranges define meaningful divisions or sequences---such as chapters in a book, sections of a newspaper, or movements of a musical work---that allow clients to present hierarchical or linear navigation interfaces that enable the user to quickly move through the object's content.. 
+
+Ranges may include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating tree-like structures that reflect the logical or intellectual organization of the resource, such as a table of contents or an alternative ordering of items.
+
+```json
+{
+  "id": "https://iiif.example.org/manifest/1/range/toc",
+  "type": "Range",
+  "label": { "en": ["Table of Contents"] },
+  "items": [
+    {
+      "id": "https://iiif.example.org/manifest/1/canvas/1",
+      "type": "Canvas",
+      "label": { "en": ["Page 1"] }
+    },
+    {
+      "id": "https://iiif.example.org/manifest/1/canvas/2",
+      "type": "Canvas",
+      "label": { "en": ["Page 2"] }
+    },
+    {
+      "id": "https://iiif.example.org/manifest/1/range/chapter2",
+      "type": "Range",
+      "label": { "en": ["Chapter 2"] },
+      "items": [
+        {
+          "id": "https://iiif.example.org/manifest/1/canvas/3",
+          "type": "Canvas",
+          "label": { "en": ["Page 3"] }
+        }
+      ]
+    }
+  ]
+}
+```
 
 :eyes:
 
@@ -365,7 +428,7 @@ IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the defau
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
-The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional - the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
+The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
 The example demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, `provider` to give information about the publisher of the Manifest, and finally, `service` to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
 
