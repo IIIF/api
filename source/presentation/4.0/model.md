@@ -2450,26 +2450,49 @@ FIXME: possible values are 'm' and 's' and 'relative'.  Is relative always 0-1.0
 
 ### value
 
-within metadata:
+the `value` property is used as a language mapped key value pair where the langauge key string is always an array.
 
-{label: value: {"en": ["foo"]}}
+```json
+{
+  "label": 
+    "value": {
+      "en": ["foo"]
+    }
+}
+```
+TODO: if we are happy with the new value property names we need to update references in the rest of the Model doc and Index doc
 
-### value (UnitValue)
+### quantity
 
-The `value` property of a UnitValue represents the numerical component of a quantity.
+The `quantity` property of a UnitValue represents the numerical component of a `UnitValue`.
 
 The value _MUST_ be a floating point number.
 
 *  A UnitValue _MUST_ have the `value` property.
 
-`"value": 0.1234123`
+`"quantity": 0.1234123`
 
-FIXME: use scoped context for UnitValue to change the meaning of `value`
+### wktLiteral
 
-### value (WktSelector, TextualBody)
+the `wktLiteral` property of a WktSelector is a string for representing space in vector geometry. a `wktLiteral` of a WktSelector _MUST_ be a valid structured Well-Known Text (WKT) string.
 
-FIXME: string value!
+`"wktLiteral": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"`
 
+### value (TextualBody)
+
+a `value` of a TextualBody follows the Web Annotation data model and _MUST NOT_ be a language mapped string. Instead the string value and the language of the string are represeted by separate properties.
+
+```json
+{
+  "body": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
+    "type": "TextualBody",
+    "value": "Koto with a cover being carried",
+    "language": "en",
+    "format": "text/plain"
+  }
+}
+```
 
 ### via
 
