@@ -1501,10 +1501,10 @@ In this example, the audio content resources have durations that do not match th
               "format": "audio/mp3"
             },
             "volume": {
-              "id": "https://example.org/iiif/value/1",
-              "type": "UnitValue",
+              "id": "https://example.org/iiif/quantity/1",
+              "type": "Quantity",
               "unit": "relative",
-              "quantity": 0.1
+              "quantityValue": 0.1
             }
           },
           "target":  "https://example.org/iiif/scene1"
@@ -1523,10 +1523,10 @@ In this example, the audio content resources have durations that do not match th
               "format": "audio/mp3"
             },
             "volume": {
-              "id": "https://example.org/iiif/value/2",
-              "type": "UnitValue",
+              "id": "https://example.org/iiif/quantity/2",
+              "type": "Quantity",
               "unit": "relative",
-              "quantity": 0.2
+              "quantityValue": 0.2
             }
           },
           "target": {
@@ -1569,10 +1569,10 @@ In this example, the audio content resources have durations that do not match th
             },
             "angle": 45.0,
             "volume": {
-              "id": "https://example.org/iiif/value/3",
-              "type": "UnitValue",
+              "id": "https://example.org/iiif/quantity/3",
+              "type": "Quantity",
               "unit": "relative",
-              "quantity": 0.3
+              "quantityValue": 0.3
             },
             "lookAt": "https://example.org/iiif/scene1"
           },
