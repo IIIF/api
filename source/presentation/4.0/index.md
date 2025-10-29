@@ -1686,9 +1686,7 @@ Manifest
 
 Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.  
 
-Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Painting annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first painting annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
-<!-- Any impact of order in a Timeline or Scene? -->
-<!-- https://iiif.io/api/cookbook/recipe/0036-composition-from-multiple-images/ -->
+Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
 
 ## Annotation Collection
 
