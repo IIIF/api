@@ -1083,7 +1083,10 @@ Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0
 
 The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
-(image of coordinate system here)
+<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
+
+(Image: Wikipedia)
+
 
 ## 3D Supporting Resources
 
@@ -1094,7 +1097,7 @@ Constructs from the domain of 3D graphics are expressed in IIIF as Resources. Th
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not [hidden](model#behavior) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not [hidden](model#hidden-value) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
 
 
 ### Lights
