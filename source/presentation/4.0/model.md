@@ -495,7 +495,14 @@ The Web Annotation Data Model defines several Selectors, which describe how to f
 
 > `"type": "FragmentSelector"`
 
-FIXME: import from WADM
+Fragment Selectors use the fragment part of the URI specification to define a selection mechanism for parts of resources. The definition of the representation's media type specifies the structure of the value of the fragment. This is commonly used in IIIF to include the media fragment syntax of `xywh=<x>,<y>,<width>,<height>` to define a 2 dimension region.
+
+For more information about Fragment Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
+
+__Properties__<br/>
+A Fragment Selector _MUST_ have the following properties: [type](#type), and [value](#value)<br/><br/>
+A Fragment Selector _MAY_ have the following properties: [id](#id) and [conformsTo](#conformsTo).<br/><br/>
+{: .note}
 
 
 #### SvgSelector
@@ -503,8 +510,14 @@ FIXME: import from WADM
 
 > `"type": "SvgSelector"`
 
+SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to define a non-rectangular part of a resource. This allows for polygons, circles and multiple shapes to be used to highlight or otherwise select regions of images or other 2 dimensional resources.
 
-FIXME: import from WADM
+For more information about SVG Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#svg-selector).
+
+__Properties__<br/>
+An SVG Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
+A Fragment Selector _MAY_ have the following properties: [id](#id).<br/><br/>
+{: .note}
 
 
 #### Point Selector
@@ -1226,7 +1239,7 @@ Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
-| `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
+| `hidden`{: #hidden-value} | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
@@ -2075,13 +2088,36 @@ The value of the quality parameter in the IIIF Image API URL structure, as recor
 { "quality": "default" }
 ```
 
+### quantity
+
+The `quantity` property of a Unit Value conveys its numerical component.
+
+The value _MUST_ be a floating point number.
+
+*  A UnitValue _MUST_ have the `quantity` property.<br/>
+   Clients _MUST_ process the `quantity` property on a Unit Value.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "quantity": 0.1234123 }
+```
+
 ### refinedBy
 {: #refinedBy}
 
-FIXME: import from WADM
+The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a `FragmentSelector` and then further refine that region with an `SvgSelector` or `WktSelector`.
 
+For more information about `refinedBy`, please see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
 
+The value of the `refinedBy` property _MUST_ be a JSON Object, which _MUST_ describe a Selector.
 
+* A Selector _MAY_ have the `refinedBy` property with exactly one value.<br/>
+  Clients _SHOULD_ process the `refinedBy` property on Selectors.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "refinedBy": { "type": "WktSelector", "wktLiteral": "POLYGON ((0 0, 0 100, 100 100, 100 0, 0 0))" } }
+```
 
 
 ### region
@@ -2317,7 +2353,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 
 The value of the size parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
 
-* The IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
+* A IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
   Clients _MUST_ process the `size` property on a IIIF Image API Selector.
 * Other types of resource _MUST NOT_ have the `size` property.<br/>
   Clients _MUST_ ignore the `size` property on other types of resource.
@@ -2330,9 +2366,21 @@ The value of the size parameter in the IIIF Image API URL structure, as recorded
 ### source
 {: #source}
 
-SpecificResource
+The `source` property refers to the URI of the resource that the Specific Resource is a more constrained version or representation of.
 
-FIXME: import from WADM
+For more information about source and Specific Resources, see the [W3C Annotation Model](For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
+
+The value _MUST_ be a string, and the value _MUST_ be a URI.
+
+* A SpecificResource _MUST_ have the `source` property with exactly one value.<br/>
+  Clients _MUST_ process the `source` property on a SpecificResource.
+* Other types of resource _MUST NOT_ have the `source` property.<br/>
+  Clients _MUST_ ignore the `source` property on other types of resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "source": "https://example.org/museum/images/1" }
+```
 
 
 ### spatialScale
@@ -2400,7 +2448,14 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### startIndex
 {: #startIndex}
 
-FIXME
+A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Collection Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
+
+The value of `startIndex` must be an integer greater than -1.
+
+* An Annotation Page _MAY_ have the `startIndex` property.<br/>
+  Clients _MAY_ process `startIndex` on an Annotation Page.
+* A Collection Page _MAY_ have the `startIndex` property.<br/>
+  Clients _MAY_ process `startIndex` on a Collection Page.
 
 
 ### structures
@@ -2431,12 +2486,15 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ### styleClass
 {: #styleClass}
 
-FIXME: Import from WADM
+The name of a CSS class to apply when rendering the Specific Resource it is associated with.
+
+FIXME: Get rid of styles completely???
 
 ### stylesheet
 {: #stylesheet}
 
-FIXME: Import from WADM
+FIXME: Delete???
+
 
 ### summary
 {: #summary}
@@ -2479,8 +2537,19 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### target
 {: #target}
 
-FIXME: Import from WADM
+The list of targets of an Annotation. As there _MAY_ be more than one target, the value _MUST_ be an array, even though the W3C specification does not require this. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, or Content Resources.
 
+For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
+
+The value _MUST_ be an array of JSON objects.
+
+* An Annotation _MUST_ have the `target` property.<br/>
+  Clients _MUST_ process the `target` property on Annotations.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "target": [ { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" } ] }
+```
 
 
 ### temporalScale
@@ -2489,6 +2558,14 @@ FIXME: Import from WADM
 A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantity` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
+
+ * A Timeline _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Timeline.
+ * A Canvas _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Canvas.
+ * A Scene _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Scene.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2501,14 +2578,6 @@ To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be
   }
 }
 ```
-
- * A Timeline _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Timeline.
- * A Canvas _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Canvas.
- * A Scene _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Scene.
-
 
 ### thumbnail
 {: #thumbnail}
@@ -2578,6 +2647,8 @@ The value of this property _MUST_ be a non-negative integer.
 
 * An AnnotationCollection _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on an AnnotationCollection.
+* A Collection with Collection Pages _SHOULD_ have the `total` property.<br/>
+  Clients _SHOULD_ process the `total` property on a Collection.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2639,7 +2710,6 @@ The value _MUST_ be a string.
 !!! note
 For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a synonym for `Audio`.
 
-
 {% include api/code_header.html %}
 ``` json-doc
 { "type": "Image" }
@@ -2663,57 +2733,39 @@ FIXME: possible values are 'm' and 's' and 'relative'.  Is relative always 0-1.0
 
 ### value
 
-the `value` property is used as a language mapped key value pair where the langauge key string is always an array.
+The `value` property is used in several situations to convey a value of a resource. The value is always string-based, however the strings might be wrapped in the language map construction.
 
-```json
-{
-  "label": 
-    "value": {
-      "en": ["foo"]
-    }
-}
+In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
+
+Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation. In these cases the value of `value` _MUST_ be a string.
+
+
+Language Map `value`:
+{% include api/code_header.html %}
+```json-doc
+{"value": { "en": [ "Example Description" ]}}
 ```
-TODO: if we are happy with the new value property names we need to update references in the rest of the Model doc and Index doc
 
-### quantity
-
-The `quantity` property of a UnitValue represents the numerical component of a `UnitValue`.
-
-The value _MUST_ be a floating point number.
-
-*  A UnitValue _MUST_ have the `value` property.
-
-`"quantity": 0.1234123`
-
-### wktLiteral
-
-the `wktLiteral` property of a WktSelector is a string for representing space in vector geometry. a `wktLiteral` of a WktSelector _MUST_ be a valid structured Well-Known Text (WKT) string.
-
-`"wktLiteral": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"`
-
-### value (TextualBody)
-
-a `value` of a TextualBody follows the Web Annotation data model and _MUST NOT_ be a language mapped string. Instead the string value and the language of the string are represeted by separate properties.
-
-```json
-{
-  "body": {
-    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
-    "type": "TextualBody",
-    "value": "Koto with a cover being carried",
-    "language": "en",
-    "format": "text/plain"
-  }
-}
+Selector or TextualBody `value`:
+{% include api/code_header.html %}
+```json-doc
+{ "value": "Example Textual Body" }
 ```
+
 
 ### via
 
-The `via` property of a resource _MAY_ be used to indicate the URI that is the source from which the current resource was obtained. The `via` URI _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide access to modified versions of other resources, while still providing the provenance of the resource.
+The `via` property of a resource _MAY_ be used to indicate one or more URIs which are the chain of sources from which the current resource was obtained. Each URI in the `via` list _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide the provenance chain of the resource, regardless of how many copy operations have occurred in the past.
 
+The value of the `via` property _MUST_ be an array of strings, and each string _MUST_ be a valid URI.
 
-FIXME: finish
+* Any resource _MAY_ have the `via` property.<br/>
+  Clients _SHOULD_ process `via` on any resource.
 
+{% include api/code_header.html %}
+``` json-doc
+{ "via": [ "https://example.com/manifests/6" ] }
+```
 
 
 ### viewingDirection
@@ -2762,6 +2814,12 @@ The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 * Audio resource types _SHOULD_ have the `volume` property.<br/>
   Clients _SHOULD_ process the `volume` property on an Audio resource.
 
+{% include api/code_header.html %}
+``` json-doc
+{ "volume": { "unit": "relative", "value": 0.5 } }
+```
+
+
 ### width
 {: #width}
 
@@ -2787,10 +2845,22 @@ The value _MUST_ be a positive integer.
 A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource
 
 
+{% include api/code_header.html %}
+``` json-doc
+{ "x": 100 }
+```
+
 ### y
 {: #y}
 
 A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource
+
+
+
+{% include api/code_header.html %}
+``` json-doc
+{ "y": 100 }
+```
 
 ### z
 {: #z}
@@ -2798,6 +2868,10 @@ A number (floating point or integer) giving the y coordinate of the point, relat
 A number (floating point) giving the z coordinate of the point, relative to the dimensions of the source resource
 
 
+{% include api/code_header.html %}
+``` json-doc
+{ "z": 100 }
+```
 
 ### 3.5. Values
 
@@ -2859,3 +2933,5 @@ The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `
 ### Registries of Values
 
 FIXME: Describe the registries
+
+{: #scrolly-mc-scroll-face}
