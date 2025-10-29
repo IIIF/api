@@ -49,8 +49,8 @@ pre.highlight code {
   font-size:1.4rem
 }
 
-.highlight .s2 { 
-  color: #a0f0f0 
+.highlight .s2 {
+  color: #a0f0f0
 }
 </style>
 
@@ -74,25 +74,24 @@ __Previous Version:__ [3.0][prezi30]
 
 The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model.
 
-It provides a document format - the IIIF Manifest - for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable fashion. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
+It provides a document format---the IIIF Manifest---for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable way. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
 
 **If you have existing images, audio, video and models on the web, you can easily provide IIIF Manifests for them by publishing the appropriate JSON documents.**
 
-The IIIF Presentation API is concerned with enabling user experiences - providing enough information to present objects in compatible software, and leaving the meaning of the objects to external descriptive metadata standards.
+The IIIF Presentation API is concerned with enabling user experiences---providing enough information to present objects in compatible software, and leaving the meaning of the objects to external descriptive metadata standards.
 
-This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The model [model](model) document provides the formal specification of the terms used in this introduction.
+This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The [Presentation API 4.0 Properties](model) document provides the formal specification of the model and terms used in this introduction.
 
 ## IIIF Use cases
 
 1. **Artwork** - a Manifest that represents a painting, comprising a single image and accompanying display information.
 2. **Book** - a Manifest that represents a digitized bound volume made up many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
-3. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
-4. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
-5. **Simple 3D Model** - a Manifest that publishes a single 3D model.
-6. **Complex Scene** - a Manifest that publishes a complex 3D scene comprising multiple models, lights and cameras.
-7. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
+3. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
+4. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
+5. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
+6. **Simple 3D Model** - a Manifest that publishes a single 3D model.
+7. **Complex Scene** - a Manifest that publishes a complex 3D scene comprising multiple models, lights and cameras.
 8. **Storytelling in 3D** - a Manifest that defines a sequence of states in a complex scene for the purposes of guiding a user through a particular experience.
-9. **Manuscript** - (integration)
 
 These use case were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook](link).
 
@@ -368,7 +367,7 @@ This example is a Manifest with one Canvas, representing an artwork. The content
 
 The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional - the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The `target` property of the Annotation is the Canvas `id`, unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
-The example demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, and `provider` to give information about the publisher of the Manifest.
+The example demonstrates the use of the common descriptive properties `label` for the title of the artwork, `metadata` for additional information to display to the user, `summary` for a brief description of the artwork, `rights` to assert a rights statement or license from a controlled vocabulary, `homepage` to link to the artwork's specific web page, `thumbnail` to provide a small image to stand for the Manifest, `provider` to give information about the publisher of the Manifest, and finally, `service` to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
 
 ```jsonc
 {
@@ -448,15 +447,16 @@ The example demonstrates the use of the common descriptive properties `label` fo
               "type": "Annotation",
               "motivation": [ "painting" ],
               "body": {
-                "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
+                "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "width": 4000,
                 "height": 3000,
                 "service": [
                   {
-                    "id": "https://iiif.io/api/image/efjfpewjfpewjfoiewjf",
-                    "type": "imageService3",
+                    "id": "https://iiif.io/api/presentation/example/image/painting",
+                    "profile": "level1",
+                    "type": "ImageService3",
                     // etc
                   }
                 ]
@@ -481,20 +481,20 @@ The example demonstrates the use of the common descriptive properties `label` fo
 * The `metadata` label and value pairs are for display to the user rather than for machines to interpret.
 * The `rights` property is always a single string value which is a URI.
 * Any resource can have a `provider` property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
-* A Service is a software application that a client might interact with to gain additional information or functionality. The IIIF Image API in this example ia a Service, which provides deep zoom functionality. Images in IIIF do not have to have Image Services - the following examples don't.
+* The `service` property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
 Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [AnnotationPage](#model/AnnotationPage), [Annotation](#model/Annotation), [Agent](#model/Agent)<br/><br/>
-Properties: [id](#model/id), [type](#type), [label](#label), [metadata](#metadata), [summary](#summary), [rights](#rights), [homepage](#homepage), [thumbnail](#thumbnail), and [provider](#provider)
+Properties: [id](#model/id), [type](#model/type), [label](#model/label), [metadata](#modle/metadata), [summary](#modle/summary), [rights](#model/rights), [homepage](#model/homepage), [thumbnail](#model/thumbnail), [provider](#model/provider), and [service](#model/Service)
 {: .note}
 
 
 ## Use Case 2: Book
 
-This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the `behavior` property to indicate to a client that the object is _paged_: this helps a client generate the correct user experience. The `viewingDirection` property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a `rendering` property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The `start` property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The `requiredStatement` is a message that a client MUST show to the user when presenting the Manifest.
+This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the `behavior` property to indicate to a client that the object is _paged_---this helps a client generate the correct user experience. The `viewingDirection` property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a `rendering` property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The `start` property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The `requiredStatement` is a message that a client MUST show to the user when presenting the Manifest.
 
 ```json
 {
@@ -612,7 +612,7 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 
 >
 **Key Points**
-* Recommend using Canvas labels when more than one Canvas...
+* Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
@@ -626,9 +626,9 @@ Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirect
 
 ## Use Case 3: Periodical
 
-This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a publishing run of the _The Tombstone Epitaph_ from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the `behavior` "multi-part" to signal that the Collections and their Manifests are part of a logical whole or contiguous set. Each of the year Collections has one Manifest for each issue of the newspaper.
+This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a run of the _The Tombstone Epitaph_, published from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the `behavior` "multi-part" to signal that the Collections and their Manifests are part of a logical set. Each of the year Collections has one Manifest for each issue of the newspaper.
 
-The top level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each Manifest has a `navDate` property that could be used to plot the issues on a calendar-style user interface. Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within the sections, which may be spread across multiple columns and pages. Each story's Range includes the `supplementary` property to link to an Annotation Collection that provides the text of the story.
+The top-level Collection has a `navPlace` property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each Manifest has a `navDate` property that could be used to plot the issues on a timeline or calendar-style user interface. Within each Manifest, the `structures` property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within those sections, which may be spread across multiple columns and pages. Each story's Range includes the `supplementary` property to link to an Annotation Collection that provides the text of the story.
 
 IIIF Collection with `behavior` "multi-part" that contains the individual "multi-part" Collections for each year/volume:
 
@@ -660,18 +660,18 @@ IIIF Collection with `behavior` "multi-part" that contains the individual "multi
     {
       "id": "https://example.org/iiif/periodical/multi-part-collection/v1.json",
       "type": "Collection",
-      "label": { "en": [ "The Tombstone Epitaph, 1880" ] } 
+      "label": { "en": [ "The Tombstone Epitaph, 1880" ] }
     },
     {
       "id": "https://example.org/iiif/periodical/multi-part-collection/v2.json",
       "type": "Collection",
-      "label": { "en": [ "The Tombstone Epitaph, 1881" ] } 
+      "label": { "en": [ "The Tombstone Epitaph, 1881" ] }
     },
     // Additional multi-part collections for each year/volume
   ]
 }
 ```
-IIIF Collection with `behavior` "multi-part" for the second volume (1881), with individual Manifests for each issue.
+IIIF Collection with `behavior` "multi-part" for the second volume (1881), with individual Manifests for each issue:
 
 ```json
 {
@@ -692,7 +692,7 @@ IIIF Collection with `behavior` "multi-part" for the second volume (1881), with 
 }
 ```
 
-Manifest for the October 27, 1881 issue, with Ranges for table of contents.
+Manifest for the October 27, 1881 issue, with Ranges for table of contents:
 
 ```json
 {
@@ -788,7 +788,7 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents.
 
 >
 **Key Points**
-* 
+*
 {: .note}
 
 __Definitions__<br/>
@@ -829,7 +829,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/image",
               "type": "Annotation",
-              "motivation": "painting",
+              "motivation": [ "painting" ],
               "body": {
                 "id": "https://example.org/presentation/example-content-resources/image/cover.jpg",
                 "type": "Image",
@@ -905,7 +905,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "type": "AnnotationPage",
     }
   ]
-}  
+}
 ```
 
 
@@ -918,7 +918,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
     {
       "id": "https://example.org/iiif/presentation/examples/external-anno/a1",
       "type": "Annotation",
-      "motivation": "supplementing",
+      "motivation": [ "supplementing" ],
       "body": {
         "id": "https://example.org/presentation/example-content-resources/lyrics1.txt",
         "type": "TextualBody",
@@ -929,7 +929,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "target": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8"
     }
   ],
-  // (annotations for the rest of the song lines) 
+  // (annotations for the rest of the song lines)
 }
 ```
 
@@ -1088,7 +1088,7 @@ The positive y axis points upwards, the positive x axis points to the right, and
 ## 3D Supporting Resources
 
 
-Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes. 
+Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes.
 
 ### Cameras
 
@@ -1166,7 +1166,7 @@ This example is a Manifest with a single Scene, with a single model of a space s
 
 ## Use Case 5a: Simple 3D Model in Configured Scene
 
-This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position. 
+This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position.
 
 Annotations may use a type of Selector called a `PointSelector` to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, `x`, `y` and `z` which give the value on that axis. They also have a temporal property `instant` which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
 
@@ -1219,7 +1219,7 @@ The Light is green and has a position, but has its default orientation of lookin
                   }
                 ]
               }
-            },   
+            },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
@@ -1303,25 +1303,167 @@ Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), 
 
 ## Use Case 6: Complex Scene
 
-Example Annotation that comments on a 3D polygon within a Scene:
+This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the `exclude` property is used to prevent these from being rendered. The property `interactionMode` is used to guide clients in how to best guide or limit user interaction with rendered content.
 
+```jsonc
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/3d/model_origin.json",
+  "type": "Manifest",
+  "label": { "en": ["Use Case 6: Complex Scene"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["Chess Game Pieces"] },
+      "interactionMode": ["hemisphere-orbit"],
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
+                "label": {"en": ["Pawn 1"]},
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 0.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
+                    "label": {"en": ["Pawn 2 tipped over"]},
+                    "type": "Model",
+                    "format": "model/gltf-binary"
+                  }
+                ],
+                "transform": [
+                  {
+                    "type": "RotateTransform",
+                    "x": 0.0,
+                    "y": 0.0,
+                    "z": -90.0
+                  },
+                  {
+                    "type": "Translate Transform",
+                    "x": 0.0,
+                    "y": 1.0,
+                    "z": 0.0
+                  }
+                ]
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 2.0,
+                    "y": 0.0,
+                    "z": 3.0
+                  }
+                ]
+              }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "exclude": ["Audio", "Lights"],
+              "body": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
+                    "label": {"en": ["Queen"]},
+                    "type": "Model",
+                    "format": "model/gltf-binary"
+                  }
+                ],
+                "transform": [
+                  {
+                    "type": "ScaleTransform",
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                  },
+                ]
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 2.0
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
 ```
-Todo add example
-```
+
+>
+**Key Points**
+* Each Annotation is painted into the Scene at a different point via Point Selectors.
+* The second Annotation represents a pawn game piece that is tipped over, and Transforms are used to achieve this. RotateTransform is used to tip the pawn over and TranslateTransform is used to align the bottom of the pawn with the coordinate origin's XY plane.
+* The third Annotation represents a queen game piece that is scaled to be larger than the pawns using ScaleTransform.
+* The `exclude` property instructs clients not to import or render any external audio or light content present in the Content Resource for the queen game piece.
+* The `interactionMode` property instructs clients that, if possible, user interactions relating to orbiting the scene should be restricted to a hemisphere.
+{: .note}
+
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [Model](#model/Model), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [RotateTransform](#model/RotateTransform), [TranslateTransform](#model/TranslateTransform), [ScaleTransform](#model/ScaleTransform)<br/><br/>
+Properties: [exclude](#model/exclude), [interactionMode](#model/interactionMode)
+{: .note}
+
+<!--
+
+Is this still needed or wanted here?
 
 ### Chessboard is a Canvas with image (not a 3D chessboard)
 
 A Scene or a Canvas may be treated as a content resource, referenced or described within the `body` of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation `target`. The content resource Scene will be placed within the `target` Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use `PointSelector` to place the origin of the resource Scene at a specified coordinate within the `target` Scene.
 
-### More than one model
-
-### Transforms for scale and rotation
-
-### Exclude
-
-### interactionMode
-
-
+-->
 
 ## Use Case 7: Another Complex Scene
 
@@ -1472,7 +1614,7 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
 
 A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation.
 
-<!-- 
+<!--
 It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a WktSelector to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. In this case, the four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of WktSelector for this purpose overrides any use of Transforms on the Canvas Annotation.
 
 Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at (1, 0, 0); and top-right at (1, 1, 0):
@@ -1481,7 +1623,7 @@ Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at
 "selector": [
   {
     "type": "WktSelector",
-    "value": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
+    "wktLiteral": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
   }
 ]
 ```
@@ -1538,45 +1680,123 @@ Manifest
         AnnotationPage
           items
             Annotation
-```                     
-
+```
 
 ## Annotation Page
 
-"Overlapping elements with a larger z-index cover those with a smaller one."
-link to https://developer.mozilla.org/en-US/docs/Web/CSS/z-index
+Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.  
 
+Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
 
 ## Annotation Collection
 
-deal with this: (use in example)
-https://github.com/IIIF/api/pull/2304/files#diff-cc70f02818f6bed2b14dfbf8bf3206e0825047951c8e83ad56fc73e489f82ac4R1757
+Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Container or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user’s preference.
 
+For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
+
+```json
+{
+  "id": "https://example.org/iiif/book1/annocoll/transcription",
+  "type": "AnnotationCollection",
+  "label": {"en": ["Diplomatic Transcription"]},
+  "total": 112,
+  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
+  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
+}
+```
+
+```jsonc
+{
+  "id": "https://example.org/iiif/book1/annopage/l2",
+  "type": "AnnotationPage",
+  "prev": "https://example.org/iiif/book1/annopage/l1",
+  "next": "https://example.org/iiif/book1/annopage/l3",
+  "items": [
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a1",
+      "type": "Annotation"
+      // ...
+    },
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a2",
+      "type": "Annotation"
+      // ...
+    }
+  ],
+  "partOf": [
+    {
+      "id": "https://example.org/iiif/book1/annocoll/transcription",
+      "type": "AnnotationCollection",
+    }
+  ]
+}
+```
+
+<!--
 use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-
-
-
+https://github.com/IIIF/api/issues/2118
+-->
 
 ## Comment Annotations
 
-> (examples are just the anno)
+Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
-### A comment about a segment of music 
+### A comment about a segment of music
 
-(targets Timeline)
-"Here begins the development of the second theme"
+<!-- This is redundant with Use Case 4 -->
+
+This is an example of a commenting annotation that targets two-minute segment of a muscial performance.
+
+```json
+{
+      "id": "https://example.org/iiif/presentation/examples/commenting/anno/1",
+      "type": "Annotation",
+      "motivation": [ "commenting" ],
+      "body": {
+        "id": "https://example.org/iiif/presentation/examples/commenting/anno/1/theme2",
+        "type": "TextualBody",
+        "language": "en",
+        "format": "text/plain",
+        "value": "The second theme of the concerto is introduced."
+      },
+      "target": "https://example.org/iiif/presentation/examples/commenting/timeline/t1#t=38.0,158.0"
+    }
+```
 
 ### A comment about a face in a painting
 
-(is this a full use case?)
+A comment on a Canvas can target a non-rectangular area.  This example uses a `SvgSelector` to comment on a painting.
 
-(targets Canvas)
-"This might be so-and-so"
+```json
+{
+      "id": "https://example.org/iiif/presentation/examples/commenting/anno/2",
+      "type": "Annotation",
+      "motivation": [ "commenting" ],
+      "body": {
+        "id": "https://example.org/iiif/presentation/examples/commenting/anno/2/person2",
+        "type": "TextualBody",
+        "language": "en",
+        "format": "text/plain",
+        "value": "Note the expressive eyes of the subject of this painting."
+      },
+      "target": {
+        "type": "SpecificResource",
+        "source": {
+          "id": "https://example.org/iiif/presentation/examples/commenting/canvas/2",
+          "type": "Canvas"
+        },
+        "selector": [
+          {
+            "id": "https://example.org/iiif/presentation/examples/commenting/anno2/selector2",
+            "type": "SvgSelector",
+            "value": "<svg:svg> ... </svg:svg>"
+          }
+        ]
+    }
+}
+```
 
-(Uses Non Rectangular Segments - SvgSelector)
-
-Annotations may alternately use a type of Selector called a `WktSelector` to align the Annotation to a region with the Scene that is not the Scene's origin. WktSelectors have a single property, `value`, which is a string conforming to a WKT Linestring, LineStringZ, Polygon, or PolygonZ list of 2D or 3D coordinate points. Whether and how a region defined by a WktSelector may be translated to a single 2D or 3D coordinate point, for targeting or other purposes, is client-dependent.
-
+Annotations may alternately use a different type of Selector, called a `WktSelector`, to align the Annotation to a target region within a Canvas or Scene.
 
 ### A comment about something in a Model
 
@@ -1780,7 +2000,7 @@ What to do about activating annos in the introduced content?
 
 # Interactivity and Storytelling
 
-Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user. 
+Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user.
 
 A narrative might comprise a set (an AnnotationPage) of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
 
@@ -1906,7 +2126,7 @@ Annotations with the motivation `activating` are referred to as _activating_ ann
 
 `target` variations
 
-- user "walks into a room" 
+- user "walks into a room"
 - AV scrub bar reaches time t1
 - user interacts with a model
 - user touches a face in a painting
