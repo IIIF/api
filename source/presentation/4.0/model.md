@@ -2529,15 +2529,13 @@ For more information about Annotation targets, see the [W3C Annotation Model](ht
 
 The value _MUST_ be an array of JSON objects.
 
-* An Annotation _SHOULD_ have the `body` property.<br/>
-  Clients _MUST_ process the `body` property on Annotations.
+* An Annotation _MUST_ have the `target` property.<br/>
+  Clients _MUST_ process the `target` property on Annotations.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "target": [ { "id": "", "type": "Canvas" } ] }
+{ "target": [ { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" } ] }
 ```
-
-
 
 
 ### temporalScale
@@ -2546,6 +2544,14 @@ The value _MUST_ be an array of JSON objects.
 A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantity` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
+
+ * A Timeline _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Timeline.
+ * A Canvas _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Canvas.
+ * A Scene _MAY_ have the `temporalScale` property.<br/>
+   Clients _MAY_ process `temporalScale` on a Scene.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2558,14 +2564,6 @@ To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be
   }
 }
 ```
-
- * A Timeline _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Timeline.
- * A Canvas _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Canvas.
- * A Scene _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Scene.
-
 
 ### thumbnail
 {: #thumbnail}
@@ -2726,19 +2724,8 @@ within metadata:
 
 {label: value: {"en": ["foo"]}}
 
-### value (UnitValue)
-
-The `value` property of a UnitValue represents the numerical component of a quantity.
-
-The value _MUST_ be a floating point number.
-
-*  A UnitValue _MUST_ have the `value` property.
-
-`"value": 0.1234123`
 
 FIXME: use scoped context for UnitValue to change the meaning of `value`
-
-### value (WktSelector, TextualBody)
 
 FIXME: string value!
 
@@ -2747,6 +2734,9 @@ FIXME: string value!
 
 The `via` property of a resource _MAY_ be used to indicate the URI that is the source from which the current resource was obtained. The `via` URI _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide access to modified versions of other resources, while still providing the provenance of the resource.
 
+The value of the `via` property _MUST_ be a string, and _MUST_ be a valid URI.
+
+* Any resource _MAY_ have the `via` property.
 
 FIXME: finish
 
@@ -2798,6 +2788,12 @@ The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 * Audio resource types _SHOULD_ have the `volume` property.<br/>
   Clients _SHOULD_ process the `volume` property on an Audio resource.
 
+{% include api/code_header.html %}
+``` json-doc
+{ "volume": { "unit": "relative", "value": 0.5 } }
+```
+
+
 ### width
 {: #width}
 
@@ -2823,10 +2819,22 @@ The value _MUST_ be a positive integer.
 A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource
 
 
+{% include api/code_header.html %}
+``` json-doc
+{ "x": 100 }
+```
+
 ### y
 {: #y}
 
 A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource
+
+
+
+{% include api/code_header.html %}
+``` json-doc
+{ "y": 100 }
+```
 
 ### z
 {: #z}
@@ -2834,6 +2842,10 @@ A number (floating point or integer) giving the y coordinate of the point, relat
 A number (floating point) giving the z coordinate of the point, relative to the dimensions of the source resource
 
 
+{% include api/code_header.html %}
+``` json-doc
+{ "z": 100 }
+```
 
 ### 3.5. Values
 
