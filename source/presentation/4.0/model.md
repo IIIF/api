@@ -2732,14 +2732,17 @@ FIXME: string value!
 
 ### via
 
-The `via` property of a resource _MAY_ be used to indicate the URI that is the source from which the current resource was obtained. The `via` URI _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide access to modified versions of other resources, while still providing the provenance of the resource.
+The `via` property of a resource _MAY_ be used to indicate one or more URIs which are the chain of sources from which the current resource was obtained. Each URI in the `via` list _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide the provenance chain of the resource, regardless of how many copy operations have occurred in the past.
 
-The value of the `via` property _MUST_ be a string, and _MUST_ be a valid URI.
+The value of the `via` property _MUST_ be an array of strings, and each string _MUST_ be a valid URI.
 
-* Any resource _MAY_ have the `via` property.
+* Any resource _MAY_ have the `via` property.<br/>
+  Clients _SHOULD_ process `via` on any resource.
 
-FIXME: finish
-
+{% include api/code_header.html %}
+``` json-doc
+{ "via": [ "https://example.com/manifests/6" ] }
+```
 
 
 ### viewingDirection
@@ -2907,3 +2910,5 @@ The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `
 ### Registries of Values
 
 FIXME: Describe the registries
+
+{: #scrolly-mc-scroll-face}
