@@ -2737,25 +2737,21 @@ The `value` property is used in several situations to convey a value of a resour
 
 In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
 
-Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody`
+Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation. In these cases the value of `value` _MUST_ be a string.
 
 
-
-### value (TextualBody)
-
-a `value` of a TextualBody follows the Web Annotation data model and _MUST NOT_ be a language mapped string. Instead the string value and the language of the string are represeted by separate properties.
-
-```json
-{
-  "body": {
-    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
-    "type": "TextualBody",
-    "value": "Koto with a cover being carried",
-    "language": "en",
-    "format": "text/plain"
-  }
-}
+Language Map `value`:
+{% include api/code_header.html %}
+```json-doc
+{"value": { "en": [ "Example Description" ]}}
 ```
+
+Selector or TextualBody `value`:
+{% include api/code_header.html %}
+```json-doc
+{ "value": "Example Textual Body" }
+```
+
 
 ### via
 
