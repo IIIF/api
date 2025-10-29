@@ -1798,16 +1798,91 @@ A comment on a Canvas can target a non-rectangular area.  This example uses a `S
 
 Annotations may alternately use a different type of Selector, called a `WktSelector`, to align the Annotation to a target region within a Canvas or Scene.
 
-### A comment about something in a Model
+### A comment about 3D sculpture
 
-(targets Scene)
-Look at this scratch in the helmet
+A commenting annotation can also reference a Content Resource, such as a Model, within a Scene.  This is accomplished by targeting the annotation that paints the resource into the Scene.  In this example, the commenting annotation targets an annotation that paints a model of a portrait bust into a scene.
 
-> Todo: This is mostly copy-pasted from properties, is it needed here? Use in above example.
+In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the Container, such as 3D models. In these cases, the `position` property may be used to define the position where a TextualBody should be rendered.  The example shows a `position` that places the annotation at a specific coordinate within the Scene.  The position is a `SpecificResource` that requires a `source` and `selector`.
+
+```jsonc
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://example.org/iiif/manifest/commenting/manifest/3",
+    "type": "Manifest",
+    "label": { "en": [ "1st Centry Roman portrait bust with comment" ] },
+    "items": [
+      {
+        "id": "https://example.org/iiif/scene/commenting/scene3",
+        "type": "Scene",
+        "items": [
+          {
+            "id": "https://example.org/iiif/scene/commenting/scene3/painting-annotation-pages/1",
+            "type": "AnnotationPage",
+            "items": [
+                {
+                    "id": "https://example.org/iiif/scene/commenting/scene3/sculpture",
+                    "type": "Annotation",
+                    "motivation": [ "painting"] ,
+                    "label": {
+                        "en": [ "A 1st century Roman portait bust." ]
+                    },
+                    "body": {
+                        "id": "https://example.org/iiif/scene/commenting/models/portait.gltf",
+                        "type": "Model"
+                    },
+                    "target": "https://example.org/iiif/scene/commenting/scene3"
+                }
+            ]
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "id": "https://example.org/iiif/scene/commenting/scene3/commenting-annotation-pages/1",
+        "type": "AnnotationPage",
+        "items": [
+          {
+            "id": "https://example.org/iiif/presentation/examples/commenting/anno/3",
+            "type": "Annotation",
+            "motivation": [ "commenting" ],
+            "body": {
+              "id": "https://example.org/iiif/presentation/examples/commenting/anno/3/comment1",
+              "type": "TextualBody",
+              "language": "en",
+              "format": "text/plain",
+              "value": "This marble portrait exemplifies the veristic tradition that dominated Roman Republican portraiture and persisted into the early Imperial period.",
+              "position": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene/commenting/scene3",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.75,
+                    "y": 1.5,
+                    "z": 0.1
+                  }
+                ]
+              }
+            },
+            "target": "https://example.org/iiif/scene/commenting/scene3/sculpture"
+          }
+        ]
+      }
+    ]
+}
+```
+
+<!--
+TODO: This is mostly copy-pasted from properties, is it needed here? Use in above example.
 
 It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
-
-> Forward ref to 3D comments with Cameras
+ -->
 
 
 ## Linking Annotations
