@@ -2088,6 +2088,20 @@ The value of the quality parameter in the IIIF Image API URL structure, as recor
 { "quality": "default" }
 ```
 
+### quantity
+
+The `quantity` property of a Unit Value conveys its numerical component.
+
+The value _MUST_ be a floating point number.
+
+*  A UnitValue _MUST_ have the `quantity` property.<br/>
+   Clients _MUST_ process the `quantity` property on a Unit Value.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "quantity": 0.1234123 }
+```
+
 ### refinedBy
 {: #refinedBy}
 
@@ -2696,7 +2710,6 @@ The value _MUST_ be a string.
 !!! note
 For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a synonym for `Audio`.
 
-
 {% include api/code_header.html %}
 ``` json-doc
 { "type": "Image" }
@@ -2720,15 +2733,29 @@ FIXME: possible values are 'm' and 's' and 'relative'.  Is relative always 0-1.0
 
 ### value
 
-within metadata:
+The `value` property is used in several situations to convey a value of a resource. The value is always string-based, however the strings might be wrapped in the language map construction.
 
-{label: value: {"en": ["foo"]}}
+In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
+
+Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody`
 
 
-FIXME: use scoped context for UnitValue to change the meaning of `value`
 
-FIXME: string value!
+### value (TextualBody)
 
+a `value` of a TextualBody follows the Web Annotation data model and _MUST NOT_ be a language mapped string. Instead the string value and the language of the string are represeted by separate properties.
+
+```json
+{
+  "body": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
+    "type": "TextualBody",
+    "value": "Koto with a cover being carried",
+    "language": "en",
+    "format": "text/plain"
+  }
+}
+```
 
 ### via
 
