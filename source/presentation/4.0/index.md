@@ -1094,7 +1094,7 @@ Constructs from the domain of 3D graphics are expressed in IIIF as Resources. Th
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not hidden in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+There are two types of Camera, `PerspectiveCamera` and `OrthographicCamera`. The first Camera defined and not [hidden](model#behavior) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
 
 
 ### Lights
@@ -1834,13 +1834,18 @@ The resource the user should be taken to is the `body` of the annotation, and th
 
 ## Activating Annotations
 
-Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for _storytelling_ (ref) and other narrative applications beyond simply conveying a static Digital Object into a viewer and leaving subsequent interactions entirely in the control of the user.
+Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for exhibitions, storytelling (fwd ref) and other interactive applications beyond simply conveying a set of static resources in a Container.
 
-Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. The `target` of the activating annotation could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a region of space in a Scene or an extent of time in a Container with `duration` could be the `target`, so that when the user "enters" that region or extent, something happens. The `body` of the annotation is the resource that is then activated:
+Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. The `target` of the activating annotation could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`, so that when the user "enters" that region or extent, something happens. 
 
-- a Camera: if "hidden" the behavior is removed, and this Camera becomes the viewport.
-- AnimationSelector: A named animation within a model is played (fwd ref)
-- (anything else yet?)
+The `body` of the annotation is then activated. This has different processing requirements depending on what the body is:
+
+* If the body is a reference to a Painting Annotation:
+ * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
+ * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
+* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
+* If the body has the `type` "JSONPatch", apply the patch operations listed in `operations` to the resource identified by `patchTarget`. (see [ref]).
+* Processing for other body types can be found in the [IIIF Cookbook][ref]
 
 Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate AnnotationPage. The client should evaluate all the activating annotations it can find.
 
@@ -1869,10 +1874,14 @@ Activating annotations are provided in a Container's `annotations` property. The
 
 An activating annotation has two additional optional properties:
 
-* `enables`: For each annotation in the value, remove the 'hidden' behavior if it has it.
-* `disables`: For each annotation in the value, add the 'hidden' behavior if it does not have it.
+* `enables`: For each Annotation or AnnotationPage in the value, remove the 'hidden' behavior if it has it.
+* `disables`: For each Annotation or AnnotationPage in the value, add the 'hidden' behavior if it does not have it.
 
-Hidden resources cannot be active or activated. If the values are the `id` properties of painting resources that paint models, they are hidden or made visible. If Lights, they are turned on. The following example demonstrates a light switch that can be toggled on and off.
+If the values are the `id` properties of painting annotations that paint models, `enables` makes them visible and `disables` hides them. If they paint Lights, `enables` turns them on and `disables` turns them off.
+
+Referencing a Painting Annotation as the `body` of an activating annotation implicitly enables it, as if it had been listed in `enables`. The inverse is not always true - for example, referencing a Camera in `enables` removes the "hidden" `behavior` and therefore allows it to be included in the client's evaluation of what the default camera is, but does not perform the additional action of changing the viewport to that Camera. For Lights and Models in a Scene, the two are equivalent because no _additional_ processing behavior is provided by this specification.
+
+For many use cases, the activating annotations don't need bodies. The following example demonstrates a light switch that can be toggled on and off:
 
 ```jsonc
 {
