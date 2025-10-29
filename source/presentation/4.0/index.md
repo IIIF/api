@@ -2521,7 +2521,8 @@ Chaining together activating annotations can then allow the implementation of, a
 
 ## Storytelling example
 
-Something really cool that brings a lot of things together!
+* Something really cool that brings a lot of things together!
+* Use JSONPatch to move a model too.
 
 
 # Conveying Physical Dimensions
