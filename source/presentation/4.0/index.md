@@ -1859,12 +1859,40 @@ A commenting annotation can also reference a Content Resource, such as a Model, 
 }
 ```
 
+In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the container, such as 3D models. In these cases, the `position` property may be used to define the position where a TextualBody should be rendered.  The following example shows a `position` that places the annotation at a specific coordinate within the Scene.  The position is a `SpecificResource` that requires a `source` and `selector`.
 
-> Todo: This is mostly copy-pasted from properties, is it needed here? Use in above example.
+```jsonc
+            "body": {
+              "id": "https://example.org/iiif/presentation/examples/commenting/anno/3/comment1",
+              "type": "TextualBody",
+              "language": "en",
+              "format": "text/plain",
+              "value": "This marble portrait exemplifies the veristic tradition that dominated Roman Republican portraiture and persisted into the early Imperial period.",
+              "position": {
+                "type": "SpecificResource",
+                "source": [
+                  {
+                    "id": "https://example.org/iiif/scene/commenting/scene3",
+                    "type": "Scene"
+                  }
+                ],
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 0.75,
+                    "y": 1.5,
+                    "z": 0.1
+                  }
+                ]
+              }
+            }
+```
+
+<!--
+TODO: This is mostly copy-pasted from properties, is it needed here? Use in above example.
 
 It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the `position` property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
-
-> Forward ref to 3D comments with Cameras
+ -->
 
 
 ## Linking Annotations
