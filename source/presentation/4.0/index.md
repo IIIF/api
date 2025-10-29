@@ -1531,137 +1531,164 @@ A Scene or a Canvas may be treated as a content resource, referenced or describe
 
 -->
 
-## Use Case 7: Another Complex Scene
+## Use Case 7: Scene with Audio
 
-What is it
+This example is a Manifest with a single Scene with a duration. Multiple Audio Emitter Annotations are painted into the Scene, with positional emitters used to create a 3D audio experience. Some of the Audio Emitter Annotations are only painted into the Scene for a limited period of time, producing dynamic change in the sounds heard within the Scene. A commenting Annotation is also provided to highlight the instant in time when a change in sound occurs.
 
-### More on Point and Fragment Selectors
+A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector). The FragmentSelector has a `value` property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the `refinedBy` property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection). When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region. Both patterns are used in this example.
 
-A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector).  The FragmentSelector has a `value` property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the `refinedBy` property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
+An Annotation may target a specific point in time using a PointSelector's `instant` property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration. In this example this is used for a comment Annotation.
 
-```json
+In this example, the audio content resources have durations that do not match the Scene's duration. The Annotation property [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
+
+```jsonc
 {
-  "id": "https://example.org/iiif/3d/anno1",
-  "type": "Annotation",
-  "motivation": ["painting"],
-  "body": {
-      "id": "https://example.org/iiif/assets/model1.glb",
-      "type": "Model"
-  },
-  "target": {
-    "id": "https://example.org/iiif/selectors/model1-glb-sr",
-    "type": "SpecificResource",
-    "source": [
-      {
-        "id": "https://example.org/iiif/scene1",
-        "type": "Scene"
-      }
-    ],
-    "selector": [
-      {
-        "id": "https://example.org/uuid/9fbd580b-895b-41b9-974a-1553329037f2",
-        "type": "PointSelector",
-        "x": -1.0,
-        "y": -1.0,
-        "z": 3.0,
-        "refinedBy": {
-            "id": "https://example.org/uuid/3d0d097b-2b37-4a15-b6a5-506e417d5115",
-            "type": "FragmentSelector",
-            "value": "t=45,95"
-        }
-      }
-    ]
-  }
-}
-```
-
-When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region:
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "target": "https://example.org/iiif/scene1#xyz=-1,-1,3&t=45,95"
-}
-```
-
-An Annotation may target a specific point in time using a PointSelector's `instant` property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration.
-
-```json
-{
-    "id": "https://example.org/iiif/3d/anno1",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body": {
-        "id": "https://example.org/iiif/assets/model1.glb",
-        "type": "Model"
-    },
-    "target": {
-        "type": "SpecificResource",
-        "source": [
-          {
-            "id": "https://example.org/iiif/scene1",
-            "type": "Scene"
-          }
-        ],
-        "selector": [
-            {
-                "type": "PointSelector",
-                "x": -1.0,
-                "y": -1.0,
-                "z": 3.0,
-                "instant": 45.0
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/3d/model_origin.json",
+  "type": "Manifest",
+  "label": { "en": ["Use Case 7: Scene with Audio"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["Positional Audio Symphony Hall Experience"] },
+      "duration": 60,
+      "items": [
+        {
+          "id": "https://example.org/iiif/3d/anno1",
+          "type": "Annotation",
+          "motivation": ["painting"],
+          "body": {
+            "id": "https://example.org/iiif/audio/1",
+            "type": "AmbientAudio",
+            "source": {
+              "id": "https://example.org/iiif/assets/symphony_hall_ambience.mp3",
+              "type": "Audio",
+              "format": "audio/mp3"
+            },
+            "volume": {
+              "id": "https://example.org/iiif/quantity/1",
+              "type": "Quantity",
+              "unit": "relative",
+              "quantityValue": 0.1
             }
-        ]
+          },
+          "target":  "https://example.org/iiif/scene1"
+        },
+        {
+          "id": "https://example.org/iiif/3d/anno2",
+          "type": "Annotation",
+          "motivation": ["painting"],
+          "timeMode": "trim",
+          "body": {
+            "id": "https://example.org/iiif/audio/2",
+            "type": "PointAudio",
+            "source": {
+              "id": "https://example.org/iiif/assets/orchestra_percussion_120s.mp3",
+              "type": "Audio",
+              "format": "audio/mp3"
+            },
+            "volume": {
+              "id": "https://example.org/iiif/quantity/2",
+              "type": "Quantity",
+              "unit": "relative",
+              "quantityValue": 0.2
+            }
+          },
+          "target": {
+            "id": "https://example.org/iiif/selectors/anno2",
+            "type": "SpecificResource",
+            "source": [
+              {
+                "id": "https://example.org/iiif/scene1",
+                "type": "Scene"
+              }
+            ],
+            "selector": [
+              {
+                "id": "https://example.org/uuid/9fbd580b-895b-41b9-974a-1553329037f2",
+                "type": "PointSelector",
+                "x": -3.0,
+                "y": 0.0,
+                "z": -2.0,
+                "refinedBy": {
+                    "id": "https://example.org/uuid/3d0d097b-2b37-4a15-b6a5-506e417d5115",
+                    "type": "FragmentSelector",
+                    "value": "t=0,30"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "https://example.org/iiif/3d/anno3",
+          "type": "Annotation",
+          "motivation": ["painting"],
+          "timeMode": "loop",
+          "body": {
+            "id": "https://example.org/iiif/audio/3",
+            "type": "SpotAudio",
+            "source": {
+              "id": "https://example.org/iiif/assets/orchestra_tuba_10s.mp3",
+              "type": "Audio",
+              "format": "audio/mp3"
+            },
+            "angle": 45.0,
+            "volume": {
+              "id": "https://example.org/iiif/quantity/3",
+              "type": "Quantity",
+              "unit": "relative",
+              "quantityValue": 0.3
+            },
+            "lookAt": "https://example.org/iiif/scene1"
+          },
+          "target": "https://example.org/iiif/scene1#xyz=3,0,-2&t=30,60"
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://example.org/iiif/3d/commenting",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "bodyValue": "This is the point when the percussion stops playing and the tuba begins playing.",
+          "target": {
+            "type": "SpecificResource",
+            "source": [
+              {
+                "id": "https://example.org/iiif/scene1",
+                "type": "Scene"
+              }
+            ],
+            "selector": [
+                {
+                    "type": "PointSelector",
+                    "instant": 30.0
+                }
+            ]
+          }
+        },
+      ],
     }
+  ]
 }
 ```
 
-### Time mode
+>
+**Key Points**
+* The Scene has a duration of 60 seconds.
+* The Scene has three different Audio Emitter Annotations painted into the Scene---AmbientAudio, PointAudio, and SpotAudio. Each Audio Emitter uses the `volume` property to specify audio volume.
+* AmbientAudio targets the Scene via a reference to the Scene URI, which implicitly targets the Scene's entire duration.
+* PointAudio targets the Scene with a PointSelector to paint the Audio Emitter at a specific point in 3D space, and that PointSelector is temporally scoped by a FragmentSelector to target the first 30 seconds of the Scene duration.
+* SpotAudio targets the Scene via a URL fragment to demonstrate an alternate approach to target a point and range of time in the Scene. It uses the `lookAt` property to point the Audio Emitter cone toward the Scene origin.
+* The content resources for PointAudio and SpotAudio use the property `timeMode` to specify different ways of handling mismatches between content resource audio length and Scene duration.
+* A commenting Annotation targets the Scene at the instant corresponding to 30 seconds of the Scene duration to highlight the point at which PointAudio stops playing and SpotAudio begins playing.
+* It is an error to select a temporal region of a Scene that does not have a `duration`, or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a `duration` may not be annotated as a content resource into a Scene that does not itself have a `duration`.
+{: .note}
 
-The Annotation's [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) can be used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
-
-It is an error to select a temporal region of a Scene that does not have a `duration`, or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a `duration` may not be annotated as a content resource into a Scene that does not itself have a `duration`.
-
-
-An annotation that targets a Scene using a PointSelector without any temporal refinement implicitly targets the Scene's entire duration.
-
-
-### Audio and 3D
-
-
-AmbientAudio (everywhere)
-PointAudio (sphere)
-SpotAudio (cone)
-
-   source: Audio (id, type, format, profile, duration, label)
-   volume: UnitValue (value: 0.3, unit: relative)
-   angle: degrees of the cone, per SpotLight
-
-Ambient and Point can be painted on to Canvas
-hidden on audio = inaudible
-
-
-All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. If a resource does not have an explicit coordinate space, then it is positioned at the origin of its coordinate space. In order to add a resource with its local coordinate space into a Scene with its own coordinate space, these spaces must be aligned. This done by aligning the origins of the two coordinate spaces.
-
-"Exclude Audio"
-
-
-
-
-
-
-
-
-
-
-
-
+__Definitions__<br/>
+Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [FragmentSelector](#model/FragmentSelector), [AmbientAudio](#model/AmbientAudio), [PointAudio](#model/PointAudio), [SpotAudio](#model/SpotAudio)<br/><br/>
+Properties: [duration](#model/duration), [volume](#model/volume), [angle](#model/angle), [lookAt](#model/lookAt), [timeMode](#model/timeMode)
+{: .note}
 
 
 # Nesting (more about Containers as Content Resources)
@@ -1750,7 +1777,7 @@ Manifest
 
 ## Annotation Page
 
-Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.  
+Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
 
 Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
 
@@ -1955,7 +1982,7 @@ It is important to be able to position the textual body of an annotation within 
 
 An Annotation with the motivation `linking` is used to create links between resources, both within the Manifest or to external content on the web, including other IIIF resources. Examples include linking to the continuation of an article in a digitized newspaper in a different Canvas, or to an external web page that describes the diagram in the Canvas. A client typically renders the links as clickable "Hotspots" - but can offer whatever accessible affordance as appropriate. The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
-The resource the user should be taken to is the `body` of the annotation, and the region of the Container that the user clicks or otherwise activates to follow the link is the `target`: 
+The resource the user should be taken to is the `body` of the annotation, and the region of the Container that the user clicks or otherwise activates to follow the link is the `target`:
 
 ```jsonc
 {
