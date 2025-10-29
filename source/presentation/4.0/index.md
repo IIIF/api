@@ -2358,6 +2358,14 @@ In many complex 3D Scenes, it may not be clear what or how to look at a particul
 
 The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided (while there is a Camera in the Scene it has `behavior` "hidden", i.e., it is inactive: not usable). The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second. In either case the above example instructs the client to activate the Camera when the user interacts with the comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. (forward ref to chains of activation example)
 
+Default camera:
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-default-camera.png" alt="Camera for annotation" >
+
+Camera when annotation selected:
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-anno-camera.png" alt="Camera for annotation" >
+
 
 ### Modifying resource properties
 
