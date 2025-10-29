@@ -1239,7 +1239,7 @@ Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
-| `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
+| `hidden`{: #hidden-value} | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
@@ -2472,12 +2472,15 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ### styleClass
 {: #styleClass}
 
-FIXME: Import from WADM
+The name of a CSS class to apply when rendering the Specific Resource it is associated with.
+
+FIXME: Get rid of styles completely???
 
 ### stylesheet
 {: #stylesheet}
 
-FIXME: Import from WADM
+FIXME: Delete???
+
 
 ### summary
 {: #summary}
@@ -2520,7 +2523,20 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### target
 {: #target}
 
-FIXME: Import from WADM
+The list of targets of an Annotation. As there _MAY_ be more than one target, the value _MUST_ be an array, even though the W3C specification does not require this. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, or Content Resources.
+
+For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
+
+The value _MUST_ be an array of JSON objects.
+
+* An Annotation _SHOULD_ have the `body` property.<br/>
+  Clients _MUST_ process the `body` property on Annotations.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "target": [ { "id": "", "type": "Canvas" } ] }
+```
+
 
 
 
