@@ -2317,7 +2317,7 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 
 The value of the size parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
 
-* The IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
+* A IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
   Clients _MUST_ process the `size` property on a IIIF Image API Selector.
 * Other types of resource _MUST NOT_ have the `size` property.<br/>
   Clients _MUST_ ignore the `size` property on other types of resource.
@@ -2330,9 +2330,21 @@ The value of the size parameter in the IIIF Image API URL structure, as recorded
 ### source
 {: #source}
 
-SpecificResource
+The `source` property refers to the URI of the resource that the Specific Resource is a more constrained version or representation of.
 
-FIXME: import from WADM
+For more information about source and Specific Resources, see the [W3C Annotation Model](For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
+
+The value _MUST_ be a string, and the value _MUST_ be a URI.
+
+* A SpecificResource _MUST_ have the `source` property with exactly one value.<br/>
+  Clients _MUST_ process the `source` property on a SpecificResource.
+* Other types of resource _MUST NOT_ have the `source` property.<br/>
+  Clients _MUST_ ignore the `source` property on other types of resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "source": "https://example.org/museum/images/1" }
+```
 
 
 ### spatialScale
