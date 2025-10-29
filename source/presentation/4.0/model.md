@@ -196,6 +196,34 @@ JSON descriptions _SHOULD_ be embedded within the JSON of parent resources, and 
 }
 ```
 
+### JSON-LD Contexts and Extensions
+{: #json-ld-contexts-and-extensions}
+
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi30-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
+
+The value of the `@context` property _MUST_ be either the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` as the last item. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+}
+```
+
+Any additional properties beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above context. The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "@context": [
+    "http://example.org/extension/context.json",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ]
+}
+```
+
+The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
+
 ## Classes
 
 The following sub-sections define the classes used in the IIIF Presentation Data Model. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from. The descriptions do not define how the classes are used together, which is done in the Presentation API Overview.
@@ -461,6 +489,22 @@ A Content Resource _MAY_ have the following properties: [height](#height), [widt
 {: #Selectors}
 
 The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources can be used within the IIIF Data Model. This specification defines additional Selector classes for use.
+
+#### FragmentSelector
+{: #FragmentSelector}
+
+> `"type": "FragmentSelector"`
+
+FIXME: import from WADM
+
+
+#### SvgSelector
+{: #SvgSelector}
+
+> `"type": "SvgSelector"`
+
+
+FIXME: import from WADM
 
 
 #### Point Selector
@@ -1174,14 +1218,15 @@ TODO: Address https://github.com/IIIF/api/issues/2318
 | `multi-part` | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together` | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Navigation Behaviors** |
-| `sequence` | Valid only on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. Disjoint with `thumbnail-nav` and `no-nav`.|
+| `sequence` | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are ...
+
+FIXME: do we define the processing model here?
+
+Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
-| `linear-nav` | FIXME: Obsolete? use `sequence`, now valid for AnnotationPage as well as Range |
 | | **Miscellaneous Behaviors** |
 | `hidden` | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
-| `reset` | Valid on Annotations with a scope property. FIXME: ...  |
-| `no-reset` | Valid on Annotations with a scope property. FIXME: ... |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
@@ -2030,6 +2075,14 @@ The value of the quality parameter in the IIIF Image API URL structure, as recor
 { "quality": "default" }
 ```
 
+### refinedBy
+{: #refinedBy}
+
+FIXME: import from WADM
+
+
+
+
 
 ### region
 {: #region}
@@ -2089,6 +2142,21 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
   }
 }
 ```
+
+### resets
+{: #resets}
+
+FIXME: write this
+
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "resets": []
+}
+```
+
+
 ### rights
 {: #rights}
 
@@ -2618,7 +2686,11 @@ FIXME: string value!
 
 ### via
 
-FIXME: import from WADM
+The `via` property of a resource _MAY_ be used to indicate the URI that is the source from which the current resource was obtained. The `via` URI _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide access to modified versions of other resources, while still providing the provenance of the resource.
+
+
+FIXME: finish
+
 
 
 ### viewingDirection
@@ -2730,33 +2802,7 @@ Additional motivations may be added to the Annotation to further clarify the int
 ## JSON-LD and Extensions
 {: #json-ld-and-extensions}
 
-### JSON-LD Contexts and Extensions
-{: #json-ld-contexts-and-extensions}
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi30-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
-
-The value of the `@context` property _MUST_ be either the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` as the last item. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-}
-```
-
-Any additional properties beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above context. The JSON-LD 1.1 functionality of predicate specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context": [
-    "http://example.org/extension/context.json",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ]
-}
-```
-
-The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
 
 ### Term Collisions between Contexts
 {: #term-collisions-between-contexts}
