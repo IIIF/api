@@ -495,7 +495,14 @@ The Web Annotation Data Model defines several Selectors, which describe how to f
 
 > `"type": "FragmentSelector"`
 
-FIXME: import from WADM
+Fragment Selectors use the fragment part of the URI specification to define a selection mechanism for parts of resources. The definition of the representation's media type specifies the structure of the value of the fragment. This is commonly used in IIIF to include the media fragment syntax of `xywh=<x>,<y>,<width>,<height>` to define a 2 dimension region.
+
+For more information about Fragment Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
+
+__Properties__<br/>
+A Fragment Selector _MUST_ have the following properties: [type](#type), and [value](#value)<br/><br/>
+A Fragment Selector _MAY_ have the following properties: [id](#id) and [conformsTo](#conformsTo).<br/><br/>
+{: .note}
 
 
 #### SvgSelector
@@ -503,8 +510,14 @@ FIXME: import from WADM
 
 > `"type": "SvgSelector"`
 
+SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to define a non-rectangular part of a resource. This allows for polygons, circles and multiple shapes to be used to highlight or otherwise select regions of images or other 2 dimensional resources.
 
-FIXME: import from WADM
+For more information about SVG Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#svg-selector).
+
+__Properties__<br/>
+An SVG Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
+A Fragment Selector _MAY_ have the following properties: [id](#id).<br/><br/>
+{: .note}
 
 
 #### Point Selector
