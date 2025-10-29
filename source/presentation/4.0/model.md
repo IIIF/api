@@ -82,7 +82,7 @@ The Presentation API data model intentionally does not include any semantic or d
 
 
 ## Technical Considerations
-{: #json-considerations}
+{: #technical-considerations}
 
 This section describes features applicable to all of the classes, properties and affordances of the Presentation API.
 
@@ -1129,7 +1129,7 @@ The value _MUST_ be a floating point number greater than 0 and less than 90, and
 ### annotations
 {: #annotations}
 
-An ordered list of Annotation Pages that contain commentary or other Annotations about this resource, separate from the Annotations that are used to paint content on to a Container. The `motivation` of the Annotations _MUST NOT_ be `painting`, and the target of the Annotations _MUST_ include this resource, part of it. or some resource within its `items` hierarchy.
+An ordered list of Annotation Pages that contain commentary or other Annotations about this resource, separate from the Annotations that are used to paint content on to a Container. The `motivation` of the Annotations _MUST NOT_ be `painting`, and the target of the Annotations _MUST_ include this resource, or part of it, or some resource within its `items` hierarchy.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 

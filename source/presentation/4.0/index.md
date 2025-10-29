@@ -456,7 +456,7 @@ The example demonstrates the use of the common descriptive properties `label` fo
                   {
                     "id": "https://iiif.io/api/presentation/example/image/painting",
                     "profile": "level1",
-                    "type": "imageService3",
+                    "type": "ImageService3",
                     // etc
                   }
                 ]
@@ -481,7 +481,7 @@ The example demonstrates the use of the common descriptive properties `label` fo
 * The `metadata` label and value pairs are for display to the user rather than for machines to interpret.
 * The `rights` property is always a single string value which is a URI.
 * Any resource can have a `provider` property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
-* The `service` property speficifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
+* The `service` property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
@@ -612,7 +612,7 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 
 >
 **Key Points**
-* Canvas labels are not required, but are recommend when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
+* Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
@@ -1623,7 +1623,7 @@ Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at
 "selector": [
   {
     "type": "WktSelector",
-    "value": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
+    "wktLiteral": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
   }
 ]
 ```
