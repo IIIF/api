@@ -836,9 +836,9 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
   "color": "#FFFFFF",
   "intensity": {
     "id": "https://example.org/iiif/spotlight/1/value",
-    "type": "UnitValue",
+    "type": "Quantity",
     "unit": "relative",
-    "value": 0.5
+    "quantityValue": 0.5
   }
 }
 ```
@@ -923,9 +923,9 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
   "angle": 45.0,
   "volume": {
     "id": "https://example.org/iiif/value/1",
-    "type": "UnitValue",
+    "type": "Quantity",
     "unit": "relative",
-    "value": 1.0
+    "quantityValue": 1.0
   }
 }
 ```
@@ -1065,24 +1065,24 @@ Services will also have specific requirements as to additional properties based 
 {: .note}
 
 
-#### Unit Value
-{: #UnitValue}
+#### Quantity
+{: #Quantity}
 
-> `"type": "UnitValue"`
+> `"type": "Quantity"`
 
-A UnitValue expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension.
+A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension.
 
 __Properties__<br/>
-A Unit Value _MUST_ have the following properties: [type](#type), [value](#value), and [unit](#unit).<br/><br/>
-A Unit Value _MAY_ have the following properties: [id](#id) and [label](#label).
+A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
+A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
 {: .note}
 
 {% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/unit/2",
-  "type": "UnitValue",
-  "value": 1.0,
+  "type": "Quantity",
+  "quantityValue": 1.0,
   "unit": "m"
 }
 ```
@@ -1522,11 +1522,11 @@ A floating point number giving the time of the point in seconds from the beginni
 ### intensity
 {: #intensity}
 
-This property sets the strength or brightness of a Light.  The `value` of the referenced UnitValue indicates the desired intensity on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).  If this property is not specified, then the default intensity value is client-dependent.
+This property sets the strength or brightness of a Light.  The `value` of the referenced Quantity indicates the desired intensity on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).  If this property is not specified, then the default intensity value is client-dependent.
 
-The value of this proerty _MUST_ be a UnitValue.
-The `unit` property of the UnitValue _MUST_ be `relative`.
-The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
+The value of this property _MUST_ be a Quantity.
+The `unit` property of the Quantity _MUST_ be `relative`.
+The `value` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
 * A Light _SHOULD_ have the `intensity` property.<br/>
   Clients _SHOULD_ process the `intensity` property on a Light.
@@ -1535,8 +1535,8 @@ The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 {
  "intensity": {
   "id": "https://example.org/iiif/intensity/1",
-  "type": "UnitValue",
-  "value": 0.5,
+  "type": "Quantity",
+  "quantityValue": 0.5,
   "unit": "relative"}
 }
 ```
@@ -2088,14 +2088,15 @@ The value of the quality parameter in the IIIF Image API URL structure, as recor
 { "quality": "default" }
 ```
 
-### quantity
+### quantityValue
+{: #quantityValue}
 
-The `quantity` property of a Unit Value conveys its numerical component.
+The `quantityValue` property of a Quantity conveys its numerical component.
 
-The value _MUST_ be a floating point number.
+The value of `quantityValue` _MUST_ be a floating point number.
 
-*  A UnitValue _MUST_ have the `quantity` property.<br/>
-   Clients _MUST_ process the `quantity` property on a Unit Value.
+*  A Quantity _MUST_ have the `quantity` property.<br/>
+   Clients _MUST_ process the `quantity` property on a Quantity.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2386,26 +2387,27 @@ The value _MUST_ be a string, and the value _MUST_ be a URI.
 ### spatialScale
 {: #spatialScale}
 
-A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `quantity` 0.00008 represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
+A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `quantityValue` 0.00008 represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be painted into a Container and the `spatialScale` is asserted on that Container. For example, a 3d model would be painted into a Scene, and then `spatialScale` is asserted on the Scene.
+
+ * A Canvas _MAY_ have the `spatialScale` property.<br/>
+   Clients _SHOULD_ process `spatialScale` on a Canvas.
+ * A Scene _MAY_ have the `spatialScale` property.<br/>
+   Clients _SHOULD_ process `spatialScale` on a Scene.
 
 {% include api/code_header.html %}
 ``` json-doc
 {
   "type": "Scene",
   "spatialScale": {
-    "type": "UnitValue",
-    "quantity": 22.0,
+    "type": "Quantity",
+    "quantityValue": 22.0,
     "unit": "m"
   }
 }
 ```
 
- * A Canvas _MAY_ have the `spatialScale` property.<br/>
-   Clients _SHOULD_ process `spatialScale` on a Canvas.
- * A Scene _MAY_ have the `spatialScale` property.<br/>
-   Clients _SHOULD_ process `spatialScale` on a Scene.
 
 ### start
 {: #start}
@@ -2555,7 +2557,7 @@ The value _MUST_ be an array of JSON objects.
 ### temporalScale
 {: #temporalScale}
 
-A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantity` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
+A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantityValue` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
 
@@ -2572,8 +2574,8 @@ To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be
 {
   "type": "Canvas",
   "temporalScale": {
-    "type": "UnitValue",
-    "quantity": 1000,
+    "type": "Quantity",
+    "quantityValue": 1000,
     "unit": "s"
   }
 }
@@ -2717,7 +2719,7 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 
 ### unit
 
-The unit of measurement of a quantity expressed by a UnitValue.
+The unit of measurement of a quantity expressed by a Quantity.
 
 The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be defined externally as an [extension][prezi30-ldce].
 
@@ -2727,9 +2729,14 @@ The value _MUST_ be a string value.  This specification defines the values in th
 |   s      |  seconds  |
 | relative |  relative |
 
-* A UnitValue _MUST_ have the `unit` property
+* A Quantity _MUST_ have the `unit` property.<br/>
+  Clients _SHOULD_ process the `unit` property on Quantity instances.
 
-FIXME: possible values are 'm' and 's' and 'relative'.  Is relative always 0-1.0, or context-dependent (see def of intensity)?  Allow extensions?
+{% include api/code_header.html %}
+``` json-doc
+{ "unit": "m" }
+```
+
 
 ### value
 
@@ -2805,18 +2812,18 @@ The value _MUST_ be a string.
 ### volume
 {: #volume}
 
-The volume property represents the relative volume of an audio source. The `value` of the specified UnitValue represents the desired volume on a linear scale from 0.0 (silence) to 1.0 (maximum volume).  If this property is not specified, then the default volume value is client-dependent.
+The volume property represents the relative volume of an audio source. The `quantityValue` of the specified Quantity represents the desired volume on a linear scale from 0.0 (silence) to 1.0 (maximum volume).  If this property is not specified, then the default volume value is client-dependent.
 
-The value of this property _MUST_ be a UnitValue.
-The `unit` property of the UnitValue _MUST_ be `relative`.
-The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
+The value of this property _MUST_ be a Quantity.
+The `unit` property of the Quantity _MUST_ be `relative`.
+The `value` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
 * Audio resource types _SHOULD_ have the `volume` property.<br/>
   Clients _SHOULD_ process the `volume` property on an Audio resource.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "volume": { "unit": "relative", "value": 0.5 } }
+{ "volume": { "type": "Quantity", "unit": "relative", "quantityValue": 0.5 } }
 ```
 
 
