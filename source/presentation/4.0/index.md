@@ -1802,6 +1802,8 @@ Annotations may alternately use a different type of Selector, called a `WktSelec
 
 A commenting annotation can also reference a Content Resource, such as a Model, within a Scene.  This is accomplished by targeting the annotation that paints the resource into the Scene.  In this example, the commenting annotation targets an annotation that paints a model of a portrait bust into a scene.
 
+In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the container, such as 3D models. In these cases, the `position` property may be used to define the position where a TextualBody should be rendered.  The example shows a `position` that places the annotation at a specific coordinate within the Scene.  The position is a `SpecificResource` that requires a `source` and `selector`.
+
 ```jsonc
 {
     "@context": "http://iiif.io/api/presentation/4/context.json",
@@ -1849,24 +1851,6 @@ A commenting annotation can also reference a Content Resource, such as a Model, 
               "type": "TextualBody",
               "language": "en",
               "format": "text/plain",
-              "value": "This marble portrait exemplifies the veristic tradition that dominated Roman Republican portraiture and persisted into the early Imperial period."
-            },
-            "target": "https://example.org/iiif/scene/commenting/scene3/sculpture"
-          }
-        ]
-      }
-    ]
-}
-```
-
-In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the container, such as 3D models. In these cases, the `position` property may be used to define the position where a TextualBody should be rendered.  The following example shows a `position` that places the annotation at a specific coordinate within the Scene.  The position is a `SpecificResource` that requires a `source` and `selector`.
-
-```jsonc
-            "body": {
-              "id": "https://example.org/iiif/presentation/examples/commenting/anno/3/comment1",
-              "type": "TextualBody",
-              "language": "en",
-              "format": "text/plain",
               "value": "This marble portrait exemplifies the veristic tradition that dominated Roman Republican portraiture and persisted into the early Imperial period.",
               "position": {
                 "type": "SpecificResource",
@@ -1885,7 +1869,13 @@ In some cases it is desirable to influence the client's positioning of the comme
                   }
                 ]
               }
-            }
+            },
+            "target": "https://example.org/iiif/scene/commenting/scene3/sculpture"
+          }
+        ]
+      }
+    ]
+}
 ```
 
 <!--
