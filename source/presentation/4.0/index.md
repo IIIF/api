@@ -1798,10 +1798,67 @@ A comment on a Canvas can target a non-rectangular area.  This example uses a `S
 
 Annotations may alternately use a different type of Selector, called a `WktSelector`, to align the Annotation to a target region within a Canvas or Scene.
 
-### A comment about something in a Model
+### A comment about 3D sculpture
 
-(targets Scene)
-Look at this scratch in the helmet
+A commenting annotation can also reference a Content Resource, such as a Model, within a Scene.  This is accomplished by targeting the annotation that paints the resource into the Scene.  In this example, the commenting annotation targets an annotation that paints a model of a portrait bust into a scene.
+
+```jsonc
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://example.org/iiif/manifest/commenting/manifest/3",
+    "type": "Manifest",
+    "label": { "en": [ "1st Centry Roman portrait bust with comment" ] },
+    "items": [
+      {
+        "id": "https://example.org/iiif/scene/commenting/scene3",
+        "type": "Scene",
+        "items": [
+          {
+            "id": "https://example.org/iiif/scene/commenting/scene3/painting-annotation-pages/1",
+            "type": "AnnotationPage",
+            "items": [
+                {
+                    "id": "https://example.org/iiif/scene/commenting/scene3/sculpture",
+                    "type": "Annotation",
+                    "motivation": [ "painting"] ,
+                    "label": {
+                        "en": [ "A 1st century Roman portait bust." ]
+                    },
+                    "body": {
+                        "id": "https://example.org/iiif/scene/commenting/models/portait.gltf",
+                        "type": "Model"
+                    },
+                    "target": "https://example.org/iiif/scene/commenting/scene3"
+                }
+            ]
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "id": "https://example.org/iiif/scene/commenting/scene3/commenting-annotation-pages/1",
+        "type": "AnnotationPage",
+        "items": [
+          {
+            "id": "https://example.org/iiif/presentation/examples/commenting/anno/3",
+            "type": "Annotation",
+            "motivation": [ "commenting" ],
+            "body": {
+              "id": "https://example.org/iiif/presentation/examples/commenting/anno/3/comment1",
+              "type": "TextualBody",
+              "language": "en",
+              "format": "text/plain",
+              "value": "This marble portrait exemplifies the veristic tradition that dominated Roman Republican portraiture and persisted into the early Imperial period."
+            },
+            "target": "https://example.org/iiif/scene/commenting/scene3/sculpture"
+          }
+        ]
+      }
+    ]
+}
+```
+
 
 > Todo: This is mostly copy-pasted from properties, is it needed here? Use in above example.
 
