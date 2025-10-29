@@ -829,7 +829,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/image",
               "type": "Annotation",
-              "motivation": "painting",
+              "motivation": [ "painting" ],
               "body": {
                 "id": "https://example.org/presentation/example-content-resources/image/cover.jpg",
                 "type": "Image",
@@ -918,7 +918,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
     {
       "id": "https://example.org/iiif/presentation/examples/external-anno/a1",
       "type": "Annotation",
-      "motivation": "supplementing",
+      "motivation": [ "supplementing" ],
       "body": {
         "id": "https://example.org/presentation/example-content-resources/lyrics1.txt",
         "type": "TextualBody",
@@ -1753,7 +1753,7 @@ This is an example of a commenting annotation that targets two-minute segment of
 {
       "id": "https://example.org/iiif/presentation/examples/commenting/anno/1",
       "type": "Annotation",
-      "motivation": "commenting",
+      "motivation": [ "commenting" ],
       "body": {
         "id": "https://example.org/iiif/presentation/examples/commenting/anno/1/theme2",
         "type": "TextualBody",
@@ -1773,7 +1773,7 @@ A comment on a Canvas can target a non-rectangular area.  This example uses a `S
 {
       "id": "https://example.org/iiif/presentation/examples/commenting/anno/2",
       "type": "Annotation",
-      "motivation": "commenting",
+      "motivation": [ "commenting" ],
       "body": {
         "id": "https://example.org/iiif/presentation/examples/commenting/anno/2/person2",
         "type": "TextualBody",
