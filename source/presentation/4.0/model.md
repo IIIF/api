@@ -2078,10 +2078,19 @@ The value of the quality parameter in the IIIF Image API URL structure, as recor
 ### refinedBy
 {: #refinedBy}
 
-FIXME: import from WADM
+The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a `FragmentSelector` and then further refine that region with an `SvgSelector` or `WktSelector`.
 
+For more information about `refinedBy`, please see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
 
+The value of the `refinedBy` property _MUST_ be a JSON Object, which _MUST_ describe a Selector.
 
+* A Selector _MAY_ have the `refinedBy` property with exactly one value.<br/>
+  Clients _SHOULD_ process the `refinedBy` property on Selectors.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "refinedBy": { "type": "WktSelector", "wktLiteral": "POLYGON ((0 0, 0 100, 100 100, 100 0, 0 0))" } }
+```
 
 
 ### region
