@@ -1070,7 +1070,7 @@ Services will also have specific requirements as to additional properties based 
 
 > `"type": "Quantity"`
 
-A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension.
+A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible units](#unit).
 
 __Properties__<br/>
 A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
