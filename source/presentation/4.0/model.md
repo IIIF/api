@@ -553,10 +553,10 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional types, such as CIRCULARSTRING may also be supported.
 
-The text representation is given in the `wktLiteral` property of the selector.
+The text representation is given in the `value` property of the selector.
 
 __Properties__<br/>
-A WKT Selector _MUST_ have the following properties: [type](#type), and [wktLiteral](#wktLiteral).<br/><br/>
+A WKT Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
 A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
@@ -564,7 +564,7 @@ A WKT Selector _MAY_ have the following properties: [id](#id)
 {
   "id": "https://example.org/selectors/2",
   "type": "WktSelector",
-  "wktLiteral": "POLYGON Z (0 0 0, 10 0.5 3.2 10 5.0 0, 0 0 0)"
+  "value": "POLYGON Z (0 0 0, 10 0.5 3.2 10 5.0 0, 0 0 0)"
 }
 ```
 
@@ -836,9 +836,9 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
   "color": "#FFFFFF",
   "intensity": {
     "id": "https://example.org/iiif/spotlight/1/value",
-    "type": "UnitValue",
+    "type": "Quantity",
     "unit": "relative",
-    "value": 0.5
+    "quantityValue": 0.5
   }
 }
 ```
@@ -923,9 +923,9 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
   "angle": 45.0,
   "volume": {
     "id": "https://example.org/iiif/value/1",
-    "type": "UnitValue",
+    "type": "Quantity",
     "unit": "relative",
-    "value": 1.0
+    "quantityValue": 1.0
   }
 }
 ```
@@ -1065,24 +1065,24 @@ Services will also have specific requirements as to additional properties based 
 {: .note}
 
 
-#### Unit Value
-{: #UnitValue}
+#### Quantity
+{: #Quantity}
 
-> `"type": "UnitValue"`
+> `"type": "Quantity"`
 
-A UnitValue expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension.
+A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible units](#unit).
 
 __Properties__<br/>
-A Unit Value _MUST_ have the following properties: [type](#type), [value](#value), and [unit](#unit).<br/><br/>
-A Unit Value _MAY_ have the following properties: [id](#id) and [label](#label).
+A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
+A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
 {: .note}
 
 {% include api/code_header.html %}
 ```json
 {
   "id": "https://example.org/iiif/unit/2",
-  "type": "UnitValue",
-  "value": 1.0,
+  "type": "Quantity",
+  "quantityValue": 1.0,
   "unit": "m"
 }
 ```
@@ -1522,11 +1522,11 @@ A floating point number giving the time of the point in seconds from the beginni
 ### intensity
 {: #intensity}
 
-This property sets the strength or brightness of a Light.  The `value` of the referenced UnitValue indicates the desired intensity on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).  If this property is not specified, then the default intensity value is client-dependent.
+This property sets the strength or brightness of a Light.  The `value` of the referenced Quantity indicates the desired intensity on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).  If this property is not specified, then the default intensity value is client-dependent.
 
-The value of this proerty _MUST_ be a UnitValue.
-The `unit` property of the UnitValue _MUST_ be `relative`.
-The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
+The value of this property _MUST_ be a Quantity.
+The value of the `unit` property of the Quantity _MUST_ be `relative`.
+The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
 * A Light _SHOULD_ have the `intensity` property.<br/>
   Clients _SHOULD_ process the `intensity` property on a Light.
@@ -1535,8 +1535,8 @@ The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
 {
  "intensity": {
   "id": "https://example.org/iiif/intensity/1",
-  "type": "UnitValue",
-  "value": 0.5,
+  "type": "Quantity",
+  "quantityValue": 0.5,
   "unit": "relative"}
 }
 ```
@@ -2088,14 +2088,15 @@ The value of the quality parameter in the IIIF Image API URL structure, as recor
 { "quality": "default" }
 ```
 
-### quantity
+### quantityValue
+{: #quantityValue}
 
-The `quantity` property of a Unit Value conveys its numerical component.
+The `quantityValue` property of a Quantity conveys its numerical component.
 
-The value _MUST_ be a floating point number.
+The value of `quantityValue` _MUST_ be a floating point number.
 
-*  A UnitValue _MUST_ have the `quantity` property.<br/>
-   Clients _MUST_ process the `quantity` property on a Unit Value.
+*  A Quantity _MUST_ have the `quantity` property.<br/>
+   Clients _MUST_ process the `quantity` property on a Quantity.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2386,26 +2387,27 @@ The value _MUST_ be a string, and the value _MUST_ be a URI.
 ### spatialScale
 {: #spatialScale}
 
-A single UnitValue that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `quantity` 0.00008 represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
+A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `quantityValue` of 0.00008 and a `unit` of `m` represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be painted into a Container and the `spatialScale` is asserted on that Container. For example, a 3d model would be painted into a Scene, and then `spatialScale` is asserted on the Scene.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "type": "Scene",
-  "spatialScale": {
-    "type": "UnitValue",
-    "quantity": 22.0,
-    "unit": "m"
-  }
-}
-```
 
  * A Canvas _MAY_ have the `spatialScale` property.<br/>
    Clients _SHOULD_ process `spatialScale` on a Canvas.
  * A Scene _MAY_ have the `spatialScale` property.<br/>
    Clients _SHOULD_ process `spatialScale` on a Scene.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "type": "Canvas",
+  "spatialScale": {
+    "type": "Quantity",
+    "quantityValue": 0.00008,
+    "unit": "m"
+  }
+}
+```
+
 
 ### start
 {: #start}
@@ -2486,14 +2488,41 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ### styleClass
 {: #styleClass}
 
-The name of a CSS class to apply when rendering the Specific Resource it is associated with.
+The name of a CSS class to apply when rendering the Specific Resource the style class is associated with. This might change the color of the text, the background color, add borders to the element, change the font size or family, or any other CSS-based styling. The class definition is given using the `stylesheet` property, defined below, which can be used on an Annotation. While Specific Resources _MAY_ appear outside of Annotations, `styleClass` is not valid in these circumstances as there will not be a corresponding `stylesheet` to define the style. If the stylesheet does not define the class given in `styleClass`, then the class _MUST_ be ignored.
 
-FIXME: Get rid of styles completely???
+The value of the `styleClass` _MUST_ be a string.
+
+For more information about `styleClass`, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#styles).
+
+* A Specific Resource _MAY_ have the `styleClass` property.<br/>
+  Clients _SHOULD_ process the `styleClass` property.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "styleClass": "red" }
+```
 
 ### stylesheet
 {: #stylesheet}
 
-FIXME: Delete???
+The `stylesheet` property conveys either a reference to an external CSS stylesheet document, or carries an embedded stylesheet. This stylesheet is used to resolve CSS classes for processing the `styleClass` directive on Specific Resources, described above.
+
+The value for `stylesheet` _MUST_ be a JSON object. If the stylesheet is referenced, then the JSON object _MUST_ have the `id` and `type` properties. Conversely, if the stylesheet's content is embedded, then it _MUST_ have the `type` and `value` properties, and _MUST NOT_ have the `id` property. The value of `type` _MUST_ be "CssStylesheet".
+
+For more information about `stylesheet`, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#styles).
+
+* An Annotation _MAY_ have the `stylesheet` property.<br/>
+  Clients _SHOULD_ process the `stylesheet` property on Annotations.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "stylesheet":
+  {
+    "type": "CssStylesheet",
+    "value": ".red { color: red }"
+  }
+}
+```
 
 
 ### summary
@@ -2555,7 +2584,7 @@ The value _MUST_ be an array of JSON objects.
 ### temporalScale
 {: #temporalScale}
 
-A single UnitValue that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantity` 1000 represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
+A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantityValue` of 1000 and a `unit` of `s` represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
 
@@ -2572,8 +2601,8 @@ To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be
 {
   "type": "Canvas",
   "temporalScale": {
-    "type": "UnitValue",
-    "quantity": 1000,
+    "type": "Quantity",
+    "quantityValue": 1000.0,
     "unit": "s"
   }
 }
@@ -2717,7 +2746,7 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 
 ### unit
 
-The unit of measurement of a quantity expressed by a UnitValue.
+The unit of measurement of a quantity expressed by a Quantity.
 
 The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be defined externally as an [extension][prezi30-ldce].
 
@@ -2727,9 +2756,14 @@ The value _MUST_ be a string value.  This specification defines the values in th
 |   s      |  seconds  |
 | relative |  relative |
 
-* A UnitValue _MUST_ have the `unit` property
+* A Quantity _MUST_ have the `unit` property.<br/>
+  Clients _SHOULD_ process the `unit` property on Quantity instances.
 
-FIXME: possible values are 'm' and 's' and 'relative'.  Is relative always 0-1.0, or context-dependent (see def of intensity)?  Allow extensions?
+{% include api/code_header.html %}
+``` json-doc
+{ "unit": "m" }
+```
+
 
 ### value
 
@@ -2805,18 +2839,18 @@ The value _MUST_ be a string.
 ### volume
 {: #volume}
 
-The volume property represents the relative volume of an audio source. The `value` of the specified UnitValue represents the desired volume on a linear scale from 0.0 (silence) to 1.0 (maximum volume).  If this property is not specified, then the default volume value is client-dependent.
+The volume property represents the relative volume of an audio source. The `quantityValue` of the specified Quantity represents the desired volume on a linear scale from 0.0 (silence) to 1.0 (maximum volume).  If this property is not specified, then the default volume value is client-dependent.
 
-The value of this property _MUST_ be a UnitValue.
-The `unit` property of the UnitValue _MUST_ be `relative`.
-The `value` property of the UnitValue _MUST_ be between 0.0 and 1.0.
+The value of this property _MUST_ be a Quantity.
+The `unit` property of the Quantity _MUST_ be `relative`.
+The `value` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
 * Audio resource types _SHOULD_ have the `volume` property.<br/>
   Clients _SHOULD_ process the `volume` property on an Audio resource.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "volume": { "unit": "relative", "value": 0.5 } }
+{ "volume": { "type": "Quantity", "unit": "relative", "quantityValue": 0.5 } }
 ```
 
 
@@ -2911,10 +2945,6 @@ There is one property that is in direct conflict - the `label` property is defin
 __Incompatibility Warning__<br/>
 The definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification for languages. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation model classes does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.
 {: .warning}
-
-
-### FIXME: value, value, and value
-
 
 The following properties are defined by both, and the IIIF representation is more specific than the Web Annotation Data Model but are not in conflict, or are never used on the same resource:
 
