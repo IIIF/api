@@ -1028,11 +1028,6 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and
 }
 ```
 
-#### JSONPatch
-{: #JSONPatch}
-
-TODO
-
 
 #### Quantity
 {: #Quantity}
@@ -1811,7 +1806,6 @@ The `body` of the annotation is then activated. This specification defines the f
  * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
  * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
 * If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
-* If the body has the `type` "JSONPatch", apply the patch operations listed in `operations` to the resource identified by `patchTarget`. (see [ref]).
 
 
 ### navDate
@@ -1918,13 +1912,6 @@ The value must be a JSON object, with the `id` and `type` properties. The value 
 }
 ```
 
-### operations
-{: operations}
-
-TODO
-
-(An array of JSONPatch operations as defined in that spec.)
-
 
 ### partOf
 {: #partOf}
@@ -1942,12 +1929,6 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ```
 
 The resources referred to by the `accompanyingContainer` and `placeholderContainer` properties are `partOf` that referring Container.
-
-
-### patchTarget
-{: patchTarget}
-
-TODO
 
 
 ### placeholderContainer
