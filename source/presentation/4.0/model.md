@@ -1280,7 +1280,7 @@ For more information about `canonical`, see the [W3C Annotation Model](https://w
 
 The value _MUST_ be a string, and the value must be an absolute HTTP(S) URI.
 
-* Any resource _MAY_ have the `canonical` property.
+* Any resource _MAY_ have the `canonical` property.<br/>
   Clients _MAY_ process the `canonical` property on any resource.
 
 {% include api/code_header.html %}
@@ -1342,7 +1342,7 @@ TODO
 ### exclude
 {: #exclude}
 
-Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type or functionality should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
+Just as a Scene may contain multiple Annotations with models, light, and cameras, a single 3D model file can also contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes, or models that themselves may contain multiple resources, into a Scene, it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation's body resource being painted into a Scene. When `exclude` is used, the excluded resource type or functionality should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
 
 | Value      | Description |
 |------------|-------------|
@@ -1353,7 +1353,7 @@ Just as a Scene may contain multiple Annotations with model, light, and camera r
 
 The value of `exclude` is an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
 
-* An Annotation _MAY_ have the `exclude` property.
+* An Annotation _MAY_ have the `exclude` property.<br/>
   Clients _SHOULD_ process the `exclude` property.
 
 ```json
