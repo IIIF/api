@@ -1133,7 +1133,7 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 
 The `angle` property is used with SpotLights and Spot Audio Emitters to define the radius of the cone of emitted light or sound. Note that the `fieldOfView` property is defined as the entire field of view, not half (as might be inferred from `angle` using radius).
 
-The value _MUST_ be a floating point number greater than 0 and less than 90, and is measure in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0 and less than 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
