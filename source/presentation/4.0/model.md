@@ -1028,6 +1028,12 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and
 }
 ```
 
+#### JSONPatch
+{: #JSONPatch}
+
+TODO
+
+
 #### Quantity
 {: #Quantity}
 
@@ -1912,6 +1918,12 @@ The value must be a JSON object, with the `id` and `type` properties. The value 
 }
 ```
 
+### operations
+{: operations}
+
+TODO
+
+
 ### partOf
 {: #partOf}
 
@@ -1928,6 +1940,13 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 ```
 
 The resources referred to by the `accompanyingContainer` and `placeholderContainer` properties are `partOf` that referring Container.
+
+
+### patchTarget
+{: patchTarget}
+
+TODO
+
 
 ### placeholderContainer
 {: #placeholderContainer}
