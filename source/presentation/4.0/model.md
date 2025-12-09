@@ -1028,6 +1028,28 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and
 }
 ```
 
+#### Quantity
+{: #Quantity}
+
+> `"type": "Quantity"`
+
+A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible unit values](#unit).
+
+__Properties__<br/>
+A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
+A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
+{: .note}
+
+{% include api/code_header.html %}
+```json
+{
+  "id": "https://example.org/iiif/unit/2",
+  "type": "Quantity",
+  "quantityValue": 1.0,
+  "unit": "m"
+}
+```
+
 
 #### Service
 {: #Service}
@@ -1070,28 +1092,6 @@ Services will also have specific requirements as to additional properties based 
 }
 ```
 
-
-#### Quantity
-{: #Quantity}
-
-> `"type": "Quantity"`
-
-A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible unit values](#unit).
-
-__Properties__<br/>
-A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
-A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
-{: .note}
-
-{% include api/code_header.html %}
-```json
-{
-  "id": "https://example.org/iiif/unit/2",
-  "type": "Quantity",
-  "quantityValue": 1.0,
-  "unit": "m"
-}
-```
 
 
 ## Properties
