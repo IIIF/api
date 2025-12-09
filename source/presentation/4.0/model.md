@@ -346,7 +346,7 @@ A Scene is a Container that represents an infinitely large three-dimensional spa
 
 The axes of the coordinate system are measured in arbitrary units. All axes use the same unit scaling and do not necessarily correspond to any physical unit of measurement, unless `spatialScale` is supplied.
 
-All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space.
+All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. Transforms may modify the local coordinate space of a resource relative to the Scene’s "global" space.
 
 __Properties__<br/>
 A Scene _MAY_ have the following additional properties: [duration](#duration).
@@ -547,7 +547,7 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 > `"type": "WktSelector"`
 
-Well-known text, or WKT, is an ISO standard method for describing two and three dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional non-standard types, such as CIRCULARSTRING, may also be supported by implementations.
+Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
 
 The text representation is given in the `value` property of the selector.
 
@@ -954,7 +954,7 @@ A Rotate Transform rotates the resource around one or more axes. If present, the
 {: #ScaleTransform}
 > `"type": "ScaleTransform"`
 
-A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values result in mirroring as well as scaling along that axis.
+A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate reflection as well as scaling along that axis.
 
 {% include api/code_header.html %}
 ```json
@@ -1307,6 +1307,13 @@ The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value
 "color": "#FFA0A0"
 ```
 
+
+### disables
+{: #disables}
+
+todo
+
+
 ### duration
 {: #duration}
 
@@ -1327,6 +1334,13 @@ The value _MUST_ be a positive floating point number.
 ``` json-doc
 { "duration": 125.0 }
 ```
+
+
+### enables
+{: #enables}
+
+TODO
+
 
 ### exclude
 {: #exclude}
@@ -1778,12 +1792,20 @@ Additional motivations may be added to the Annotation to further clarify the int
 | ----- | ----------- |
 | `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
 | `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
-| `activating`   | An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property. It indicates that a user interaction will trigger a change in either the Container itself, or play a named animation in a Model. If the `body` of the Annotation is of type `TextualBody` and the `target` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, then the client offers a UI such that when the user selects an interactive element labelled by the TextualBody, the named animation in the model painted by the `source` is played. |
+| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property, and any potentially interactive resource as its `body`. It indicates that a user interaction will trigger a change in a Container, or play a named animation in a Model. If the `body` of the Annotation is of type `TextualBody` and the `target` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, then the client offers a UI such that when the user selects an interactive element labelled by the TextualBody, the named animation in the model painted by the `source` is played. |
 {: .api-table #table-motivations}
 
 #### Activating Annotations
 
-_Some normative language required here, all in the index.md doc atm_
+The client must render the target resource as an interactive element in the user interface, which the user can trigger (e.g., clicking, selecting, entering).
+
+The `body` of the annotation is then activated. This specification defines the following client behaviors; others may me found in the [IIIF Cookbook][ref].
+
+* If the body is a reference to a Painting Annotation:
+ * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
+ * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
+* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
+* If the body has the `type` "JSONPatch", apply the patch operations listed in `operations` to the resource identified by `patchTarget`. (see [ref]).
 
 
 ### navDate
@@ -2398,7 +2420,7 @@ The `source` property refers to the URI of the resource that the Specific Resour
 
 For more information about source and Specific Resources, see the [W3C Annotation Model](For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be a string, and the value _MUST_ be a URI.
+The value _MUST_ be a string, and the value _MUST_ be a URI. The value _MUST NOT_ include a media fragment.
 
 * A SpecificResource _MUST_ have the `source` property with exactly one value.<br/>
   Clients _MUST_ process the `source` property on a SpecificResource.
