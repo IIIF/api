@@ -16,21 +16,21 @@ editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
-  - name: Tom Crane
-    ORCID: https://orcid.org/0000-0003-1881-243X
-    institution: Digirati
-  - name: Robert Sanderson
-    ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: Yale University
   - name: Dawn Childress
     ORCID: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
-  - name: Julie Winchester
-    ORCID: https://orcid.org/0000-0001-6578-764X
-    institution: Duke University
+  - name: Tom Crane
+    ORCID: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
   - name: Jeff Mixter
     ORCID: https://orcid.org/0000-0002-8411-2952
     institution: OCLC
+  - name: Robert Sanderson
+    ORCID: https://orcid.org/0000-0003-4441-6852
+    institution: Yale University
+  - name: Julie Winchester
+    ORCID: https://orcid.org/0000-0001-6578-764X
+    institution: Duke University
 hero:
   image: ''
 ---
@@ -239,18 +239,17 @@ All resources _MUST_ have the following property: [type](#type).
 
 > `"type": "Collection"`
 
-A Collection is an ordered list of Manifests, and/or Collections.
+A Collection is an ordered list of Manifests, and/or Collections, called the members of the Collection.
 
 A Collection _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description.
 
-The members of a Collection are typically listed in the `items` property or in a series of Collection Pages. The members _MAY_ include both other Collections and Manifests, in order, to form a tree-structured hierarchy. Collections without any members are allowed but discouraged.  For example, a collection that had its last member removed might still be valuable to maintain as an empty collection.
+The members of a Collection are typically listed in the `items` property or in a series of Collection Pages. The members _MUST_ be either Collections or Manifests, and _MUST NOT_ be other classes. They are listed in order within the `items` or across consecutive Collection Pages, thereby forming a hierarchy. Collections _MAY_ have no members, but this is discouraged.  For example, a Collection that had its last member removed might still be valuable to maintain as an empty Collection.
 
-If there are too many members in the collection to fit within a single document, then the members _MAY_ be listed in Collection Pages. A reference to the first page of members is given in the `first` property, and the last page in the `last` property. In this case, the Collection _MUST NOT_ use the `items` property. Collections with pages _MUST_ have at least two pages, otherwise the members should be included in `items` on the Collection. Collection Pages _MUST NOT_ be embedded within the Collection for the same reason.
+If there are too many members in the collection to fit within a single document then, at the Collection publiser's discretion, the members _MAY_ be listed in Collection Pages. A reference to the first Collection Page of members is given in the `first` property, and the last page in the `last` property. In this case, the Collection _MUST NOT_ use the `items` property. Collections with pages _MUST_ have at least two pages, otherwise the members _MUST_ be included in `items` on the Collection itself. Collection Pages _MUST NOT_ be embedded within the Collection for the same reason.
 
-Member Collections _MAY_ be embedded inline within other Collections, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
+Member Collections _MAY_ be embedded inline within other Collections, including in Collection Pages, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
 Manifests or Collections _MAY_ be [referenced][prezi30-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
-
 
 Collections or Manifests referenced in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
 
@@ -261,13 +260,12 @@ A Collection _MAY_ have the following properties: [requiredStatement](#requiredS
 {: .note}
 
 
-
 #### Collection Page
 {: #CollectionPage}
 
 > `"type": "CollectionPage"`
 
-A Collection Page is an arbitrary division of members within the Collection to make it easier to consume by clients. It does not have any semantic implications by itself. The Collection Page model follows the ActivityStreams OrderedCollection model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
+A Collection Page is an arbitrary division of members within the Collection to make it easier to consume by clients. It is strictly a technical affordance, and individual Collection Pages do not represent any real world set of items. The Collection Page model follows the ActivityStreams OrderedCollection model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
 
 A Collection Page _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description. Collection Pages _MUST NOT_ be embedded within Collections.
 
@@ -289,8 +287,7 @@ A Manifest is the primary unit of distribution of IIIF and provides a descriptio
 
 Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given in the `id` property. It _MUST_ be able to be dereferenced to retrieve the JSON description.
 
-The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, and are embedded within the Manifest. The Containers in a single Manifest _MAY_ be of different classes. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
-
+The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, which _MUST_ be embedded within the Manifest. The Containers in a single Manifest _MAY_ be of different classes. The Manifest _MAY_ have a `structures` property listing one or more [Ranges][#range] which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
 __Properties__<br/>
 A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)<br/><br/>
@@ -301,13 +298,11 @@ A Manifest _MAY_ have the following properties: [requiredStatement](#requiredSta
 ### Container Classes
 {: #Containers}
 
-A Container is a frame of reference that allows the relative positioning of content.
+A Container is a frame of reference that allows the relative positioning of content within that frame. Container is an abstract class and _MUST NOT_ be instantiated directly. The subclasses defined below _MUST_ be used instead.
 
 All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. The URI of the Container _MUST NOT_ contain a fragment (a `#` followed by further characters), as this would make it impossible to refer to a segment of the Container's area using the [media fragment syntax][org-w3c-media-frags] of `#xywh=` for spatial regions, and/or `#t=` for temporal segments. The temporal segment _MUST_ be expressed using seconds. Containers _MAY_ be able to be dereferenced separately from the Manifest via their URIs as well as being embedded.
 
-Containers _MUST_ have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container. Annotations that do not associate content to be rendered, but instead are about the Container such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container.
-
-For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal points or regions outside of the bounds of the Container. For Scenes with a `duration`, Annotations _MUST NOT_ target temporal points or regions outside of that duration. Scenes, Canvases and other content with spatial extents _MUST NOT_ be annotated directly onto a Timeline which does not have a spatial extent. Resources with a `duration`, including Timelines and Canvases, _MAY_ be painted into Canvases and Scenes without a `duration`, however the playback of the resource will not able to be controlled or synchronized without other time-based media.
+Containers _SHOULD_ have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container. Annotations that do not associate content to be rendered, but instead are about the Container itself, such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container. A Container _MAY_ have zero annotations associated with it and still be useful, such as when the properties of the Container convey to the user that it represents a page that has not been digitized, or there is otherwise no digital content available to display. In this case the `items` property is not included.
 
 __Properties__<br/>
 All Containers _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
@@ -321,7 +316,7 @@ All Containers _MAY_ have the following properites: [metadata](#metadata), [summ
 
 > `"type": "Timeline"`
 
-A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height or width like an image or video.  The duration of the Timeline is given in the `duration` property.
+A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height, width and/or depth, like an image, video or 3d model.  The duration of the Timeline is given in the `duration` property.
 
 __Properties__<br/>
 A Timeline _MUST_ have the following additional properties: [duration](#duration).
@@ -332,7 +327,7 @@ A Timeline _MUST_ have the following additional properties: [duration](#duration
 
 > `"type": "Canvas"`
 
-A Canvas is a Container that represents a particular rectangular 2 dimensional view of the object and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as the 2 dimensional space.
+A Canvas is a Container that represents a particular rectangular 2 dimensional view and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as in the 2 dimensional space.
 
 __Properties__<br/>
 A Canvas _MUST_ have the following additional properties: [height](#height), and [width](#width).<br/><br/>
@@ -351,7 +346,7 @@ A Scene is a Container that represents an infinitely large three-dimensional spa
 
 The axes of the coordinate system are measured in arbitrary units. All axes use the same unit scaling and do not necessarily correspond to any physical unit of measurement, unless `spatialScale` is supplied.
 
-All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space.
+All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. Transforms may modify the local coordinate space of a resource relative to the Scene’s "global" space.
 
 __Properties__<br/>
 A Scene _MAY_ have the following additional properties: [duration](#duration).
@@ -372,9 +367,11 @@ Annotations are used to associate content resources with Containers, as well as 
 
 An Annotation _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description of the Annotation _SHOULD_ be returned if the URI is dereferenced, according to the [Web Annotation Protocol][org-w3c-webanno-protocol].
 
-When Annotations are used to associate content resources with a Canvas, the content resource is linked in the `body` of the Annotation. The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property. Content that is to be rendered as part of the Container _MUST_ be associated by an Annotation that has the `motivation` value `painting`.
+When Annotations are used to associate content resources with a Canvas, the content resource is linked in the `body` of the Annotation. The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property. Note that the URI of the Canvas in the `target` property _MAY_ have a media fragment appended to it, thereby selecting a rectangular region within the Container's frame of reference. Content that is to be rendered as part of the Container _MUST_ be associated by an Annotation that has the `motivation` value `painting`.
 
-Annotations _SHOULD NOT_ use the `bodyValue` property defined by the Web Annotation Data Model, but instead use the more consistent TextualBody class.
+Annotations in IIIF _SHOULD NOT_ use the `bodyValue` property defined by the Web Annotation Data Model, but instead use the more consistent TextualBody class.
+
+For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal points or regions outside of the bounds of the Container. For Scenes with a `duration`, Annotations _MUST NOT_ target temporal points or regions outside of that duration. Scenes, Canvases and other content with spatial extents _MUST NOT_ be annotated directly onto a Timeline which does not have a spatial extent. Resources with a `duration`, including Timelines and Canvases, _MAY_ be painted into Canvases and Scenes without a `duration`, however the playback of the resource will not able to be controlled or synchronized with the playback of other time-based media.
 
 __Properties__<br/>
 An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/><br/>
@@ -388,11 +385,11 @@ An Annotation _MAY_ have the following properties: [label](#label), [metadata](#
 
 > `"type": "AnnotationCollection"`
 
-Annotation Collections allow groups of Annotations to be recorded. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
+Annotation Collections allow Annotations to collected together into ordered groups. For example, all of the English translation Annotations of a medieval French document could be kept separate from the transcription or an edition in modern French, or the director's commentary on a film can be separated from the script.
 
 Annotation Collections _MUST_ have an HTTP(S) URI. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced.
 
-Annotation Collections are always paged using `first` and `last`, rather than `items` as with IIIF Collections.
+Annotation Collections are always paged using `first` and `last`, rather than `items` as is possible for IIIF Collections, following the regular ActivityStreams paging model.
 
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), [first](#first), and [last](#last).<br/><br/>
@@ -408,7 +405,7 @@ An Annotation Collection _MAY_ have the following properties: [requiredStatement
 
 An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
-An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The Annotations are listed in the `items` property of the Annotation Page.
+An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced. The Annotations are listed in the `items` property of the Annotation Page.
 
 __Properties__<br/>
 An Annotation Page _MUST_ have the following properties: [id](#id), [type](#type), and [items](#items)<br/><br/>
@@ -437,8 +434,7 @@ A Specific Resource _MAY_ have the following properties: [position](#position), 
 
 > `"type": "TextualBody"`
 
-A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container.
-
+A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container for rendering.
 
 __Properties__<br/>
 A Textual Body _MUST_ have the following properties: [type](#type), [value](#value)<br/><br/>
@@ -472,11 +468,11 @@ Content Resources _MUST_ have an HTTP(s) given in `id`. It _MUST_ be able to be 
 
 If the Content Resource is an Image, and a IIIF Image service is available for it, then the `id` property of the Content Resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the Image Service. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
-If the Content Resource is a 3d Model, then regardless of the file format, it is treated as being within an infinitely large three dimensional space with an origin (0 on all three axes).
+If the Content Resource is a 3d Model, then regardless of the file format, it is treated as being within an infinitely large three dimensional space with an origin (0 on all three axes). This is described as its "local coordinate space".
 
-If there is a need to distinguish between Content Resources, then the resource _SHOULD_ have the `label` property.
+If there is a need to distinguish between Content Resources, then all such resources _SHOULD_ have the `label` property.
 
-Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description.
+Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description. This is often described as "nesting".
 
 __Properties__<br/>
 A Content Resource _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
@@ -488,7 +484,7 @@ A Content Resource _MAY_ have the following properties: [height](#height), [widt
 ### Selectors
 {: #Selectors}
 
-The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources can be used within the IIIF Data Model. This specification defines additional Selector classes for use.
+The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of a Selector is dependent on the type of resource that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Data Model, including any not listed here. This specification defines several additional Selector classes for use.
 
 #### FragmentSelector
 {: #FragmentSelector}
@@ -527,7 +523,7 @@ A Fragment Selector _MAY_ have the following properties: [id](#id).<br/><br/>
 
 There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should, equally, treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
 
-If `instant` is not supplied, and the target resource has a `duration`, the selector is interpreted as targeting the entire duration. If `instant` is supplied, but no spatial point, the selector is interpreted as targeting the entire spatial aspect of the resource.
+The spatial aspect of the point is given with `x` and `y` for a two-dimensional point, along with `z` for a three-dimentional point. The temporal aspect of the point is given with `instant`. If `instant` is not supplied, and the target resource has a `duration`, the selector is interpreted as targeting the entire duration. If `instant` is supplied, but no spatial point, the selector is interpreted as targeting the entire spatial aspect of the resource.
 
 __Properties__<br/>
 A Point Selector _MUST_ have the following properties: [type](#type)<br/><br/>
@@ -551,7 +547,7 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 > `"type": "WktSelector"`
 
-Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional types, such as CIRCULARSTRING may also be supported.
+Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
 
 The text representation is given in the `value` property of the selector.
 
@@ -573,7 +569,7 @@ A WKT Selector _MAY_ have the following properties: [id](#id)
 
 > `"type": "AudioContentSelector"`
 
-Video content resources consist of both visual and audio content within the same bit-level representation. There are situations when it is useful to refer to only one aspect of the content – either the visual or the audio, but not both. For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. The Audio Content Selector selects all of the audio content from an A/V content resource, and may be further refined with subsequent selectors to select a segment of it.
+Video content resources consist of both visual and audio content within the same bit-level representation. There are situations when it is useful to refer to only one aspect of the content – either the visual or the audio, but not both. For example, an Annotation might associate only the visual content of a video that has spoken English in the audio, and an audio file that has the translation of that content in Spanish. The Audio Content Selector selects all of the audio content from an A/V content resource, and may be further refined with subsequent selectors to select a segment of it, using `refinedBy`.
 
 __Properties__<br/>
 An Audio Content Selector _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -593,7 +589,7 @@ An Audio Content Selector _MAY_ have the following properties: [id](#id)
 
 > `"type": "VisualContentSelector"`
 
-Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may be further refined by subsequent selectors that select an area or temporal segment of it.
+Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may also be further refined by subsequent selectors that select an area or temporal segment of it.
 
 ```json
 {
@@ -643,10 +639,6 @@ The Image API Selector has properties following the parameters from the API, and
 | quality  | "default" | The string to put in the quality parameter of the URI. |
 | format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
 
-<!--
-{: .api-table}
--->
-
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
 A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
@@ -661,13 +653,14 @@ A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [regio
 }
 ```
 
+
 ### Range
 {: #Range}
 > `"type": "Range"`
 
 Ranges are used to represent structure within a Manifest beyond the default order of the Containers in the `items` property.
 
-Ranges _MUST_ have an HTTP(s) given in `id`. Top level Ranges are embedded or externally referenced within the Manifest in a `structures` property. These top level Ranges then embed or reference other Ranges, Containers or parts of Containers in the `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved.
+Ranges _MUST_ have an HTTP(s) URI given in `id`. Top level Ranges are embedded or externally referenced within the Manifest in the `structures` property. These top level Ranges then embed or reference other Ranges, Containers or parts of Containers in their `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved.
 
 The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
@@ -686,7 +679,7 @@ The following classes are typically used within Scenes. They might have utility 
 #### Cameras
 {: #Camera}
 
-A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent. The first Camera defined in a Scene without the `hidden` behavior is the default Camera.
+A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent. The first Camera defined in a Scene without the `hidden` behavior is the default Camera. Camera is an abstract class and _MUST NOT_ be instantiated directly.
 
 If either the position or direction is not specified, then the position defaults to the origin of the Scene, and the direction defaults to pointing along the z axis towards negative infinity.
 
@@ -722,7 +715,7 @@ Orthographic Cameras _SHOULD_ have the following additional properties: [viewHei
 {: #PerspectiveCamera}
 > `"type": "PerspectiveCamera"`
 
-A Perspective Camera mimics the way the human eye sees, in that objects further from the camera are smaller.
+A Perspective Camera mimics the way the human eye sees, in that objects further from the camera are presented as being smaller.
 
 The region of the Scene's space that is observable by the camera is bounded by two planes orthogonal to the direction the camera is facing, given in the `near` and `far` properties, and a vertical projection angle that provides the top and bottom planes of the region in the `fieldOfView` property.
 
@@ -746,11 +739,11 @@ Perspective Cameras _SHOULD_ have the following additional properties: [fieldOfV
 #### Lights
 {: #Light}
 
-It is necessary for there to be a Light within a Scene that illuminates the objects. If no Light is provided by the Scene's description, then the client _MUST_ provide default lighting.
+It is necessary for there to be a Light within a Scene that illuminates the objects. If no Light is provided by the Scene's description, then the client _MUST_ provide default lighting. Light is an abstract class and _MUST NOT_ be instantiated directly.
 
 This specification does not define other aspects of Lights, such as the rate of decay of the intensity of the light over a distance, the maximum range of the light, or the penumbra of a cone. Implementation of these aspects is client-dependent.
 
-The specification defines four types of Light, below.
+The specification defines four types, or subclasses, of Light below.
 
 __Properties__<br/>
 All Lights _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -780,7 +773,7 @@ Ambient Light evenly illuminates all objects in the Scene, and does not have a d
 
 Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
 
-The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotationTransform`.
+The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotateTransform`.
 
 __Properties__<br/>
 Directional Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
@@ -846,7 +839,7 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
 #### Audio Emitters
 {: #AudioEmitters}
 
-Audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light.
+Audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light. AudioEmitter is also an abstract class, and thus _MUST NOT_ be directly instantiated.
 
 As the audio content must come from an audio resource, the Audio Emitter classes are subclasses of SpecificResource. Note that the `source` of the Audio could be a Timeline, or could be further constrained with additional specifiers as to start point, end point or other transformations.
 
@@ -933,7 +926,7 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 #### Transforms
 {: #Transforms}
 
-An operation to apply a transformation to a resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. In the context of Scenes, transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
+An operation to apply a transformation to a resource to generate a Specific Resource. Transforms are specified by the [transform](#transform) property on a Specific Resource. In the context of Scenes, transforms are carried out on a resource in the implicit or explicit local coordinate space of the resource, and are performed prior to painting that resource into any subsequent coordinate space.
 
 __Properties__<br/>
 All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -961,7 +954,7 @@ A Rotate Transform rotates the resource around one or more axes. If present, the
 {: #ScaleTransform}
 > `"type": "ScaleTransform"`
 
-A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate mirroring as well as scaling along that axis.
+A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate reflection as well as scaling along that axis.
 
 {% include api/code_header.html %}
 ```json
@@ -978,7 +971,7 @@ A Scale Transform scales the resource along one or more axes. If present, the va
 {: #TranslateTransform}
 > `"type": "TranslateTransform"`
 
-A Translate Transform translates or moves the resource across one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 along the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur across that axis.
+A Translate Transform translates or moves the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 on the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur along that axis.
 
 {% include api/code_header.html %}
 ```json
@@ -998,7 +991,8 @@ A Translate Transform translates or moves the resource across one or more axes. 
 {: #Agent}
 > `"type": "Agent"`
 
-An Agent represents a person or organization, typically referenced with the `provider` property.
+An Agent represents a person or organization, typically referenced with the `provider` property. Note that Agent is NOT an abstract class with subclasses, and thus _SHOULD_ be instantiated directly.
+
 The Agent is not intended to be used as a primary identifier for the person or organization, nor to provide structured metadata, but instead to ensure that the information to be rendered to the user can be kept together in the situation when there are multiple agents being referenced.
 
 __Properties__<br/>
@@ -1064,13 +1058,25 @@ A Service _MAY_ have the following properties: [service](#service), `@id` and `@
 Services will also have specific requirements as to additional properties based on the type of service.
 {: .note}
 
+{% include api/code_header.html %}
+```json
+{
+  "id": "https://example.org/iiif/image3/image1",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "height": 3000,
+  "width": 4500
+}
+```
+
 
 #### Quantity
 {: #Quantity}
 
 > `"type": "Quantity"`
 
-A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible units](#unit).
+A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible unit values](#unit).
 
 __Properties__<br/>
 A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
@@ -1096,9 +1102,9 @@ A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
 
 A Container that provides additional content for use while the resource that has the `accompanyingContainer` property is shown or played. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
 
-Clients _MAY_ display the content of an accompanying Container when presenting the resource. As with `placeholderContainer` above, when more than one accompanying Container is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Container and the content of the resource that has the `accompanyingContainer` property.
+Clients _MAY_ display the content of an accompanying Container when presenting the resource. As with `placeholderContainer`, when more than one accompanying Container is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Container and the content of the resource that has the `accompanyingContainer` property.
 
-The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a Container type.  The JSON object _MAY_ have other properties valid for that Container type.
+The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a subclass of Container.  The JSON object _MAY_ have other properties valid for that Container type.
 
  * A Collection _MAY_ have the `accompanyingContainer` property.<br/>
    Clients _MAY_ render `accompanyingContainer` on a Collection.
@@ -1301,6 +1307,13 @@ The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value
 "color": "#FFA0A0"
 ```
 
+
+### disables
+{: #disables}
+
+todo
+
+
 ### duration
 {: #duration}
 
@@ -1321,6 +1334,13 @@ The value _MUST_ be a positive floating point number.
 ``` json-doc
 { "duration": 125.0 }
 ```
+
+
+### enables
+{: #enables}
+
+TODO
+
 
 ### exclude
 {: #exclude}
@@ -1414,7 +1434,7 @@ For Content resources, the `format` property records the specific media type (of
 
 For the IIIF Image API Selector class however, the value of `format` is the parameter to use in the Image API URL construction, and thus to request a jpeg image, the value would be `jpg` instead.
 
-The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image Api.
+The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image API.
 
  * A content resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
@@ -1772,12 +1792,20 @@ Additional motivations may be added to the Annotation to further clarify the int
 | ----- | ----------- |
 | `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
 | `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
-| `activating`   | An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property. It indicates that a user interaction will trigger a change in either the Container itself, or play a named animation in a Model. If the `body` of the Annotation is of type `TextualBody` and the `target` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, then the client offers a UI such that when the user selects an interactive element labelled by the TextualBody, the named animation in the model painted by the `source` is played. |
+| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property, and any potentially interactive resource as its `body`. It indicates that a user interaction will trigger a change in a Container, or play a named animation in a Model. If the `body` of the Annotation is of type `TextualBody` and the `target` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, then the client offers a UI such that when the user selects an interactive element labelled by the TextualBody, the named animation in the model painted by the `source` is played. |
 {: .api-table #table-motivations}
 
 #### Activating Annotations
 
-_Some normative language required here, all in the index.md doc atm_
+The client must render the target resource as an interactive element in the user interface, which the user can trigger (e.g., clicking, selecting, entering).
+
+The `body` of the annotation is then activated. This specification defines the following client behaviors; others may me found in the [IIIF Cookbook][ref].
+
+* If the body is a reference to a Painting Annotation:
+ * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
+ * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
+* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
+* If the body has the `type` "JSONPatch", apply the patch operations listed in `operations` to the resource identified by `patchTarget`. (see [ref]).
 
 
 ### navDate
@@ -2392,7 +2420,7 @@ The `source` property refers to the URI of the resource that the Specific Resour
 
 For more information about source and Specific Resources, see the [W3C Annotation Model](For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be a string, and the value _MUST_ be a URI.
+The value _MUST_ be a string, and the value _MUST_ be a URI. The value _MUST NOT_ include a media fragment.
 
 * A SpecificResource _MUST_ have the `source` property with exactly one value.<br/>
   Clients _MUST_ process the `source` property on a SpecificResource.
