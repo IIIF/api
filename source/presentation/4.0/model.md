@@ -547,7 +547,7 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 > `"type": "WktSelector"`
 
-Well-known text, or WKT, is an ISO standard method for describing two and three dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional types, such as CIRCULARSTRING may also be supported by implementations.
+Well-known text, or WKT, is an ISO standard method for describing two and three dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON. Additional non-standard types, such as CIRCULARSTRING, may also be supported by implementations.
 
 The text representation is given in the `value` property of the selector.
 
@@ -1058,13 +1058,25 @@ A Service _MAY_ have the following properties: [service](#service), `@id` and `@
 Services will also have specific requirements as to additional properties based on the type of service.
 {: .note}
 
+{% include api/code_header.html %}
+```json
+{
+  "id": "https://example.org/iiif/image3/image1",
+  "type": "ImageService3",
+  "protocol": "http://iiif.io/api/image",
+  "profile": "level2",
+  "height": 3000,
+  "width": 4500
+}
+```
+
 
 #### Quantity
 {: #Quantity}
 
 > `"type": "Quantity"`
 
-A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible units](#unit).
+A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible unit values](#unit).
 
 __Properties__<br/>
 A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
@@ -1090,9 +1102,9 @@ A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
 
 A Container that provides additional content for use while the resource that has the `accompanyingContainer` property is shown or played. Examples include an image to show while a duration-only Canvas is playing audio; or background audio to play while a user is navigating an image-only Manifest.
 
-Clients _MAY_ display the content of an accompanying Container when presenting the resource. As with `placeholderContainer` above, when more than one accompanying Container is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Container and the content of the resource that has the `accompanyingContainer` property.
+Clients _MAY_ display the content of an accompanying Container when presenting the resource. As with `placeholderContainer`, when more than one accompanying Container is available, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the accompanying Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the accompanying Container and the content of the resource that has the `accompanyingContainer` property.
 
-The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a Container type.  The JSON object _MAY_ have other properties valid for that Container type.
+The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a subclass of Container.  The JSON object _MAY_ have other properties valid for that Container type.
 
  * A Collection _MAY_ have the `accompanyingContainer` property.<br/>
    Clients _MAY_ render `accompanyingContainer` on a Collection.
