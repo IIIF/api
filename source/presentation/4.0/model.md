@@ -16,21 +16,21 @@ editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
-  - name: Tom Crane
-    ORCID: https://orcid.org/0000-0003-1881-243X
-    institution: Digirati
-  - name: Robert Sanderson
-    ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: Yale University
   - name: Dawn Childress
     ORCID: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
-  - name: Julie Winchester
-    ORCID: https://orcid.org/0000-0001-6578-764X
-    institution: Duke University
+  - name: Tom Crane
+    ORCID: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
   - name: Jeff Mixter
     ORCID: https://orcid.org/0000-0002-8411-2952
     institution: OCLC
+  - name: Robert Sanderson
+    ORCID: https://orcid.org/0000-0003-4441-6852
+    institution: Yale University
+  - name: Julie Winchester
+    ORCID: https://orcid.org/0000-0001-6578-764X
+    institution: Duke University
 hero:
   image: ''
 ---
@@ -261,7 +261,6 @@ A Collection _MAY_ have the following properties: [requiredStatement](#requiredS
 {: .note}
 
 
-
 #### Collection Page
 {: #CollectionPage}
 
@@ -321,7 +320,7 @@ All Containers _MAY_ have the following properites: [metadata](#metadata), [summ
 
 > `"type": "Timeline"`
 
-A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height or width like an image or video.  The duration of the Timeline is given in the `duration` property.
+A Timeline is a Container that represents only a temporal duration, measured in seconds. Timelines allow audio content to be presented, but do not allow anything with a height, width and/or depth, like an image, video or 3d model.  The duration of the Timeline is given in the `duration` property.
 
 __Properties__<br/>
 A Timeline _MUST_ have the following additional properties: [duration](#duration).
@@ -374,7 +373,7 @@ An Annotation _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description 
 
 When Annotations are used to associate content resources with a Canvas, the content resource is linked in the `body` of the Annotation. The URI of the Canvas _MUST_ be repeated in the `target` property of the Annotation, or the `source` property of a Specific Resource used in the `target` property. Content that is to be rendered as part of the Container _MUST_ be associated by an Annotation that has the `motivation` value `painting`.
 
-Annotations _SHOULD NOT_ use the `bodyValue` property defined by the Web Annotation Data Model, but instead use the more consistent TextualBody class.
+Annotations in IIIF _SHOULD NOT_ use the `bodyValue` property defined by the Web Annotation Data Model, but instead use the more consistent TextualBody class.
 
 __Properties__<br/>
 An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/><br/>
@@ -392,7 +391,7 @@ Annotation Collections allow groups of Annotations to be recorded. For example, 
 
 Annotation Collections _MUST_ have an HTTP(S) URI. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced.
 
-Annotation Collections are always paged using `first` and `last`, rather than `items` as with IIIF Collections.
+Annotation Collections are always paged using `first` and `last`, rather than `items` as is possible for IIIF Collections.
 
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), [first](#first), and [last](#last).<br/><br/>
@@ -488,7 +487,7 @@ A Content Resource _MAY_ have the following properties: [height](#height), [widt
 ### Selectors
 {: #Selectors}
 
-The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources can be used within the IIIF Data Model. This specification defines additional Selector classes for use.
+The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of Selectors are dependent on the type of resources that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Data Model, including any not listed here. This specification defines several additional Selector classes for use.
 
 #### FragmentSelector
 {: #FragmentSelector}
@@ -643,10 +642,6 @@ The Image API Selector has properties following the parameters from the API, and
 | quality  | "default" | The string to put in the quality parameter of the URI. |
 | format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
 
-<!--
-{: .api-table}
--->
-
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
 A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
@@ -660,6 +655,7 @@ A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [regio
   "rotation": "90"
 }
 ```
+
 
 ### Range
 {: #Range}
@@ -1414,7 +1410,7 @@ For Content resources, the `format` property records the specific media type (of
 
 For the IIIF Image API Selector class however, the value of `format` is the parameter to use in the Image API URL construction, and thus to request a jpeg image, the value would be `jpg` instead.
 
-The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image Api.
+The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image API.
 
  * A content resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
