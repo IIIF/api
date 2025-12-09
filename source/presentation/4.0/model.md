@@ -421,7 +421,7 @@ An Annotation Page _MAY_ have the following properties: [label](#label), [startI
 
 A Specific Resource is a resource in the context of an Annotation. They are used to record further properties or relationships needed to understand the particular contextual use, such as which part of the resource is used or how it should be rendered. In IIIF, the Specific Resource model from the Web Annotation Data Model has some additional properties beyond those defined by the W3C, such as `transform` and `position`.
 
-A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows for it to be addressed by other parts of the model, such as an Activating Annotation.
+A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows it to be addressed by other parts of the model, such as an Activating Annotation.
 
 __Properties__<br/>
 A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/><br/>
@@ -1765,6 +1765,27 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 }
 ```
 
+### motivation
+{: #motivation}
+
+This specification defines three values for the [Web Annotation Data Model][org-w3c-webanno] property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
+
+While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Containers. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Container, from ones with externally defined motivations which are typically comments about the Container.
+
+Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi30-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
+
+| Value | Description |
+| ----- | ----------- |
+| `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
+| `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
+| `activating`   | An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property. It indicates that a user interaction will trigger a change in either the Container itself, or play a named animation in a Model. If the `body` of the Annotation is of type `TextualBody` and the `target` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, then the client offers a UI such that when the user selects an interactive element labelled by the TextualBody, the named animation in the model painted by the `source` is played. |
+{: .api-table #table-motivations}
+
+#### Activating Annotations
+
+_Some normative language required here, all in the index.md doc atm_
+
+
 ### navDate
 {: #navDate}
 
@@ -2912,28 +2933,6 @@ A number (floating point) giving the z coordinate of the point, relative to the 
 ``` json-doc
 { "z": 100 }
 ```
-
-### 3.5. Values
-
-##### Values for motivation
-
-This specification defines two values for the Web Annotation property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
-
-While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Canvases. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Canvas, from ones with externally defined motivations which are typically comments about the Canvas.
-
-Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi30-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
-
-| Value | Description |
-| ----- | ----------- |
-| `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
-| `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
-| `contentState` | An annotation with the motivation `contentState` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property. The client either loads the resource(s) indicated by the Content State annotation `target`, or modifies the view of a currently loaded resource by applying the changes implied by the annotation target - for example, adding a new Light to a Scene where the Light is first introduced in the annotation `target`. The expected interaction depends on how the annotation is linked to the resource the client is currently rendering, or how the annotation is introduced to the client. The _Content State Protocol API 2.0_ describes the ways in which a Content State may be conveyed into a Client or exported from a Client, e.g., as an initialization parameter, or as an exported "Share..." state. Other parts (...) of this specification describe how a Content State in the context of a `commenting` or other annotation modifies the Container when the user selects that annotation, such as changing the camera, lighting or even the models in a Scene as the user progresses though the steps of a narrative conveyed by `describing` annotations. |
-| `activating`   | An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property. It indicates that a user interaction will trigger a change in either the Container itself, or play a named animation in a Model. If the `body` of the Annotation is of type `TextualBody` and the `target` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, then the client offers a UI such that when the user selects an interactive element labelled by the TextualBody, the named animation in the model painted by the `source` is played. If the `body` contains IIIF resources, then the body is interpreted as a Content State, and when the user interacts with the IIIF resource provided by the `target`, the content state is applied to modify the Container.   |
-
-// See notes on activating in index
-
-{: .api-table #table-motivations}
-
 
 
 ## JSON-LD and Extensions
