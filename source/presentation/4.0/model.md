@@ -1365,9 +1365,9 @@ The value of `exclude` is an array of strings, each of which is one of the value
 
 This property gives the distance along the axis of the camera's orientation after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
-The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
+The value is a non-negative floating point number in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
-* A Camera _MAY_ have the `far` property<br/>
+* A Camera _MAY_ have the `far` property.<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
 
 ```json-doc
@@ -1404,14 +1404,14 @@ The value _MUST_ be a positive integer.
 ### first
 {: #first}
 
-This property references the first Annotation Page within an Annotation Collection, or the first CollectionPage within a Collection. Note that Collections will only have the `first` property if there is a large number of items, more than could conveniently be included in a single page.
+This property references the first Annotation Page within an Annotation Collection, or the first Collection Page within a Collection. Note that Collections will only have the `first` property if there is a large number of items, more than could conveniently be included in a single page.
 
 The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
-* A non-empty AnnotationCollection _MUST_ have the `first` property.<br/>
+* A non-empty Annotation Collection _MUST_ have the `first` property.<br/>
   Clients _MUST_ process the `first` property on an AnnotationCollection.
-* A non-empty Collection _MAY_ have the `first` property.<br/>
-  Clients _MUST_ process the `first` property on a Collection.
+* A non-empty Collection with pages _MUST_ have the `first` property.<br/>
+  Clients _MUST_ process the `first` property on a paged Collection.
 
 {% include api/code_header.html %}
 ``` json-doc
