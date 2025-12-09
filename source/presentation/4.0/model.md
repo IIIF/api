@@ -1183,7 +1183,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 This property sets the background color behind any painted resources on a spatial Container, such as a Canvas or Scene.
 
-The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
 
  * A Canvas _MAY_ have the `backgroundColor` property<br/>
    Clients _SHOULD_ render `backgroundColor` on any resource type.
