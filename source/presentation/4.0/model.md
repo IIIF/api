@@ -1427,13 +1427,13 @@ The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _M
 ### format
 {: #format}
 
-For Content resources, the `format` property records the specific media type (often called a MIME type) for a content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value of the property should thus be the same as the value of the `Content-Type` header returned when the URI of the Content Resource is dereferenced.
+For Content Resources, the `format` property records the specific media type (often called a MIME type), for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value of the property should thus be the same as the value of the `Content-Type` header returned when the URI of the Content Resource is dereferenced.
 
 For the IIIF Image API Selector class however, the value of `format` is the parameter to use in the Image API URL construction, and thus to request a jpeg image, the value would be `jpg` instead.
 
 The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image API.
 
- * A content resource _SHOULD_ have the `format` property.<br/>
+ * A Content Resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
  * A IIIF Image API Selector class _SHOULD_ have the `format` property.<br/>
    Clients _MUST_ process the `format` property on a IIIF Image API Selector.
