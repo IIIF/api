@@ -1923,6 +1923,8 @@ The value must be a JSON object, with the `id` and `type` properties. The value 
 
 TODO
 
+(An array of JSONPatch operations as defined in that spec.)
+
 
 ### partOf
 {: #partOf}
