@@ -1246,7 +1246,7 @@ Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
-| `hidden`{: #hidden-value} | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. |
+| `hidden`{: #hidden-value} | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. TODO - this needs to talk about `hidden` on an activating annotation, which is not a visible (painted) resource. |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
@@ -1341,6 +1341,11 @@ The value _MUST_ be a positive floating point number.
 {: #enables}
 
 TODO
+
+does not reset the Container in any way, independent of where you are in a Container's `duration`, if you enable a video that is painted from t1-t2 then it will be playing if not paused and playhead is t1 < p < t2
+For non-duration containers it just appears and starts playing.
+Activating a video again does nothing if already activated/enabled
+
 
 
 ### exclude
@@ -1793,19 +1798,8 @@ Additional motivations may be added to the Annotation to further clarify the int
 | ----- | ----------- |
 | `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
 | `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
-| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `target` property, and any potentially interactive resource as its `body`. It indicates that a user interaction will trigger a change in a Container, or play a named animation in a Model. If the `body` of the Annotation is of type `TextualBody` and the `target` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, then the client offers a UI such that when the user selects an interactive element labelled by the TextualBody, the named animation in the model painted by the `source` is played. |
+| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. See [Dynamic Content]() for processing. |
 {: .api-table #table-motivations}
-
-#### Activating Annotations
-
-The client must render the target resource as an interactive element in the user interface, which the user can trigger (e.g., clicking, selecting, entering).
-
-The `body` of the annotation is then activated. This specification defines the following client behaviors; others may me found in the [IIIF Cookbook][ref].
-
-* If the body is a reference to a Painting Annotation:
- * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
- * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
-* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
 
 
 ### navDate
@@ -2957,6 +2951,61 @@ A number (floating point) giving the z coordinate of the point, relative to the 
 ``` json-doc
 { "z": 100 }
 ```
+
+## Dynamic Content
+{: #dynamic-content}
+
+An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `body` property, and any potentially interactable resource as its `target`. The `body` is activated by the `target`.
+
+There are two categories of activating annotation targets (interactable things):
+
+* Annotations - content of the container (a painting annotation rendered in the Scene) or content that targets the container (a commenting annotation, a map pin... which may have off-Container representations in a UI eg comments in a side panel). 
+* Extents of Containers - a volume of a Scene, region of a Canvas, or interval of time in any Container with a `duration` (the client may or may not render these "hit boxes")
+
+How the client makes these interactable is client-dependent.
+
+Need to cover:
+
+Clients supporting dynamic content need to support 
+
+ - non-painting annotations e.g., commenting annos (and other annos that usually have textual bodies that could be made clickable by a client, or map pin markers, etc)
+ - painted resources such as models
+ - volumes
+ - time extents
+ - other activating annos
+
+This specification defines the following client behaviors; others may be found in the [IIIF Cookbook][ref].
+
+### Showing and hiding content
+
+If the body is a reference to a Painting Annotation or a non-painting , the client must render the `target` resource as an interactive element in the user interface, which the user (or _Container time_) can trigger (e.g., clicking, selecting, entering). The `body` of the annotation is then activated by this interaction.
+
+ * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
+
+(example: click the comment, object appears, light goes on) 
+
+enables and disables
+
+### Activating Lights
+
+You can just use enables and disables
+
+### Activating Cameras
+
+ * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
+
+### Playing animations
+
+If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated. 
+* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
+
+
+
+scope
+
+
+
+
 
 
 ## JSON-LD and Extensions

@@ -2004,7 +2004,9 @@ The resource the user should be taken to is the `body` of the annotation, and th
 
 Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for exhibitions, storytelling (fwd ref) and other interactive applications beyond simply conveying a set of static resources in a Container.
 
-Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. The `target` of the activating annotation could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`, so that when the user "enters" that region or extent, something happens. 
+Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. The `target` of the activating annotation could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`. When the user triggers that volume or time extent - which might be the user entering that volume or the playhead reaching the extent - something happens. 
+
+> TODO - `target` is a cuboid volume (not a painted model) - one client might expect you to click on it (and show its edges somehow for affordance), another client might expect you to walk into it, and doesn't render the shape at all, it is just an invisible volume. Do we need an extension to distinguish the two interaction behaviors?
 
 The `body` of the annotation is then activated. This has different processing requirements depending on what the body is:
 
@@ -2041,12 +2043,12 @@ Activating annotations are provided in a Container's `annotations` property. The
 
 An activating annotation has two additional optional properties:
 
-* `enables`: For each Annotation or AnnotationPage in the value, remove the 'hidden' behavior if it has it.
+* `enables`: For each Annotation or AnnotationPage in the value, remove the 'hidden' behavior if it has it. 
 * `disables`: For each Annotation or AnnotationPage in the value, add the 'hidden' behavior if it does not have it.
 
 If the values are the `id` properties of painting annotations that paint models, `enables` makes them visible and `disables` hides them. If they paint Lights, `enables` turns them on and `disables` turns them off.
 
-Referencing a Painting Annotation as the `body` of an activating annotation implicitly enables it, as if it had been listed in `enables`. The inverse is not always true - for example, referencing a Camera in `enables` removes the "hidden" `behavior` and therefore allows it to be included in the client's evaluation of what the default camera is, but does not perform the additional action of changing the viewport to that Camera. For Lights and Models in a Scene, the two are equivalent because no _additional_ processing behavior is provided by this specification.
+For Lights and Models in a Scene, `enables` is equivalent to the Light or Model being activated (i.e., being the `body` of the activating annotation), because no _additional_ processing behavior is provided by this specification. For Cameras, `enables` removes the "hidden" `behavior` (allows the Camera to be used), but does not by itself make the Camera the active viewport.
 
 For many use cases, the activating annotations don't need bodies. The following example demonstrates a light switch that can be toggled on and off:
 
@@ -2238,10 +2240,11 @@ The format of the `value` string is implementation-specific, and will depend on 
                       "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
                       "selector": [
                         {
-                          "type": "AnimationSelector",
+                          "type": "ResourceStateSelector",
                           "value": "open-the-lid"
                         }
-                      ]
+                      ],
+                      "apply": ["playing"]
                     }
                   ]
                 }
@@ -2254,6 +2257,8 @@ The format of the `value` string is implementation-specific, and will depend on 
   ]
 }
 ```
+
+
 ### 3D Comments with Cameras
 
 In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:

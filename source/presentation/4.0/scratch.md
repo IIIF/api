@@ -229,3 +229,30 @@ What to do about activating annos in the introduced content?
 }
 ```
 
+Activating by entering (or interacting with) a volume:
+
+```json
+{
+  "id": "https://example.org/iiif/3d/anno9",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "target": [
+    {
+        "id": "https://example.org/iiif/3d/anno9",
+        "type": "SpecificResource",
+        "selector": [
+            {
+                "type": "WktSelector",
+                "wktLiteral": "POLYHEDRALSURFACE Z (blah blah)"
+            }
+        ],
+        "source": "https://example.org/iiif/3d/Scene1"
+    }
+  ],
+  "body": [
+    {
+      "type": "JSONPatch that turns on the light"
+    }
+  ]
+}
+```
