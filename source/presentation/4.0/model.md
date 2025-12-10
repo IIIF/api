@@ -2999,7 +2999,7 @@ You can just use enables and disables
 If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated. 
 * If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
 
-
+How do you stop the animation? And if you can stop it, what happens - reset? If you activate it again, does it resume or restart?
 
 scope
 
