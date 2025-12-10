@@ -1132,7 +1132,7 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 ### action
 {: #action}
 
-Only valid inside activating annotations
+Only valid on SpecificResource when bodies of activating annotations
 
 body of the activating anno is an ordered list of SpecificResource
 
@@ -1141,14 +1141,14 @@ body of the activating anno is an ordered list of SpecificResource
 
 values are:
 
- * enable
- * disable
- * show
- * hide
- * reset
- * stop
- * start
-
+ * enable (make selectable, or makes an activating anno triggerable)
+ * disable (inverse)
+ * show (removes behavior:hidden)
+ * hide (applies behavior:hidden)
+ * reset (rewind AV to beginning)
+ * stop (animations in models; time-based content resources that are not painted into duration)
+ * start (ditto)
+ * select (rarely used because scope)
 
 * A Specific Resource _MAY_ have the `action` property.<br/>
   Clients _SHOULD_ process the `action` property on Specific Resources.
@@ -1336,12 +1336,6 @@ The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value
 ```
 
 
-### disables
-{: #disables}
-
-todo
-
-
 ### duration
 {: #duration}
 
@@ -1362,17 +1356,6 @@ The value _MUST_ be a positive floating point number.
 ``` json-doc
 { "duration": 125.0 }
 ```
-
-
-### enables
-{: #enables}
-
-TODO
-
-does not reset the Container in any way, independent of where you are in a Container's `duration`, if you enable a video that is painted from t1-t2 then it will be playing if not paused and playhead is t1 < p < t2
-For non-duration containers it just appears and starts playing.
-Activating a video again does nothing if already activated/enabled
-
 
 
 ### exclude
@@ -2983,6 +2966,8 @@ A number (floating point) giving the z coordinate of the point, relative to the 
 
 ## Dynamic Content
 {: #dynamic-content}
+
+TODO note that SpecificResource body `source` must exist in manifest elsewhere, is only a reference.
 
 An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `body` property, and any potentially interactable resource as its `target`. The `body` is activated by the `target`.
 
