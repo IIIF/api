@@ -229,7 +229,7 @@ What to do about activating annos in the introduced content?
 }
 ```
 
-Activating by entering (or interacting with) a volume:
+# Activating by entering (or interacting with) a volume:
 
 ```json
 {
@@ -255,4 +255,143 @@ Activating by entering (or interacting with) a volume:
     }
   ]
 }
+```
+
+
+# Controlling a video that is not painted into duration (or not even painted at all)
+
+```json
+{
+  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "disables": ["https://example.org/iiif/3d/commenting-anno-for-video"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/third-man-from-left",
+      "type": "Annotation"
+    }
+  ],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": "https://example.org/iiif/3d/commenting-anno-for-video",
+      "action": ["stop", "reset"]
+    }
+  ]
+}
+```
+
+# actions for disable and enable (yes)
+
+```json
+{
+    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+    "type": "Annotation",
+    "motivation": [
+        "activating"
+    ],
+    "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+    "body": [
+      {
+        "type": "SpecificResource",
+        "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+        "action": ["disable"]
+      },
+      {
+        "type": "SpecificResource",
+        "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+        "action": ["enable"]
+      },
+      {
+        "type": "SpecificResource",
+        "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+        "action": ["show"]
+      }
+    ]
+},
+```
+
+# Lightswitch enables and disables as props (no)
+
+```json
+{
+    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+    "type": "Annotation",
+    "motivation": [
+        "activating"
+    ],
+    "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+    "disables": [
+        "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
+    ],
+    "enables": [
+        "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+        "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+    ]
+},
+```
+
+# Animation with action
+
+```json
+{
+  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
+      "type": "Annotation"
+    }
+  ],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+      "selector": [
+        {
+          "type": "AnimationSelector",
+          "value": "open-the-lid"
+        }
+      ],
+      "action": ["start"]
+    }
+  ]
+}
+```
+
+# Verbose form of scope
+
+```json
+{
+  "id": "https://example.org/iiif/3d/anno9",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+      "type": "Annotation"
+    }
+  ],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+      "action": ["show", "enable", "select"]
+    }
+  ]
+}
+
+```
+
+...is equivalent to this on the commenting anno:
+
+```jsonc
+    "scope": [           // <= ["show", "enable", "select"]
+      {
+        "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+        "type": "Annotation"
+      }
+    ],
 ```

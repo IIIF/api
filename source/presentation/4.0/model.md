@@ -1129,6 +1129,33 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 }
 ```
 
+### action
+{: #action}
+
+Only valid inside activating annotations
+
+body of the activating anno is an ordered list of SpecificResource
+
+...which may have selectors eg for AnimationSelector
+...but may just have action which are processed in order; client performs the action on the source.
+
+values are:
+
+ * enable
+ * disable
+ * show
+ * hide
+ * reset
+ * stop
+ * start
+
+
+* A Specific Resource _MAY_ have the `action` property.<br/>
+  Clients _SHOULD_ process the `action` property on Specific Resources.
+* Other types of resource _MUST NOT_ have the `action` property.<br/>
+  Clients _SHOULD_ ignore `action` on other types of resource.
+
+
 ### angle
 {: #angle}
 
@@ -1568,6 +1595,8 @@ The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 
 ```
 ### interactionMode
 {: #interactionMode}
+
+TODO clarify how `interactionMode` corresponds to `action`
 
 A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective).
 
@@ -2975,6 +3004,13 @@ Clients supporting dynamic content need to support
  - other activating annos
 
 This specification defines the following client behaviors; others may be found in the [IIIF Cookbook][ref].
+
+> enables first then disables (?)
+
+breaking change
+anno `body` => Ordered List, redefine in context
+will break any `"body": {}` annos
+
 
 ### Showing and hiding content
 

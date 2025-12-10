@@ -2010,7 +2010,19 @@ Annotations with the motivation `activating` are referred to as _activating_ ann
 
 The `body` of the annotation is then activated. This has different processing requirements depending on what the body is:
 
-* If the body is a reference to a Painting Annotation:
+TODO introduce `action` here
+
+The body of the activating annotation is always a SpecificResource with an `action` property
+
+Perform the action(s) in sequence - see action ^^
+
+```
+for specficResource in body
+   for action in specficResource.action
+       do the thing
+```
+TODO delete this bit
+* If the `source` is a reference to a Painting Annotation:
  * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
  * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
 * If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
@@ -2031,8 +2043,9 @@ Activating annotations are provided in a Container's `annotations` property. The
   ],
   "body": [
     {
-      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-      "type": "Annotation"
+      "type": "SpecificResource",
+      "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+      "action": ["show", "enable", "select"]
     }
   ]
 }
@@ -2240,11 +2253,11 @@ The format of the `value` string is implementation-specific, and will depend on 
                       "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
                       "selector": [
                         {
-                          "type": "ResourceStateSelector",
+                          "type": "AnimationSelector",
                           "value": "open-the-lid"
                         }
                       ],
-                      "apply": ["playing"]
+                      "action": ["stop", "reset"]
                     }
                   ]
                 }
@@ -2262,6 +2275,9 @@ The format of the `value` string is implementation-specific, and will depend on 
 ### 3D Comments with Cameras
 
 In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:
+
+TODO discuss the verbose action form for comparison with above examples
+THEN show the `scope` property as a short form of the same
 
 ```jsonc
 {
@@ -2351,6 +2367,12 @@ In many complex 3D Scenes, it may not be clear what or how to look at a particul
           "type": "Annotation",
           "motivation": ["commenting"],
           "bodyValue": "Mandibular tooth",
+          "scope": [                                                                               // equivalent to below
+            {                                                                                      //
+              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",   //
+              "type": "Annotation"                                                                 //
+            }                                                                                      //
+          ],                                                                                       //
           "target": {
             // SpecificResource with PointSelector
           }
@@ -2364,7 +2386,7 @@ In many complex 3D Scenes, it may not be clear what or how to look at a particul
             // SpecificResource with PointSelector
           }
         },
-        {
+        {                                                                                          // see scope above
           "id": "https://example.org/iiif/3d/anno9",
           "type": "Annotation",
           "motivation": ["activating"],
