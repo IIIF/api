@@ -196,6 +196,26 @@ What to do about activating annos in the introduced content?
 
 
 
+## Chains of activation
+
+Chaining together activating annotations can then allow the implementation of, at least:
+
+* Specific camera position to look at an Annotation
+* Multi-step linear stories
+* Animations, including as part of stories without disrupting the flow, and looping animations (they activate themselves)
+* Interactive components such as light switches (enable/disable a light), jukeboxes (enable/disable Audio Emitter)
+
+
+## Storytelling example
+
+* Something really cool that brings a lot of things together!
+
+
+# Auth of Presentation API resources
+
+It may be necessary to restrict access to the descriptions made available via the Presentation API. As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access. The approach taken is described in the [Authentication][iiif-auth] specification, and requires requesting a token to add to the requests to identify the user. This token might also be used for other requests defined by other APIs.
+
+
 
 _removed content state use case:_
 

@@ -2170,9 +2170,9 @@ A resource with the `behavior` value "hidden" is not rendered by the client. A r
 
 Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
 
-This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The `body` MUST be a SpecificResource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
+This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The `body` is a Specific Resource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the name of the animation in the model.
 
-The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
+The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one painted instance of the model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
 
 
 ```jsonc
@@ -2215,7 +2215,7 @@ The format of the `value` string is implementation-specific, and will depend on 
                   "body": [
                     {
                       "type": "TextualBody",
-                      "value": "Click the box to open the lid"
+                      "value": "Click me to open the lid"
                     }
                   ],
                   "target": [
@@ -2262,7 +2262,7 @@ The format of the `value` string is implementation-specific, and will depend on 
 
 ### 3D Comments with Cameras
 
-In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:
+It is possible to associate a particular camera with a particular commenting annotation. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:
 
 
 ```jsonc
@@ -2441,27 +2441,11 @@ This only works for cameras.
 Repeat full example? no, link to external.
 
 
+### Interactivity, Guided Viewing and Storytelling
 
-# Integration
+Activating annotations add explicit mechanisms for interactive user experiences such as guided viewing and storytelling. A narrative might comprise an Annotation Page of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
 
-seeAlso, service(s), extensions
-mention search, image api, auth
-
-profile for seeAlso
-
-partOf -
-
-Talk about Content State and use the phrase "Content State Annotations"
-(we think we now _don't_ need to write a content state 2 spec ???)
-
-
-
-# Interactivity, Guided Viewing and Storytelling
-
-
-A narrative might comprise an AnnotationPage of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
-
-In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations (back ref) allows a precise storytelling experience to be specified, including:
+In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations allows a precise storytelling experience to be specified, including:
 
  - providing a specific viewpoint for each step of the narrative (or even a choice of viewpoints)
  - modifying the lighting of the Scene for each step, for example shining a spotlight on a point of interest
@@ -2470,25 +2454,13 @@ In a storytelling or exhibition scenario, the non-painting `annotations` might b
 
 All the annotations referred to by the activating annotations' `target` and `body` properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
 
-
-## The `sequence` behavior
-
-While all AnnotationPage `items` are inherently ordered, an Annotation Page with the `behavior` "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an AnnotationPage in a sidebar so they are all visible in the UI, but for an AnnotationPage with `behavior` "sequence" only show the currently active annotation text, and next and previous UI.
+Interactive examples are provided as recipes in the [IIIF Cookbook](link).
 
 
-## Chains of activation
+#### The `sequence` behavior
 
-Chaining together activating annotations can then allow the implementation of, at least:
+While all Annotation Page `items` are inherently ordered, an Annotation Page with the `behavior` "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an Annotation Page in a sidebar so they are all visible in the UI, but for an Annotation Page with `behavior` "sequence" only show the currently active annotation text, and next and previous UI.
 
-* Specific camera position to look at an Annotation
-* Multi-step linear stories
-* Animations, including as part of stories without disrupting the flow, and looping animations (they activate themselves)
-* Interactive components such as light switches (enable/disable a light), jukeboxes (enable/disable Audio Emitter)
-
-
-## Storytelling example
-
-* Something really cool that brings a lot of things together!
 
 
 # Conveying Physical Dimensions
@@ -2505,16 +2477,64 @@ An extreme example of both physical dimension properties together is a Canvas sh
 
 
 
+# Integration
+
+seeAlso, service(s), extensions
+mention search, image api, auth
+
+profile for seeAlso
+
+partOf -
+
+Talk about Content State and use the phrase "Content State Annotations" - how you transmit IIIF from software to software.
+
+## Authentication
+
+It is possible to include Image API service descriptions within the Manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a Manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URI of the service, and clients are expected to look up the details from the full description by matching the URI. Clients _MUST_ anticipate situations where the Authentication service description in the Manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
+
+
+
+
 # Other stuff
-
-## Embedded Content
-
-e.g., painting TextualBody on Canvas
-
 
 ## Style
 
 ### Rotation
+
+An image might not be correctly aligned with the Canvas, and require rotation as it is painted. In the following example, the image is painted with a 90-degree rotation. This example uses the ImageApiSelector to convey the number of degrees of the rotation. As this particular image has an image service, the client can use the Image API to request an image that has already been rotated on the server, or it can use the information in the ImageApiSelector to rotate the image itself.
+
+```json
+{
+  "id": "http://example.org/iiif/book1/annotation/anno1",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": {
+        "id": "http://example.org/iiif/book1-page1/my-image.jpg",
+        "type": "Image",
+        "service": {
+          "id": "http://example.org/iiif/book1-page1",
+          "type": "ImageService3",
+          "profile": "level2"
+        }
+      },
+      "selector": {
+        "type": "ImageApiSelector",
+        "rotation": "90"
+      }
+  }
+  ],
+  "target": [
+    {
+      "id": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240",
+      "type": "Canvas"
+    }
+  ]
+}
+
+```
 
 
 
@@ -2568,11 +2588,7 @@ The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable br
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-## Authentication
 
-It may be necessary to restrict access to the descriptions made available via the Presentation API. As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access. The approach taken is described in the [Authentication][iiif-auth] specification, and requires requesting a token to add to the requests to identify the user. This token might also be used for other requests defined by other APIs.
-
-It is possible to include Image API service descriptions within the Manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a Manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URI of the service, and clients are expected to look up the details from the full description by matching the URI. Clients _MUST_ anticipate situations where the Authentication service description in the Manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
 
 # Accessibility
 

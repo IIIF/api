@@ -653,6 +653,7 @@ A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [regio
 }
 ```
 
+TODO The ImageApiSelector can be used on a static image, you don't need an Image Service.
 
 ### Range
 {: #Range}
