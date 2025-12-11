@@ -196,6 +196,26 @@ What to do about activating annos in the introduced content?
 
 
 
+## Chains of activation
+
+Chaining together activating annotations can then allow the implementation of, at least:
+
+* Specific camera position to look at an Annotation
+* Multi-step linear stories
+* Animations, including as part of stories without disrupting the flow, and looping animations (they activate themselves)
+* Interactive components such as light switches (enable/disable a light), jukeboxes (enable/disable Audio Emitter)
+
+
+## Storytelling example
+
+* Something really cool that brings a lot of things together!
+
+
+# Auth of Presentation API resources
+
+It may be necessary to restrict access to the descriptions made available via the Presentation API. As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access. The approach taken is described in the [Authentication][iiif-auth] specification, and requires requesting a token to add to the requests to identify the user. This token might also be used for other requests defined by other APIs.
+
+
 
 _removed content state use case:_
 
@@ -229,3 +249,169 @@ What to do about activating annos in the introduced content?
 }
 ```
 
+# Activating by entering (or interacting with) a volume:
+
+```json
+{
+  "id": "https://example.org/iiif/3d/anno9",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "target": [
+    {
+        "id": "https://example.org/iiif/3d/anno9",
+        "type": "SpecificResource",
+        "selector": [
+            {
+                "type": "WktSelector",
+                "wktLiteral": "POLYHEDRALSURFACE Z (blah blah)"
+            }
+        ],
+        "source": "https://example.org/iiif/3d/Scene1"
+    }
+  ],
+  "body": [
+    {
+      "type": "JSONPatch that turns on the light"
+    }
+  ]
+}
+```
+
+
+# Controlling a video that is not painted into duration (or not even painted at all)
+
+```json
+{
+  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "disables": ["https://example.org/iiif/3d/commenting-anno-for-video"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/third-man-from-left",
+      "type": "Annotation"
+    }
+  ],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": "https://example.org/iiif/3d/commenting-anno-for-video",
+      "action": ["stop", "reset"]
+    }
+  ]
+}
+```
+
+# actions for disable and enable (yes)
+
+```json
+{
+    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+    "type": "Annotation",
+    "motivation": [
+        "activating"
+    ],
+    "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+    "body": [
+      {
+        "type": "SpecificResource",
+        "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+        "action": ["disable"]
+      },
+      {
+        "type": "SpecificResource",
+        "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+        "action": ["enable"]
+      },
+      {
+        "type": "SpecificResource",
+        "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+        "action": ["show"]
+      }
+    ]
+},
+```
+
+# Lightswitch enables and disables as props (no)
+
+```json
+{
+    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+    "type": "Annotation",
+    "motivation": [
+        "activating"
+    ],
+    "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+    "disables": [
+        "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
+    ],
+    "enables": [
+        "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+        "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+    ]
+},
+```
+
+# Animation with action
+
+```json
+{
+  "id": "https://example.org/iiif/3d/box-opening-activating-anno",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
+      "type": "Annotation"
+    }
+  ],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+      "selector": [
+        {
+          "type": "AnimationSelector",
+          "value": "open-the-lid"
+        }
+      ],
+      "action": ["start"]
+    }
+  ]
+}
+```
+
+# Verbose form of scope
+
+```json
+{
+  "id": "https://example.org/iiif/3d/anno9",
+  "type": "Annotation",
+  "motivation": ["activating"],
+  "target": [
+    {
+      "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+      "type": "Annotation"
+    }
+  ],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+      "action": ["show", "enable", "select"]
+    }
+  ]
+}
+
+```
+
+...is equivalent to this on the commenting anno:
+
+```jsonc
+    "scope": [           // <= ["show", "enable", "select"]
+      {
+        "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+        "type": "Annotation"
+      }
+    ],
+```

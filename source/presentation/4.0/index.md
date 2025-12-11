@@ -1270,12 +1270,11 @@ The Light is green and has a position, but has its default orientation of lookin
               },
               "target": {
                 "type": "SpecificResource",
-                "source": [
-                  {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  }
-                ],
+                "source": 
+                {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
                 "selector": [
                   {
                     "type": "PointSelector",
@@ -1290,48 +1289,51 @@ The Light is green and has a position, but has its default orientation of lookin
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": {
-                "id": "https://example.org/iiif/3d/cameras/1",
-                "type": "PerspectiveCamera",
-                "label": {"en": ["Perspective Camera 1"]},
-                "lookAt": {
-                  "id": "https://example.org/iiif/3d/anno1",
-                  "type": "Annotation"
-                },
-                "near": 1,
-                "far": 100,
-                "fieldOfView": 50
-              },
-              "target": {
-                "type": "SpecificResource",
-                "source": [
+              "body": [
+                {
+                  "id": "https://example.org/iiif/3d/cameras/1",
+                  "type": "PerspectiveCamera",
+                  "label": {"en": ["Perspective Camera 1"]},
+                  "lookAt": {
+                    "id": "https://example.org/iiif/3d/anno1",
+                    "type": "Annotation"
+                  },
+                  "near": 1,
+                  "far": 100,
+                  "fieldOfView": 50
+                }
+              ],
+              "target": [
+                {
+                  "type": "SpecificResource",
+                  "source": 
                   {
                     "id": "https://example.org/iiif/scene1/page/p1/1",
                     "type": "Scene"
-                  }
-                ],
-                "selector": [
-                  {
-                    "type": "PointSelector",
-                    "x": 0.0,
-                    "y": 6.0,
-                    "z": 10.0
-                  }
-                ]
-              }
+                  },
+                  "selector": [
+                    {
+                      "type": "PointSelector",
+                      "x": 0.0,
+                      "y": 6.0,
+                      "z": 10.0
+                    }
+                  ]
+                }
+              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": {
+              "body": [{
                   "id": "https://example.org/iiif/3d/lights/1",
                   "type": "SpotLight",
                   "label": {"en": ["Spot Light 1"]},
                   "angle": 90.0,
                   "color": "#A0FFA0"
-              },
-              "target": {
+              }],
+              "target": [{
                 "type": "SpecificResource",
                 "source": {
                   "id": "https://example.org/iiif/scene1/page/p1/1",
@@ -1345,7 +1347,7 @@ The Light is green and has a position, but has its default orientation of lookin
                     "z": 1.0
                   }
                 ]
-              }
+              }]
             }
           ]
         }
@@ -1392,13 +1394,13 @@ This example is a Manifest with a single Scene with multiple models painted into
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": {
+              "body": [{
                 "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
                 "label": {"en": ["Pawn 1"]},
                 "type": "Model",
                 "format": "model/gltf-binary"
-              },
-              "target": {
+              }],
+              "target": [{
                 "type": "SpecificResource",
                 "source": {
                   "id": "https://example.org/iiif/scene1/page/p1/1",
@@ -1412,22 +1414,21 @@ This example is a Manifest with a single Scene with multiple models painted into
                     "z": 0.0
                   }
                 ]
-              }
+              }]
             },
             {
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": {
+              "body": [{
                 "type": "SpecificResource",
-                "source": [
+                "source": 
                   {
                     "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
                     "label": {"en": ["Pawn 2 tipped over"]},
                     "type": "Model",
                     "format": "model/gltf-binary"
-                  }
-                ],
+                  },
                 "transform": [
                   {
                     "type": "RotateTransform",
@@ -1442,8 +1443,8 @@ This example is a Manifest with a single Scene with multiple models painted into
                     "z": 0.0
                   }
                 ]
-              },
-              "target": {
+              }],
+              "target": [{
                 "type": "SpecificResource",
                 "source": {
                   "id": "https://example.org/iiif/scene1/page/p1/1",
@@ -1457,23 +1458,22 @@ This example is a Manifest with a single Scene with multiple models painted into
                     "z": 3.0
                   }
                 ]
-              }
+              }]
             },
             {
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
               "exclude": ["Audio", "Lights"],
-              "body": {
+              "body": [{
                 "type": "SpecificResource",
-                "source": [
+                "source": 
                   {
                     "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
                     "label": {"en": ["Queen"]},
                     "type": "Model",
                     "format": "model/gltf-binary"
-                  }
-                ],
+                  },
                 "transform": [
                   {
                     "type": "ScaleTransform",
@@ -1482,8 +1482,8 @@ This example is a Manifest with a single Scene with multiple models painted into
                     "z": 1.5
                   },
                 ]
-              },
-              "target": {
+              }],
+              "target": [{
                 "type": "SpecificResource",
                 "source": {
                   "id": "https://example.org/iiif/scene1/page/p1/1",
@@ -1498,6 +1498,7 @@ This example is a Manifest with a single Scene with multiple models painted into
                   }
                 ]
               }
+              ]
             }
           ]
         }
@@ -1558,7 +1559,7 @@ In this example, the audio content resources have durations that do not match th
           "id": "https://example.org/iiif/3d/anno1",
           "type": "Annotation",
           "motivation": ["painting"],
-          "body": {
+          "body": [{
             "id": "https://example.org/iiif/audio/1",
             "type": "AmbientAudio",
             "source": {
@@ -1572,15 +1573,20 @@ In this example, the audio content resources have durations that do not match th
               "unit": "relative",
               "quantityValue": 0.1
             }
-          },
-          "target":  "https://example.org/iiif/scene1"
+          }],
+          "target": [ 
+            {
+              "id": "https://example.org/iiif/scene1",
+              "type": "Scene"
+            }
+           ]
         },
         {
           "id": "https://example.org/iiif/3d/anno2",
           "type": "Annotation",
           "motivation": ["painting"],
           "timeMode": "trim",
-          "body": {
+          "body": [{
             "id": "https://example.org/iiif/audio/2",
             "type": "PointAudio",
             "source": {
@@ -1594,16 +1600,15 @@ In this example, the audio content resources have durations that do not match th
               "unit": "relative",
               "quantityValue": 0.2
             }
-          },
-          "target": {
+          }],
+          "target": [{
             "id": "https://example.org/iiif/selectors/anno2",
             "type": "SpecificResource",
-            "source": [
+            "source": 
               {
                 "id": "https://example.org/iiif/scene1",
                 "type": "Scene"
-              }
-            ],
+              },
             "selector": [
               {
                 "id": "https://example.org/uuid/9fbd580b-895b-41b9-974a-1553329037f2",
@@ -1618,14 +1623,14 @@ In this example, the audio content resources have durations that do not match th
                 }
               }
             ]
-          }
+          }]
         },
         {
           "id": "https://example.org/iiif/3d/anno3",
           "type": "Annotation",
           "motivation": ["painting"],
           "timeMode": "loop",
-          "body": {
+          "body": [{
             "id": "https://example.org/iiif/audio/3",
             "type": "SpotAudio",
             "source": {
@@ -1641,8 +1646,13 @@ In this example, the audio content resources have durations that do not match th
               "quantityValue": 0.3
             },
             "lookAt": "https://example.org/iiif/scene1"
-          },
-          "target": "https://example.org/iiif/scene1#xyz=3,0,-2&t=30,60"
+          }],
+          "target": [
+            {
+              "id": "https://example.org/iiif/scene1#xyz=3,0,-2&t=30,60",
+              "type": "Scene"
+            }            
+          ]
         }
       ],
       "annotations": [
@@ -1650,24 +1660,29 @@ In this example, the audio content resources have durations that do not match th
           "id": "https://example.org/iiif/3d/commenting",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "bodyValue": "This is the point when the percussion stops playing and the tuba begins playing.",
-          "target": {
+          "body": [
+            {
+              "type": "TextualBody",
+              "value": "This is the point when the percussion stops playing and the tuba begins playing."
+            }
+          ],
+          "target": [{
             "type": "SpecificResource",
-            "source": [
+            "source": 
               {
                 "id": "https://example.org/iiif/scene1",
                 "type": "Scene"
               }
-            ],
+            ,
             "selector": [
                 {
                     "type": "PointSelector",
                     "instant": 30.0
                 }
             ]
-          }
-        },
-      ],
+          }]
+        }
+      ]
     }
   ]
 }
@@ -1865,14 +1880,14 @@ A comment on a Canvas can target a non-rectangular area.  This example uses a `S
       "id": "https://example.org/iiif/presentation/examples/commenting/anno/2",
       "type": "Annotation",
       "motivation": [ "commenting" ],
-      "body": {
+      "body": [{
         "id": "https://example.org/iiif/presentation/examples/commenting/anno/2/person2",
         "type": "TextualBody",
         "language": "en",
         "format": "text/plain",
         "value": "Note the expressive eyes of the subject of this painting."
-      },
-      "target": {
+      }],
+      "target": [{
         "type": "SpecificResource",
         "source": {
           "id": "https://example.org/iiif/presentation/examples/commenting/canvas/2",
@@ -1885,7 +1900,7 @@ A comment on a Canvas can target a non-rectangular area.  This example uses a `S
             "value": "<svg:svg> ... </svg:svg>"
           }
         ]
-    }
+    }]
 }
 ```
 
@@ -2002,53 +2017,20 @@ The resource the user should be taken to is the `body` of the annotation, and th
 
 ## Activating Annotations
 
-Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for exhibitions, storytelling (fwd ref) and other interactive applications beyond simply conveying a set of static resources in a Container.
+Sometimes it is necessary to modify the state of resources. Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to change resources from their initial state defined in the Manifest or from their current state. They allow IIIF to be used for interactive exhibitions, storytelling, digital dioramas and other interactive applications beyond simply conveying a set of static resources in a Container.
 
-Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. The `target` of the activating annotation could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`, so that when the user "enters" that region or extent, something happens. 
+The `target` of the activating annotation is the resource that triggers an action. This could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`. When that volume or time extent is triggered - which might be the user entering that volume or the playhead reaching the extent independently of user interaction - something happens. 
 
-The `body` of the annotation is then activated. This has different processing requirements depending on what the body is:
+This specification does not define how a client indicates to a user that a resource is able to be interacted with.
 
-* If the body is a reference to a Painting Annotation:
- * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
- * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
-* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
-* Processing for other body types can be found in the [IIIF Cookbook][ref]
+The body of the activating annotation is always an ordered list of Specific Resources, each with `source` and `action` properties. The `source` is the resource to be acted upon in some way, and the `action` property is an ordered list of named actions to perform on that resource. Valid values include "show", "hide", "enable", "disable", "start", "stop", "reset" and "select".
 
-Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate AnnotationPage. The client should evaluate all the activating annotations it can find.
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/anno9",
-  "type": "Annotation",
-  "motivation": ["activating"],
-  "target": [
-    {
-      "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-      "type": "Annotation"
-    }
-  ],
-  "body": [
-    {
-      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-      "type": "Annotation"
-    }
-  ]
-}
-```
+Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate Annotation Page. The client should evaluate all of the enabled activating annotations it can find.
 
 
-### Showing and hiding resources
+### Hiding and disabling resources
 
-An activating annotation has two additional optional properties:
-
-* `enables`: For each Annotation or AnnotationPage in the value, remove the 'hidden' behavior if it has it.
-* `disables`: For each Annotation or AnnotationPage in the value, add the 'hidden' behavior if it does not have it.
-
-If the values are the `id` properties of painting annotations that paint models, `enables` makes them visible and `disables` hides them. If they paint Lights, `enables` turns them on and `disables` turns them off.
-
-Referencing a Painting Annotation as the `body` of an activating annotation implicitly enables it, as if it had been listed in `enables`. The inverse is not always true - for example, referencing a Camera in `enables` removes the "hidden" `behavior` and therefore allows it to be included in the client's evaluation of what the default camera is, but does not perform the additional action of changing the viewport to that Camera. For Lights and Models in a Scene, the two are equivalent because no _additional_ processing behavior is provided by this specification.
-
-For many use cases, the activating annotations don't need bodies. The following example demonstrates a light switch that can be toggled on and off:
+A resource with the `behavior` value "hidden" is not rendered by the client. A resource with the `behavior` value "disabled" is not available for user interaction and does not trigger any actions. The following example is a light switch that can be toggled on and off using activating annotations that result in these behaviors being applied or removed. It demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
 ```jsonc
 {
@@ -2125,12 +2107,22 @@ For many use cases, the activating annotations don't need bodies. The following 
                                 "activating"
                             ],
                             "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "disables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
-                            ],
-                            "enables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+                            "body": [                            
+                              {
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                                "action": ["disable"]
+                              },
+                              {
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                                "action": ["enable"]
+                              },
+                              {
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                                "action": ["show"]
+                              }
                             ]
                         },
                         {
@@ -2140,14 +2132,24 @@ For many use cases, the activating annotations don't need bodies. The following 
                                 "activating"
                             ],
                             "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "disables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                                "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4"
+                            "body": [
+                              {                                
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                                "action": ["disable"]
+                              },
+                              {                                
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                                "action": ["hide"]
+                              },
+                              {                                
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                                "action": ["enable"]
+                              }
                             ],
-                            "enables": [
-                                "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2"
-                            ],
-                            "behavior": ["hidden"]
+                            "behavior": ["disabled"]
                         }
                     ]
                 }
@@ -2157,9 +2159,10 @@ For many use cases, the activating annotations don't need bodies. The following 
 }
 ```
 
-* Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the `behavior` "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the commenting annotation, so that user interaction with the commenting annotation will trigger the activating annotation. This activating annotation has no `body`, but it does have `enables` with values that are the `id` properties of the painting annotation for the light switch model, and the activating annotation that turns the light off. It also has a `disables` with the value of its own `id` - i.e., it disables _itself_. A further activating annotation has the opposite effect. Initially this has the `behavior` "hidden" - which means it is inactive. It also targets the commenting annotation, but has no effect while hidden.
-* When the user interacts with the light switch model, the client processes any activating annotations that target it and are not hidden. In this case, the first activating annotation is triggered because while both target the switch, only the first is not hidden. This activation `enables` the light (i.e., removing its "hidden" `behavior` and therefore turning it on) and the other activating annotation, and `disables` itself.
-* If the user clicks the light again, the client again processes any activating annotations that target it and are not hidden. This time the second annotation is the active one - and it `disables` the light (turning it off) and itself, and enables the first activating annotation again.
+* Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the `behavior` "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the painting annotation that paints the switch, so that user interaction with the light switch will trigger the activating annotation. This activating annotation has a `body` property with three Specific Resources. The first enables the "off" activating annotation, the second shows the PointLight, and the last disables the activating annotation _itself_ - this activating annotation can no longer be activated by a user interaction with the light switch model (its `target`). 
+* A further activating annotation has the opposite effect. Initially this has the `behavior` "disabled" - which means it is inactive. It also targets the painting annotation, but has no effect while disabled.
+* When the user interacts with the light switch model, the client processes any activating annotations that target it and are enabled. In this case, the first activating annotation is triggered because while both target the switch, only the first is enabled. This activation shows the light (i.e., removes its "hidden" `behavior` and therefore turning it on) and enables the other activating annotation, and disables itself.
+* If the user clicks the light again, the client again processes any activating annotations that target it and are not disabled. This time the second activating annotation is the enabled one - and it hides the light (turning it off) and disables itself, and enables the first activating annotation again.
 * Subsequent clicks simply alternate between these two states, indefinitely.
 
 
@@ -2167,9 +2170,9 @@ For many use cases, the activating annotations don't need bodies. The following 
 
 Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
 
-This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The `body` MUST be a SpecificResource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the animation in the model.
+This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The `body` is a Specific Resource, where the `source` is the Painting Annotation that paints the model, and the `selector` is of type `AnimationSelector` with the `value` being a string that corresponds to the name of the animation in the model.
 
-The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
+The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one painted instance of the model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
 
 
 ```jsonc
@@ -2212,7 +2215,7 @@ The format of the `value` string is implementation-specific, and will depend on 
                   "body": [
                     {
                       "type": "TextualBody",
-                      "value": "Click the box to open the lid"
+                      "value": "Click me to open the lid"
                     }
                   ],
                   "target": [
@@ -2241,7 +2244,8 @@ The format of the `value` string is implementation-specific, and will depend on 
                           "type": "AnimationSelector",
                           "value": "open-the-lid"
                         }
-                      ]
+                      ],
+                      "action": ["start"]
                     }
                   ]
                 }
@@ -2254,9 +2258,12 @@ The format of the `value` string is implementation-specific, and will depend on 
   ]
 }
 ```
+
+
 ### 3D Comments with Cameras
 
-In many complex 3D Scenes, it may not be clear what or how to look at a particular point of interest even when the commenting annotation targets a particular point. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:
+It is possible to associate a particular camera with a particular commenting annotation. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:
+
 
 ```jsonc
 {
@@ -2290,34 +2297,33 @@ In many complex 3D Scenes, it may not be clear what or how to look at a particul
               "type": "Annotation",
               "motivation": ["painting"],
               "behavior": ["hidden"],
-              "body": {
-                "type": "SpecificResource",
-                "source": [
-                  {
-                    "id": "https://example.org/iiif/3d/cameras/1",
-                    "type": "PerspectiveCamera",
-                    "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
-                    "fieldOfView": 50.0,
-                    "near": 0.10,
-                    "far": 2000.0
-                  }
-                ]
-              },
-              "target": {
-                "type": "SpecificResource",
-                "source": [
-                  {
-                    "id": "https://example.org/iiif/scene1",
-                    "type": "Scene"
-                  }
-                ],
-                "selector": [
-                  {
-                    "type": "PointSelector",
-                    "x": 0.0, "y": 0.15, "z": 0.75
-                  }
-                ]
-              }
+              "body":  [
+                {
+                  "id": "https://example.org/iiif/3d/cameras/1",
+                  "type": "PerspectiveCamera",
+                  "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
+                  "fieldOfView": 50.0,
+                  "near": 0.10,
+                  "far": 2000.0
+                }
+              ],
+              "target": [
+                {
+                  "type": "SpecificResource",
+                  "source": [
+                    {
+                      "id": "https://example.org/iiif/scene1",
+                      "type": "Scene"
+                    }
+                  ],
+                  "selector": [
+                    {
+                      "type": "PointSelector",
+                      "x": 0.0, "y": 0.15, "z": 0.75
+                    }
+                  ]
+                }
+              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
@@ -2345,7 +2351,12 @@ In many complex 3D Scenes, it may not be clear what or how to look at a particul
           "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "bodyValue": "Mandibular tooth",
+          "body": [
+            {
+            "type": "TextualBody",
+            "value": "Mandibular tooth"
+            }
+          ],                                                        
           "target": {
             // SpecificResource with PointSelector
           }
@@ -2354,12 +2365,17 @@ In many complex 3D Scenes, it may not be clear what or how to look at a particul
           "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "bodyValue": "Right pterygoid hamulus",
+          "body": [
+            {
+            "type": "TextualBody",
+            "value": "Right pterygoid hamulus"
+            }
+          ],               
           "target": {
             // SpecificResource with PointSelector
           }
         },
-        {
+        { 
           "id": "https://example.org/iiif/3d/anno9",
           "type": "Annotation",
           "motivation": ["activating"],
@@ -2371,8 +2387,9 @@ In many complex 3D Scenes, it may not be clear what or how to look at a particul
           ],
           "body": [
             {
-              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-              "type": "Annotation"
+              "type": "SpecificResource",
+              "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+              "action": ["show", "enable", "select"]
             }
           ]
         }
@@ -2393,26 +2410,42 @@ Camera when annotation selected:
 <img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-anno-camera.png" alt="Camera for annotation" >
 
 
-# Integration
+#### Using scope to select a Camera
 
-seeAlso, service(s), extensions
-mention search, image api, auth
+The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation.
 
-profile for seeAlso
+The commenting annotation now looks like this:
 
-partOf -
+```json
+{
+  "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+  "type": "Annotation",
+  "motivation": ["commenting"],
+  "bodyValue": "Mandibular tooth",
+  "scope": [                                                                               
+    {                                                                                      
+      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",   
+      "type": "Annotation"                                                                 
+    }                                                                                      
+  ],                                                                                       
+  "target": {
+    // SpecificResource with PointSelector
+  }
+},
+```
 
-Talk about Content State and use the phrase "Content State Annotations"
-(we think we now _don't_ need to write a content state 2 spec ???)
+... and the activating annotation is no longer required.
+
+This only works for cameras.
+
+Repeat full example? no, link to external.
 
 
+### Interactivity, Guided Viewing and Storytelling
 
-# Interactivity, Guided Viewing and Storytelling
+Activating annotations add explicit mechanisms for interactive user experiences such as guided viewing and storytelling. A narrative might comprise an Annotation Page of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
 
-
-A narrative might comprise an AnnotationPage of `commenting` annotations that target different parts of the Container, for example a guided tour of a painting or a map. For a Canvas or Timeline it is usually sufficient to leave the interactivity to the client; the fact that comments target different extents implies the client must offer some affordance for those comments (typically the user can click each one), and in response the client will move the current play point of the Timeline to the commenting annotation target, or pan and zoom the viewport to show the relevant part of an image. For 3D this may not be enough; a particular comment may only make sense from a certain viewpoint (i.e., Camera), or different steps of the story require different Lights to be active.
-
-In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations (back ref) allows a precise storytelling experience to be specified, including:
+In a storytelling or exhibition scenario, the non-painting `annotations` might be carrying informative text, or even rich HTML bodies. They can be considered to be _steps_ in the story. The use of activating annotations allows a precise storytelling experience to be specified, including:
 
  - providing a specific viewpoint for each step of the narrative (or even a choice of viewpoints)
  - modifying the lighting of the Scene for each step, for example shining a spotlight on a point of interest
@@ -2421,25 +2454,13 @@ In a storytelling or exhibition scenario, the non-painting `annotations` might b
 
 All the annotations referred to by the activating annotations' `target` and `body` properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
 
-
-## The `sequence` behavior
-
-While all AnnotationPage `items` are inherently ordered, an Annotation Page with the `behavior` "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an AnnotationPage in a sidebar so they are all visible in the UI, but for an AnnotationPage with `behavior` "sequence" only show the currently active annotation text, and next and previous UI.
+Interactive examples are provided as recipes in the [IIIF Cookbook](link).
 
 
-## Chains of activation
+#### The `sequence` behavior
 
-Chaining together activating annotations can then allow the implementation of, at least:
+While all Annotation Page `items` are inherently ordered, an Annotation Page with the `behavior` "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an Annotation Page in a sidebar so they are all visible in the UI, but for an Annotation Page with `behavior` "sequence" only show the currently active annotation text, and next and previous UI.
 
-* Specific camera position to look at an Annotation
-* Multi-step linear stories
-* Animations, including as part of stories without disrupting the flow, and looping animations (they activate themselves)
-* Interactive components such as light switches (enable/disable a light), jukeboxes (enable/disable Audio Emitter)
-
-
-## Storytelling example
-
-* Something really cool that brings a lot of things together!
 
 
 # Conveying Physical Dimensions
@@ -2456,16 +2477,64 @@ An extreme example of both physical dimension properties together is a Canvas sh
 
 
 
+# Integration
+
+seeAlso, service(s), extensions
+mention search, image api, auth
+
+profile for seeAlso
+
+partOf -
+
+Talk about Content State and use the phrase "Content State Annotations" - how you transmit IIIF from software to software.
+
+## Authentication
+
+It is possible to include Image API service descriptions within the Manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a Manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URI of the service, and clients are expected to look up the details from the full description by matching the URI. Clients _MUST_ anticipate situations where the Authentication service description in the Manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
+
+
+
+
 # Other stuff
-
-## Embedded Content
-
-e.g., painting TextualBody on Canvas
-
 
 ## Style
 
 ### Rotation
+
+An image might not be correctly aligned with the Canvas, and require rotation as it is painted. In the following example, the image is painted with a 90-degree rotation. This example uses the ImageApiSelector to convey the number of degrees of the rotation. As this particular image has an image service, the client can use the Image API to request an image that has already been rotated on the server, or it can use the information in the ImageApiSelector to rotate the image itself.
+
+```json
+{
+  "id": "http://example.org/iiif/book1/annotation/anno1",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": [
+    {
+      "type": "SpecificResource",
+      "source": {
+        "id": "http://example.org/iiif/book1-page1/my-image.jpg",
+        "type": "Image",
+        "service": {
+          "id": "http://example.org/iiif/book1-page1",
+          "type": "ImageService3",
+          "profile": "level2"
+        }
+      },
+      "selector": {
+        "type": "ImageApiSelector",
+        "rotation": "90"
+      }
+  }
+  ],
+  "target": [
+    {
+      "id": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240",
+      "type": "Canvas"
+    }
+  ]
+}
+
+```
 
 
 
@@ -2519,11 +2588,7 @@ The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable br
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
 
-## Authentication
 
-It may be necessary to restrict access to the descriptions made available via the Presentation API. As the primary means of interaction with the descriptions is by web browsers using XmlHttpRequests across domains, there are some considerations regarding the most appropriate methods for authenticating users and authorizing their access. The approach taken is described in the [Authentication][iiif-auth] specification, and requires requesting a token to add to the requests to identify the user. This token might also be used for other requests defined by other APIs.
-
-It is possible to include Image API service descriptions within the Manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a Manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URI of the service, and clients are expected to look up the details from the full description by matching the URI. Clients _MUST_ anticipate situations where the Authentication service description in the Manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
 
 # Accessibility
 
