@@ -1139,6 +1139,11 @@ body of the activating anno is an ordered list of SpecificResource
 ...which may have selectors eg for AnimationSelector
 ...but may just have action which are processed in order; client performs the action on the source.
 
+The client must perform all the actions; if it can't perform all of them it must not perform any.
+If the activating annotation that is currently being processed is disabled as part of that processing, don't stop processing the ordered list, keep going through to the end.
+
+Only process one set of activating anno bodies at a time. If a body causes another activating anno to be triggered, queue up that activating anno and don't tackle it until you've finished processing all the bodies of the current one.
+
 values are:
 
  * enable (make selectable, or makes an activating anno triggerable)

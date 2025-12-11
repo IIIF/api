@@ -2017,59 +2017,20 @@ The resource the user should be taken to is the `body` of the annotation, and th
 
 ## Activating Annotations
 
-Sometimes it is necessary to modify the contents of a Container in the contexts of different annotations on that Container. This technique allows IIIF to be used for exhibitions, storytelling (fwd ref) and other interactive applications beyond simply conveying a set of static resources in a Container.
+Sometimes it is necessary to modify the state of resources. Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to change resources from their initial state defined in the Manifest or from their current state. They allow IIIF to be used for interactive exhibitions, storytelling, digital dioramas and other interactive applications beyond simply conveying a set of static resources in a Container.
 
-Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. The `target` of the activating annotation could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`. When the user triggers that volume or time extent - which might be the user entering that volume or the playhead reaching the extent - something happens. 
+The `target` of the activating annotation is the resource that triggers an action. This could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`. When that volume or time extent is triggered - which might be the user entering that volume or the playhead reaching the extent independently of user interaction - something happens. 
 
-> TODO - `target` is a cuboid volume (not a painted model) - one client might expect you to click on it (and show its edges somehow for affordance), another client might expect you to walk into it, and doesn't render the shape at all, it is just an invisible volume. Do we need an extension to distinguish the two interaction behaviors?
+This specification does not define how a client indicates to a user that a resource is able to be interacted with.
 
-The `body` of the annotation is then activated. This has different processing requirements depending on what the body is:
+The body of the activating annotation is always an ordered list of Specific Resources, each with `source` and `action` properties. The `source` is the resource to be acted upon in some way, and the `action` property is an ordered list of named actions to perform on that resource. Valid values include "show", "hide", "enable", "disable", "start", "stop", "reset" and "select".
 
-TODO introduce `action` here
-
-The body of the activating annotation is always a SpecificResource with an `action` property. The `source` is the resource to be activated or deactivated in some way, and the `action`  ... e.g., show, hide, enable, disable, start, stop.
-
-Perform the action(s) in sequence - see action ^^
-
-```
-for specficResource in body
-   for action in specficResource.action
-       do the thing
-```
-TODO delete this bit
-* If the `source` is a reference to a Painting Annotation:
- * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
- * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
-* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
-* Processing for other body types can be found in the [IIIF Cookbook][ref]
-
-Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate AnnotationPage. The client should evaluate all the activating annotations it can find.
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/anno9",
-  "type": "Annotation",
-  "motivation": ["activating"],
-  "target": [
-    {
-      "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-      "type": "Annotation"
-    }
-  ],
-  "body": [
-    {
-      "type": "SpecificResource",
-      "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-      "action": ["show", "enable", "select"]
-    }
-  ]
-}
-```
+Activating annotations are provided in a Container's `annotations` property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate Annotation Page. The client should evaluate all of the enabled activating annotations it can find.
 
 
-### Showing and hiding resources
+### Hiding and disabling resources
 
-The following example demonstrates a light switch that can be toggled on and off:
+A resource with the `behavior` value "hidden" is not rendered by the client. A resource with the `behavior` value "disabled" is not available for user interaction and does not trigger any actions. The following example is a light switch that can be toggled on and off using activating annotations that result in these behaviors being applied or removed. It demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
 ```jsonc
 {
@@ -2146,7 +2107,12 @@ The following example demonstrates a light switch that can be toggled on and off
                                 "activating"
                             ],
                             "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "body": [
+                            "body": [                            
+                              {
+                                "type": "SpecificResource",
+                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                                "action": ["disable"]
+                              },
                               {
                                 "type": "SpecificResource",
                                 "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
@@ -2156,11 +2122,6 @@ The following example demonstrates a light switch that can be toggled on and off
                                 "type": "SpecificResource",
                                 "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
                                 "action": ["show"]
-                              },
-                              {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                                "action": ["disable"]
                               }
                             ]
                         },
