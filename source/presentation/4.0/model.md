@@ -304,6 +304,8 @@ All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. Th
 
 Containers _SHOULD_ have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container. Annotations that do not associate content to be rendered, but instead are about the Container itself, such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container. A Container _MAY_ have zero annotations associated with it and still be useful, such as when the properties of the Container convey to the user that it represents a page that has not been digitized, or there is otherwise no digital content available to display. In this case the `items` property is not included.
 
+Containers have one or more space or time dimensions. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Container's dimensions, such as at coordinates below 0,0, greater than the height or width, before 0 seconds, or after the duration. Content resources that have dimensions which are not defined for the Container _MUST NOT_ be associated with that Container by an Annotation that has the `motivation` value "painting". For example, it is valid to use an Annotation that has the `motivation` value "painting" to associate an Image (which has only height and width) with a Canvas that has `height`, `width`, and `duration` properties, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have these three dimensions. Such a resource _SHOULD_ instead be referenced using the rendering property, or by Annotations that have a motivation value other than painting in the annotations property.
+
 __Properties__<br/>
 All Containers _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
 All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items)<br/><br/>
@@ -2979,14 +2981,14 @@ An annotation with the motivation `activating` has any valid IIIF Resource, or l
 
 There are two categories of activating annotation targets (interactable things):
 
-* Annotations - content of the container (a painting annotation rendered in the Scene) or content that targets the container (a commenting annotation, a map pin... which may have off-Container representations in a UI eg comments in a side panel). 
+* Annotations - content of the container (a painting annotation rendered in the Scene) or content that targets the container (a commenting annotation, a map pin... which may have off-Container representations in a UI eg comments in a side panel).
 * Extents of Containers - a volume of a Scene, region of a Canvas, or interval of time in any Container with a `duration` (the client may or may not render these "hit boxes")
 
 How the client makes these interactable is client-dependent.
 
 Need to cover:
 
-Clients supporting dynamic content need to support 
+Clients supporting dynamic content need to support
 
  - non-painting annotations e.g., commenting annos (and other annos that usually have textual bodies that could be made clickable by a client, or map pin markers, etc)
  - painted resources such as models
@@ -3009,7 +3011,7 @@ If the body is a reference to a Painting Annotation or a non-painting , the clie
 
  * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
 
-(example: click the comment, object appears, light goes on) 
+(example: click the comment, object appears, light goes on)
 
 enables and disables
 
@@ -3023,7 +3025,7 @@ You can just use enables and disables
 
 ### Playing animations
 
-If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated. 
+If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated.
 * If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
 
 How do you stop the animation? And if you can stop it, what happens - reset? If you activate it again, does it resume or restart?

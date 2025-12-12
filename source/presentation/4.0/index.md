@@ -382,7 +382,7 @@ Collections may include both other Collections and Manifests, forming a tree-str
 
 ### Range
 
-IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Ranges define meaningful divisions or sequences---such as chapters in a book, sections of a newspaper, or movements of a musical work---that allow clients to present hierarchical or linear navigation interfaces that enable the user to quickly move through the object's content.. 
+IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the `items` property. Ranges define meaningful divisions or sequences---such as chapters in a book, sections of a newspaper, or movements of a musical work---that allow clients to present hierarchical or linear navigation interfaces that enable the user to quickly move through the object's content..
 
 Ranges may include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating tree-like structures that reflect the logical or intellectual organization of the resource, such as a table of contents or an alternative ordering of items.
 
@@ -1270,7 +1270,7 @@ The Light is green and has a position, but has its default orientation of lookin
               },
               "target": {
                 "type": "SpecificResource",
-                "source": 
+                "source":
                 {
                   "id": "https://example.org/iiif/scene1/page/p1/1",
                   "type": "Scene"
@@ -1306,7 +1306,7 @@ The Light is green and has a position, but has its default orientation of lookin
               "target": [
                 {
                   "type": "SpecificResource",
-                  "source": 
+                  "source":
                   {
                     "id": "https://example.org/iiif/scene1/page/p1/1",
                     "type": "Scene"
@@ -1422,7 +1422,7 @@ This example is a Manifest with a single Scene with multiple models painted into
               "motivation": ["painting"],
               "body": [{
                 "type": "SpecificResource",
-                "source": 
+                "source":
                   {
                     "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
                     "label": {"en": ["Pawn 2 tipped over"]},
@@ -1467,7 +1467,7 @@ This example is a Manifest with a single Scene with multiple models painted into
               "exclude": ["Audio", "Lights"],
               "body": [{
                 "type": "SpecificResource",
-                "source": 
+                "source":
                   {
                     "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
                     "label": {"en": ["Queen"]},
@@ -1574,7 +1574,7 @@ In this example, the audio content resources have durations that do not match th
               "quantityValue": 0.1
             }
           }],
-          "target": [ 
+          "target": [
             {
               "id": "https://example.org/iiif/scene1",
               "type": "Scene"
@@ -1604,7 +1604,7 @@ In this example, the audio content resources have durations that do not match th
           "target": [{
             "id": "https://example.org/iiif/selectors/anno2",
             "type": "SpecificResource",
-            "source": 
+            "source":
               {
                 "id": "https://example.org/iiif/scene1",
                 "type": "Scene"
@@ -1651,7 +1651,7 @@ In this example, the audio content resources have durations that do not match th
             {
               "id": "https://example.org/iiif/scene1#xyz=3,0,-2&t=30,60",
               "type": "Scene"
-            }            
+            }
           ]
         }
       ],
@@ -1668,7 +1668,7 @@ In this example, the audio content resources have durations that do not match th
           ],
           "target": [{
             "type": "SpecificResource",
-            "source": 
+            "source":
               {
                 "id": "https://example.org/iiif/scene1",
                 "type": "Scene"
@@ -1710,9 +1710,17 @@ Properties: [duration](#model/duration), [volume](#model/volume), [angle](#model
 
 > How does this relate to model doc? What's normative and needs to be in model.md because it defines a Scene?
 
-A Canvas can be painted into a Scene as an Annotation, but the 2D nature of Canvases requires special consideration due to important differences between Canvases and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in pixels with a pixel origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of arbitrary coordinate units and a coordinate origin at the center of the space. It is important to note that in many cases the pixel scale used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate unit scale in a Scene.
+A Container can be painted into another Container as an Annotation with `motivation` "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene, and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
 
-When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the pixel origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The Canvas is scaled to the Scene such that the pixel dimensions correspond to 3D coordinate units - a Canvas 200 pixels wide and 400 pixels high will extend 200 coordinate units across the x axis and 400 coordinate units across the y axis. Please note: direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+A Timeline or a Canvas or Scene with `duration` can only be painted into a Canvas or Scene that also has `duration`. It is possible to associate a Timeline or a Canvas or Scene with `duration` with a Canvas or Scene that does not have `duration` as the content of a `commenting` annotation rather than painting it into the Container. In the case of painting a Timeline into a Scene, in many cases it is likely desirable to instead paint an Audio Emitter into the scene where Timeline is the `body` of the Audio Emitter instead of painting the Timeline directly, as this will provide greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
+
+## Painting a Canvas or 2D Image into a Scene
+>NOTE While we could add a separate section about painting 2D images into a Scene, it seems like this would require repeating a lot of verbiage and information from this section in two places?
+
+A Canvas or a 2D image content resource can be painted into a Scene as an Annotation, but the 2D nature of Canvases and these content resources requires special consideration due to important differences between them and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. It is important to note that in many cases the scale of the 2D coordinates used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate scale in a Scene. The rest of this section makes reference to Canvases, but everything below also applies to 2D image content resources painted into a Scene.
+>TODO Check model re: painting an image directly into a 3D scene
+
+When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 200 units wide and 400 units high will extend 200 coordinate units across the x axis and 400 coordinate units across the y axis. Please note: direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
 
 A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property `backgroundColor` is used, this color should be used for the backward face of the Canvas. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
 
@@ -1720,39 +1728,13 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
   To Do: Add an image demonstrating default Canvas placement in Scene
 </div>
 
-A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation.
+A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation, allowing in particular for a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
 
-<!--
-It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a WktSelector to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. In this case, the four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of WktSelector for this purpose overrides any use of Transforms on the Canvas Annotation.
+## Painting a Scene into a Scene
 
-Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at (1, 0, 0); and top-right at (1, 1, 0):
+Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section).
 
-```json
-"selector": [
-  {
-    "type": "WktSelector",
-    "wktLiteral": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
-  }
-]
-```
--->
-
-## Scene in Scene
-
-Scenes and other IIIF containers, such as Canvases, may also be embedded within Scenes, as described below in the nesting section [fwd-ref-to-nesting].
-
-```json
-{
-  "id": "https://example.org/iiif/scenes/1",
-  "type": "Scene",
-  "label": {"en": ["Chessboard"]},
-  "backgroundColor": "#000000",
-  "items": [
-   "Note: Annotations Live Here"
-  ]
-}
-```
-As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section).
+When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
 A simple example painting one Scene into another:
 
@@ -1768,10 +1750,6 @@ A simple example painting one Scene into another:
     "target": "https://example.org/iiif/scene2"
 }
 ```
-
-When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
-
-
 
 
 # Annotations
@@ -2019,7 +1997,7 @@ The resource the user should be taken to is the `body` of the annotation, and th
 
 Sometimes it is necessary to modify the state of resources. Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to change resources from their initial state defined in the Manifest or from their current state. They allow IIIF to be used for interactive exhibitions, storytelling, digital dioramas and other interactive applications beyond simply conveying a set of static resources in a Container.
 
-The `target` of the activating annotation is the resource that triggers an action. This could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`. When that volume or time extent is triggered - which might be the user entering that volume or the playhead reaching the extent independently of user interaction - something happens. 
+The `target` of the activating annotation is the resource that triggers an action. This could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the `target` could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with `duration` could be the `target`. When that volume or time extent is triggered - which might be the user entering that volume or the playhead reaching the extent independently of user interaction - something happens.
 
 This specification does not define how a client indicates to a user that a resource is able to be interacted with.
 
@@ -2107,7 +2085,7 @@ A resource with the `behavior` value "hidden" is not rendered by the client. A r
                                 "activating"
                             ],
                             "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "body": [                            
+                            "body": [
                               {
                                 "type": "SpecificResource",
                                 "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
@@ -2133,17 +2111,17 @@ A resource with the `behavior` value "hidden" is not rendered by the client. A r
                             ],
                             "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
                             "body": [
-                              {                                
+                              {
                                 "type": "SpecificResource",
                                 "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
                                 "action": ["disable"]
                               },
-                              {                                
+                              {
                                 "type": "SpecificResource",
                                 "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
                                 "action": ["hide"]
                               },
-                              {                                
+                              {
                                 "type": "SpecificResource",
                                 "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
                                 "action": ["enable"]
@@ -2159,7 +2137,7 @@ A resource with the `behavior` value "hidden" is not rendered by the client. A r
 }
 ```
 
-* Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the `behavior` "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the painting annotation that paints the switch, so that user interaction with the light switch will trigger the activating annotation. This activating annotation has a `body` property with three Specific Resources. The first enables the "off" activating annotation, the second shows the PointLight, and the last disables the activating annotation _itself_ - this activating annotation can no longer be activated by a user interaction with the light switch model (its `target`). 
+* Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the `behavior` "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the painting annotation that paints the switch, so that user interaction with the light switch will trigger the activating annotation. This activating annotation has a `body` property with three Specific Resources. The first enables the "off" activating annotation, the second shows the PointLight, and the last disables the activating annotation _itself_ - this activating annotation can no longer be activated by a user interaction with the light switch model (its `target`).
 * A further activating annotation has the opposite effect. Initially this has the `behavior` "disabled" - which means it is inactive. It also targets the painting annotation, but has no effect while disabled.
 * When the user interacts with the light switch model, the client processes any activating annotations that target it and are enabled. In this case, the first activating annotation is triggered because while both target the switch, only the first is enabled. This activation shows the light (i.e., removes its "hidden" `behavior` and therefore turning it on) and enables the other activating annotation, and disables itself.
 * If the user clicks the light again, the client again processes any activating annotations that target it and are not disabled. This time the second activating annotation is the enabled one - and it hides the light (turning it off) and disables itself, and enables the first activating annotation again.
@@ -2356,7 +2334,7 @@ It is possible to associate a particular camera with a particular commenting ann
             "type": "TextualBody",
             "value": "Mandibular tooth"
             }
-          ],                                                        
+          ],
           "target": {
             // SpecificResource with PointSelector
           }
@@ -2370,12 +2348,12 @@ It is possible to associate a particular camera with a particular commenting ann
             "type": "TextualBody",
             "value": "Right pterygoid hamulus"
             }
-          ],               
+          ],
           "target": {
             // SpecificResource with PointSelector
           }
         },
-        { 
+        {
           "id": "https://example.org/iiif/3d/anno9",
           "type": "Annotation",
           "motivation": ["activating"],
@@ -2422,12 +2400,12 @@ The commenting annotation now looks like this:
   "type": "Annotation",
   "motivation": ["commenting"],
   "bodyValue": "Mandibular tooth",
-  "scope": [                                                                               
-    {                                                                                      
-      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",   
-      "type": "Annotation"                                                                 
-    }                                                                                      
-  ],                                                                                       
+  "scope": [
+    {
+      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+      "type": "Annotation"
+    }
+  ],
   "target": {
     // SpecificResource with PointSelector
   }
