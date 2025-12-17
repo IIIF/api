@@ -1140,9 +1140,7 @@ Properties: [fileSize](#model/fileSize), [format](#model/format), [provides](#mo
 
 # 3D
 
-3D Content Resources are painted into Scenes.
-
-Scenes have infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
+Scenes describe a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
 
 The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
@@ -1150,9 +1148,9 @@ The positive y axis points upwards, the positive x axis points to the right, and
 
 (Image: Wikipedia)
 
+3D Content Resources are painted into Scenes. This can include 3D models, which can be painted into Scenes as Annotations with `motivation` "painting". Due to particular considerations of 3D space and rendering content within that space, such as scaling or textures with forward and backward faces, non-3D Content Resources must first be wrapped within an appropriate Container or Resource before being painted into a Scene. Image and video resources should be painted on to a Canvas, where the Canvas can in turn be painted into a Scene. Audio resources or Timelines should be referenced by an AudioEmitter and the AudioEmitter can be painted into a Scene. For further detail about painting Containers within other Containers, see [Nesting](#nesting).
 
 ## 3D Supporting Resources
-
 
 Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes.
 
@@ -1437,7 +1435,7 @@ This example is a Manifest with a single Scene with multiple models painted into
                     "z": -90.0
                   },
                   {
-                    "type": "Translate Transform",
+                    "type": "TranslateTransform",
                     "x": 0.0,
                     "y": 1.0,
                     "z": 0.0
@@ -1592,7 +1590,8 @@ In this example, the audio content resources have durations that do not match th
             "source": {
               "id": "https://example.org/iiif/assets/orchestra_percussion_120s.mp3",
               "type": "Audio",
-              "format": "audio/mp3"
+              "format": "audio/mp3",
+              "duration": 120.0
             },
             "volume": {
               "id": "https://example.org/iiif/quantity/2",
@@ -1636,7 +1635,8 @@ In this example, the audio content resources have durations that do not match th
             "source": {
               "id": "https://example.org/iiif/assets/orchestra_tuba_10s.mp3",
               "type": "Audio",
-              "format": "audio/mp3"
+              "format": "audio/mp3",
+              "duration": 10.0
             },
             "angle": 45.0,
             "volume": {
@@ -1706,21 +1706,40 @@ Properties: [duration](#model/duration), [volume](#model/volume), [angle](#model
 {: .note}
 
 
-# Nesting (more about Containers as Content Resources)
+# Nesting
 
 > How does this relate to model doc? What's normative and needs to be in model.md because it defines a Scene?
 
 A Container can be painted into another Container as an Annotation with `motivation` "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene, and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
 
-A Timeline or a Canvas or Scene with `duration` can only be painted into a Canvas or Scene that also has `duration`. It is possible to associate a Timeline or a Canvas or Scene with `duration` with a Canvas or Scene that does not have `duration` as the content of a `commenting` annotation rather than painting it into the Container. In the case of painting a Timeline into a Scene, in many cases it is likely desirable to instead paint an Audio Emitter into the scene where Timeline is the `body` of the Audio Emitter instead of painting the Timeline directly, as this will provide greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
+A Timeline, Canvas, or Scene with `duration` can only be painted into a Container that also has `duration`. It is possible to associate a Container with `duration` with a Container that does not have `duration` as the content of a `commenting` annotation rather than painting it into the Container. If a Container with `duration` has a shorter or longer `duration` than the Container into which it is to be painted, the `timeMode` property can be used to instruct clients how to resolve the mismatch.
 
-## Painting a Canvas or 2D Image into a Scene
->NOTE While we could add a separate section about painting 2D images into a Scene, it seems like this would require repeating a lot of verbiage and information from this section in two places?
+```jsonc
+{
+  "id": "https://example.org/iiif/presentation/examples/nesting/anno1",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "timeMode": "loop",
+  "body": {
+    "id": "https://example.org/iiif/presentation/examples/nesting/timeline/t1",
+    "type": "Timeline",
+    "label": { "en": [ "Side A: 99 Luftballons" ] },
+    "duration": 231
+  },
+  "target": "https://example.org/iiif/presentation/examples/nesting/canvas-10minute-duration"
+}
+```
 
-A Canvas or a 2D image content resource can be painted into a Scene as an Annotation, but the 2D nature of Canvases and these content resources requires special consideration due to important differences between them and Scenes. A Canvas describes a bounded 2D space with finite `height` and `width` measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. It is important to note that in many cases the scale of the 2D coordinates used by a Canvas or a 2D image content resource will not be in proportion to the desired 3D coordinate scale in a Scene. The rest of this section makes reference to Canvases, but everything below also applies to 2D image content resources painted into a Scene.
->TODO Check model re: painting an image directly into a 3D scene
 
-When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 200 units wide and 400 units high will extend 200 coordinate units across the x axis and 400 coordinate units across the y axis. Please note: direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+## Painting a Canvas or Timeline into a Scene
+
+Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the `body` of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
+
+A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite `height` and `width` measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and weight in coordinate units, and this has important consequences for painting Canvases into Scenes.
+
+When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+
+The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 16 units wide and 9 units high will extend 16 coordinate units across the x axis and 9 coordinate units across the y axis. Because Canvas coordinate units and image content resource pixels are not equivalent, any image with a 16:9 aspect ratio painted on this Canvas would extend 16 coordinate units by 9 coordinate units in the 3D space of the Scene, whether it was 160 pixels wide and 90 pixels high or 16,000 pixels wide and 9,000 pixels high. This provides one way to control the size of a Canvas painted into a Scene.
 
 A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property `backgroundColor` is used, this color should be used for the backward face of the Canvas. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
 
@@ -1728,26 +1747,74 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
   To Do: Add an image demonstrating default Canvas placement in Scene
 </div>
 
-A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. Transforms can also be used to modify Canvas rotation, scale, or translation, allowing in particular for a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
+A `PointSelector` can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. [Transforms](#transforms) can be used to modify Canvas rotation, scale, or translation, allowing in particular for an alternate method to control the size of a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
+
+```jsonc
+{
+  "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": [{
+    "type": "SpecificResource",
+    "source":
+      {
+        "id": "https://example.org/iiif/presentation/examples/nesting/canvas/c1",
+        "type": "Canvas",
+        "width": 2,
+        "height": 2,
+        "items": [ { ... } ]
+      },
+    "transform": [
+      {
+        "type": "ScaleTransform",
+        "x": 2.0,
+        "y": 2.0,
+        "z": -1.0
+      }
+    ]
+  }],
+  "target": [{
+    "type": "SpecificResource",
+    "source": {
+      "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
+      "type": "Scene"
+    },
+    "selector": [
+      {
+        "type": "PointSelector",
+        "x": 4.0,
+        "y": 4.0,
+        "z": 0.0
+      }
+    ]
+  }]
+}
+```
+
+>
+**Key Points**
+* The 2D Canvas painted into the Scene has an initial height and width of 2 units by 2 units. Absent any transform or the use of a PointSelector, this Canvas would by default face toward the Scene's positive z axis, would stretch 2 units across the x axis and 2 units across the y axis, and its top-left corner would align with the coordinate origin of the Scene. Instead, transforms and a PointSelector will modify this placement significantly.
+* A ScaleTransform is used to double the Canvas height and width, so that after transformation the Canvas will extend 4 coordinate units across the Scene x axis and 4 coordinate units across the Scene y axis.
+* The same ScaleTransform also reflects the z axis by scaling it by -1.0, meaning the Canvas is mirrored (flipped) and now faces toward the negative z axis.
+* A PointSelector is used to align the top-left corner of the transformed Canvas with Scene coordinate (4,4,0). In combination with the ScaleTransform, the bottom-right corner of the Canvas is now aligned with the coordinate origin of the Scene.
+
 
 ## Painting a Scene into a Scene
 
-Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through the transforms described in Transforms(transforms_section).
+Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
 
 When a Scene is nested into another Scene, the `backgroundColor` of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
-A simple example painting one Scene into another:
-
-```json
+```jsonc
 {
-    "id": "https://example.org/iiif/3d/anno1",
+    "id": "https://example.org/iiif/presentation/examples/nesting/anno3",
     "type": "Annotation",
     "motivation": ["painting"],
     "body": {
-        "id": "https://example.org/iiif/scene1",
+        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
         "type": "Scene"
     },
-    "target": "https://example.org/iiif/scene2"
+    "target": "https://example.org/iiif/presentation/examples/nesting/scene/s2"
 }
 ```
 
