@@ -1797,6 +1797,7 @@ A `PointSelector` can be used to modify the point at which the Canvas will be pa
 * A ScaleTransform is used to double the Canvas height and width, so that after transformation the Canvas will extend 4 coordinate units across the Scene x axis and 4 coordinate units across the Scene y axis.
 * The same ScaleTransform also reflects the z axis by scaling it by -1.0, meaning the Canvas is mirrored (flipped) and now faces toward the negative z axis.
 * A PointSelector is used to align the top-left corner of the transformed Canvas with Scene coordinate (4,4,0). In combination with the ScaleTransform, the bottom-right corner of the Canvas is now aligned with the coordinate origin of the Scene.
+{: .note}
 
 
 ## Painting a Scene into a Scene
