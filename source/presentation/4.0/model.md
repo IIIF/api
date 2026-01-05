@@ -829,10 +829,9 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
   "angle": 15.0,
   "color": "#FFFFFF",
   "intensity": {
-    "id": "https://example.org/iiif/spotlight/1/value",
     "type": "Quantity",
-    "unit": "relative",
-    "quantityValue": 0.5
+    "quantityValue": 0.5,
+    "unit": "relative"
   }
 }
 ```
@@ -916,10 +915,9 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
   },
   "angle": 45.0,
   "volume": {
-    "id": "https://example.org/iiif/value/1",
     "type": "Quantity",
-    "unit": "relative",
-    "quantityValue": 1.0
+    "quantityValue": 1.0,
+    "unit": "relative"
   }
 }
 ```
@@ -1045,7 +1043,6 @@ A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
 {% include api/code_header.html %}
 ```json
 {
-  "id": "https://example.org/iiif/unit/2",
   "type": "Quantity",
   "quantityValue": 1.0,
   "unit": "m"
@@ -1522,7 +1519,7 @@ Please note that this specification has stricter requirements about the JSON pat
 ### id
 {: #id}
 
-The URI that identifies the resource. If the resource is only available embedded within another resource (see the [terminology section][prezi30-terminology] for an explanation of "embedded"), such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Containers, which _MUST_ have their own URI without a fragment.
+The URI that identifies the resource. If the resource is only available embedded within another resource, such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Containers, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI for resource classes defined or described in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
@@ -1569,16 +1566,17 @@ The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 
 ```json
 {
  "intensity": {
-  "id": "https://example.org/iiif/intensity/1",
-  "type": "Quantity",
-  "quantityValue": 0.5,
-  "unit": "relative"}
+    "type": "Quantity",
+    "quantityValue": 0.5,
+    "unit": "relative"
+ }
 }
 ```
 ### interactionMode
 {: #interactionMode}
 
-TODO clarify how `interactionMode` corresponds to `action`
+TODO: clarify how `interactionMode` corresponds to `action`
+TODO: Undecided whether this is Camera and/or Container
 
 A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective).
 
@@ -1588,7 +1586,7 @@ For interaction modes that involve a Camera orbiting around a target point, the 
 
 The value _MUST_ be an array of strings.
 
-> TODO: Undecided whether this is Camera and/or Container
+
 
 * A Camera _MAY_ have the `interactionMode` property.<br/>
   Clients _SHOULD_ process `interactionMode` on a Camera.
@@ -2151,12 +2149,12 @@ The `quantityValue` property of a Quantity conveys its numerical component.
 
 The value of `quantityValue` _MUST_ be a floating point number.
 
-*  A Quantity _MUST_ have the `quantity` property.<br/>
-   Clients _MUST_ process the `quantity` property on a Quantity.
+*  A Quantity _MUST_ have the `quantityValue` property.<br/>
+   Clients _MUST_ process the `quantityValue` property on a Quantity.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "quantity": 0.1234123 }
+{ "quantityValue": 0.1234123 }
 ```
 
 ### refinedBy
@@ -2906,9 +2904,14 @@ The `value` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "volume": { "type": "Quantity", "unit": "relative", "quantityValue": 0.5 } }
+{ 
+  "volume": { 
+    "type": "Quantity", 
+    "quantityValue": 0.5,
+    "unit": "relative"   
+  } 
+}
 ```
-
 
 ### width
 {: #width}
