@@ -1610,12 +1610,14 @@ The value _MUST_ be an array of strings.
 ### items
 {: #items}
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Canvases within a Manifest. All of these situations are covered with a single property, `items`.
+Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Containers within a Manifest. All of these situations are covered with a single property, `items`.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties. The items will be resources of different types, as described below.
 
- * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
+ * A Collection _MUST_ either have the `items` property or the `first` and `last` properties. If present, each item _MUST_ be either a Collection or a Manifest.<br/>
    Clients _MUST_ process `items` on a Collection.
+ * A Collection Page _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
+   Clients _MUST_ process `items` on a Collection Page.
  * A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Container.<br/>
    Clients _MUST_ process `items` on a Manifest.
  * A Container _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
@@ -1672,7 +1674,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ### language
 {: #language}
 
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources [referenced][prezi30-terminology] from `homepage`, `rendering`, and `partOf`.
+The language or languages used in the content of this external resource. It _MAY_ be used for resources [referenced][prezi30-terminology] from `body`, `target`, `source`, `homepage`, `rendering`, and `partOf`, amongst others.
 
 The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi30-languages].
 
@@ -1745,7 +1747,6 @@ If the value is a PointSelector, then the light or camera resource is rotated ar
 
 This rotation happens after the resource has been added to the Scene, and thus after any transforms have taken place in the local coordinate space.
 
-
 The value _MUST_ be a JSON object, conforming to either a reference to an Annotation, or an embedded PointSelector. If this property is not specified, then the default value for cameras is to look straight backwards (-Z) and for lights to point straight down (-Y).
 
 * A Camera _MAY_ have the `lookAt` property.<br/>
@@ -1798,15 +1799,15 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 
 This specification defines three values for the [Web Annotation Data Model][org-w3c-webanno] property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
 
-While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Containers. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Container, from ones with externally defined motivations which are typically comments about the Container.
+These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Container ("painting" motivation) and content from the Container ("supplementing" motivation), from ones with externally defined motivations which are typically comments about the Container. The "activating" motivation determines interactions with the resource in the Container.
 
 Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi30-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
 
 | Value | Description |
 | ----- | ----------- |
-| `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
+| `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting` _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
 | `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
-| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. See [Dynamic Content]() for processing. |
+| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, and the type of change to put into effect. See the [`action`](#action) property for information about processing actions. |
 {: .api-table #table-motivations}
 
 
