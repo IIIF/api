@@ -1575,18 +1575,17 @@ The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 
 ### interactionMode
 {: #interactionMode}
 
-TODO: clarify how `interactionMode` corresponds to `action`
-TODO: Undecided whether this is Camera and/or Container
-
 A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective).
+
+When `interactionMode` is specified on a Scene and no Cameras are supplied within the Scene, then the default Camera created by the viewer _SHOULD_ have the given mode. Other specific Cameras within the Scene _MAY_ have different `interactionMode` values.
 
 When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting.
 
 For interaction modes that involve a Camera orbiting around a target point, the target point _SHOULD_ be the same as the Camera's `lookAt` property.
 
+If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time. 
+
 The value _MUST_ be an array of strings.
-
-
 
 * A Camera _MAY_ have the `interactionMode` property.<br/>
   Clients _SHOULD_ process `interactionMode` on a Camera.
