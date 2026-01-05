@@ -1814,7 +1814,7 @@ Additional motivations may be added to the Annotation to further clarify the int
 ### navDate
 {: #navDate}
 
-A date that clients may use for navigation purposes when presenting the resource to the user in a date-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If the resource contains Canvases that have the `duration` property, the datetime given corresponds to the navigation datetime of the start of the resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is the datetime of the first moment of the recorded event.
+A date that clients may use for navigation purposes when presenting the resource to the user in a date-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If the resource contains Containers that have the `duration` property, the datetime given corresponds to the navigation datetime of the start of the resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is the datetime of the first moment of the recorded event.
 
 The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator, but _MAY_ instead be given as an offset of the form `+hh:mm`.
 
@@ -1884,7 +1884,7 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection] [link] contai
 ### near
 {: #near}
 
-This property gives the distance along the cameria's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
+This property gives the distance along the Cameria's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
 
 The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
 
@@ -1972,6 +1972,8 @@ It is important to be able to position the (textual) body of an annotation withi
 
 The value of this property _MUST_ be a JSON object conforming to the `SpecificResource` pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
+> TODO: Should this be allowed on SpecificResource used as `body` of an Annotation?
+
 * A TextualBody _MAY_ have the `position` property.<br/>
   Clients _SHOULD_ process the `position` property on TextualBody instances.
 * Other classes _MUST NOT_ have the `position` property.<br/>
@@ -2022,7 +2024,7 @@ The value must be a JSON object, with the `id` and `type` properties. The value 
 
 A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
-The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles] or a URI.
+The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles] or a full URI.
 
 * Resources [referenced][prezi30-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
@@ -2103,6 +2105,8 @@ The value _MUST_ be an array of strings, each string identifies a particular fea
 
 Note that the majority of the values have been selected from [accessibility feature spec][link] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
 
+> TODO: clarify the list and get the descriptions from the accessibility folks
+
 * Annotations with the `supplementing` motivation _MAY_ have the `provides` property.<br/>
   Clients _SHOULD_ ignore the `provides` property on all other resource.
 
@@ -2130,7 +2134,9 @@ Note that the majority of the values have been selected from [accessibility feat
 ### quality
 {: #quality}
 
-The value of the quality parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+The quality parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+
+The value of `quality` _MUST_ be a string, drawn from the list of acceptable qualities for the Image API.
 
 * The IIIF Image API Selector _MAY_ have the `quality` property with exactly one value.<br/>
   Clients _MUST_ process the `quality` property on a IIIF Image API Selector.
