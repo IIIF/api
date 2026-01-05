@@ -2407,6 +2407,8 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 
 The value of the size parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
 
+The value of `size` _MUST_ be a string, and conform to the size parameter definition of the IIIF Image API.
+
 * A IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
   Clients _MUST_ process the `size` property on a IIIF Image API Selector.
 * Other types of resource _MUST NOT_ have the `size` property.<br/>
@@ -2723,7 +2725,7 @@ The value _MUST_ be a string.
 For compatability with ActivityStreams and the Change Discovery API, clients _SHOULD_ also accept `totalItems` as the name of this property.
 {: .note}
 
-The `total` property indicates the total number of annotations contained in an Annotation Collection.
+The `total` property indicates the total number of annotations contained in an Annotation Collection, or the total number of Collections and Manifests within a Collection. A Collection _SHOULD_ have `total` if it uses pages, and _MAY_ have it if it does not, however the information is readily available by finding the length of the `items` array in the latter case.
 
 The value of this property _MUST_ be a non-negative integer.
 
