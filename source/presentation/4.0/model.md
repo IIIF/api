@@ -1217,7 +1217,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 This property sets the background color behind any painted resources on a spatial Container, such as a Canvas or Scene.
 
-The value _MUST_ be string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a string which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
 
  * A Canvas _MAY_ have the `backgroundColor` property<br/>
    Clients _SHOULD_ render `backgroundColor` on any resource type.
@@ -1249,8 +1249,6 @@ The value _MUST_ be an array of strings.
 
  * Any resource type _MAY_ have the `behavior` property with at least one item.<br/>
    Clients _SHOULD_ process `behavior` on any resource type.
-
-# TODO: Address https://github.com/IIIF/api/issues/2318
 
 | Value | Description |
 | ----- | ----------- |
@@ -1308,7 +1306,7 @@ The value _MUST_ be an array of JSON objects.
 ### canonical
 {: #canonical}
 
-The URI that SHOULD be used to track the resource's identity, regardless of where it is made accessible or the value of its `id` property. The canonical URI can then be used as the target for annotations, regardless of the URI from which it was retrieved. If this property is set, then clients _MUST NOT_ change or delete it. Clients _MUST NOT_ assign a canonical URI if one is not present, as the resource might already have one assigned by a different system but was not included in the representation received. Any reference to the `canonical` URI _MUST_ be treated as a reference to this resource.
+The URI that _SHOULD_ be used to track the resource's identity, regardless of where it is made accessible or the value of its `id` property. The canonical URI can then be used as the target for annotations, regardless of the URI from which it was retrieved. If this property is set, then clients _MUST NOT_ change or delete it. Clients _MUST NOT_ assign a canonical URI if one is not present, as the resource might already have one assigned by a different system but was not included in the representation received. Any reference to the `canonical` URI _MUST_ be treated as a reference to this resource.
 
 For more information about `canonical`, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#other-identities).
 
