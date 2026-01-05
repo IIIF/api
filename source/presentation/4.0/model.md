@@ -2786,7 +2786,6 @@ The value _MUST_ be a string.
 | `Dataset`     | Data not intended to be rendered to humans directly, such as a CSV, an RDF serialization or a zip file |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
 | `Model`       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3d javascript library |
-
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
@@ -2826,7 +2825,7 @@ The `value` property is used in several situations to convey a value of a resour
 
 In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
 
-Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation. In these cases the value of `value` _MUST_ be a string.
+Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation, and `CssStylesheet` uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
 
 
 Language Map `value`:
@@ -2835,7 +2834,7 @@ Language Map `value`:
 {"value": { "en": [ "Example Description" ]}}
 ```
 
-Selector or TextualBody `value`:
+Embedded CssStylesheet, Selector or TextualBody `value`:
 {% include api/code_header.html %}
 ```json-doc
 { "value": "Example Textual Body" }
@@ -2860,12 +2859,10 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 ### viewingDirection
 {: #viewingDirection}
 
-!!! Rewrite to be where is the navigation control to step to the next/ previous in the items of hte manifest
+!!! TODO: Rewrite to be where is the navigation control to step to the next/ previous in the items of the manifest
 
 
-The direction in which a list of Containers _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example,
-if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left, and forwards in the
-list is to the right.
+The direction in which a list of Containers _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left, and forwards in the list is to the right.
 
 The value _MUST_ be a string.
 
