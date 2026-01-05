@@ -1133,34 +1133,32 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 ### action
 {: #action}
 
-Only valid on SpecificResource when bodies of activating annotations
+The `action` property is used on Specific Resources that are in the `body` array of activating annotations (Annotations with the  "activating" motivation). The values of the property are named actions which the client is being instructed to carry out upon the `source` of the Specific Resource. The list of possible values and their corresponding effects is given in the table below. Clients _MUST_ process the Specific Resources in the order given in the Annotation, and _MUST_ process the actions in the order given in the array. The client _MUST_ perform all of the actions on the respective resources, and if it cannot, then it _MUST NOT_ perform any of them. The set of actions within an Annotation is, thus, treated as an atomic transaction. If the activating annotation that is currently being processed is disabled as part of the processing, the client _MUST NOT_ stop processing the ordered list when this occurs but keep processing until the end of the current Annotation's set of actions. Each activating Annotation is processed completely before moving to another activating Annotation's actions, even if an action causes another activating Annotation's actions to be triggered. Instead, the activating Annotations are queued up in order that they are triggered, and when the client finishes one such annotation it can begin to process the next, and so on.
 
-body of the activating anno is an ordered list of SpecificResource
+The possible values of `action` are:
 
-...which may have selectors eg for AnimationSelector
-...but may just have action which are processed in order; client performs the action on the source.
+| Value | Description |
+| ----- | ----------- |
+| enable | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
+| disable | The acted-upon resource is not able to be selected or triggered |
+| show | The "hidden" behavior is removed from the acted-upon resource, if it has it |
+| hide | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
+| reset | A resource with a timeline (such as a container with a `duration` or internal clock (such as a video) has the clock reset to 0 |
+| start | Time-based content resources or animations within resources that are not playing are started |
+| stop | Time-based content resources or animations within resources that are playing are stopped|
+| select | The acted-upon resource is selected for use, such as a Camera within a Scene |
 
-The client must perform all the actions; if it can't perform all of them it must not perform any.
-If the activating annotation that is currently being processed is disabled as part of that processing, don't stop processing the ordered list, keep going through to the end.
-
-Only process one set of activating anno bodies at a time. If a body causes another activating anno to be triggered, queue up that activating anno and don't tackle it until you've finished processing all the bodies of the current one.
-
-values are:
-
- * enable (make selectable, or makes an activating anno triggerable)
- * disable (inverse)
- * show (removes behavior:hidden)
- * hide (applies behavior:hidden)
- * reset (rewind AV to beginning)
- * stop (animations in models; time-based content resources that are not painted into duration)
- * start (ditto)
- * select (rarely used because scope)
+The value of `action` _MUST_ be an array of strings, where each item in the array is drawn from the above list or a registered extension.
 
 * A Specific Resource _MAY_ have the `action` property.<br/>
   Clients _SHOULD_ process the `action` property on Specific Resources.
 * Other types of resource _MUST NOT_ have the `action` property.<br/>
   Clients _SHOULD_ ignore `action` on other types of resource.
 
+{% include api/code_header.html %}
+```json
+  "action": ["show", "enable"]
+```
 
 ### angle
 {: #angle}
