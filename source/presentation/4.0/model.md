@@ -631,6 +631,8 @@ The Image API Selector is used to describe the operations available via the IIIF
 
 The Image API Selector has properties following the parameters from the API, and record the values needed to fill out the URL structure in the request.  If the property is not given, then a default should be used.
 
+> TODO: RS thinks this needs `version` to interpret ^ correctly, which changed between 2.1 and 3.0
+
 | Property | Default   | Description                                            |
 | -------- | --------- | -----------------------------------------------------  |
 | region   | "full"    | The string to put in the region parameter of the URI.  |
@@ -2151,7 +2153,7 @@ The value of `quality` _MUST_ be a string, drawn from the list of acceptable qua
 ### quantityValue
 {: #quantityValue}
 
-The `quantityValue` property of a Quantity conveys its numerical component.
+The `quantityValue` property of a Quantity conveys its numerical component, used with `unit` to determine how to interpret the number relative to quantities.
 
 The value of `quantityValue` _MUST_ be a floating point number.
 
@@ -2186,6 +2188,8 @@ The value of the `refinedBy` property _MUST_ be a JSON Object, which _MUST_ desc
 
 The value of the region parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
 
+The value of `quality` _MUST_ be a string, and must conform to the requirements for the region parameter described in the Image API.
+
 * The IIIF Image API Selector _MAY_ have the `region` property with exactly one value.<br/>
   Clients _MUST_ process the `region` property on a IIIF Image API Selector.
 * Other types of resource _MUST NOT_ have the `region` property.<br/>
@@ -2200,7 +2204,7 @@ The value of the region parameter in the IIIF Image API URL structure, as record
 ### rendering
 {: #rendering}
 
-A resource that is an alternative, non-IIIF representation of the resource that has the `rendering` property. Such representations typically cannot be painted onto a single Canvas, as they either include too many views, have incompatible dimensions, or are compound resources requiring additional rendering functionality. The `rendering` resource _MUST_ be able to be displayed directly to a human user, although the presentation may be outside of the IIIF client. The resource _MUST NOT_ have a splash page or other interstitial resource that mediates access to it. If access control is required, then the [IIIF Authentication API][iiif-auth] is _RECOMMENDED_. Examples include a rendering of a book as a PDF or EPUB, a slide deck with images of a building, or a 3D model of a statue.
+A resource that is an alternative, non-IIIF representation of the resource that has the `rendering` property. Such representations typically cannot be painted onto a single Container, as they either include too many views, have incompatible dimensions, or are compound resources requiring additional rendering functionality. The `rendering` resource _MUST_ be able to be displayed directly to a human user, although the presentation may be outside of the IIIF client. The resource _MUST NOT_ have a splash page or other interstitial resource that mediates access to it. If access control is required, then the [IIIF Authentication API][iiif-auth] is _RECOMMENDED_. Examples include a rendering of a book as a PDF or EPUB, a slide deck with images of a building, or a 3D model of a statue otherwise represented as an Image on a Canvas.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have the `format` and `language` properties.
 
@@ -2220,6 +2224,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `t
   ]
 }
 ```
+
+
 ### requiredStatement
 {: #requiredStatement}
 
@@ -2240,26 +2246,11 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 }
 ```
 
-### resets
-{: #resets}
-
-FIXME: write this
-
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "resets": []
-}
-```
-
 
 ### rights
 {: #rights}
 
-A string that identifies a license or rights statement that applies to the content of the resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [extension][prezi40-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
-
-!!! registration not extension
+A string that identifies a license or rights statement that applies to the content of the resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added in the [rights registry][break-until-there-is-a-registry]. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
 If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
@@ -2281,7 +2272,9 @@ The machine actionable URIs for both Creative Commons licenses and RightsStateme
 ### rotation
 {: #rotation}
 
-The value of the rotation parameter in the IIIF Image API URL structure, as recorded in an Image API Selector. Note well that the value _MUST_ be a string, not a number, in order to allow for the "!" character which indicates a mirror image.
+The value of the rotation parameter in the IIIF Image API URL structure, as recorded in an Image API Selector. 
+
+The value _MUST_ be a string, not a number, in order to allow for the "!" character which indicates a mirror image.
 
 * The IIIF Image API Selector _MAY_ have the `rotation` property with exactly one value.<br/>
   Clients _MUST_ process the `rotation` property on a IIIF Image API Selector.
