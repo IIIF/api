@@ -684,6 +684,8 @@ The following classes are typically used within Scenes. They might have utility 
 
 A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent. The first Camera defined in a Scene without the `hidden` behavior is the default Camera. Camera is an abstract class and _MUST NOT_ be instantiated directly.
 
+If a Scene does not have any Cameras defined within it, then the client _MUST_ provide a default Camera. The type, properties and position of this default camera are client-dependent. If, at any time, there are no non-hidden cameras in a Scene, then the client _MUST_ provide a default Camera as if no Cameras were defined.
+
 If either the position or direction is not specified, then the position defaults to the origin of the Scene, and the direction defaults to pointing along the z axis towards negative infinity.
 
 __Properties__<br/>
