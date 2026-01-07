@@ -2804,7 +2804,9 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 
 The unit of measurement of a quantity expressed by a Quantity.
 
-The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be defined externally as an [extension][prezi30-ldce].
+The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be registered via the IIIF unit registry. 
+
+> TODO: create registry and link it here
 
 | Value    |  Unit     |
 |----------|-----------|
