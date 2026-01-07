@@ -16,21 +16,21 @@ editors:
   - name: Michael Appleby
     ORCID: https://orcid.org/0000-0002-1266-298X
     institution: Yale University
-  - name: Tom Crane
-    ORCID: https://orcid.org/0000-0003-1881-243X
-    institution: Digirati
-  - name: Robert Sanderson
-    ORCID: https://orcid.org/0000-0003-4441-6852
-    institution: J. Paul Getty Trust
   - name: Dawn Childress
     ORCID: https://orcid.org/0000-0003-2602-2788
     institution: UCLA
-  - name: Julie Winchester
-    ORCID: https://orcid.org/0000-0001-6578-764X
-    institution: Duke University
+  - name: Tom Crane
+    ORCID: https://orcid.org/0000-0003-1881-243X
+    institution: Digirati
   - name: Jeff Mixter
     ORCID: https://orcid.org/0000-0002-8411-2952
     institution: OCLC
+  - name: Robert Sanderson
+    ORCID: https://orcid.org/0000-0003-4441-6852
+    institution: Yale University
+  - name: Julie Winchester
+    ORCID: https://orcid.org/0000-0001-6578-764X
+    institution: Duke University
 hero:
   image: ''
 ---
@@ -2674,5 +2674,3 @@ The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _S
 ## Acknowledgements
 
 ## Change Log
-
-
