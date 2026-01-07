@@ -1720,12 +1720,14 @@ A Timeline, Canvas, or Scene with `duration` can only be painted into a Containe
   "type": "Annotation",
   "motivation": ["painting"],
   "timeMode": "loop",
-  "body": {
-    "id": "https://example.org/iiif/presentation/examples/nesting/timeline/t1",
-    "type": "Timeline",
-    "label": { "en": [ "Side A: 99 Luftballons" ] },
-    "duration": 231
-  },
+  "body": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/nesting/timeline/t1",
+      "type": "Timeline",
+      "label": { "en": [ "Side A: 99 Luftballons" ] },
+      "duration": 231
+    }
+  ],
   "target": "https://example.org/iiif/presentation/examples/nesting/canvas-10minute-duration"
 }
 ```
