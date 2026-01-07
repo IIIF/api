@@ -1972,14 +1972,14 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
 ### position
 {: #position}
 
-It is important to be able to position the (textual) body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
+It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a `TextualBody` or a `SpecificResource`. 
 
 The value of this property _MUST_ be a JSON object conforming to the `SpecificResource` pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
-> TODO: Should this be allowed on SpecificResource used as `body` of an Annotation?
-
-* A TextualBody _MAY_ have the `position` property.<br/>
-  Clients _SHOULD_ process the `position` property on TextualBody instances.
+* A Textual Body _MAY_ have the `position` property.<br/>
+  Clients _SHOULD_ process the `position` property on Textual Body instances.
+* A Specific Resource _MAY_ have the `position` property.<br/>
+  Clients _SHOULD_ process the `position` property on Specific Resource instances.
 * Other classes _MUST NOT_ have the `position` property.<br/>
   Clients _MUST_ ignore the `position` property on all other classes.
 
