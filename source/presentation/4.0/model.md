@@ -2321,6 +2321,11 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 }
 ```
 
+### selector
+{: #selector}
+
+TODO
+
 
 ### service
 {: #service}
@@ -2432,7 +2437,7 @@ The value of the size parameter in the IIIF Image API URL structure, as recorded
 
 The `source` property refers to the URI of the resource that the Specific Resource is a more constrained version or representation of.
 
-For more information about source and Specific Resources, see the [W3C Annotation Model](For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
+For more information about source and Specific Resources, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#specific-resources).
 
 The value _MUST_ be a string, and the value _MUST_ be a URI. The value _MUST NOT_ include a media fragment.
 
