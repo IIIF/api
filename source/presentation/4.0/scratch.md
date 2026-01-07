@@ -415,3 +415,32 @@ What to do about activating annos in the introduced content?
       }
     ],
 ```
+
+>Taken from Nesting section in index.md
+
+<!--
+It may be desirable to exercise greater control over how the Canvas is painted into the Scene by selecting the coordinate points in the Scene that should correspond to each corner of the Canvas. This provides fine-grained manipulation of Canvas placement and/or scale, and for optionally introducing Canvas distortion or skew. Annotations may use a WktSelector to select different points in the Scene to align with the top-left, bottom-left, bottom-right, and top-right corners of the Canvas. In this case, the four Scene coordinates should be listed beginning with the coordinate corresponding to the top-left corner of the Canvas, and should proceed in a counter-clockwise winding order around the Canvas, with coordinates corresponding to bottom-left, bottom-right, and top-right corners in order respectively. The use of WktSelector for this purpose overrides any use of Transforms on the Canvas Annotation.
+
+Example placing top-left at (0, 1, 0); bottom-left at (0, 0, 0); bottom-right at (1, 0, 0); and top-right at (1, 1, 0):
+
+```json
+"selector": [
+  {
+    "type": "WktSelector",
+    "wktLiteral": "POLYGON Z ((0 1 0, 0 0 0, 1 0 0, 1 1 0))"
+  }
+]
+```
+-->
+
+```json
+{
+  "id": "https://example.org/iiif/scenes/1",
+  "type": "Scene",
+  "label": {"en": ["Chessboard"]},
+  "backgroundColor": "#000000",
+  "items": [
+   "Note: Annotations Live Here"
+  ]
+}
+```
