@@ -627,11 +627,10 @@ An Animation Selector _MAY_ have the following properties: [id](#id)
 {: #ImageApiSelector}
 > `"type": "ImageApiSelector"`
 
-The Image API Selector is used to describe the operations available via the IIIF Image API in order to retrieve a particular image representation.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
+The Image API Selector is used to describe the operations expected to occur via the definitions of the IIIF Image API. This can be used with IIIF Image API services in order to retrieve a particular image representation, but also can be applied client side on static images, such as to process rotation via CSS.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
 
-The Image API Selector has properties following the parameters from the API, and record the values needed to fill out the URL structure in the request.  If the property is not given, then a default should be used.
+The Image API Selector has properties following the parameters from the API, and record the values which would be used to fill out the URL structure in the request if a service is available.  If the property is not given, then a default should be used.
 
-> TODO: RS thinks this needs `version` to interpret ^ correctly, which changed between 2.1 and 3.0
 
 | Property | Default   | Description                                            |
 | -------- | --------- | -----------------------------------------------------  |
@@ -640,6 +639,7 @@ The Image API Selector has properties following the parameters from the API, and
 | rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
 | quality  | "default" | The string to put in the quality parameter of the URI. |
 | format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
+| version   | "2.1"    | The string representation of a published version number in "major.minor" form of the IIIF Image API. If the version given in the Selector differs from the version exposed by a Image API service, the client is expected to translate between versions as possible. | 
 
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -2841,6 +2841,10 @@ Embedded CssStylesheet, Selector or TextualBody `value`:
 ```json-doc
 { "value": "Example Textual Body" }
 ```
+
+### version
+
+> TODO: write me
 
 
 ### via
