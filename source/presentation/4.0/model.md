@@ -2856,7 +2856,19 @@ Embedded CssStylesheet, Selector or TextualBody `value`:
 
 ### version
 
-> TODO: write me
+The `version` property of a resource gives the version of a specification by which it should be understood as a string. The primary use within the Presentation API is as a property of the [IIIF Image API Selector](#ImageApiSelector) class, where it describes the version of the Image API by which the other properties of the selector should be interpreted.
+
+The value of the `version` property _MUST_ be a string, and _SHOULD_ be of the form "major.minor". It _MUST_ be this form when used with the IIIF Image API Selector.
+
+* A IIIF Image API Selector _MAY_ have the `version` property.<br/>
+  Clients _SHOULD_ process `version` on a IIIF Image API Selector.
+* Other resources _MAY_ have the `version` property.<br/>
+  Clients _MAY_ process `version` on other resources.
+
+{% include api/code_header.html %}
+```json-doc
+{ "version": "2.1" }
+```
 
 
 ### via
