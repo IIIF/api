@@ -550,8 +550,8 @@ The example demonstrates the use of the common descriptive properties [`label`][
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [AnnotationPage](#model/AnnotationPage), [Annotation](#model/Annotation), [Agent](#model/Agent)<br/><br/>
-Properties: [id](#model/id), [type](#model/type), [label](#model/label), [metadata](#modle/metadata), [summary](#modle/summary), [rights](#model/rights), [homepage](#model/homepage), [thumbnail](#model/thumbnail), [provider](#model/provider), and [service](#model/Service)
+Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [AnnotationPage][prezi-40-model-AnnotationPage], [Annotation][prezi-40-model-Annotation], [Agent][prezi-40-model-Agent]<br/><br/>
+Properties: [id][prezi-40-model-id], [type][prezi-40-model-type], [label][prezi-40-model-label], [metadata][prezi-40-model-metadata], [summary][prezi-40-model-summary], [rights][prezi-40-model-rights], [homepage][prezi-40-model-homepage], [thumbnail][prezi-40-model-thumbnail], [provider][prezi-40-model-provider], and [service][prezi-40-model-Service]
 {: .note}
 
 
@@ -681,8 +681,8 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas)<br/><br/>
-Properties: [behavior](#model/behavior), [viewingDirection](#model/viewingDirection), [start](#model/start), [rendering](#model/rendering), [requiredStatement](#model/requiredStatement)
+Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas]<br/><br/>
+Properties: [behavior][prezi-40-model-behavior], [viewingDirection][prezi-40-model-viewingDirection], [start][prezi-40-model-start], [rendering][prezi-40-model-rendering], [requiredStatement][prezi-40-model-requiredStatement]
 {: .note}
 
 
@@ -855,8 +855,8 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents:
 {: .note}
 
 __Definitions__<br/>
-Classes: [Collection](#model/Collection), [Range](#model/Range), [AnnotationCollection](#model/AnnotationCollection)<br/><br/>
-Properties: [behavior](#model/behavior), [navPlace](#model/navPlace), [navDate](#model/navDate), [structure](#model/structures), [supplementary](#model/supplementary)
+Classes: [Collection][prezi-40-model-Collection], [Range][prezi-40-model-Range], [AnnotationCollection][prezi-40-model-AnnotationCollection]<br/><br/>
+Properties: [behavior][prezi-40-model-behavior], [navPlace][prezi-40-model-navPlace], [navDate][prezi-40-model-navDate], [structure][prezi-40-model-structures], [supplementary][prezi-40-model-supplementary]
 {: .note}
 
 thumbnail-nav
@@ -1004,8 +1004,8 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Timeline](#model/Timeline),[TextualBody](#model/TextualBody)<br/><br/>
-Properties: [duration](#model/duration), [format](#model/format), [language](#model/language), [behavior](#model/behavior), [annotations](#model/annotations), [accompanyingContainer](#model/accompanyingContainer)
+Classes: [Manifest][prezi-40-model-Manifest], [Timeline][prezi-40-model-Timeline],[TextualBody][prezi-40-model-TextualBody]<br/><br/>
+Properties: [duration][prezi-40-model-duration], [format][prezi-40-model-format], [language][prezi-40-model-language], [behavior][prezi-40-model-behavior], [annotations][prezi-40-model-annotations], [accompanyingContainer][prezi-40-model-accompanyingContainer]
 {: .note}
 
 
@@ -1134,8 +1134,8 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Canvas](#model/Canvas), [Choice](#model/Choice)<br/><br/>
-Properties: [fileSize](#model/fileSize), [format](#model/format), [provides](#model/provides), [timeMode](#model/timeMode), [behavior](#model/behavior), [placeholderContainer](#model/placeholderContainer)
+Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [Choice][prezi-40-model-Choice]<br/><br/>
+Properties: [fileSize](#model/fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
 # 3D
@@ -1363,8 +1363,8 @@ The Light is green and has a position, but has its default orientation of lookin
 {: .note}
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [Model](#model/Model), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [PerspectiveCamera](#model/PerspectiveCamera), [SpotLight](#model/SpotLight) <br/><br/>
-Properties: [backgroundColor](#model/backgroundColor), [lookAt](#model/lookAt), [near](#model/near), [far](#model/far), [feildOfView](#model/fieldOfView), [angle](#model/angle), [color](#model/color)
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Model](#model/Model), [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [PerspectiveCamera][prezi-40-model-PerspectiveCamera], [SpotLight][prezi-40-model-SpotLight] <br/><br/>
+Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [feildOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
 {: .note}
 
 ## Use Case 6: Complex Scene
@@ -1516,8 +1516,8 @@ This example is a Manifest with a single Scene with multiple models painted into
 {: .note}
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [Model](#model/Model), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [RotateTransform](#model/RotateTransform), [TranslateTransform](#model/TranslateTransform), [ScaleTransform](#model/ScaleTransform)<br/><br/>
-Properties: [exclude](#model/exclude), [interactionMode](#model/interactionMode)
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Model](#model/Model), [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [TranslateTransform][prezi-40-model-TranslateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]<br/><br/>
+Properties: [exclude][prezi-40-model-exclude], [interactionMode][prezi-40-model-interactionMode]
 {: .note}
 
 <!--
@@ -1701,8 +1701,8 @@ In this example, the audio content resources have durations that do not match th
 {: .note}
 
 __Definitions__<br/>
-Classes: [Manifest](#model/Manifest), [Scene](#model/Scene), [SpecificResource](#model/SpecificResource), [PointSelector](#model/PointSelector), [FragmentSelector](#model/FragmentSelector), [AmbientAudio](#model/AmbientAudio), [PointAudio](#model/PointAudio), [SpotAudio](#model/SpotAudio)<br/><br/>
-Properties: [duration](#model/duration), [volume](#model/volume), [angle](#model/angle), [lookAt](#model/lookAt), [timeMode](#model/timeMode)
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [FragmentSelector][prezi-40-model-FragmentSelector], [AmbientAudio][prezi-40-model-AmbientAudio], [PointAudio][prezi-40-model-PointAudio], [SpotAudio][prezi-40-model-SpotAudio]<br/><br/>
+Properties: [duration][prezi-40-model-duration], [volume][prezi-40-model-volume], [angle][prezi-40-model-angle], [lookAt][prezi-40-model-lookAt], [timeMode][prezi-40-model-timeMode]
 {: .note}
 
 
