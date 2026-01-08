@@ -2889,10 +2889,7 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 ### viewingDirection
 {: #viewingDirection}
 
-!!! TODO: Rewrite to be where is the navigation control to step to the next/ previous in the items of the manifest
-
-
-The direction in which a list of Containers _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left, and forwards in the list is to the right.
+The visual direction in which navigating to the next or previous item in a resource with `items` _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left in the UI, and forwards in the list is to the right.
 
 The value _MUST_ be a string.
 
