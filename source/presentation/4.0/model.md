@@ -2323,6 +2323,31 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 }
 ```
 
+### selector
+{: #selector}
+
+The `selector` property on a Specific Resource references an array of Selector instances, any of which can be used to determine the desired region or part of the resource in the `source` property of the Specfic Resource. Each Selector in the array _SHOULD_ select the same content, however some Selector classes can be more precise than others. Publishers _SHOULD_ order the array based on the preferred Selector to use, likely the most accurate. Clients _MUST_ choose one of the Selectors to process, based on which are supported, in the preference order.
+
+For more information about Selectors and the `selector` property, please see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#selectors).
+
+The value of `selector` _MUST_ be an array of JSON objects. Each item _MUST_ have the `type` property and be an instance of a Selector.
+
+* A Specific Resource _MAY_ have the `selector` property with at least one item.<br/>
+  Clients _SHOULD_ process `selector` on a Specific Resource.
+* Other resource types _MUST NOT_ have the `selector` property.<br/>
+  Clients _MUST_ ignore `selector` on other resource types.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "selector": [
+    {
+      "type": "AudioContentSelector"
+    }
+  ]
+}
+```
+
 
 ### service
 {: #service}
