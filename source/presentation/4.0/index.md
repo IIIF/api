@@ -52,6 +52,27 @@ pre.highlight code {
 .highlight .s2 {
   color: #a0f0f0
 }
+
+a > code::after {
+  content: "↗";
+  font-size: 0.65em;
+  opacity: 0.6;
+  margin-left: 0.2em;
+  vertical-align: super;
+  text-decoration: none;
+}
+
+a > code {
+ /* text-decoration: underline;*/
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+a:hover > code {
+  background-color: rgba(0,0,0,0.05);
+  text-decoration: underline;
+}
+
 </style>
 
 # Status of this Document
