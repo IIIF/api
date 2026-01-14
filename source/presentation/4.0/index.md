@@ -73,6 +73,42 @@ a:hover > code {
   text-decoration: underline;
 }
 
+ .code-example {
+   margin: 0 0 1em 0;
+ }
+ .code-example__header {
+   background-color: #edf0f0;
+   border-top-left-radius: 1em;
+   border-top-right-radius: 1em;
+   padding: 0.6em 1.5em;
+   font-weight: bold;
+ }
+ .code-example__header a {
+   color: #171717;
+   text-decoration: underline;
+ }
+ .code-example__header + .highlight pre {
+   border-top-left-radius: 0;
+   border-top-right-radius: 0;
+ }
+ figure.highlight pre {
+   border-bottom-left-radius: 1em;
+   border-bottom-right-radius: 1em;
+ }
+.code-example > figure.highlight {
+   margin-left: 0px;
+   margin-right: 0px;
+   margin-top: 0px;
+   margin-bottom: 0px;
+   text-align: left;
+  
+ }
+
+ code.language-json {
+   font-size: 0.9rem;
+   line-height: 1.0;
+   font-family: "Courier Prime", monospace;
+ }
 </style>
 
 # Status of this Document
@@ -170,33 +206,7 @@ A Container that represents a bounded temporal range, without any spatial coordi
 
 Timelines have an additional required property of [`duration`][prezi-40-model-duration], which gives the extent of the Timeline as a floating point number of seconds.
 
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/timeline",
-  "type": "Timeline",
-  "duration": 32.76,
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p1",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/t1",
-          "type": "Annotation",
-          "motivation": [ "painting" ],
-          "body": {
-            "id": "https://iiif.io/api/presentation/example-content-resources/audio/clip.mp3",
-            "type": "Audio",
-            "format": "audio/mp3",
-            "duration": 32.76
-          },
-          "target": "https://example.org/iiif/presentation/examples/manifest-with-containers/timeline"
-        }
-      ]
-    }
-  ]
-}
-```
+{% include code_example.html src="02_timeline.json" from=11 to=35 %}
 
 ### Canvas
 
