@@ -304,6 +304,8 @@ All Containers _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI. Th
 
 Containers _SHOULD_ have an `items` property which is a list of Annotation Pages. Each Annotation Page, defined below, maintains a list of Annotations, which associate Content Resources to be rendered as part of the Container. Annotations that do not associate content to be rendered, but instead are about the Container itself, such as a comment or tag, are recorded using Annotation Pages in the `annotations` property of the Container. A Container _MAY_ have zero annotations associated with it and still be useful, such as when the properties of the Container convey to the user that it represents a page that has not been digitized, or there is otherwise no digital content available to display. In this case the `items` property is not included.
 
+Containers specify extents in space and/or time with one or more space or time dimensions such as `height`, `width`, or `duration`. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Container's dimensions, such as at coordinates below 0,0 or greater than specified height or width for a Canvas, or before 0 seconds or after the duration for a Timeline. Content resources that have dimensions which are not defined for the Container _MUST NOT_ be associated with that Container by an Annotation that has the `motivation` value "painting". For example, it is valid to use an Annotation that has the `motivation` value "painting" to associate an Image (which has only height and width) with a Canvas that has `height`, `width`, and `duration` properties, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not `duration`. Such a resource _MAY_ instead be referenced using the rendering property, or by Annotations that have a `motivation` value other than "painting" in the annotations property.
+
 __Properties__<br/>
 All Containers _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
 All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items)<br/><br/>
@@ -346,7 +348,7 @@ A Scene is a Container that represents an infinitely large three-dimensional spa
 
 The axes of the coordinate system are measured in arbitrary units. All axes use the same unit scaling and do not necessarily correspond to any physical unit of measurement, unless `spatialScale` is supplied.
 
-All resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes), local coordinate space. Transforms may modify the local coordinate space of a resource relative to the Scene’s "global" space.
+All 3d resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes) local coordinate space. Transforms may modify the local coordinate space of a resource relative to the Scene’s "global" space.
 
 __Properties__<br/>
 A Scene _MAY_ have the following additional properties: [duration](#duration).
@@ -371,7 +373,7 @@ When Annotations are used to associate content resources with a Canvas, the cont
 
 Annotations in IIIF _SHOULD NOT_ use the `bodyValue` property defined by the Web Annotation Data Model, but instead use the more consistent TextualBody class.
 
-For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal points or regions outside of the bounds of the Container. For Scenes with a `duration`, Annotations _MUST NOT_ target temporal points or regions outside of that duration. Scenes, Canvases and other content with spatial extents _MUST NOT_ be annotated directly onto a Timeline which does not have a spatial extent. Resources with a `duration`, including Timelines and Canvases, _MAY_ be painted into Canvases and Scenes without a `duration`, however the playback of the resource will not able to be controlled or synchronized with the playback of other time-based media.
+For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal points or regions outside of the bounds of the Container. For Scenes with a `duration`, Annotations _MUST NOT_ target temporal points or regions outside of that duration. Scenes, Canvases and other content with spatial extents _MUST NOT_ be annotated directly onto a Timeline which does not have a spatial extent. Resources with a `duration`, including Timelines and Canvases, _MUST NOT_ be painted into Canvases and Scenes without a `duration`, however they _MAY_ instead be referenced by a non-painting Annotation or using the rendering property.
 
 __Properties__<br/>
 An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/><br/>
@@ -468,11 +470,17 @@ Content Resources _MUST_ have an HTTP(s) given in `id`. It _MUST_ be able to be 
 
 If the Content Resource is an Image, and a IIIF Image service is available for it, then the `id` property of the Content Resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the Image Service. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
-If the Content Resource is a 3d Model, then regardless of the file format, it is treated as being within an infinitely large three dimensional space with an origin (0 on all three axes). This is described as its "local coordinate space".
+If the Content Resource is a 3d Model, then regardless of the file format, it is treated as being within an infinitely large three dimensional space with an origin (0 on all three axes). This is described as its "local coordinate space". 3d Content Resources _MAY_ be painted into Scenes via a painting Annotation. When painted as an Annotation, the origin of the 3d Content Resource's local coordinate space _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3d point in the Scene if a [Point Selector](#point-selector) is used.
+
+Non-3d Content Resources such as images, audio, and video _MUST NOT_ be painted into a Scene as Annotations. Instead, to include image and video resources in a Scene, the resource(s) _MUST_ be painted on to a Canvas that is painted into the Scene. To include audio resources in a Scene, the resource(s) or Timeline _MUST_ be referenced by an AudioEmitter that is painted into the Scene.
 
 If there is a need to distinguish between Content Resources, then all such resources _SHOULD_ have the `label` property.
 
 Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description. This is often described as "nesting".
+
+A Canvas painted into a Scene has special requirements. The top-left corner of the Canvas _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3d point in the Scene if a [Point Selector](#point-selector) is used. The Canvas _MUST_ be scaled to the Scene such that Canvas coordinate dimensions after any [Transforms](#transforms) are applied correspond to Scene coordinate dimensions with 1:1 scaling. A Canvas painted into a Scene as an Annotation has forward and backward faces, and by default the forward face is toward the positive z axis of the Scene, though this may be modified by Transforms. The content of the Canvas _SHOULD_ be displayed on the forward face, and the backward face _SHOULD_ display either any `backgroundColor` of the Canvas or a reverse view of the content.
+
+A Scene painted into a Scene has one special requirement, that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored.
 
 __Properties__<br/>
 A Content Resource _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
@@ -524,6 +532,8 @@ A Fragment Selector _MAY_ have the following properties: [id](#id).<br/><br/>
 There are common use cases in which a point, rather than a range or area, is the target of the Annotation. For example, putting a pin in a map should result in an exact point, not a very small rectangle. Points in time are not very short durations, and user interfaces should, equally, treat these differently. This is particularly important when zooming in (either spatially or temporally) beyond the scale of the frame of reference.
 
 The spatial aspect of the point is given with `x` and `y` for a two-dimensional point, along with `z` for a three-dimentional point. The temporal aspect of the point is given with `instant`. If `instant` is not supplied, and the target resource has a `duration`, the selector is interpreted as targeting the entire duration. If `instant` is supplied, but no spatial point, the selector is interpreted as targeting the entire spatial aspect of the resource.
+
+For 3d content resources painted into a Scene that have a local coordinate space relative to the global coordinate space of the Scene, clients _MUST_ align the local coordinate origin of the content resource with the 3d point indicated by the Point Selector within the Scene. Thus the 3d resource's origin is placed at the desired point in the Scene. For a Canvas painted into a Scene as an Annotation, the top-left corner of the Canvas (the Canvas coordinate origin) _MUST_ be aligned with the 3d point indicated by the Point Selector within the Scene.
 
 __Properties__<br/>
 A Point Selector _MUST_ have the following properties: [type](#type)<br/><br/>
@@ -627,9 +637,10 @@ An Animation Selector _MAY_ have the following properties: [id](#id)
 {: #ImageApiSelector}
 > `"type": "ImageApiSelector"`
 
-The Image API Selector is used to describe the operations available via the IIIF Image API in order to retrieve a particular image representation.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
+The Image API Selector is used to describe the operations expected to occur via the definitions of the IIIF Image API. This can be used with IIIF Image API services in order to retrieve a particular image representation, but also can be applied client side on static images, such as to process rotation via CSS.  In this case the resource is the abstract image as identified by the [IIIF Image API][image-api] base URI plus identifier, and the retrieval process involves adding the correct parameters after that base URI.
 
-The Image API Selector has properties following the parameters from the API, and record the values needed to fill out the URL structure in the request.  If the property is not given, then a default should be used.
+The Image API Selector has properties following the parameters from the API, and record the values which would be used to fill out the URL structure in the request if a service is available.  If the property is not given, then a default should be used.
+
 
 | Property | Default   | Description                                            |
 | -------- | --------- | -----------------------------------------------------  |
@@ -638,6 +649,7 @@ The Image API Selector has properties following the parameters from the API, and
 | rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
 | quality  | "default" | The string to put in the quality parameter of the URI. |
 | format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
+| version   | "2.1"    | The string representation of a published version number in "major.minor" form of the IIIF Image API. If the version given in the Selector differs from the version exposed by a Image API service, the client is expected to translate between versions as possible. | 
 
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -681,6 +693,8 @@ The following classes are typically used within Scenes. They might have utility 
 {: #Camera}
 
 A Camera provides a view of a region of a Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the Camera to render that region. The size and aspect ratio of the viewport is client and device dependent. The first Camera defined in a Scene without the `hidden` behavior is the default Camera. Camera is an abstract class and _MUST NOT_ be instantiated directly.
+
+If a Scene does not have any Cameras defined within it, then the client _MUST_ provide a default Camera. The type, properties and position of this default camera are client-dependent. If, at any time, there are no non-hidden cameras in a Scene, then the client _MUST_ provide a default Camera as if no Cameras were defined.
 
 If either the position or direction is not specified, then the position defaults to the origin of the Scene, and the direction defaults to pointing along the z axis towards negative infinity.
 
@@ -829,10 +843,9 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
   "angle": 15.0,
   "color": "#FFFFFF",
   "intensity": {
-    "id": "https://example.org/iiif/spotlight/1/value",
     "type": "Quantity",
-    "unit": "relative",
-    "quantityValue": 0.5
+    "quantityValue": 0.5,
+    "unit": "relative"
   }
 }
 ```
@@ -916,10 +929,9 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
   },
   "angle": 45.0,
   "volume": {
-    "id": "https://example.org/iiif/value/1",
     "type": "Quantity",
-    "unit": "relative",
-    "quantityValue": 1.0
+    "quantityValue": 1.0,
+    "unit": "relative"
   }
 }
 ```
@@ -1045,7 +1057,6 @@ A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
 {% include api/code_header.html %}
 ```json
 {
-  "id": "https://example.org/iiif/unit/2",
   "type": "Quantity",
   "quantityValue": 1.0,
   "unit": "m"
@@ -1133,41 +1144,39 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 ### action
 {: #action}
 
-Only valid on SpecificResource when bodies of activating annotations
+The `action` property is used on Specific Resources that are in the `body` array of activating annotations (Annotations with the  "activating" motivation). The values of the property are named actions which the client is being instructed to carry out upon the `source` of the Specific Resource. The list of possible values and their corresponding effects is given in the table below. Clients _MUST_ process the Specific Resources in the order given in the Annotation, and _MUST_ process the actions in the order given in the array. The client _MUST_ perform all of the actions on the respective resources, and if it cannot, then it _MUST NOT_ perform any of them. The set of actions within an Annotation is, thus, treated as an atomic transaction. If the activating annotation that is currently being processed is disabled as part of the processing, the client _MUST NOT_ stop processing the ordered list when this occurs but keep processing until the end of the current Annotation's set of actions. Each activating Annotation is processed completely before moving to another activating Annotation's actions, even if an action causes another activating Annotation's actions to be triggered. Instead, the activating Annotations are queued up in order that they are triggered, and when the client finishes one such annotation it can begin to process the next, and so on.
 
-body of the activating anno is an ordered list of SpecificResource
+The possible values of `action` are:
 
-...which may have selectors eg for AnimationSelector
-...but may just have action which are processed in order; client performs the action on the source.
+| Value  | Description |
+| ------ | ----------- |
+| enable | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
+| disable | The acted-upon resource is not able to be selected or triggered |
+| show   | The "hidden" behavior is removed from the acted-upon resource, if it has it |
+| hide   | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
+| reset  | The acted-upon resource is reset to its initial state, as if it (or its Container) had just been loaded for the first time |
+| start  | Time-based content resources or animations within resources that are not playing are started |
+| stop   | Time-based content resources or animations within resources that are playing are stopped|
+| select | The acted-upon resource is selected for use, such as a Camera within a Scene |
 
-The client must perform all the actions; if it can't perform all of them it must not perform any.
-If the activating annotation that is currently being processed is disabled as part of that processing, don't stop processing the ordered list, keep going through to the end.
-
-Only process one set of activating anno bodies at a time. If a body causes another activating anno to be triggered, queue up that activating anno and don't tackle it until you've finished processing all the bodies of the current one.
-
-values are:
-
- * enable (make selectable, or makes an activating anno triggerable)
- * disable (inverse)
- * show (removes behavior:hidden)
- * hide (applies behavior:hidden)
- * reset (rewind AV to beginning)
- * stop (animations in models; time-based content resources that are not painted into duration)
- * start (ditto)
- * select (rarely used because scope)
+The value of `action` _MUST_ be an array of strings, where each item in the array is drawn from the above list or a registered extension.
 
 * A Specific Resource _MAY_ have the `action` property.<br/>
   Clients _SHOULD_ process the `action` property on Specific Resources.
 * Other types of resource _MUST NOT_ have the `action` property.<br/>
   Clients _SHOULD_ ignore `action` on other types of resource.
 
+{% include api/code_header.html %}
+```json
+  "action": ["show", "enable"]
+```
 
 ### angle
 {: #angle}
 
 The `angle` property is used with SpotLights and Spot Audio Emitters to define the radius of the cone of emitted light or sound. Note that the `fieldOfView` property is defined as the entire field of view, not half (as might be inferred from `angle` using radius).
 
-The value _MUST_ be a floating point number greater than 0 and less than 90, and is measure in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0 and less than 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
@@ -1217,7 +1226,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
 
 This property sets the background color behind any painted resources on a spatial Container, such as a Canvas or Scene.
 
-The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a string which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
 
  * A Canvas _MAY_ have the `backgroundColor` property<br/>
    Clients _SHOULD_ render `backgroundColor` on any resource type.
@@ -1249,9 +1258,6 @@ The value _MUST_ be an array of strings.
 
  * Any resource type _MAY_ have the `behavior` property with at least one item.<br/>
    Clients _SHOULD_ process `behavior` on any resource type.
-
-
-TODO: Address https://github.com/IIIF/api/issues/2318
 
 | Value | Description |
 | ----- | ----------- |
@@ -1309,15 +1315,13 @@ The value _MUST_ be an array of JSON objects.
 ### canonical
 {: #canonical}
 
-The URI that SHOULD be used to track the resource's identity, regardless of where it is made accessible or its `id` property. The canonical URI can then be used as the target for annotations, regardless of the URI from which it was retrieved. If this property is set, then clients _MUST NOT_ change or delete it. Clients _MUST NOT_ assign a canonical URI if one is not present, as the resource might already have one assigned by a different system but it was not included in the representation received. Any reference to the `canonical` URI _MUST_ be treated as a reference to this resource.
-
-As the W3C model allows the property to be used on bodies and targets, and any resource _MAY_ be a body or target of an Annotation, this property _MAY_ be used on any resource in the IIIF specifications.
+The URI that _SHOULD_ be used to track the resource's identity, regardless of where it is made accessible or the value of its `id` property. The canonical URI can then be used as the target for annotations, regardless of the URI from which it was retrieved. If this property is set, then clients _MUST NOT_ change or delete it. Clients _MUST NOT_ assign a canonical URI if one is not present, as the resource might already have one assigned by a different system but was not included in the representation received. Any reference to the `canonical` URI _MUST_ be treated as a reference to this resource.
 
 For more information about `canonical`, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#other-identities).
 
 The value _MUST_ be a string, and the value must be an absolute HTTP(S) URI.
 
-* Any resource _MAY_ have the `canonical` property.
+* Any resource _MAY_ have the `canonical` property.<br/>
   Clients _MAY_ process the `canonical` property on any resource.
 
 {% include api/code_header.html %}
@@ -1367,7 +1371,7 @@ The value _MUST_ be a positive floating point number.
 ### exclude
 {: #exclude}
 
-Just as a Scene may contain multiple Annotations with model, light, and camera resources, a single 3D model file may contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes or models that themselves may contain groups of resources within a single Scene, it may not always be appropriate to include all possible cameras, lights, or other resources, and it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation being painted into a Scene. When `exclude` is used, the excluded resource type or functionality should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
+Just as a Scene may contain multiple Annotations with models, light, and cameras, a single 3D model file can also contain a collection of 3D resources, including model geometry, assemblages of lights, and/or multiple cameras, with some of these potentially manipulated by animations. When painting Scenes, or models that themselves may contain multiple resources, into a Scene, it may be desirable to opt not to import some of these resources. This is accomplished through the Annotation property `exclude`, which prevents the import of audio, lights, cameras, or animations from a particular Scene or model prior to the Annotation's body resource being painted into a Scene. When `exclude` is used, the excluded resource type or functionality should not be loaded into the Scene, and it is not possible to reactivate or turn on these excluded resources after loading.
 
 | Value      | Description |
 |------------|-------------|
@@ -1378,7 +1382,7 @@ Just as a Scene may contain multiple Annotations with model, light, and camera r
 
 The value of `exclude` is an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
 
-* An Annotation _MAY_ have the `exclude` property.
+* An Annotation _MAY_ have the `exclude` property.<br/>
   Clients _SHOULD_ process the `exclude` property.
 
 ```json
@@ -1390,9 +1394,9 @@ The value of `exclude` is an array of strings, each of which is one of the value
 
 This property gives the distance along the axis of the camera's orientation after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
-The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
+The value is a non-negative floating point number in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
-* A Camera _MAY_ have the `far` property<br/>
+* A Camera _MAY_ have the `far` property.<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
 
 ```json-doc
@@ -1429,14 +1433,14 @@ The value _MUST_ be a positive integer.
 ### first
 {: #first}
 
-This property references the first Annotation Page within an Annotation Collection, or the first CollectionPage within a Collection. Note that Collections will only have the `first` property if there is a large number of items, more than could conveniently be included in a single page.
+This property references the first Annotation Page within an Annotation Collection, or the first Collection Page within a Collection. Note that Collections will only have the `first` property if there is a large number of items, more than could conveniently be included in a single page.
 
 The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
-* A non-empty AnnotationCollection _MUST_ have the `first` property.<br/>
+* A non-empty Annotation Collection _MUST_ have the `first` property.<br/>
   Clients _MUST_ process the `first` property on an AnnotationCollection.
-* A non-empty Collection _MAY_ have the `first` property.<br/>
-  Clients _MUST_ process the `first` property on a Collection.
+* A non-empty Collection with pages _MUST_ have the `first` property.<br/>
+  Clients _MUST_ process the `first` property on a paged Collection.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1452,13 +1456,13 @@ The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _M
 ### format
 {: #format}
 
-For Content resources, the `format` property records the specific media type (often called a MIME type) for a content resource, for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value of the property should thus be the same as the value of the `Content-Type` header returned when the URI of the Content Resource is dereferenced.
+For Content Resources, the `format` property records the specific media type (often called a MIME type), for example `image/jpeg`. This is important for distinguishing different formats of the same overall type of resource, such as distinguishing text in XML from plain text. The value of the property should thus be the same as the value of the `Content-Type` header returned when the URI of the Content Resource is dereferenced.
 
 For the IIIF Image API Selector class however, the value of `format` is the parameter to use in the Image API URL construction, and thus to request a jpeg image, the value would be `jpg` instead.
 
 The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image API.
 
- * A content resource _SHOULD_ have the `format` property.<br/>
+ * A Content Resource _SHOULD_ have the `format` property.<br/>
    Clients _MAY_ render the `format` of any content resource.
  * A IIIF Image API Selector class _SHOULD_ have the `format` property.<br/>
    Clients _MUST_ process the `format` property on a IIIF Image API Selector.
@@ -1482,13 +1486,13 @@ For a IIIF Image API Selector:
 ### height
 {: #height}
 
-The height of the Canvas or external content resource. For content resources, the value is in pixels. For Canvases, the value does not have a unit. In combination with the width, it conveys an aspect ratio for the space in which content resources are located.
+The height of the Canvas or external Content Resource. For Content Resources, the value is in pixels. For Canvases, the value does not have a unit. Instead, in combination with the `width` property, it conveys an aspect ratio for the space in which Content Resources are located.
 
 The value _MUST_ be a positive integer.
 
  * A Canvas _MUST_ have the `height` property.<br/>
    Clients _MUST_ process `height` on a Canvas.
- * Content resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
+ * Content Resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
    Clients _SHOULD_ process `height` on content resources.
  * Other types of resource _MUST NOT_ have the `height` property.<br/>
    Clients _SHOULD_ ignore `height` on other types of resource.
@@ -1500,7 +1504,7 @@ The value _MUST_ be a positive integer.
 ### homepage
 {: #homepage}
 
-A web page that is about the object represented by the resource that has the `homepage` property. The web page is usually published by the organization responsible for the object, and might be generated by a content management system or other cataloging system. The resource _MUST_ be able to be displayed directly to the user. Resources that are related, but not home pages, _MUST_ instead be added into the `metadata` property, with an appropriate `label` or `value` to describe the relationship.
+A web page that is about the entity represented by the resource that has the `homepage` property. The web page is usually published by the organization responsible for the entity, and might be generated by a content management system or other cataloging system. The resource _MUST_ be able to be displayed directly to the user. Resources that are related, but not home pages, _MUST_ instead be added into the `metadata` property, with an appropriate `label` or `value` to describe the relationship.
 
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type`, and `label` properties, _SHOULD_ have a `format` property, and _MAY_ have the `language` property.
 
@@ -1529,7 +1533,7 @@ Please note that this specification has stricter requirements about the JSON pat
 ### id
 {: #id}
 
-The URI that identifies the resource. If the resource is only available embedded within another resource (see the [terminology section][prezi30-terminology] for an explanation of "embedded"), such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Containers, which _MUST_ have their own URI without a fragment.
+The URI that identifies the resource. If the resource is only available embedded within another resource, such as a Range within a Manifest, then the URI _MAY_ be the URI of the embedding resource with a unique fragment on the end. This is not true for Containers, which _MUST_ have their own URI without a fragment.
 
 The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI for resource classes defined or described in this specification. If the resource is retrievable via HTTP(S), then the URI _MUST_ be the URI at which it is published. External resources, such as profiles, _MAY_ have non-HTTP(S) URIs defined by other communities.
 
@@ -1576,26 +1580,26 @@ The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 
 ```json
 {
  "intensity": {
-  "id": "https://example.org/iiif/intensity/1",
-  "type": "Quantity",
-  "quantityValue": 0.5,
-  "unit": "relative"}
+    "type": "Quantity",
+    "quantityValue": 0.5,
+    "unit": "relative"
+ }
 }
 ```
 ### interactionMode
 {: #interactionMode}
 
-TODO clarify how `interactionMode` corresponds to `action`
+A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective). If `interactionMode` is not set for a Camera, then the mode to be used is client-dependent.
 
-A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective).
+When `interactionMode` is specified on a Scene and no Cameras are supplied within the Scene, then the default Camera created by the viewer _SHOULD_ have the given mode. Other specific Cameras within the Scene _MAY_ have different `interactionMode` values.
 
 When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting.
 
 For interaction modes that involve a Camera orbiting around a target point, the target point _SHOULD_ be the same as the Camera's `lookAt` property.
 
-The value _MUST_ be an array of strings.
+If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time. 
 
-> TODO: Undecided whether this is Camera and/or Container
+The value _MUST_ be an array of strings.
 
 * A Camera _MAY_ have the `interactionMode` property.<br/>
   Clients _SHOULD_ process `interactionMode` on a Camera.
@@ -1620,12 +1624,14 @@ The value _MUST_ be an array of strings.
 ### items
 {: #items}
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Canvases within a Manifest. All of these situations are covered with a single property, `items`.
+Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Containers within a Manifest. All of these situations are covered with a single property, `items`.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties. The items will be resources of different types, as described below.
 
- * A Collection _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
+ * A Collection _MUST_ either have the `items` property or the `first` and `last` properties. If present, each item _MUST_ be either a Collection or a Manifest.<br/>
    Clients _MUST_ process `items` on a Collection.
+ * A Collection Page _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
+   Clients _MUST_ process `items` on a Collection Page.
  * A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Container.<br/>
    Clients _MUST_ process `items` on a Manifest.
  * A Container _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
@@ -1682,7 +1688,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ### language
 {: #language}
 
-The language or languages used in the content of this external resource. This property is already available from the Web Annotation model for content resources that are the body or target of an Annotation, however it _MAY_ also be used for resources [referenced][prezi30-terminology] from `homepage`, `rendering`, and `partOf`.
+The language or languages used in the content of this external resource. It _MAY_ be used for resources [referenced][prezi30-terminology] from `body`, `target`, `source`, `homepage`, `rendering`, and `partOf`, amongst others.
 
 The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi30-languages].
 
@@ -1755,7 +1761,6 @@ If the value is a PointSelector, then the light or camera resource is rotated ar
 
 This rotation happens after the resource has been added to the Scene, and thus after any transforms have taken place in the local coordinate space.
 
-
 The value _MUST_ be a JSON object, conforming to either a reference to an Annotation, or an embedded PointSelector. If this property is not specified, then the default value for cameras is to look straight backwards (-Z) and for lights to point straight down (-Y).
 
 * A Camera _MAY_ have the `lookAt` property.<br/>
@@ -1808,22 +1813,22 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 
 This specification defines three values for the [Web Annotation Data Model][org-w3c-webanno] property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
 
-While any resource _MAY_ be the `target` of an Annotation, this specification defines only motivations for Annotations that target Containers. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Container, from ones with externally defined motivations which are typically comments about the Container.
+These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Container ("painting" motivation) and content from the Container ("supplementing" motivation), from ones with externally defined motivations which are typically comments about the Container. The "activating" motivation determines interactions with the resource in the Container.
 
 Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi30-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
 
 | Value | Description |
 | ----- | ----------- |
-| `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting`  _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
+| `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting` _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
 | `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
-| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, enable or disable. See [Dynamic Content]() for processing. |
+| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, and the type of change to put into effect. See the [`action`](#action) property for information about processing actions. |
 {: .api-table #table-motivations}
 
 
 ### navDate
 {: #navDate}
 
-A date that clients may use for navigation purposes when presenting the resource to the user in a date-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If the resource contains Canvases that have the `duration` property, the datetime given corresponds to the navigation datetime of the start of the resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is the datetime of the first moment of the recorded event.
+A date that clients may use for navigation purposes when presenting the resource to the user in a date-based user interface, such as a calendar or timeline. More descriptive date ranges, intended for display directly to the user, _SHOULD_ be included in the `metadata` property for human consumption. If the resource contains Containers that have the `duration` property, the datetime given corresponds to the navigation datetime of the start of the resource. For example, a Range that includes a Canvas that represents a set of video content recording a historical event, the `navDate` is the datetime of the first moment of the recorded event.
 
 The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator, but _MAY_ instead be given as an offset of the form `+hh:mm`.
 
@@ -1893,7 +1898,7 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection] [link] contai
 ### near
 {: #near}
 
-This property gives the distance along the cameria's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
+This property gives the distance along the Cameria's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
 
 The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
 
@@ -1977,12 +1982,14 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
 ### position
 {: #position}
 
-It is important to be able to position the (textual) body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
+It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a `TextualBody` or a `SpecificResource`. 
 
 The value of this property _MUST_ be a JSON object conforming to the `SpecificResource` pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
-* A TextualBody _MAY_ have the `position` property.<br/>
-  Clients _SHOULD_ process the `position` property on TextualBody instances.
+* A Textual Body _MAY_ have the `position` property.<br/>
+  Clients _SHOULD_ process the `position` property on Textual Body instances.
+* A Specific Resource _MAY_ have the `position` property.<br/>
+  Clients _SHOULD_ process the `position` property on Specific Resource instances.
 * Other classes _MUST NOT_ have the `position` property.<br/>
   Clients _MUST_ ignore the `position` property on all other classes.
 
@@ -2031,7 +2038,7 @@ The value must be a JSON object, with the `id` and `type` properties. The value 
 
 A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
-The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles] or a URI.
+The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles] or a full URI.
 
 * Resources [referenced][prezi30-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
@@ -2112,6 +2119,8 @@ The value _MUST_ be an array of strings, each string identifies a particular fea
 
 Note that the majority of the values have been selected from [accessibility feature spec][link] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
 
+> TODO: clarify the list and get the descriptions from the accessibility folks
+
 * Annotations with the `supplementing` motivation _MAY_ have the `provides` property.<br/>
   Clients _SHOULD_ ignore the `provides` property on all other resource.
 
@@ -2139,7 +2148,9 @@ Note that the majority of the values have been selected from [accessibility feat
 ### quality
 {: #quality}
 
-The value of the quality parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+The quality parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+
+The value of `quality` _MUST_ be a string, drawn from the list of acceptable qualities for the Image API.
 
 * The IIIF Image API Selector _MAY_ have the `quality` property with exactly one value.<br/>
   Clients _MUST_ process the `quality` property on a IIIF Image API Selector.
@@ -2154,16 +2165,16 @@ The value of the quality parameter in the IIIF Image API URL structure, as recor
 ### quantityValue
 {: #quantityValue}
 
-The `quantityValue` property of a Quantity conveys its numerical component.
+The `quantityValue` property of a Quantity conveys its numerical component, used with `unit` to determine how to interpret the number relative to quantities.
 
 The value of `quantityValue` _MUST_ be a floating point number.
 
-*  A Quantity _MUST_ have the `quantity` property.<br/>
-   Clients _MUST_ process the `quantity` property on a Quantity.
+*  A Quantity _MUST_ have the `quantityValue` property.<br/>
+   Clients _MUST_ process the `quantityValue` property on a Quantity.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "quantity": 0.1234123 }
+{ "quantityValue": 0.1234123 }
 ```
 
 ### refinedBy
@@ -2189,6 +2200,8 @@ The value of the `refinedBy` property _MUST_ be a JSON Object, which _MUST_ desc
 
 The value of the region parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
 
+The value of `quality` _MUST_ be a string, and must conform to the requirements for the region parameter described in the Image API.
+
 * The IIIF Image API Selector _MAY_ have the `region` property with exactly one value.<br/>
   Clients _MUST_ process the `region` property on a IIIF Image API Selector.
 * Other types of resource _MUST NOT_ have the `region` property.<br/>
@@ -2203,7 +2216,7 @@ The value of the region parameter in the IIIF Image API URL structure, as record
 ### rendering
 {: #rendering}
 
-A resource that is an alternative, non-IIIF representation of the resource that has the `rendering` property. Such representations typically cannot be painted onto a single Canvas, as they either include too many views, have incompatible dimensions, or are compound resources requiring additional rendering functionality. The `rendering` resource _MUST_ be able to be displayed directly to a human user, although the presentation may be outside of the IIIF client. The resource _MUST NOT_ have a splash page or other interstitial resource that mediates access to it. If access control is required, then the [IIIF Authentication API][iiif-auth] is _RECOMMENDED_. Examples include a rendering of a book as a PDF or EPUB, a slide deck with images of a building, or a 3D model of a statue.
+A resource that is an alternative, non-IIIF representation of the resource that has the `rendering` property. Such representations typically cannot be painted onto a single Container, as they either include too many views, have incompatible dimensions, or are compound resources requiring additional rendering functionality. The `rendering` resource _MUST_ be able to be displayed directly to a human user, although the presentation may be outside of the IIIF client. The resource _MUST NOT_ have a splash page or other interstitial resource that mediates access to it. If access control is required, then the [IIIF Authentication API][iiif-auth] is _RECOMMENDED_. Examples include a rendering of a book as a PDF or EPUB, a slide deck with images of a building, or a 3D model of a statue otherwise represented as an Image on a Canvas.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have the `format` and `language` properties.
 
@@ -2223,6 +2236,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `t
   ]
 }
 ```
+
+
 ### requiredStatement
 {: #requiredStatement}
 
@@ -2243,26 +2258,11 @@ The value of the property _MUST_ be a JSON object, that has the `label` and `val
 }
 ```
 
-### resets
-{: #resets}
-
-FIXME: write this
-
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "resets": []
-}
-```
-
 
 ### rights
 {: #rights}
 
-A string that identifies a license or rights statement that applies to the content of the resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added via the [extension][prezi40-ldce] mechanism. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
-
-!!! registration not extension
+A string that identifies a license or rights statement that applies to the content of the resource, such as the JSON of a Manifest or the pixels of an image. The value _MUST_ be drawn from the set of [Creative Commons][org-cc-licenses] license URIs, the [RightsStatements.org][org-rs-terms] rights statement URIs, or those added in the [rights registry][break-until-there-is-a-registry]. The inclusion of this property is informative, and for example could be used to display an icon representing the rights assertions.
 
 If displaying rights information directly to the user is the desired interaction, or a publisher-defined label is needed, then it is _RECOMMENDED_ to include the information using the `requiredStatement` property or in the `metadata` property.
 
@@ -2284,7 +2284,9 @@ The machine actionable URIs for both Creative Commons licenses and RightsStateme
 ### rotation
 {: #rotation}
 
-The value of the rotation parameter in the IIIF Image API URL structure, as recorded in an Image API Selector. Note well that the value _MUST_ be a string, not a number, in order to allow for the "!" character which indicates a mirror image.
+The value of the rotation parameter in the IIIF Image API URL structure, as recorded in an Image API Selector. 
+
+The value _MUST_ be a string, not a number, in order to allow for the "!" character which indicates a mirror image.
 
 * The IIIF Image API Selector _MAY_ have the `rotation` property with exactly one value.<br/>
   Clients _MUST_ process the `rotation` property on a IIIF Image API Selector.
@@ -2416,6 +2418,8 @@ The value _MUST_ be an array of JSON objects. Each object _MUST_ be a service re
 {: #size}
 
 The value of the size parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
+
+The value of `size` _MUST_ be a string, and conform to the size parameter definition of the IIIF Image API.
 
 * A IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
   Clients _MUST_ process the `size` property on a IIIF Image API Selector.
@@ -2733,7 +2737,7 @@ The value _MUST_ be a string.
 For compatability with ActivityStreams and the Change Discovery API, clients _SHOULD_ also accept `totalItems` as the name of this property.
 {: .note}
 
-The `total` property indicates the total number of annotations contained in an Annotation Collection.
+The `total` property indicates the total number of annotations contained in an Annotation Collection, or the total number of Collections and Manifests within a Collection. A Collection _SHOULD_ have `total` if it uses pages, and _MAY_ have it if it does not, however the information is readily available by finding the length of the `items` array in the latter case.
 
 The value of this property _MUST_ be a non-negative integer.
 
@@ -2794,7 +2798,6 @@ The value _MUST_ be a string.
 | `Dataset`     | Data not intended to be rendered to humans directly, such as a CSV, an RDF serialization or a zip file |
 | `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
 | `Model`       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3d javascript library |
-
 | `Text`        | Resources primarily intended to be read |
 | `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
@@ -2811,7 +2814,9 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 
 The unit of measurement of a quantity expressed by a Quantity.
 
-The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be defined externally as an [extension][prezi30-ldce].
+The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be registered via the IIIF unit registry. 
+
+> TODO: create registry and link it here
 
 | Value    |  Unit     |
 |----------|-----------|
@@ -2834,7 +2839,7 @@ The `value` property is used in several situations to convey a value of a resour
 
 In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
 
-Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation. In these cases the value of `value` _MUST_ be a string.
+Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation, and `CssStylesheet` uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
 
 
 Language Map `value`:
@@ -2843,11 +2848,15 @@ Language Map `value`:
 {"value": { "en": [ "Example Description" ]}}
 ```
 
-Selector or TextualBody `value`:
+Embedded CssStylesheet, Selector or TextualBody `value`:
 {% include api/code_header.html %}
 ```json-doc
 { "value": "Example Textual Body" }
 ```
+
+### version
+
+> TODO: write me
 
 
 ### via
@@ -2868,12 +2877,10 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 ### viewingDirection
 {: #viewingDirection}
 
-!!! Rewrite to be where is the navigation control to step to the next/ previous in the items of hte manifest
+!!! TODO: Rewrite to be where is the navigation control to step to the next/ previous in the items of the manifest
 
 
-The direction in which a list of Containers _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example,
-if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left, and forwards in the
-list is to the right.
+The direction in which a list of Containers _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left, and forwards in the list is to the right.
 
 The value _MUST_ be a string.
 
@@ -2913,9 +2920,14 @@ The `value` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "volume": { "type": "Quantity", "unit": "relative", "quantityValue": 0.5 } }
+{ 
+  "volume": { 
+    "type": "Quantity", 
+    "quantityValue": 0.5,
+    "unit": "relative"   
+  } 
+}
 ```
-
 
 ### width
 {: #width}
@@ -2979,14 +2991,14 @@ An annotation with the motivation `activating` has any valid IIIF Resource, or l
 
 There are two categories of activating annotation targets (interactable things):
 
-* Annotations - content of the container (a painting annotation rendered in the Scene) or content that targets the container (a commenting annotation, a map pin... which may have off-Container representations in a UI eg comments in a side panel). 
+* Annotations - content of the container (a painting annotation rendered in the Scene) or content that targets the container (a commenting annotation, a map pin... which may have off-Container representations in a UI eg comments in a side panel).
 * Extents of Containers - a volume of a Scene, region of a Canvas, or interval of time in any Container with a `duration` (the client may or may not render these "hit boxes")
 
 How the client makes these interactable is client-dependent.
 
 Need to cover:
 
-Clients supporting dynamic content need to support 
+Clients supporting dynamic content need to support
 
  - non-painting annotations e.g., commenting annos (and other annos that usually have textual bodies that could be made clickable by a client, or map pin markers, etc)
  - painted resources such as models
@@ -3009,7 +3021,7 @@ If the body is a reference to a Painting Annotation or a non-painting , the clie
 
  * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
 
-(example: click the comment, object appears, light goes on) 
+(example: click the comment, object appears, light goes on)
 
 enables and disables
 
@@ -3023,7 +3035,7 @@ You can just use enables and disables
 
 ### Playing animations
 
-If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated. 
+If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated.
 * If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
 
 How do you stop the animation? And if you can stop it, what happens - reset? If you activate it again, does it resume or restart?
