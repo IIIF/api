@@ -101,7 +101,7 @@ a:hover > code {
    margin-top: 0px;
    margin-bottom: 0px;
    text-align: left;
-  
+
  }
 
  code.language-json {
@@ -146,9 +146,10 @@ This document acts as an introduction to the specification through a set of typi
 3. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
 4. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
 5. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
-6. **Simple 3D Model** - a Manifest that publishes a single 3D model.
-7. **Complex Scene** - a Manifest that publishes a complex 3D scene comprising multiple models, lights and cameras.
-8. **Storytelling in 3D** - a Manifest that defines a sequence of states in a complex scene for the purposes of guiding a user through a particular experience.
+6. **3D Content** - a Manifest that represents a 3D model of a born-digital object within a Scene.
+7. **Composite of Two Canvases** - a Manifest that combines two Canvases, each representing a single image, displayed jointly in a single Canvas through Container nesting.
+8. **Comment on Feature of a Painting** - a Manifest that represents a painting and a comment highlighting a particular region of the painting.
+9. **Interactive 3D Light Switch** - a Manifest that represents a Scene containing a light and a 3D model of a light switch, where a user can click or otherwise interact with the switch to turn the light on and off.
 
 These use case were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook](link).
 
@@ -1210,9 +1211,9 @@ When painting resources into Scenes, it is often necessary to resize, rotate or 
 Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
 
 
-## Use Case 5: Simple 3D Model
+## Use Case 6: 3D content
 
-This example is a Manifest with a single Scene, with a single model of a space suit painted at the Scene's origin.
+This example is a Manifest with a single Scene, with a single 3D model of a space suit painted at the Scene's origin.
 
 > PNG of Scene
 
@@ -1259,7 +1260,7 @@ This example is a Manifest with a single Scene, with a single model of a space s
 {: .note}
 
 
-## Use Case 5a: Simple 3D Model in Configured Scene
+### Configured Scene
 
 This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position.
 
@@ -1398,7 +1399,7 @@ Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Mo
 Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [feildOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
 {: .note}
 
-## Use Case 6: Complex Scene
+### Multiple 3D Objects with Transforms
 
 This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content.
 
@@ -1561,7 +1562,7 @@ A Scene or a Canvas may be treated as a content resource, referenced or describe
 
 -->
 
-## Use Case 7: Scene with Audio
+### Audio in 3D
 
 This example is a Manifest with a single Scene with a duration. Multiple Audio Emitter Annotations are painted into the Scene, with positional emitters used to create a 3D audio experience. Some of the Audio Emitter Annotations are only painted into the Scene for a limited period of time, producing dynamic change in the sounds heard within the Scene. A commenting Annotation is also provided to highlight the instant in time when a change in sound occurs.
 
@@ -1739,9 +1740,108 @@ Properties: [duration][prezi-40-model-duration], [volume][prezi-40-model-volume]
 
 # Nesting
 
-> How does this relate to model doc? What's normative and needs to be in model.md because it defines a Scene?
-
 A Container can be painted into another Container as an Annotation with [`motivation`][prezi-40-model-motivation] "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene, and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
+
+## Use Case 7: Composite of two canvases
+
+This example is a Manifest with a Canvas that represents two images displayed side by side. However, instead of painting the images directly as Annotations, each image is painted on to a separate Canvas, and each Canvas is painted into the Manifest Canvas. A more likely practical application of this example would be where the image Canvases have been created previously and are hosted separately from the Manifest's composite-image Canvas.
+
+```jsonc
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases.json",
+  "type": "Manifest",
+  "label": {
+    "en": [ "Use case 7: Composite of two canvases" ]
+  },
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1",
+      "type": "Canvas",
+      "width": 600,
+      "height": 300,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/page/p1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/annotation/anno1",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2",
+                "type": "Canvas",
+                "width": 300,
+                "height": 300,
+                "items": [
+                  {
+                    "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/page/p2",
+                    "type": "AnnotationPage",
+                    "items": [
+                      {
+                        "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/annotation/anno2",
+                        "type": "Annotation",
+                        "motivation": [ "painting" ],
+                        "body": {
+                          "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/images/image1.jpg",
+                          "type": "Image",
+                          "format": "image/jpeg"
+                        },
+                        "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2"
+                      },
+                    ]
+                  }
+                ]
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=0,0,300,300"
+            },
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/annotation/anno2",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c3",
+                "type": "Canvas",
+                "width": 300,
+                "height": 300,
+                "items": [
+                  {
+                    "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/page/p3",
+                    "type": "AnnotationPage",
+                    "items": [
+                      {
+                        "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/annotation/anno3",
+                        "type": "Annotation",
+                        "motivation": [ "painting" ],
+                        "body": {
+                          "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/images/image2.jpg",
+                          "type": "Image",
+                          "format": "image/jpeg"
+                        },
+                        "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c3"
+                      },
+                    ]
+                  }
+                ]
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=300,0,300,300"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+>
+**Key Points**
+* The Manifest contains a single Canvas, which has a single Annotation Page, and two painting annotations.
+* Each painting annotation defines a Canvas with its own Annotation Page and a single image annotation. Alternately, each painting annotation could reference an external Canvas through a URI.
+* The two image Canvases are nested within the Manifest Canvas, causing the images to be displayed side by side.
+
+## Nesting Containers with Durations
 
 A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only be painted into a Container that also has [`duration`][prezi-40-model-duration]. It is possible to associate a Container with [`duration`][prezi-40-model-duration] with a Container that does not have [`duration`][prezi-40-model-duration] as the content of a `commenting` annotation rather than painting it into the Container. If a Container with [`duration`][prezi-40-model-duration] has a shorter or longer [`duration`][prezi-40-model-duration] than the Container into which it is to be painted, the [`timeMode`][prezi-40-model-timeMode] property can be used to instruct clients how to resolve the mismatch.
 
@@ -1928,64 +2028,79 @@ https://github.com/IIIF/api/issues/2118
 
 Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
-### A comment about a segment of music
+### Use Case 8: Comment on feature of a painting
 
-<!-- This is redundant with Use Case 4 -->
-
-This is an example of a commenting annotation that targets two-minute segment of a muscial performance.
+This example is a Manifest with a Canvas that contains a single painting and an Annotation with the motivation `commenting` highlighting the face of the painting's subject. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses a [`SvgSelector`][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the painting.
 
 ```json
 {
-      "id": "https://example.org/iiif/presentation/examples/commenting/anno/1",
-      "type": "Annotation",
-      "motivation": [ "commenting" ],
-      "body": {
-        "id": "https://example.org/iiif/presentation/examples/commenting/anno/1/theme2",
-        "type": "TextualBody",
-        "language": "en",
-        "format": "text/plain",
-        "value": "The second theme of the concerto is introduced."
-      },
-      "target": "https://example.org/iiif/presentation/examples/commenting/timeline/t1#t=38.0,158.0"
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/presentation/examples/manifest-comment.json",
+  "type": "Manifest",
+  "label": {
+    "en": [ "Use case 8: Comment on feature of a painting" ]
+  },
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-comment/canvas",
+      "type": "Canvas",
+      "width": 1200,
+      "height": 1200,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-comment/page/p1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-comment/annotation/anno1",
+              "type": "Annotation",
+              "motivation": [ "painting" ],
+              "body": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-comment/images/image1.jpg",
+                "type": "Image",
+                "format": "image/jpeg"
+              },
+              "target": "https://example.org/iiif/presentation/examples/manifest-comment/canvas"
+            },
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2",
+              "type": "Annotation",
+              "motivation": [ "commenting" ],
+              "body": [{
+                "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2/person2",
+                "type": "TextualBody",
+                "language": "en",
+                "format": "text/plain",
+                "value": "Note the expressive eyes of the subject of this painting."
+              }],
+              "target": [{
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/presentation/examples/manifest-comment/canvas",
+                  "type": "Canvas"
+                },
+                "selector": [
+                  {
+                    "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno2/selector2",
+                    "type": "SvgSelector",
+                    "value": "<svg:svg> ... </svg:svg>"
+                  }
+                ]
+              }]
+            }
+          ]
+        }
+      ]
     }
-```
-
-### A comment about a face in a painting
-
-A comment on a Canvas can target a non-rectangular area.  This example uses a [`SvgSelector`][prezi-40-model-SvgSelector] to comment on a painting.
-
-```json
-{
-      "id": "https://example.org/iiif/presentation/examples/commenting/anno/2",
-      "type": "Annotation",
-      "motivation": [ "commenting" ],
-      "body": [{
-        "id": "https://example.org/iiif/presentation/examples/commenting/anno/2/person2",
-        "type": "TextualBody",
-        "language": "en",
-        "format": "text/plain",
-        "value": "Note the expressive eyes of the subject of this painting."
-      }],
-      "target": [{
-        "type": "SpecificResource",
-        "source": {
-          "id": "https://example.org/iiif/presentation/examples/commenting/canvas/2",
-          "type": "Canvas"
-        },
-        "selector": [
-          {
-            "id": "https://example.org/iiif/presentation/examples/commenting/anno2/selector2",
-            "type": "SvgSelector",
-            "value": "<svg:svg> ... </svg:svg>"
-          }
-        ]
-    }]
+  ]
 }
 ```
 
-Annotations may alternately use a different type of Selector, called a [`WktSelector`][prezi-40-model-WktSelector], to align the Annotation to a target region within a Canvas or Scene.
+>
+**Key Points**
+* Annotations may alternately use a different type of Selector, called a [`WktSelector`][prezi-40-model-WktSelector], to align the Annotation to a target region within a Canvas or Scene.
 
-### A comment about 3D sculpture
+### Commenting about 3D sculpture
 
 A commenting annotation can also reference a Content Resource, such as a Model, within a Scene.  This is accomplished by targeting the annotation that paints the resource into the Scene.  In this example, the commenting annotation targets an annotation that paints a model of a portrait bust into a scene.
 
@@ -2107,137 +2222,139 @@ The body of the activating annotation is always an ordered list of Specific Reso
 Activating annotations are provided in a Container's [`annotations`][prezi-40-model-annotations] property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate Annotation Page. The client should evaluate all of the enabled activating annotations it can find.
 
 
-### Hiding and disabling resources
+### Use Case 9: Interactive 3D light switch
 
-A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. The following example is a light switch that can be toggled on and off using activating annotations that result in these behaviors being applied or removed. It demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
+This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
 ```jsonc
 {
-    "@context": "http://iiif.io/api/presentation/4/context.json",
-    "id": "https://example.org/iiif/manifest/switch",
-    "type": "Manifest",
-    "label": { "en": [ "Light switch" ] },
-    "items": [
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/iiif/manifest/switch",
+  "type": "Manifest",
+  "label": { "en": [ "Light switch" ] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene/switch/scene-1",
+      "type": "Scene",
+      "items": [
         {
-            "id": "https://example.org/iiif/scene/switch/scene-1",
-            "type": "Scene",
-            "items": [
-                {
-                    "id": "https://example.org/iiif/scene/switch/scene-1/painting-annotation-pages/1",
-                    "type": "AnnotationPage",
-                    "items": [
-                        {
-                            "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "type": "Annotation",
-                            "motivation": ["painting"],
-                            "label": {
-                                "en": ["A light switch"]
-                            },
-                            "body": {
-                                "id": "https://example.org/iiif/model/models/lightswitch.gltf",
-                                "type": "Model"
-                            },
-                            "target": "https://example.org/iiif/scene/switch/scene-1"
-                        },
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                            "type": "Annotation",
-                            "motivation": ["painting"],
-                            "body": {
-                                "id": "https://example.org/iiif/scene/switch/scene-1/lights/4/body",
-                                "type": "PointLight"
-                            },
-                            "target": {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1",
-                                "selector": [
-                                    {
-                                        "type": "PointSelector",
-                                        "x": 5, "y": 5, "z": 5
-                                    }
-                                ]
-                            },
-                            "behavior": ["hidden"]
-                        }
-                    ]
-                }
-            ],
-            "annotations": [
-                {
-                    "id": "https://example.org/iiif/scene/switch/scene-1/annos/1",
-                    "type": "AnnotationPage",
-                    "items": [
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/switch-comment-0",
-                            "type": "Annotation",
-                            "motivation": [
-                                "commenting"
-                            ],
-                            "body": {
-                                "type": "TextualBody",
-                                "value": "Click the switch to turn the light on or off"
-                            },
-                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1"
-                        },
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                            "type": "Annotation",
-                            "motivation": [
-                                "activating"
-                            ],
-                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "body": [
-                              {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                                "action": ["disable"]
-                              },
-                              {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                                "action": ["enable"]
-                              },
-                              {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                                "action": ["show"]
-                              }
-                            ]
-                        },
-                        {
-                            "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                            "type": "Annotation",
-                            "motivation": [
-                                "activating"
-                            ],
-                            "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-                            "body": [
-                              {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                                "action": ["disable"]
-                              },
-                              {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                                "action": ["hide"]
-                              },
-                              {
-                                "type": "SpecificResource",
-                                "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                                "action": ["enable"]
-                              }
-                            ],
-                            "behavior": ["disabled"]
-                        }
-                    ]
-                }
-            ]
+          "id": "https://example.org/iiif/scene/switch/scene-1/painting-annotation-pages/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "label": {
+                "en": ["A light switch"]
+              },
+              "body": {
+                "id": "https://example.org/iiif/model/models/lightswitch.gltf",
+                "type": "Model"
+              },
+              "target": "https://example.org/iiif/scene/switch/scene-1"
+            },
+            {
+              "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://example.org/iiif/scene/switch/scene-1/lights/4/body",
+                "type": "PointLight"
+              },
+              "target": {
+                "type": "SpecificResource",
+                "source": "https://example.org/iiif/scene/switch/scene-1",
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 5, "y": 5, "z": 5
+                  }
+                ]
+              },
+              "behavior": ["hidden"]
+            }
+          ]
         }
-    ]
+      ],
+      "annotations": [
+        {
+          "id": "https://example.org/iiif/scene/switch/scene-1/annos/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/switch-comment-0",
+              "type": "Annotation",
+              "motivation": [
+                  "commenting"
+              ],
+              "body": {
+                  "type": "TextualBody",
+                  "value": "Click the switch to turn the light on or off"
+              },
+              "target": "https://example.org/iiif/painting-annotation/lightswitch-1"
+            },
+            {
+              "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+              "type": "Annotation",
+              "motivation": [
+                  "activating"
+              ],
+              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+              "body": [
+                {
+                  "type": "SpecificResource",
+                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                  "action": ["disable"]
+                },
+                {
+                  "type": "SpecificResource",
+                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                  "action": ["enable"]
+                },
+                {
+                  "type": "SpecificResource",
+                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                  "action": ["show"]
+                }
+              ]
+            },
+            {
+              "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+              "type": "Annotation",
+              "motivation": [
+                "activating"
+              ],
+              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
+              "body": [
+                {
+                  "type": "SpecificResource",
+                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                  "action": ["disable"]
+                },
+                {
+                  "type": "SpecificResource",
+                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                  "action": ["hide"]
+                },
+                {
+                  "type": "SpecificResource",
+                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                  "action": ["enable"]
+                }
+              ],
+              "behavior": ["disabled"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
 ```
 
+>
+**Key Points**
 * Initially, a model of a light switch is painted into the Scene. A PointLight is also painted, but with the [`behavior`][prezi-40-model-behavior] "hidden", which means it is inactive (i.e., off). A commenting annotation with the text "Click the switch to turn the light on or off" targets the light switch. An activating annotation targets the painting annotation that paints the switch, so that user interaction with the light switch will trigger the activating annotation. This activating annotation has a [`body`][prezi-40-model-body] property with three Specific Resources. The first enables the "off" activating annotation, the second shows the PointLight, and the last disables the activating annotation _itself_ - this activating annotation can no longer be activated by a user interaction with the light switch model (its [`target`][prezi-40-model-target]).
 * A further activating annotation has the opposite effect. Initially this has the [`behavior`][prezi-40-model-behavior] "disabled" - which means it is inactive. It also targets the painting annotation, but has no effect while disabled.
 * When the user interacts with the light switch model, the client processes any activating annotations that target it and are enabled. In this case, the first activating annotation is triggered because while both target the switch, only the first is enabled. This activation shows the light (i.e., removes its "hidden" [`behavior`][prezi-40-model-behavior] and therefore turning it on) and enables the other activating annotation, and disables itself.
