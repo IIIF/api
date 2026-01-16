@@ -1177,14 +1177,14 @@ The possible values of `action` are:
 
 | Value  | Description |
 | ------ | ----------- |
-| `enable` | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
-| `disable` | The acted-upon resource is not able to be selected or triggered |
-| `show`   | The "hidden" behavior is removed from the acted-upon resource, if it has it |
-| `hide`   | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
-| `reset`  | The acted-upon resource is reset to its initial state, as if it (or its Container) had just been loaded for the first time |
-| `start`  | Time-based content resources or animations within resources that are not playing are started |
-| `stop`   | Time-based content resources or animations within resources that are playing are stopped|
-| `select` | The acted-upon resource is selected for use, such as a Camera within a Scene |
+| `enable`{: #value-enable} | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
+| `disable`{: #value-disable} | The acted-upon resource is not able to be selected or triggered |
+| `show`{: #value-show}   | The "hidden" behavior is removed from the acted-upon resource, if it has it |
+| `hide`{: #value-hide}   | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
+| `reset`{: #value-reset}  | The acted-upon resource is reset to its initial state, as if it (or its Container) had just been loaded for the first time |
+| `start`{: #value-start}  | Time-based content resources or animations within resources that are not playing are started |
+| `stop`{: #value-stop}   | Time-based content resources or animations within resources that are playing are stopped|
+| `select`{: #value-select} | The acted-upon resource is selected for use, such as a Camera within a Scene |
 
 The value of `action` _MUST_ be an array of strings, where each item in the array is drawn from the above list or a registered extension.
 
@@ -1289,28 +1289,28 @@ The value _MUST_ be an array of strings.
 | Value | Description |
 | ----- | ----------- |
 || **Temporal Behaviors** |
-| `auto-advance`{: style="white-space:nowrap;"} | Valid on Collections, Manifests, Containers, and Ranges that include or are Containers with at least the `duration` dimension. When the client reaches the end of a Canvas, or segment thereof as specified in a Range, with a duration dimension that has this behavior, it _SHOULD_ immediately proceed to the next Container or segment and render it. If there is no subsequent Container in the current context, then this behavior should be ignored. When applied to a Collection, the client should treat the first Container of the next Manifest as following the last Container of the previous Manifest, respecting any `start` property specified. Disjoint with `no-auto-advance`. |
-| `no-auto-advance`{: style="white-space:nowrap;"} | Valid on Collections, Manifests, Containers, and Ranges that include or are Containers with at least the `duration` dimension. When the client reaches the end of a Container or segment with a duration dimension that has this behavior, it _MUST NOT_ proceed to the next Container, if any. This is a default temporal behavior if not specified. Disjoint with `auto-advance`.|
-| `repeat` | Valid on Collections and Manifests, that include Containers that have at least the `duration` dimension. When the client reaches the end of the duration of the final Container in the resource, and the `behavior` value `auto-advance`{: style="white-space:nowrap;"} is also in effect, then the client _SHOULD_ return to the first Container, or segment of a Container, in the resource that has the `behavior` value `repeat` and start playing again. If the `behavior` value `auto-advance` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Container or segment. Disjoint with `no-repeat`.|
-| `no-repeat` | Valid on Collections and Manifests, that include Containers that have at least the `duration` dimension. When the client reaches the end of the duration of the final Container in the resource, the client _MUST NOT_ return to the first Container, or segment of Container. This is a default temporal behavior if not specified. Disjoint with `repeat`.|
+| `auto-advance`{: #value-auto-advance style="white-space:nowrap;"} | Valid on Collections, Manifests, Containers, and Ranges that include or are Containers with at least the `duration` dimension. When the client reaches the end of a Canvas, or segment thereof as specified in a Range, with a duration dimension that has this behavior, it _SHOULD_ immediately proceed to the next Container or segment and render it. If there is no subsequent Container in the current context, then this behavior should be ignored. When applied to a Collection, the client should treat the first Container of the next Manifest as following the last Container of the previous Manifest, respecting any `start` property specified. Disjoint with `no-auto-advance`. |
+| `no-auto-advance`{: #value-no-auto-advance style="white-space:nowrap;"} | Valid on Collections, Manifests, Containers, and Ranges that include or are Containers with at least the `duration` dimension. When the client reaches the end of a Container or segment with a duration dimension that has this behavior, it _MUST NOT_ proceed to the next Container, if any. This is a default temporal behavior if not specified. Disjoint with `auto-advance`.|
+| `repeat`{: #value-repeat} | Valid on Collections and Manifests, that include Containers that have at least the `duration` dimension. When the client reaches the end of the duration of the final Container in the resource, and the `behavior` value `auto-advance`{: style="white-space:nowrap;"} is also in effect, then the client _SHOULD_ return to the first Container, or segment of a Container, in the resource that has the `behavior` value `repeat` and start playing again. If the `behavior` value `auto-advance` is not in effect, then the client _SHOULD_ render a navigation control for the user to manually return to the first Container or segment. Disjoint with `no-repeat`.|
+| `no-repeat`{: #value-no-repeat} | Valid on Collections and Manifests, that include Containers that have at least the `duration` dimension. When the client reaches the end of the duration of the final Container in the resource, the client _MUST NOT_ return to the first Container, or segment of Container. This is a default temporal behavior if not specified. Disjoint with `repeat`.|
 | | **Layout Behaviors** |
-| `unordered` | Valid on Collections, Manifests and Ranges. The resources included in resources that have this behavior have no inherent order, and user interfaces _SHOULD_ avoid implying an order to the user. Disjoint with `individuals`, `continuous`, and `paged`.|
-| `individuals` | Valid on Collections, Manifests, and Ranges. For Collections that have this behavior, each of the included Manifests are distinct objects in the given order. For Manifests and Ranges, the included Containers are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default layout behavior if not specified. Disjoint with `unordered`, `continuous`, and `paged`. |
-| `continuous` | Valid on Collections, Manifests and Ranges, which include Canvases. Canvases included in resources that have this behavior are partial views and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This behavior has no implication for audio resources. The `viewingDirection` of the Manifest will determine the appropriate arrangement of the Canvases. Disjoint with `unordered`, `individuals` and `paged`. |
-| `paged` | Valid on Collections, Manifests and Ranges, which include Canvases. Canvases included in resources that have this behavior represent views that _SHOULD_ be presented in a page-turning interface if one is available. The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the `behavior` value `non-paged`. Disjoint with `unordered`, `individuals`, and `continuous`. |
-| `facing-pages`{: style="white-space:nowrap;"} | Valid only on Canvases. Canvases that have this behavior, in a Manifest that has the `behavior` value `paged`, _MUST_ be displayed by themselves, as they depict both parts of the opening. If all of the Canvases are like this, then page turning is not possible, so simply use `individuals` instead. Disjoint with `non-paged`.|
-| `non-paged` | Valid only on Canvases. Canvases that have this behavior _MUST NOT_ be presented in a page-turning interface, and _MUST_ be skipped over when determining the page order. This behavior _MUST_ be ignored if the current Manifest does not have the `behavior` value `paged`. Disjoint with `facing-pages`. |
+| `unordered`{: #value-unordered} | Valid on Collections, Manifests and Ranges. The resources included in resources that have this behavior have no inherent order, and user interfaces _SHOULD_ avoid implying an order to the user. Disjoint with `individuals`, `continuous`, and `paged`.|
+| `individuals`{: #value-individuals} | Valid on Collections, Manifests, and Ranges. For Collections that have this behavior, each of the included Manifests are distinct objects in the given order. For Manifests and Ranges, the included Containers are distinct views, and _SHOULD NOT_ be presented in a page-turning interface. This is the default layout behavior if not specified. Disjoint with `unordered`, `continuous`, and `paged`. |
+| `continuous`{: #value-continuous} | Valid on Collections, Manifests and Ranges, which include Canvases. Canvases included in resources that have this behavior are partial views and an appropriate rendering might display all of the Canvases virtually stitched together, such as a long scroll split into sections. This behavior has no implication for audio resources. The `viewingDirection` of the Manifest will determine the appropriate arrangement of the Canvases. Disjoint with `unordered`, `individuals` and `paged`. |
+| `paged`{: #value-paged} | Valid on Collections, Manifests and Ranges, which include Canvases. Canvases included in resources that have this behavior represent views that _SHOULD_ be presented in a page-turning interface if one is available. The first canvas is a single view (the first recto) and thus the second canvas likely represents the back of the object in the first canvas. If this is not the case, see the `behavior` value `non-paged`. Disjoint with `unordered`, `individuals`, and `continuous`. |
+| `facing-pages`{: #value-facing-pages style="white-space:nowrap;"} | Valid only on Canvases. Canvases that have this behavior, in a Manifest that has the `behavior` value `paged`, _MUST_ be displayed by themselves, as they depict both parts of the opening. If all of the Canvases are like this, then page turning is not possible, so simply use `individuals` instead. Disjoint with `non-paged`.|
+| `non-paged`{: #value-non-paged} | Valid only on Canvases. Canvases that have this behavior _MUST NOT_ be presented in a page-turning interface, and _MUST_ be skipped over when determining the page order. This behavior _MUST_ be ignored if the current Manifest does not have the `behavior` value `paged`. Disjoint with `facing-pages`. |
 | | **Collection Behaviors** |
-| `multi-part` | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
-| `together` | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
+| `multi-part`{: #value-multi-part} | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
+| `together`{: #value-together} | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Navigation Behaviors** |
-| `sequence` | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are ...
+| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are ...
 
 FIXME: do we define the processing model here?
 
 Disjoint with `thumbnail-nav` and `no-nav`.|
-| `thumbnail-nav`{: style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
-| `no-nav` | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
+| `thumbnail-nav`{: #value-thumbnail-nav style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
+| `no-nav`{: #value-no-nav} | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
 | `hidden`{: #hidden-value} | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. TODO - this needs to talk about `hidden` on an activating annotation, which is not a visible (painted) resource. |
 {: .api-table #table-behavior}
@@ -1402,10 +1402,10 @@ Just as a Scene may contain multiple Annotations with models, light, and cameras
 
 | Value      | Description |
 |------------|-------------|
-| `Audio`      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
-| `Animations` | Exclude all definitions of animations from resources |
-| `Cameras`    | Exclude all cameras from resources |
-| `Lights`     | Exclude all lights from resources |
+| `Audio`{: #value-Audio}      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
+| `Animations`{: #value-Animations} | Exclude all definitions of animations from resources |
+| `Cameras`{: #value-Cameras}    | Exclude all cameras from resources |
+| `Lights`{: #value-Lights}     | Exclude all lights from resources |
 
 The value of `exclude` is an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
 
@@ -1637,11 +1637,11 @@ The value _MUST_ be an array of strings.
 
 | Value | Description |
 | ----- | ----------- |
-| `locked` | Camera is locked. User interaction _MUST NOT_ modify Camera. |
-| `orbit` | Camera orbits around a target point in response to user interaction. |
-| `hemisphere-orbit` | Camera orbits around a target point in response to user interaction, but orbital freedom is limited to a hemisphere. |
-| `free` | Camera mimics a first-person perspective. User interaction pans or tilts Camera perspective, trucks Camera position, and/or dollies or zooms Camera. |
-| `free-direction` | Camera mimics a first-person perspective, but Camera position is fixed. User interaction pans or tilts Camera perspective. |
+| `locked`{: #value-locked} | Camera is locked. User interaction _MUST NOT_ modify Camera. |
+| `orbit`{: #value-orbit} | Camera orbits around a target point in response to user interaction. |
+| `hemisphere-orbit`{: #value-hemisphere-orbit} | Camera orbits around a target point in response to user interaction, but orbital freedom is limited to a hemisphere. |
+| `free`{: #value-free} | Camera mimics a first-person perspective. User interaction pans or tilts Camera perspective, trucks Camera position, and/or dollies or zooms Camera. |
+| `free-direction`{: #value-free-direction} | Camera mimics a first-person perspective, but Camera position is fixed. User interaction pans or tilts Camera perspective. |
 {: .api-table #table-interaction}
 
 {% include api/code_header.html %}
@@ -1846,9 +1846,9 @@ Additional motivations may be added to the Annotation to further clarify the int
 
 | Value | Description |
 | ----- | ----------- |
-| `painting` | Resources associated with a Container by an Annotation that has the `motivation` value `painting` _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
-| `supplementing` | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
-| `activating`   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, and the type of change to put into effect. See the [`action`](#action) property for information about processing actions. |
+| `painting`{: #value-painting} | Resources associated with a Container by an Annotation that has the `motivation` value `painting` _MUST_ be presented to the user as the representation of the Container. The content can be thought of as being _of_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `painting`, a body of an Image and the target of a Canvas is an instruction to present that Image as (part of) the visual representation of the Canvas. Similarly, a textual body is to be presented as (part of) the visual representation of the Container and not positioned in some other part of the user interface.|
+| `supplementing`{: #value-supplementing} | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
+| `activating`{: #value-activating}   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, and the type of change to put into effect. See the [`action`](#action) property for information about processing actions. |
 {: .api-table #table-motivations}
 
 
@@ -2153,18 +2153,18 @@ Note that the majority of the values have been selected from [accessibility feat
 
 | Value | Description |
 | ----- | ----------- |
-| `closedCaptions` | ... |
-| `alternativeText` | ... |
-| `audioDescription` | ... |
-| `longDescription` | ... |
-| `signLanguage` | ... |
-| `highContrastAudio` | ... |
-| `highContrastDisplay` | ... |
-| `braille` | ... |
-| `tactileGraphic` | ... |
-| `transcript` | ... |
-| `translation` | (IIIF Defined) ... |
-| `subtitles` | (IIIF Defined) ... |
+| `closedCaptions`{: #value-closedCaptions} | ... |
+| `alternativeText`{: #value-alternativeText} | ... |
+| `audioDescription`{: #value-audioDescription} | ... |
+| `longDescription`{: #value-longDescription} | ... |
+| `signLanguage`{: #value-signLanguage} | ... |
+| `highContrastAudio`{: #value-highContrastAudio} | ... |
+| `highContrastDisplay`{: #value-highContrastDisplay} | ... |
+| `braille`{: #value-braille} | ... |
+| `tactileGraphic`{: #value-tactileGraphic} | ... |
+| `transcript`{: #value-transcript} | ... |
+| `translation`{: #value-translation} | (IIIF Defined) ... |
+| `subtitles`{: #value-subtitles} | (IIIF Defined) ... |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
@@ -2378,13 +2378,13 @@ For cross-version consistency, this specification defines the following values f
 
 | Value                | Specification |
 | -------------------- | ------------- |
-| `ImageService1`        | [Image API version 1][image11]  |
-| `ImageService2 `       | [Image API version 2][image21]  |
-| `SearchService1`       | [Search API version 1][search1] |
-| `AutoCompleteService1` | [Search API version 1][search1-autocomplete] |
-| `AuthCookieService1`   | [Authentication API version 1][auth1-cookie-service] |
-| `AuthTokenService1`    | [Authentication API version 1][auth1-token-service] |
-| `AuthLogoutService1`   | [Authentication API version 1][auth1-logout-service] |
+| `ImageService1`{: #value-ImageService1}        | [Image API version 1][image11]  |
+| `ImageService2 `{: #value-ImageService2}       | [Image API version 2][image21]  |
+| `SearchService1`{: #value-SearchService1}       | [Search API version 1][search1] |
+| `AutoCompleteService1`{: #value-AutoCompleteService1} | [Search API version 1][search1-autocomplete] |
+| `AuthCookieService1`{: #value-AuthCookieService1}   | [Authentication API version 1][auth1-cookie-service] |
+| `AuthTokenService1`{: #value-AuthTokenService1}    | [Authentication API version 1][auth1-token-service] |
+| `AuthLogoutService1`{: #value-AuthLogoutService1}   | [Authentication API version 1][auth1-logout-service] |
 {: .api-table #table-service-types}
 
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document. The example below includes both version 2 and version 3 IIIF Image API services.
@@ -2747,9 +2747,9 @@ The value _MUST_ be a string.
 
 | Value | Description |
 | ----- | ----------- |
-| `trim` | (default, if not supplied) If the content resource has a longer duration than the duration of the portion of the Canvas it is associated with, then at the end of the Canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the Canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the Canvas portion's duration. For example, a video of 120 seconds annotated to a Canvas with a duration of 100 seconds would play only the first 100 seconds and drop the last 20 seconds. |
-| `scale` | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
-| `loop` | If the content resource is shorter than the `duration` of the Canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a Canvas with a duration of 30 seconds, it will be played one and a half times. |
+| `trim`{: #value-trim} | (default, if not supplied) If the content resource has a longer duration than the duration of the portion of the Canvas it is associated with, then at the end of the Canvas's duration, the playback of the content resource _MUST_ also end. If the content resource has a shorter duration than the duration of the portion of the Canvas it is associated with, then, for video resources, the last frame _SHOULD_ persist on-screen until the end of the Canvas portion's duration. For example, a video of 120 seconds annotated to a Canvas with a duration of 100 seconds would play only the first 100 seconds and drop the last 20 seconds. |
+| `scale`{: #value-scale} | Fit the duration of content resource to the duration of the portion of the Canvas it is associated with by scaling. For example, a video of 120 seconds annotated to a Canvas with a duration of 60 seconds would be played at double-speed. |
+| `loop`{: #value-loop} | If the content resource is shorter than the `duration` of the Canvas, it _MUST_ be repeated to fill the entire duration. Resources longer than the `duration` _MUST_ be trimmed as described above. For example, if a 20 second duration audio stream is annotated onto a Canvas with a duration of 30 seconds, it will be played one and a half times. |
 {: .api-table #table-timemode}
 
 {% include api/code_header.html %}
@@ -2821,12 +2821,12 @@ The value _MUST_ be a string.
 
 | Class         | Description                      |
 | ------------- | -------------------------------- |
-| `Audio`       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
-| `Dataset`     | Data not intended to be rendered to humans directly, such as a CSV, an RDF serialization or a zip file |
-| `Image`       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
-| `Model`       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3d javascript library |
-| `Text`        | Resources primarily intended to be read |
-| `Video`       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
+| `Audio`{: #value-Audio}       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
+| `Dataset`{: #value-Dataset}     | Data not intended to be rendered to humans directly, such as a CSV, an RDF serialization or a zip file |
+| `Image`{: #value-Image}       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
+| `Model`{: #value-Model}       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3d javascript library |
+| `Text`{: #value-Text}        | Resources primarily intended to be read |
+| `Video`{: #value-Video}       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
 
 !!! note
@@ -2847,9 +2847,9 @@ The value _MUST_ be a string value.  This specification defines the values in th
 
 | Value      |  Unit     |
 |------------|-----------|
-|   `m`      |  meters   |
-|   `s`      |  seconds  |
-| `relative` |  relative |
+|   `m`{: #value-m}      |  meters   |
+|   `s`{: #value-s}      |  seconds  |
+| `relative`{: #value-relative} |  relative |
 
 * A Quantity _MUST_ have the `unit` property.<br/>
   Clients _SHOULD_ process the `unit` property on Quantity instances.
@@ -2922,10 +2922,10 @@ The value _MUST_ be a string.
 
 | Value | Description |
 | ----- | ----------- |
-| `left-to-right` | The object is displayed from left to right. The default if not specified. |
-| `right-to-left` | The object is displayed from right to left. |
-| `top-to-bottom` | The object is displayed from the top to the bottom. |
-| `bottom-to-top` | The object is displayed from the bottom to the top. |
+| `left-to-right`{: #value-left-to-right} | The object is displayed from left to right. The default if not specified. |
+| `right-to-left`{: #value-right-to-left} | The object is displayed from right to left. |
+| `top-to-bottom`{: #value-top-to-bottom} | The object is displayed from the top to the bottom. |
+| `bottom-to-top`{: #value-bottom-to-top} | The object is displayed from the bottom to the top. |
 {: .api-table #table-direction}
 
 {% include api/code_header.html %}
