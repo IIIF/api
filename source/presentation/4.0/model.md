@@ -52,7 +52,14 @@ __Previous Version:__ [3.0][prezi30]
 ----
 
 # IIIF Presentation API Data Model
-
+<script>
+  if (location.hash) {
+    const y = window.scrollY;
+    setTimeout(() => {
+      window.scrollTo({ top: y, behavior: "instant" });
+    }, 0);
+  }
+</script>
 <style>
 .content, .api-content .highlight, .api-content .code-header {
   max-width:100%;
@@ -69,6 +76,26 @@ pre.highlight code {
 
 .highlight .s2 {
   color: #a0f0f0
+}
+
+a > code::after {
+  content: "↗";
+  font-size: 0.65em;
+  opacity: 0.6;
+  margin-left: 0.2em;
+  vertical-align: super;
+  text-decoration: none;
+}
+
+a > code {
+ /* text-decoration: underline;*/
+  color: var(--link-color);
+  cursor: pointer;
+}
+
+a:hover > code {
+  background-color: rgba(0,0,0,0.05);
+  text-decoration: underline;
 }
 </style>
 
@@ -644,12 +671,12 @@ The Image API Selector has properties following the parameters from the API, and
 
 | Property | Default   | Description                                            |
 | -------- | --------- | -----------------------------------------------------  |
-| region   | "full"    | The string to put in the region parameter of the URI.  |
-| size     | "max"    | The string to put in the size parameter of the URI. If used with a version 2.0 Image API server, the default should be considered to be "full". |
-| rotation | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
-| quality  | "default" | The string to put in the quality parameter of the URI. |
-| format   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
-| version   | "2.1"    | The string representation of a published version number in "major.minor" form of the IIIF Image API. If the version given in the Selector differs from the version exposed by a Image API service, the client is expected to translate between versions as possible. | 
+| `region`   | "full"    | The string to put in the region parameter of the URI.  |
+| `size`     | "max"    | The string to put in the size parameter of the URI. If used with a version 2.0 Image API server, the default should be considered to be "full". |
+| `rotation` | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
+| `quality`  | "default" | The string to put in the quality parameter of the URI. |
+| `format`   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
+| `version`   | "2.1"    | The string representation of a published version number in "major.minor" form of the IIIF Image API. If the version given in the Selector differs from the version exposed by a Image API service, the client is expected to translate between versions as possible. | 
 
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -1075,13 +1102,13 @@ For cross-version consistency, this specification defines the following values f
 
 | Value                | Specification |
 | -------------------- | ------------- |
-| ImageService1        | [Image API version 1][image11]  |
-| ImageService2        | [Image API version 2][image21]  |
-| SearchService1       | [Search API version 1][search1] |
-| AutoCompleteService1 | [Search API version 1][search1-autocomplete] |
-| AuthCookieService1   | [Authentication API version 1][auth1-cookie-service] |
-| AuthTokenService1    | [Authentication API version 1][auth1-token-service] |
-| AuthLogoutService1   | [Authentication API version 1][auth1-logout-service] |
+| `ImageService1`        | [Image API version 1][image11]  |
+| `ImageService2`        | [Image API version 2][image21]  |
+| `SearchService1`       | [Search API version 1][search1] |
+| `AutoCompleteService1` | [Search API version 1][search1-autocomplete] |
+| `AuthCookieService1`   | [Authentication API version 1][auth1-cookie-service] |
+| `AuthTokenService1`    | [Authentication API version 1][auth1-token-service] |
+| `AuthLogoutService1`   | [Authentication API version 1][auth1-logout-service] |
 {: .api-table #table-service-types}
 
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document.
@@ -1150,14 +1177,14 @@ The possible values of `action` are:
 
 | Value  | Description |
 | ------ | ----------- |
-| enable | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
-| disable | The acted-upon resource is not able to be selected or triggered |
-| show   | The "hidden" behavior is removed from the acted-upon resource, if it has it |
-| hide   | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
-| reset  | The acted-upon resource is reset to its initial state, as if it (or its Container) had just been loaded for the first time |
-| start  | Time-based content resources or animations within resources that are not playing are started |
-| stop   | Time-based content resources or animations within resources that are playing are stopped|
-| select | The acted-upon resource is selected for use, such as a Camera within a Scene |
+| `enable` | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
+| `disable` | The acted-upon resource is not able to be selected or triggered |
+| `show`   | The "hidden" behavior is removed from the acted-upon resource, if it has it |
+| `hide`   | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
+| `reset`  | The acted-upon resource is reset to its initial state, as if it (or its Container) had just been loaded for the first time |
+| `start`  | Time-based content resources or animations within resources that are not playing are started |
+| `stop`   | Time-based content resources or animations within resources that are playing are stopped|
+| `select` | The acted-upon resource is selected for use, such as a Camera within a Scene |
 
 The value of `action` _MUST_ be an array of strings, where each item in the array is drawn from the above list or a registered extension.
 
@@ -1375,10 +1402,10 @@ Just as a Scene may contain multiple Annotations with models, light, and cameras
 
 | Value      | Description |
 |------------|-------------|
-| Audio      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
-| Animations | Exclude all definitions of animations from resources |
-| Cameras    | Exclude all cameras from resources |
-| Lights     | Exclude all lights from resources |
+| `Audio`      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
+| `Animations` | Exclude all definitions of animations from resources |
+| `Cameras`    | Exclude all cameras from resources |
+| `Lights`     | Exclude all lights from resources |
 
 The value of `exclude` is an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
 
@@ -2356,13 +2383,13 @@ For cross-version consistency, this specification defines the following values f
 
 | Value                | Specification |
 | -------------------- | ------------- |
-| ImageService1        | [Image API version 1][image11]  |
-| ImageService2        | [Image API version 2][image21]  |
-| SearchService1       | [Search API version 1][search1] |
-| AutoCompleteService1 | [Search API version 1][search1-autocomplete] |
-| AuthCookieService1   | [Authentication API version 1][auth1-cookie-service] |
-| AuthTokenService1    | [Authentication API version 1][auth1-token-service] |
-| AuthLogoutService1   | [Authentication API version 1][auth1-logout-service] |
+| `ImageService1`        | [Image API version 1][image11]  |
+| `ImageService2 `       | [Image API version 2][image21]  |
+| `SearchService1`       | [Search API version 1][search1] |
+| `AutoCompleteService1` | [Search API version 1][search1-autocomplete] |
+| `AuthCookieService1`   | [Authentication API version 1][auth1-cookie-service] |
+| `AuthTokenService1`    | [Authentication API version 1][auth1-token-service] |
+| `AuthLogoutService1`   | [Authentication API version 1][auth1-logout-service] |
 {: .api-table #table-service-types}
 
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document. The example below includes both version 2 and version 3 IIIF Image API services.
@@ -2823,11 +2850,11 @@ The value _MUST_ be a string value.  This specification defines the values in th
 
 > TODO: create registry and link it here
 
-| Value    |  Unit     |
-|----------|-----------|
-|   m      |  meters   |
-|   s      |  seconds  |
-| relative |  relative |
+| Value      |  Unit     |
+|------------|-----------|
+|   `m`      |  meters   |
+|   `s`      |  seconds  |
+| `relative` |  relative |
 
 * A Quantity _MUST_ have the `unit` property.<br/>
   Clients _SHOULD_ process the `unit` property on Quantity instances.
