@@ -1219,7 +1219,7 @@ Constructs from the domain of 3D graphics are expressed in IIIF as Resources. Th
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model#hidden-value) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model#value-hidden) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
 
 
 ### Lights
