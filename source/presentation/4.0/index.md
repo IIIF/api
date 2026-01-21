@@ -2654,20 +2654,74 @@ An extreme example of both physical dimension properties together is a Canvas sh
 
 # Integration
 
-seeAlso, service(s), extensions
-mention search, image api, auth
+While a IIIF Manifest carries the information required to present a resource on the web, it is unlikely to be the only resource of interest to either human or machine consumers. IIIF provides properties to link to other resources and services. The linked resources might be made directly available to the user by opening links or downloading files in a user interface, or they may be loaded by machines when reading IIIF Manifests to gather further information (for example, to build a search index).
 
-profile for seeAlso
+## Linked resources
 
-partOf -
+In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`](prezi-40-model-seeAlso) property, which is intended for machine-readable resources. The [`homepage`](prezi-40-model-homepage) property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
 
-Talk about Content State and use the phrase "Content State Annotations" - how you transmit IIIF from software to software.
+```
+artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or something)
 
-## Authentication
+(maybe the seeAlso is to a linked art description)
+```
 
-It is possible to include Image API service descriptions within the Manifest, and within those it is also possible to include links to the Authentication API's services that are needed to interact with the image content. The first time an Authentication API service is included within a Manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URI of the service, and clients are expected to look up the details from the full description by matching the URI. Clients _MUST_ anticipate situations where the Authentication service description in the Manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
+There is one Canvas, and it has a [`rendering`](prezi-40-model-rendering) property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
 
+The Manifest also has a [`partOf`](prezi-40-model-partOf) property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`](prezi-40-model-partOf) property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
 
+Another common use of [`rendering`](prezi-40-model-rendering) is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
+
+```jsonc
+{
+  "id": "https://example.com/books/1",
+  "type": "Manifest",
+  "label": { "en": ["Book1"]},
+  "items": [ {} ], // Canvases omitted 
+  "rendering": [
+    {
+      "id": "https://example.com/books/1.pdf",
+      "label": { "en": ["PDF of Book1, with hi-res images and searchable and selectable text (large!)"]},
+      "type": "Text",
+      "format": "application/pdf",
+      "fileSize": 132465987
+    },
+    {
+      "id": "https://example.com/books/1.txt",
+      "label": { "en": ["Plain text of Book1"]},
+      "type": "Text",
+      "format": "text/plain",
+      "fileSize": 46004
+    },
+    {
+      "id": "https://example.com/books/1.epub",
+      "label": { "en": ["EPub of Book1"]},
+      "type": "Text",
+      "format": "application/epub+zip",
+      "profile": "https://www.w3.org/TR/epub-33/",
+      "fileSize": 7845277
+    }
+  ]
+}
+```
+
+This example also shows how the [`fileSize`](prezi-40-model-fileSize) property can give useful information to a user when deciding what they want to download.
+
+## Services
+
+In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`](prezi-40-model-service) in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
+
+Further IIIF Services are provided by the [IIIF Authorization Flow API](auth-api), which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
+
+Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
+
+## Content State
+
+Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API](content-state-api) defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
+
+```
+(region of a Canvas that is partOf a Manifest)
+```
 
 
 # Other stuff
