@@ -279,6 +279,7 @@
 [navPlace]: {{ site.api_url | absolute_url }}/extension/navplace/
 [georeference]: {{ site.api_url | absolute_url }}/extension/georef/
 [registry]: {{ site.api_url | absolute_url }}/registry/ "IIIF Extension Registry"
+[registry-accessibility]: {{ site.api_url | absolute_url }}/registry/accessibility/
 [registry-activity-streams]: https://registry.iiif.io/ "IIIF Registry of Activity Streams"
 [registry-motivations]: {{ site.api_url | absolute_url }}/registry/motivations/
 [registry-behaviors]: {{ site.api_url | absolute_url }}/registry/behaviors/
@@ -304,6 +305,7 @@
 [recipe-process]: {{  site.cookbook_url | absolute_url }}/recipe/ "Cookbook process"
 [recipe-mvm-image]: {{ site.cookbook_url | absolute_url }}/recipe/0001-mvm-image/ "Simplest Manifest - Image"
 [recipe-segment-image-part]: {{ site.api_url | absolute_url }}/cookbook/segment-image-part/ "Annotating part of an image to a canvas"
+[schema-accessibility]: https://www.w3.org/community/reports/a11y-discov-vocab/CG-FINAL-vocabulary-20241209/#accessibilityFeature-vocabulary "Accessibility Properties for Discoverability Vocabulary"
 [slack]: http://bit.ly/iiif-slack
 [web-arch]: http://www.w3.org/TR/webarch/ "Architecture of the World Wide Web"
 
