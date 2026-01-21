@@ -2628,13 +2628,6 @@ Links to resources and services build up a web of linked _*content*_ for human a
 ```
 
 
-> More normative language about auth - does this belong here?
-
-The first time an Authentication API service is included within a Manifest, it _MUST_ be the complete description. Subsequent references _SHOULD_ be just the URI of the service, and clients are expected to look up the details from the full description by matching the URI. Clients _MUST_ anticipate situations where the Authentication service description in the Manifest is out of date: the source of truth is the Image Information document, or other system that references the Authentication API services.
-
-
-
-
 # Other stuff
 
 ## Style
