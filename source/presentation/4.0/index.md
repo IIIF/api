@@ -2938,10 +2938,8 @@ Some IIIF resources have associated resources, such as closed-caption files for 
 
 IIIF uses the `provides` property on supplementing annotations to define the specific accessibility functionality that a linked resource enables for its target, describing why and how a client might use it rather than what the resource is by type or format. For example, a text file linked from a video might provide `closedCaptions`, or an audio file associated with a Canvas might provide an `audioDescription`.
 
-The value of provides _MUST_ be an array of strings. Each string _MUST_ be taken from the [IIIF Registry of Accessibility Values][schema-accessibility].
+The value of `provides` is an array of strings, taken from the [IIIF Registry of Accessibility Values][schema-accessibility].
 
-Annotations _MAY_ include the provides property only when the annotation has the supplementing motivation.
-Clients _SHOULD_ ignore the provides property on resources with any other motivation.
 
 ```json
 "annotations": [
