@@ -253,33 +253,7 @@ A Container that represents a boundless three-dimensional space, optionally with
 
 Scenes may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
 
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/scene",
-  "type": "Scene",
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p3",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/s1",
-          "type": "Annotation",
-          "motivation": ["painting"],
-          "body": [
-            {
-              "id": "https://iiif.io/api/presentation/example-content-resources/models/astronaut.glb",
-              "type": "Model",
-              "format": "model/gltf-binary"
-            }
-          ],
-          "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/scene"]
-        }
-      ]
-    }
-  ]
-}
-```
+{% include code_example.html src="03_scene.json" from=16 to=49 %}
 
 Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
 
