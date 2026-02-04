@@ -1,0 +1,86 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "type": "Manifest",
+  "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2.json",
+  "label": { "de": [ "Berliner Tageblatt - 1925-03-13" ] },
+  "behavior": ["paged"],
+  "navDate": "1925-03-13T00:00:00Z",
+  "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+  "requiredStatement": {
+    "label": { "en": [ "Attribution" ] },
+    "value": {
+      "en": [
+        "<p><a href='https://www.europeana.eu/portal/record/9200355/BibliographicResource_3000096302605.html'>Berliner Tageblatt</a> - Staatsbibliothek zu Berlin - Preußischer Kulturbesitz. Public Domain Mark - http://creativecommons.org/publicdomain/mark/1.0/</p>"
+      ]
+    }
+  },
+  "items": [
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2/canvas/p1",
+      "type": "Canvas",
+      "label": { "en": [ "p. 1" ]
+      },
+      "height": 5000,
+      "width": 3602,
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2/annotation_page_painting/ap1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2/annotation/p1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": [{
+                "id": "https://iiif.io/api/image/3.0/example/reference/4ce82cef49fb16798f4c2440307c3d6f-newspaper-issue2-p1/full/max/0/default.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/3.0/example/reference/4ce82cef49fb16798f4c2440307c3d6f-newspaper-issue2-p1/",
+                    "type": "ImageService3",
+                    "profile": "level1"
+                  }
+                ]
+              }],
+              "target": ["https://iiif.io/api/presentation/4.0/example/uc03_issue2/canvas/p1"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2/canvas/p2",
+      "type": "Canvas",
+      "label": { "en": [ "p. 2" ] },
+      "height": 5000,
+      "width": 3602,
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2/annotation_page_painting/ap2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2/annotation/p2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": [{
+                "id": "https://iiif.io/api/image/3.0/example/reference/4ce82cef49fb16798f4c2440307c3d6f-newspaper-issue2-p2/full/max/0/default.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/3.0/example/reference/4ce82cef49fb16798f4c2440307c3d6f-newspaper-issue2-p2",
+                    "type": "ImageService3",
+                    "profile": "level1"
+                  }
+                ]
+              }],
+              "target": ["https://iiif.io/api/presentation/4.0/example/uc03_issue2/canvas/p2"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

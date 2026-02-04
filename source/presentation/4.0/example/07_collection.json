@@ -1,0 +1,22 @@
+{
+    "id": "https://iiif.io/api/presentation/4.0/example/07_collection.json",
+    "type": "Collection",
+    "label": { "en": [ "Top-level Collection" ] },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/07_sub_collection.json",
+            "type": "Collection",
+            "label": { "en": [ "Sub-Collection 1" ] }
+        },
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/02_canvas.json",
+            "type": "Manifest",
+            "label": { "en": [ "Manifest 1" ] }
+        },
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/05_fragment.json",
+            "type": "Manifest",
+            "label": { "en": [ "Manifest 2" ] }
+        }
+    ]
+}

@@ -215,37 +215,7 @@ A Container that represents a bounded, two-dimensional space, optionally with a 
 
 Canvases have two additional required properties: [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width], which give the spatial extent as integers. Canvases may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
 
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-  "type": "Canvas",
-  "width": 12000,
-  "height": 9000,
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p2",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
-          "type": "Annotation",
-          "motivation": ["painting"],
-          "body": [
-            {
-              "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
-              "type": "Image",
-              "format": "image/jpeg",
-              "width": 4000,
-              "height": 3000
-            }
-          ],
-          "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/canvas"]
-        }
-      ]
-    }
-  ]
-}
-```
+{% include code_example.html src="03_canvas.json" from=11 to=39 %}
 
 ### Scene
 
@@ -253,7 +223,7 @@ A Container that represents a boundless three-dimensional space, optionally with
 
 Scenes may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
 
-{% include code_example.html src="03_scene.json" from=16 to=49 %}
+{% include code_example.html src="04_scene.json" from=16 to=49 %}
 
 Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
 
@@ -296,23 +266,9 @@ Parts of resources on the Web can be identified using URIs with a fragment compo
 
 There are different types of fragment based on the format of the resource. The most commonly used type in IIIF is the W3C's Media Fragments specification, as it can define a temporal and 2D spatial region.
 
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
-  "type": "Annotation",
-  "motivation": ["commenting"],
-  "body": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
-      "type": "TextualBody",
-      "value": "Koto with a cover being carried",
-      "language": "en",
-      "format": "text/plain"
-    }
-  ],
-  "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/canvas#xywh=6050,3220,925,1250"]
-}
-```
+
+{% include code_example.html src="05_fragment.json" from=58 to=72 %}
+
 
 Here the Canvas [`id`][prezi-40-model-id] from the earlier example is still the [`target`][prezi-40-model-target] of an Annotation, but it has been qualified to a specific region of that Canvas by a URI fragment `#xywh=6050,3220,925,1250`. Note that the x, y, w, and h are in the Canvas coordinate space, not the image pixel dimensions space. This annotation has no knowledge of or dependency on the particular image we painted onto the Canvas; we could replace that image with one of a different, higher resolution without affecting this annotation or the region of the Canvas it targets.
 
@@ -327,37 +283,7 @@ The required properties of Specific Resources are [`id`][prezi-40-model-id], [`t
 
 The fragment example above can be expressed using a Specific Resource:
 
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
-  "type": "Annotation",
-  "motivation": ["commenting"],
-  "body": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
-      "type": "TextualBody",
-      "value": "Koto with a cover being carried",
-      "language": "en",
-      "format": "text/plain"
-    }
-  ],
-  "target": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/resources/koto-sr",
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-        "type": "Canvas"
-      },
-      "selector": {
-        "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/selectors/koto-selector",
-        "type": "FragmentSelector",
-        "value": "xywh=6050,3220,925,1250"
-      }
-    }
-  ]
-}
-```
+{% include code_example.html src="06_specific_resource.json" from=58 to=86 %}
 
 ## Navigational Resources
 
@@ -369,30 +295,7 @@ IIIF Collections are ordered lists of Manifests and Collections. Collections all
 
 Collections may include both other Collections and Manifests, forming a tree-structured hierarchy that expresses relationships among IIIF resources. This organization can represent archival or curatorial structures, logical groupings such as volumes or series, or dynamically generated sets of related items. As such, they enable clients to load predefined sets of resources at initialization, render dynamically generated sets such as search results, visualize lists or hierarchies of related content, and facilitate navigation through structured aggregations of Manifests and Collections.
 
-```json
-{
-  "id": "https://iiif.example.org/collection/top",
-  "type": "Collection",
-  "label": { "en": ["Top-level Collection"] },
-  "items": [
-    {
-      "id": "https://iiif.example.org/collection/sub1",
-      "type": "Collection",
-      "label": { "en": ["Sub-Collection 1"] }
-    },
-    {
-      "id": "https://iiif.example.org/manifest/1",
-      "type": "Manifest",
-      "label": { "en": ["Manifest 1"] }
-    },
-    {
-      "id": "https://iiif.example.org/manifest/2",
-      "type": "Manifest",
-      "label": { "en": ["Manifest 2"] }
-    }
-  ]
-}
-```
+{% include code_example.html src="07_collection.json" %}
 
 :eyes:
 
@@ -402,41 +305,9 @@ IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the defau
 
 Ranges may include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating tree-like structures that reflect the logical or intellectual organization of the resource, such as a table of contents or an alternative ordering of items.
 
-```json
-{
-  "id": "https://iiif.example.org/manifest/1/range/toc",
-  "type": "Range",
-  "label": { "en": ["Table of Contents"] },
-  "items": [
-    {
-      "id": "https://iiif.example.org/manifest/1/canvas/1",
-      "type": "Canvas",
-      "label": { "en": ["Page 1"] }
-    },
-    {
-      "id": "https://iiif.example.org/manifest/1/canvas/2",
-      "type": "Canvas",
-      "label": { "en": ["Page 2"] }
-    },
-    {
-      "id": "https://iiif.example.org/manifest/1/range/chapter2",
-      "type": "Range",
-      "label": { "en": ["Chapter 2"] },
-      "items": [
-        {
-          "id": "https://iiif.example.org/manifest/1/canvas/3",
-          "type": "Canvas",
-          "label": { "en": ["Page 3"] }
-        }
-      ]
-    }
-  ]
-}
-```
+{% include code_example.html src="08_range.json" from=283 to=311 %}
 
 :eyes:
-
-
 
 # Image Content
 
@@ -444,111 +315,11 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
-The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
+The unit integer coordinates of the Canvas (6000 x 3813) are not the same as the pixel dimensions of the JPEG image (2000 x 1271), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
 The example demonstrates the use of the common descriptive properties [`label`][prezi-40-model-label] for the title of the artwork, [`metadata`][prezi-40-model-metadata] for additional information to display to the user, [`summary`][prezi-40-model-summary] for a brief description of the artwork, [`rights`][prezi-40-model-rights] to assert a rights statement or license from a controlled vocabulary, [`homepage`][prezi-40-model-homepage] to link to the artwork's specific web page, [`thumbnail`][prezi-40-model-thumbnail] to provide a small image to stand for the Manifest, [`provider`][prezi-40-model-provider] to give information about the publisher of the Manifest, and finally, [`service`][prezi-40-model-service] to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
 
-```jsonc
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://iiif.io/api/cookbook/recipe/0001-mvm-image/manifest.json",
-  "type": "Manifest",
-  "label": { "en": ["Use case 1: Artwork"] },
-  "metadata": [
-    {
-      "label": { "en": ["Artist"] },
-      "value": { "en": ["Anne Artist"] }
-    },
-    {
-      "label": { "en": ["Date"] },
-      "value": { "en": ["c. 1800"] }
-    }
-  ],
-  "summary": { "en": ["A longer piece of text to be shown when the metadata is not."] },
-  "rights": "http://rightsstatements.org/vocab/NoC-NC/1.0/",
-  "homepage": [
-    {
-      "id": "https://example.org/works/artwork37",
-      "type": "Text",
-      "format": "text/html",
-      "label": { "en": ["Homepage for artwork37"] }
-    }
-  ],
-  "thumbnail": [
-    {
-      "id": "https://example.org/works/artwork37/thumbnail.jpg",
-      "type": "Image",
-      "format": "image/jpeg",
-      "width": 100,
-      "height": 150
-    }
-  ],
-  "provider": [
-    {
-      "id": "https://example.org/about",
-      "type": "Agent",
-      "label": { "en": ["Example Organization"] },
-      "homepage": [
-        {
-          "id": "https://example.org/",
-          "type": "Text",
-          "label": { "en": ["Example Organization Homepage"] },
-          "format": "text/html"
-        }
-      ],
-      "logo": [
-        {
-          "id": "https://example.org/images/logo.png",
-          "type": "Image",
-          "format": "image/png",
-          "height": 100,
-          "width": 120
-        }
-      ]
-    }
-  ],
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-      "type": "Canvas",
-      "width": 12000,
-      "height": 9000,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p2",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "width": 4000,
-                  "height": 3000,
-                  "service": [
-                    {
-                      "id": "https://iiif.io/api/presentation/example/image/painting",
-                      "profile": "level1",
-                      "type": "ImageService3"
-                      // etc
-                    }
-                  ]
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/canvas"]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
+{% include code_example.html src="uc01_artwork.json" %}
 
 >
 **Key Points**
@@ -574,125 +345,7 @@ Properties: [id][prezi-40-model-id], [type][prezi-40-model-type], [label][prezi-
 
 This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the [`behavior`][prezi-40-model-behavior] property to indicate to a client that the object is _paged_---this helps a client generate the correct user experience. The [`viewingDirection`][prezi-40-model-viewingDirection] property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a [`rendering`][prezi-40-model-rendering] property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The [`start`][prezi-40-model-start] property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The [`requiredStatement`][prezi-40-model-requiredStatement] is a message that a client MUST show to the user when presenting the Manifest.
 
-```json
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-book.json",
-  "type": "Manifest",
-  "label": { "en": ["Use case 2: Book"] },
-  "behavior": ["paged"],
-  "viewingDirection": "left-to-right",
-  "rendering": [
-    {
-      "id": "https://example.org/pdfs/book.pdf",
-      "type": "Text",
-      "label": { "en": ["PDF version"] },
-      "format": "application/pdf"
-    }
-  ],
-  "start": {
-    "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2",
-    "type": "Canvas"
-  },
-  "requiredStatement": {
-    "label": { "en": ["Attribution"] },
-    "value": { "en": ["Provided courtesy of Example Institution"] }
-  },
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c1",
-      "type": "Canvas",
-      "label": { "en": ["Blank page"] },
-      "height": 4613,
-      "width": 3204,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-book/page/p1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/presentation/example-content-resources/image/page1.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 4613,
-                  "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c1"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2",
-      "type": "Canvas",
-      "label": { "en": ["Frontispiece"] },
-      "height": 4613,
-      "width": 3204,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-book/page/p2",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/presentation/example-content-resources/image/page2.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 4613,
-                  "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c3",
-      "type": "Canvas",
-      "label": { "en": ["Title Page"] },
-      "height": 4613,
-      "width": 3204,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-book/page/p3",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a3",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/presentation/example-content-resources/image/page3.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 4613,
-                  "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c3"]
-            }
-          ]
-        }
-      ]
-    }
-    // Additional Canvases
-  ]
-}
-```
+{% include code_example.html src="uc02_book.json" %}
 
 >
 **Key Points**
@@ -710,170 +363,21 @@ Properties: [behavior][prezi-40-model-behavior], [viewingDirection][prezi-40-mod
 
 ## Use Case 3: Periodical
 
-This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a run of the _The Tombstone Epitaph_, published from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the [`behavior`][prezi-40-model-behavior] "multi-part" to signal that the Collections and their Manifests are part of a logical set. Each of the year Collections has one Manifest for each issue of the newspaper.
+This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a run of the _Berliner Tageblatt_, published from 1925 to 1926. This contains 2 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the [`behavior`][prezi-40-model-behavior] "multi-part" to signal that the Collections and their Manifests are part of a logical set. Each of the year Collections has one Manifest for each issue of the newspaper.
 
-The top-level Collection has a [`navPlace`][prezi-40-model-navPlace] property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each Manifest has a [`navDate`][prezi-40-model-navDate] property that could be used to plot the issues on a timeline or calendar-style user interface. Within each Manifest, the [`structures`][prezi-40-model-structures] property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within those sections, which may be spread across multiple columns and pages. Each story's Range includes the [`supplementary`][prezi-40-model-supplementary] property to link to an Annotation Collection that provides the text of the story.
+The top-level Collection has a [`navPlace`][prezi-40-model-navPlace] property that could be used on a "Newspapers of Germany" map to allow users to view newspapers by location. Each Manifest has a [`navDate`][prezi-40-model-navDate] property that could be used to plot the issues on a timeline or calendar-style user interface. Within each Manifest, the [`structures`][prezi-40-model-structures] property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within those sections, which may be spread across multiple columns and pages. Each story's Range includes the [`supplementary`][prezi-40-model-supplementary] property to link to an Annotation Collection that provides the text of the story.
 
 IIIF Collection with [`behavior`][prezi-40-model-behavior] "multi-part" that contains the individual "multi-part" Collections for each year/volume:
 
-```json
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/periodical/collection.json",
-  "type": "Collection",
-  "label": { "en": ["The Tombstone Epitaph (1880-1920)"] },
-  "behavior": ["multi-part"],
-  "navPlace": {
-    "id": "https://example.org/iiif/periodical/collection/place/1",
-    "type": "FeatureCollection",
-    "features": [
-      {
-        "id": "https://example.org/iiif/periodical/collection/feature/1",
-        "type": "Feature",
-        "properties": { "label": { "en": ["Tombstone, Cochise County, Arizona"] } },
-        "geometry": {
-          "type": "Point",
-          "coordinates": [31.715940, −110.064827]
-        }
-      }
-    ]
-  },
-  "items": [
-    {
-      "id": "https://example.org/iiif/periodical/multi-part-collection/v1.json",
-      "type": "Collection",
-      "label": { "en": ["The Tombstone Epitaph, 1880"] }
-    },
-    {
-      "id": "https://example.org/iiif/periodical/multi-part-collection/v2.json",
-      "type": "Collection",
-      "label": { "en": ["The Tombstone Epitaph, 1881"] }
-    }
-    // Additional multi-part collections for each year/volume
-  ]
-}
-```
-IIIF Collection with [`behavior`][prezi-40-model-behavior] "multi-part" for the second volume (1881), with individual Manifests for each issue:
+{% include code_example.html src="uc03_periodical.json" %}
 
-```json
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/periodical/multi-part-collection/v1.json",
-  "type": "Collection",
-  "label": { "en": ["The Tombstone Epitaph, 1881"] },
-  "behavior": ["multi-part"],
-  "items": [
-    // Previous issues
-    {
-      "id": "https://example.org/iiif/periodical/multi-part-collection/issue1.json",
-      "type": "Manifest",
-      "label": { "en": ["October 27, 1881"] }
-    }
-    // Subsequent issues
-  ]
-}
-```
+IIIF Collection with [`behavior`][prezi-40-model-behavior] "multi-part" for the first volume (1925), with individual Manifests for each issue:
 
-Manifest for the October 27, 1881 issue, with Ranges for table of contents:
+{% include code_example.html src="uc03_vol1.json" from=1 to=24%}
 
-```json
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/periodical/multi-part-collection/issue1.json",
-  "type": "Manifest",
-  "label": { "en": ["The Tombstone Epitaph, October 27, 1881"] },
-  "behavior": ["paged"],
-  "navDate": "1881-10-27T00:00:00+00:00",
-  "items": [
-    {
-      "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c1",
-      "type": "Canvas",
-      "label": { "en": ["Page 1"] },
-      "height": 4613,
-      "width": 3204,
-      "items": [
-        {
-          "id": "https://example.org/iiif/periodical/multi-part-collection/page/p1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/periodical/multi-part-collection/annotation/a1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://example.org/image/page1.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 4613,
-                  "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/periodical/multi-part-collection/canvas/c1"]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c2",
-      "type": "Canvas",
-      "label": { "en": ["Page 2"] },
-      "height": 4613,
-      "width": 3204,
-      "items": [
-        {
-          "id": "https://example.org/iiif/periodical/multi-part-collection/page/p2",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/periodical/multi-part-collection/annotation/a2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://example.org/image/page2.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 4613,
-                  "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/periodical/multi-part-collection/canvas/c2"]
-            }
-          ]
-        }
-      ]
-    }
-    // Additional Canvases
-  ],
-  "structures": [
-    {
-      "id": "https://example.org/iiif/periodical/multi-part-collection/range/r0",
-      "type": "Range",
-      "label": { "en": ["October 27, 1881"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/periodical/multi-part-collection/range/r1",
-          "type": "Range",
-          "label": { "en": ["Yesterday's Tragedy: Three Men Hurled Into Eternity In the Duration of a Moment"] },
-          "supplementary": {
-            "id": "https://example.org/iiif/full-text-anno-collection",
-            "type": "AnnotationCollection"
-          },
-          "items": [
-            {
-              "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c1",
-              "type": "Canvas"
-            }
-            // Additional contents
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+Manifest for the February 16, 1925 issue, with Ranges for table of contents:
+
+{% include code_example.html src="uc03_issue1.json" %}
 
 >
 **Key Points**

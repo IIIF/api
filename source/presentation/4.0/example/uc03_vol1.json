@@ -1,0 +1,35 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "type": "Collection",
+  "id": "https://iiif.io/api/presentation/4.0/example/uc03_vol1.json",
+  "label": {
+    "en": [
+      "Berliner Tageblatt - 1925"
+    ]
+  },
+  "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+  "behavior": ["multi-part"],
+  "requiredStatement": {
+    "label": { "en": [ "Attribution" ] },
+    "value": { "en": [
+        "<p><a href='https://www.europeana.eu/portal/record/9200355/BibliographicResource_3000096302605.html'>Berliner Tageblatt</a> - Staatsbibliothek zu Berlin - Preußischer Kulturbesitz. Public Domain Mark - http://creativecommons.org/publicdomain/mark/1.0/</p>"
+      ] }
+  },
+  "items": [
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue1.json",
+      "type": "Manifest",
+      "label": { "de": [ "Berliner Tageblatt - 1925-02-16" ]
+      }
+    },
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2.json",
+      "type": "Manifest",
+      "label": {
+        "de": [
+          "Berliner Tageblatt - 1925-03-13"
+        ]
+      }
+    }
+  ]
+}

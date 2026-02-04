@@ -1,0 +1,78 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/presentation/4.0/example/05_fragment.json",
+  "type": "Manifest",
+  "label": {
+    "en": [
+      "Koto, chess, calligraphy, and painting"
+    ],
+    "ja": [
+      "琴棋書画図屏風"
+    ]
+  },
+  "items": [
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/05/canvas/p1",
+      "type": "Canvas",
+      "height": 3966,
+      "width": 8800,
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/4.0/example/05/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/p0001-image",
+              "type": "Annotation",
+              "motivation": [
+                "painting"
+              ],
+              "body": [
+                {
+                  "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004/full/max/0/default.jpg",
+                  "type": "Image",
+                  "format": "image/jpeg",
+                  "height": 3966,
+                  "width": 8800,
+                  "service": [
+                    {
+                      "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004",
+                      "profile": "level1",
+                      "type": "ImageService3"
+                    }
+                  ]
+                }
+              ],
+              "target": [
+                "https://iiif.io/api/presentation/4.0/example/05/canvas/p1"
+              ]
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://iiif.io/api/presentation/4.0/example/05/page/p2/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/p0001-comment",
+              "type": "Annotation",
+              "motivation": [ "commenting" ],
+              "body": [
+                {
+                  "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/bodies/koto-body",
+                  "type": "TextualBody",
+                  "value": "Koto with a cover being carried",
+                  "language": "en",
+                  "format": "text/plain"
+                }
+              ],
+              "target": [ "https://iiif.io/api/presentation/4.0/example/05/canvas/p1#xywh=1650,1200,925,1250" ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

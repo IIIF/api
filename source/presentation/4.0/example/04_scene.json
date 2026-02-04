@@ -1,6 +1,6 @@
 {
     "@context": "http://iiif.io/api/presentation/4/context.json",
-    "id": "https://iiif.io/api/presentation/4.0/example/03_scene.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/04_scene.json",
     "type": "Manifest",
     "label": {
         "en": [

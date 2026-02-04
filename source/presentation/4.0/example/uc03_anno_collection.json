@@ -1,0 +1,8 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/presentation/4.0/example/uc03_anno_collection.json",
+  "type": "AnnotationCollection",
+  "label": {"en": ["Full text of the first article"]},
+  "first": { "id": "https://iiif.io/api/presentation/4.0/example/uc03_anno_page.json", "type": "AnnotationPage" },
+  "last": { "id": "https://iiif.io/api/presentation/4.0/example/uc03_anno_page.json", "type": "AnnotationPage" }
+}
