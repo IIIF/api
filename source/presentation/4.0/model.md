@@ -1302,15 +1302,11 @@ The value _MUST_ be an array of strings.
 | `multi-part`{: #value-multi-part} | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together`{: #value-together} | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Navigation Behaviors** |
-| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are ...
-
-TODO: do we define the processing model here?
-
-Disjoint with `thumbnail-nav` and `no-nav`.|
+| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: #value-thumbnail-nav style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav`{: #value-no-nav} | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
-| `hidden`{: #value-hidden} | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. TODO - this needs to talk about `hidden` on an activating annotation, which is not a visible (painted) resource. |
+| `hidden`{: #value-hidden} | Valid on Annotation Collections, Annotation Pages, Annotations, Specific Resources, Lights, Cameras and Choices. If this behavior is provided, then the client _SHOULD NOT_ render the resource by default, but allow the user to turn it on and off. This behavior does not inherit, as it is not valid on Collections, Manifests, Ranges or Canvases. See the section on Dynamic Content for more information. |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
@@ -2144,30 +2140,23 @@ The value _MUST_ be an array of strings, each string identifies a particular fea
 
 Note that the majority of the values have been selected from [accessibility feature spec][link] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
 
-> TODO: clarify the list and get the descriptions from the accessibility folks
-
 * Annotations with the `supplementing` motivation _MAY_ have the `provides` property.<br/>
   Clients _SHOULD_ ignore the `provides` property on all other resource.
 
 | Value | Description |
 | ----- | ----------- |
-| `closedCaptions`{: #value-closedCaptions} | ... |
-| `alternativeText`{: #value-alternativeText} | ... |
-| `audioDescription`{: #value-audioDescription} | ... |
-| `longDescription`{: #value-longDescription} | ... |
-| `signLanguage`{: #value-signLanguage} | ... |
-| `highContrastAudio`{: #value-highContrastAudio} | ... |
-| `highContrastDisplay`{: #value-highContrastDisplay} | ... |
-| `braille`{: #value-braille} | ... |
-| `tactileGraphic`{: #value-tactileGraphic} | ... |
-| `transcript`{: #value-transcript} | ... |
-| `translation`{: #value-translation} | (IIIF Defined) ... |
-| `subtitles`{: #value-subtitles} | (IIIF Defined) ... |
+| `closedCaptions`{: #value-closedCaptions} | Closed captions are content that is defined separately from A/V material, but synchronized with it |
+| `alternativeText`{: #value-alternativeText} | Textual content to be provided to users that cannot or do not wish to interact with the image, audio or video file directly  |
+| `longDescription`{: #value-longDescription} | A textual representation of visual, auditory or complex structured data |
+| `highContrastAudio`{: #value-highContrastAudio} | An alternative form of the audio where the contrast is high, making it easier to hear |
+| `highContrastDisplay`{: #value-highContrastDisplay} | An alternative form of visual content where the contrast is high, making it easier to see |
+| `transcript`{: #value-transcript} | A transcript of the audio content, as opposed to closed captions which might include other descriptions such as music or sound effects |
+| `translation`{: #value-translation} | A translation of the content into another language, defined on the content resource (IIIF Defined) |
 {: .api-table #table-behavior}
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "provides": [ "closedCaption" ] }
+{ "provides": [ "closedCaptions" ] }
 ```
 
 ### quality
@@ -2322,6 +2311,30 @@ The value _MUST_ be a string, not a number, in order to allow for the "!" charac
 ``` json-doc
 { "rotation": "0" }
 ```
+
+### scope
+{: #scope}
+
+The scope of a Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. In a Scene, this would typically be an instance of a Camera that should be activated and selected to set up the correct viewpoint. There are no specific expectations around other classes currently.
+
+The value _MUST_ be an array of JSON objects.
+
+* A Specific Resource _MAY_ have the `scope` property with at least one item.<br/>
+  Clients _SHOULD_ process `scope` on Specific Resources.
+
+{% include api/code_header.html %}
+``` json-doc
+{ 
+  "scope": [
+    {
+      "id": "https://example.org/iiif/camera/1", 
+      "type": "PerspectiveCamera"
+    }
+  ]
+}
+```
+
+
 
 ### seeAlso
 {: #seeAlso}
@@ -2687,7 +2700,7 @@ The list of targets of an Annotation. As there _MAY_ be more than one target, th
 
 For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be an array of JSON objects.
+The value _MUST_ be an array. Each item _SHOULD_ be a JSON object with at least `id` and `type`, however _MAY_ be a URI as a string. In a future major version, the string "shortcut" form might be removed for consistency.
 
 * An Annotation _MUST_ have the `target` property.<br/>
   Clients _MUST_ process the `target` property on Annotations.
@@ -2865,8 +2878,6 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 The unit of measurement of a quantity expressed by a Quantity.
 
 The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be registered via the IIIF unit registry. 
-
-> TODO: create registry and link it here
 
 | Value      |  Unit     |
 |------------|-----------|
@@ -3139,5 +3150,9 @@ The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `
 ### Registries of Values
 
 FIXME: Describe the registries
+
+
+* Provides
+* Unit
 
 {: #scrolly-mc-scroll-face}
