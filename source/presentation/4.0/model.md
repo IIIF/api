@@ -2875,7 +2875,7 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 
 ### unit
 
-The unit of measurement of a quantity expressed by a Quantity.
+The unit of measurement of a quantity expressed by a Quantity. This unit is necessary to interpet the value, as the same number could result in very different processing for different units: consider a physical scale of 1 meter vs 1 inch, and how clients might misrepresent the intent of the content of the Manifest.
 
 The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be registered via the IIIF unit registry. 
 
@@ -3021,35 +3021,59 @@ The value _MUST_ be a positive integer.
 ### x
 {: #x}
 
-A number (floating point or integer) giving the x coordinate of the point, relative to the dimensions of the source resource
+A number giving the x coordinate of a point, relative to the dimensions of the source resource, or an angular value in degrees for transformation.
 
+The value _MUST_ be a number (floating point or integer).
+
+* A PointSelector _MAY_ have the `x` property.<br/>
+  Clients _MUST_ process `x` on a PointSelector.
+* Transforms _MAY_ have the `x` property.<br/>
+  Clients _MUST_ process `x` on a Transforms.
+* Other types of resource _MUST NOT_ have the `x` property.<br/>
+  Clients _SHOULD_ ignore `x` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "x": 100 }
+{ "x": 100.0 }
 ```
 
 ### y
 {: #y}
 
-A number (floating point or integer) giving the y coordinate of the point, relative to the dimensions of the source resource
+A number giving the y coordinate of the point, relative to the dimensions of the source resource.
 
+The value _MUST_ be a number (floating point or integer).
+
+* A PointSelector _MAY_ have the `y` property.<br/>
+  Clients _MUST_ process `y` on a PointSelector.
+* Transforms _MAY_ have the `y` property.<br/>
+  Clients _MUST_ process `y` on a Transforms.
+* Other types of resource _MUST NOT_ have the `y` property.<br/>
+  Clients _SHOULD_ ignore `y` on other types of resource.
 
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "y": 100 }
+{ "y": 100.0 }
 ```
 
 ### z
 {: #z}
 
-A number (floating point) giving the z coordinate of the point, relative to the dimensions of the source resource
+A number giving the z coordinate of the point, relative to the dimensions of the source resource.
 
+The value _MUST_ be a number (floating point or integer).
+
+* A PointSelector _MAY_ have the `z` property.<br/>
+  Clients _MUST_ process `z` on a PointSelector.
+* Transforms _MAY_ have the `z` property.<br/>
+  Clients _MUST_ process `z` on a Transforms.
+* Other types of resource _MUST NOT_ have the `z` property.<br/>
+  Clients _SHOULD_ ignore `z` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "z": 100 }
+{ "z": 100.0 }
 ```
 
 ## Dynamic Content
