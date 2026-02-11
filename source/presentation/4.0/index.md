@@ -484,43 +484,7 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
 
 > PNG of Scene
 
-```jsonc
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/3d/model_origin.json",
-  "type": "Manifest",
-  "label": { "en": ["Single Model"] },
-  "summary": { "en": ["Viewer should render the model at the scene origin, and then viewer should add default lighting and camera"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/1",
-      "type": "Scene",
-      "label": { "en": ["A Scene"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
-                  "type": "Model",
-                  "format": "model/gltf-binary"
-                }
-              ],
-              "target": ["https://example.org/iiif/scene1/page/p1/1"]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+{% include code_example.html src="uv06_3d.json" %}
 
 >
 **Key Points**
