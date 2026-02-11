@@ -1148,14 +1148,14 @@ The possible values of `action` are:
 
 | Value  | Description |
 | ------ | ----------- |
-| enable | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
-| disable | The acted-upon resource is not able to be selected or triggered |
-| show   | The "hidden" behavior is removed from the acted-upon resource, if it has it |
-| hide   | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
-| reset  | The acted-upon resource is reset to its initial state, as if it (or its Container) had just been loaded for the first time |
-| start  | Time-based content resources or animations within resources that are not playing are started |
-| stop   | Time-based content resources or animations within resources that are playing are stopped|
-| select | The acted-upon resource is selected for use, such as a Camera within a Scene |
+| enable {: #value-enable} | The acted-upon resource is now able to be selected, or, if it is an activating annotation, it is able to be triggered |
+| disable {: #value-disable}| The acted-upon resource is not able to be selected or triggered |
+| show {: #value-show}  | The "hidden" behavior is removed from the acted-upon resource, if it has it |
+| hide {: #value-hide}  | The "hidden" behavior is added to the acted-upon resource, if it does not have it |
+| reset {: #value-reset} | The acted-upon resource is reset to its initial state, as if it (or its Container) had just been loaded for the first time |
+| start {: #value-start} | Time-based content resources or animations within resources that are not playing are started |
+| stop {: #value-stop}  | Time-based content resources or animations within resources that are playing are stopped|
+| select {: #value-select} | The acted-upon resource is selected for use, such as a Camera within a Scene |
 
 The value of `action` _MUST_ be an array of strings, where each item in the array is drawn from the above list or a registered extension.
 
