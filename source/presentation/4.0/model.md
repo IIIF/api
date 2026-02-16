@@ -487,6 +487,41 @@ A Choice _SHOULD_ have the following properties: [label](#label)<br/><br/>
 A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
+#### Composite
+{: #Composite}
+
+> `"type": "Composite"`
+
+A Composite is a construction where all of the resources are required for , as opposed to Choice where the client selects only one of the items.
+
+__Properties__<br/>
+A Composite _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+A Composite _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A Composite _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### List
+{: #List}
+
+> `"type": "List"`
+
+__Properties__<br/>
+A List _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+A List _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### Independents
+{: #Independents}
+
+> `"type": "Independents"`
+
+__Properties__<br/>
+An Independents _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+An Independents _SHOULD_ have the following properties: [label](#label)<br/><br/>
+An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
 
 ### Content Resources
 {: #ContentResources}
