@@ -1323,14 +1323,21 @@ Some Annotations do not have bodies at all. For example a highlighting annotatio
 
 For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be an array of JSON objects.
+The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property.
+
+Note that older implementations might publish Manifests that they claim to be 4.0 with a `body` property where the body or bodies are strings. These strings are the URIs of the referenced resource. The body in these cases might also not be an array. Clients should be liberal with what they accept in the transition to these new requirements.
+
 
 * An Annotation _SHOULD_ have the `body` property.<br/>
-  Clients _MUST_ process the `body` property on Annotations.
+  Clients _MUST_ process the `body` property on Annotations. Clients _SHOULD_ be liberal with what they accept as the value. 
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "body": [ {"type": "TextualBody", "value": "Great!"} ] }
+{ "body": 
+  [ 
+    {"type": "TextualBody", "value": "Great!"} 
+  ] 
+}
 ```
 
 ### canonical
@@ -1832,11 +1839,25 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 ### motivation
 {: #motivation}
 
-This specification defines three values for the [Web Annotation Data Model][org-w3c-webanno] property of `motivation`, or `purpose` when used on a Specific Resource or Textual Body.
+The `motivation` property records the reason that an Annotation was created. Motivations can also be thought of as a classification of the type of Annotation (a `commenting` motivation implies the annotation is somehow a Comment). The name of the motivation is often used as an adjective for the Annotation, and thus an Annotation with the `painting` motivation is a "painting Annotation", or an annotation with the `commenting` motivation is a "commenting Annotation".
 
-These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content of the Container ("painting" motivation) and content from the Container ("supplementing" motivation), from ones with externally defined motivations which are typically comments about the Container. The "activating" motivation determines interactions with the resource in the Container.
+This specification defines three new values for `motivation`. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content *of* the Container ("painting" motivation) and content *from* the Container ("supplementing" motivation), from ones with externally defined motivations which are typically comments or additional information *about* the Container. The "activating" motivation determines interactions with the resource in the Container.
 
-Additional motivations may be added to the Annotation to further clarify the intent, drawn from [extensions][prezi30-ldce] or other sources. Clients _MUST_ ignore motivation values that they do not understand. Other motivation values given in the Web Annotation specification _SHOULD_ be used where appropriate, and examples are given in the [Presentation API Cookbook][annex-cookbook].
+The value _MUST_ be an array. Each item in the array _MUST_ be a string, drawn from the table below, the values defined by the Web Annotation Data Model, the registry for motivations, or an included extension.
+
+In previous versions, `motivation` was allowed to be a string or an array. Clients _SHOULD_ be liberal in accepting a single string as value.
+
+* An Annotation _MUST_ have the `motivation` property with at least one item.<br/>
+  Clients _MUST_ process the `motivation` property on Annotations.
+* Other types of resource _MUST NOT_ have the `motivation` property.<br/>
+  Clients _MUST_ ignore `motivation` on other types of resource.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "motivation": [ "painting" ]
+}
+```
 
 | Value | Description |
 | ----- | ----------- |
@@ -1844,6 +1865,7 @@ Additional motivations may be added to the Annotation to further clarify the int
 | `supplementing`{: #value-supplementing} | Resources associated with a Container by an Annotation that has the `motivation` value `supplementing`  _MAY_ be presented to the user as part of the representation of the Container, or _MAY_ be presented in a different part of the user interface. The content can be thought of as being _from_ the Container. The use of this motivation with target resources other than Containers is undefined. For example, an Annotation that has the `motivation` value `supplementing`, a body of an Image and the target of part of a Canvas is an instruction to present that Image to the user either in the Canvas's rendering area or somewhere associated with it, and could be used to present an easier to read representation of a diagram. Similarly, a textual body is to be presented either in the targeted region of the Container or otherwise associated with it, and might be OCR, a manual transcription or a translation of handwritten text, or captions for what is being said in a Timeline with audio content. |
 | `activating`{: #value-activating}   | Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to link a resource that triggers an action with the resource(s) to change, and the type of change to put into effect. See the [`action`](#action) property for information about processing actions. |
 {: .api-table #table-motivations}
+
 
 
 ### navDate
@@ -2501,7 +2523,9 @@ The `source` property refers to the URI of the resource that the Specific Resour
 
 For more information about source and Specific Resources, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#specific-resources).
 
-The value _MUST_ be a string, and the value _MUST_ be a URI. The value _MUST NOT_ include a media fragment.
+The value _MUST_ be a JSON Object with the `id` and `type` properties. The value of `id` _MUST NOT_ include a media fragment. 
+
+In previous versions of the Presentation API, the value was allowed to be a string (the URI) as well as a JSON Object. Clients _SHOULD_ be liberal with accepting this string form.
 
 * A SpecificResource _MUST_ have the `source` property with exactly one value.<br/>
   Clients _MUST_ process the `source` property on a SpecificResource.
@@ -2700,10 +2724,12 @@ The list of targets of an Annotation. As there _MAY_ be more than one target, th
 
 For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be an array. Each item _SHOULD_ be a JSON object with at least `id` and `type`, however _MAY_ be a URI as a string. In a future major version, the string "shortcut" form might be removed for consistency.
+The value _MUST_ be an array. Each item _MUST_ be a JSON object with the `type` property, and referenced resources _MUST_ also have the `id` property.
+
+Note that older implementations might publish Manifests that they claim to be 4.0 with a `target` property where the body or bodies are strings. These strings are the URIs of the referenced resource. The body in these cases might also not be an array. Clients should be liberal with what they accept in the transition to these new requirements.
 
 * An Annotation _MUST_ have the `target` property.<br/>
-  Clients _MUST_ process the `target` property on Annotations.
+  Clients _MUST_ process the `target` property on Annotations. Clients _SHOULD_ be liberal with what they accept as the value.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3021,7 +3047,7 @@ The value _MUST_ be a positive integer.
 ### x
 {: #x}
 
-A number giving the x coordinate of a point, relative to the dimensions of the source resource, or an angular value in degrees for transformation.
+A number giving the x coordinate of a point on the horizontal or width axis (e.g. for Point Selector), an angular value in degrees around the x axis (e.g. for Rotate Transform), a scale factor to multiply another x value by (e.g. for Scale Transform), or an offset along the x axis to add to another x value (e.g. for Translate Transform). The interpretation of the value is, thus, dependent on the class of the resource that has the `x` property.
 
 The value _MUST_ be a number (floating point or integer).
 
@@ -3040,7 +3066,7 @@ The value _MUST_ be a number (floating point or integer).
 ### y
 {: #y}
 
-A number giving the y coordinate of the point, relative to the dimensions of the source resource.
+A number giving the y coordinate of a point on the vertical or height axis (e.g. for Point Selector), an angular value in degrees around the y axis (e.g. for Rotate Transform), a scale factor to multiply another y value by (e.g. for Scale Transform), or an offset along the y axis to add to another x value (e.g. for Translate Transform). The interpretation of the value is, thus, dependent on the class of the resource that has the `y` property.
 
 The value _MUST_ be a number (floating point or integer).
 
@@ -3060,7 +3086,7 @@ The value _MUST_ be a number (floating point or integer).
 ### z
 {: #z}
 
-A number giving the z coordinate of the point, relative to the dimensions of the source resource.
+A number giving the z coordinate of a point on the "depth" axis (e.g. for Point Selector), an angular value in degrees around the x axis (e.g. for Rotate Transform), a scale factor to multiply another x value by (e.g. for Scale Transform), or an offset along the x axis to add to another x value (e.g. for Translate Transform). The interpretation of the value is, thus, dependent on the class of the resource that has the `x` property.
 
 The value _MUST_ be a number (floating point or integer).
 
@@ -3076,7 +3102,10 @@ The value _MUST_ be a number (floating point or integer).
 { "z": 100.0 }
 ```
 
-## Dynamic Content
+
+## Processing Model
+
+### Dynamic Content
 {: #dynamic-content}
 
 TODO note that SpecificResource body `source` must exist in manifest elsewhere, is only a reference.
@@ -3109,7 +3138,7 @@ anno `body` => Ordered List, redefine in context
 will break any `"body": {}` annos
 
 
-### Showing and hiding content
+#### Showing and hiding content
 
 If the body is a reference to a Painting Annotation or a non-painting , the client must render the `target` resource as an interactive element in the user interface, which the user (or _Container time_) can trigger (e.g., clicking, selecting, entering). The `body` of the annotation is then activated by this interaction.
 
@@ -3119,15 +3148,15 @@ If the body is a reference to a Painting Annotation or a non-painting , the clie
 
 enables and disables
 
-### Activating Lights
+#### Activating Lights
 
 You can just use enables and disables
 
-### Activating Cameras
+#### Activating Cameras
 
  * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
 
-### Playing animations
+#### Playing animations
 
 If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated.
 * If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
