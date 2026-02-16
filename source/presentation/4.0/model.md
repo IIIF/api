@@ -2332,7 +2332,7 @@ The value _MUST_ be a string, not a number, in order to allow for the "!" charac
 ### scope
 {: #scope}
 
-The scope of a Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. In a Scene, this would typically be an instance of a Camera that should be activated and selected to set up the correct viewpoint. There are no specific expectations around other classes currently.
+The scope of a Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. In a Scene, this would typically be an instance of a Camera that should be activated and selected to set up the correct viewpoint. This specification does not establish specific expectations for references to other classes.
 
 The value _MUST_ be an array of JSON objects.
 
