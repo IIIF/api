@@ -1325,11 +1325,8 @@ For more information about Annotation bodies, see the [W3C Annotation Model](htt
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property.
 
-Note that older implementations might publish Manifests that they claim to be 4.0 with a `body` property where the body or bodies are strings. These strings are the URIs of the referenced resource. The body in these cases might also not be an array. Clients should be liberal with what they accept in the transition to these new requirements.
-
-
 * An Annotation _SHOULD_ have the `body` property.<br/>
-  Clients _MUST_ process the `body` property on Annotations. Clients _SHOULD_ be liberal with what they accept as the value. 
+  Clients _MUST_ process the `body` property on Annotations.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1844,8 +1841,6 @@ The `motivation` property records the reason that an Annotation was created. Mot
 This specification defines three new values for `motivation`. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content *of* the Container ("painting" motivation) and content *from* the Container ("supplementing" motivation), from ones with externally defined motivations which are typically comments or additional information *about* the Container. The "activating" motivation determines interactions with the resource in the Container.
 
 The value _MUST_ be an array. Each item in the array _MUST_ be a string, drawn from the table below, the values defined by the Web Annotation Data Model, the registry for motivations, or an included extension.
-
-In previous versions, `motivation` was allowed to be a string or an array. Clients _SHOULD_ be liberal in accepting a single string as value.
 
 * An Annotation _MUST_ have the `motivation` property with at least one item.<br/>
   Clients _MUST_ process the `motivation` property on Annotations.
@@ -2525,7 +2520,6 @@ For more information about source and Specific Resources, see the [W3C Annotatio
 
 The value _MUST_ be a JSON Object with the `id` and `type` properties. The value of `id` _MUST NOT_ include a media fragment. 
 
-In previous versions of the Presentation API, the value was allowed to be a string (the URI) as well as a JSON Object. Clients _SHOULD_ be liberal with accepting this string form.
 
 * A SpecificResource _MUST_ have the `source` property with exactly one value.<br/>
   Clients _MUST_ process the `source` property on a SpecificResource.
@@ -2726,10 +2720,8 @@ For more information about Annotation targets, see the [W3C Annotation Model](ht
 
 The value _MUST_ be an array. Each item _MUST_ be a JSON object with the `type` property, and referenced resources _MUST_ also have the `id` property.
 
-Note that older implementations might publish Manifests that they claim to be 4.0 with a `target` property where the body or bodies are strings. These strings are the URIs of the referenced resource. The body in these cases might also not be an array. Clients should be liberal with what they accept in the transition to these new requirements.
-
 * An Annotation _MUST_ have the `target` property.<br/>
-  Clients _MUST_ process the `target` property on Annotations. Clients _SHOULD_ be liberal with what they accept as the value.
+  Clients _MUST_ process the `target` property on Annotations.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3104,6 +3096,12 @@ The value _MUST_ be a number (floating point or integer).
 
 
 ## Processing Model
+
+### Painting Resources to Containers
+
+* For Canvas without z axis, first in list is lowest.
+* 
+
 
 ### Dynamic Content
 {: #dynamic-content}
