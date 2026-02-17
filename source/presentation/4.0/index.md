@@ -2411,24 +2411,30 @@ This example is a light switch that can be toggled on and off using activating a
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
               "type": "Annotation",
               "motivation": ["activating"],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-              "body": [
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                  "action": ["disable"]
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
                 },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                  "action": ["enable"]
-                },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                  "action": ["show"]
-                }
-              ]
+              "body": {
+                "type": "List",
+                "items": [
+                  {
+                    "type": "SpecificResource",
+                    "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                    "action": ["disable"]
+                  },
+                  {
+                    "type": "SpecificResource",
+                    "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                    "action": ["enable"]
+                  },
+                  {
+                    "type": "SpecificResource",
+                    "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                    "action": ["show"]
+                  }
+                ]
+              }
             },
             {
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
@@ -2436,24 +2442,31 @@ This example is a light switch that can be toggled on and off using activating a
               "motivation": [
                 "activating"
               ],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-              "body": [
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                  "action": ["disable"]
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
+              },
+              "body": {
+                "type": "List",
+                "items": 
+                  [
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                      "action": ["disable"]
+                    },
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                      "action": ["hide"]
+                    },
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                      "action": ["enable"]
+                    }
+                  ]
                 },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                  "action": ["hide"]
-                },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                  "action": ["enable"]
-                }
-              ],
               "behavior": ["disabled"]
             }
           ]
@@ -2501,17 +2514,15 @@ The format of the `value` string is implementation-specific, and will depend on 
               "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
                   "type": "Model"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             }
           ],
           "annotations": [
@@ -2523,30 +2534,27 @@ The format of the `value` string is implementation-specific, and will depend on 
                   "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
                   "type": "Annotation",
                   "motivation": ["commenting"],
-                  "body": [
+                  "body": 
                     {
                       "type": "TextualBody",
                       "value": "Click me to open the lid"
-                    }
-                  ],
-                  "target": [
+                    },
+                  "target": 
                     {
                       "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
                       "type": "Annotation"
                     }
-                  ]
                 }
                 {
                   "id": "https://example.org/iiif/3d/box-opening-activating-anno",
                   "type": "Annotation",
                   "motivation": ["activating"],
-                  "target": [
+                  "target": 
                     {
                       "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
                       "type": "Annotation"
-                    }
-                  ],
-                  "body": [
+                    },
+                  "body": 
                     {
                       "type": "SpecificResource",
                       "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
@@ -2558,7 +2566,6 @@ The format of the `value` string is implementation-specific, and will depend on 
                       ],
                       "action": ["start"]
                     }
-                  ]
                 }
               ]
             }
@@ -2595,24 +2602,22 @@ It is possible to associate a particular camera with a particular commenting ann
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
                   "type": "Model"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
               "type": "Annotation",
               "motivation": ["painting"],
               "behavior": ["hidden"],
-              "body":  [
+              "body":  
                 {
                   "id": "https://example.org/iiif/3d/cameras/1",
                   "type": "PerspectiveCamera",
@@ -2620,9 +2625,8 @@ It is possible to associate a particular camera with a particular commenting ann
                   "fieldOfView": 50.0,
                   "near": 0.10,
                   "far": 2000.0
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": [
@@ -2638,23 +2642,20 @@ It is possible to associate a particular camera with a particular commenting ann
                     }
                   ]
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
                   "type": "Model"
                 }
-              ],
-              "target": [
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             }
           ]
         }
@@ -2670,51 +2671,45 @@ It is possible to associate a particular camera with a particular commenting ann
           "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
             "type": "TextualBody",
             "value": "Mandibular tooth"
-            }
-          ],
-          "target": [
+            },
+          "target":
             {
               // SpecificResource with PointSelector
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
               "type": "TextualBody",
               "value": "Right pterygoid hamulus"
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               // SpecificResource with PointSelector
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/anno9",
           "type": "Annotation",
           "motivation": ["activating"],
-          "target": [
+          "target": 
             {
               "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
               "type": "Annotation"
             }
-          ],
-          "body": [
+          "body": 
             {
               "type": "SpecificResource",
               "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
               "action": ["show", "enable", "select"]
             }
-          ]
         }
       ]
     }
@@ -2744,7 +2739,10 @@ The commenting annotation now looks like this:
   "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
   "type": "Annotation",
   "motivation": ["commenting"],
-  "body": {"type": "TextualBody", "value": "Mandibular tooth"},
+  "body": {
+    "type": "TextualBody", 
+    "value": "Mandibular tooth"
+  },
   "scope": [
     {
       "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
@@ -2887,7 +2885,7 @@ An image might not be correctly aligned with the Canvas, and require rotation as
   "id": "http://example.org/iiif/book1/annotation/anno1",
   "type": "Annotation",
   "motivation": ["painting"],
-  "body": [
+  "body": 
     {
       "type": "SpecificResource",
       "source": {
@@ -2903,14 +2901,12 @@ An image might not be correctly aligned with the Canvas, and require rotation as
         "type": "ImageApiSelector",
         "rotation": "90"
       }
-  }
-  ],
-  "target": [
+    },
+  "target": 
     {
       "id": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240",
       "type": "Canvas"
     }
-  ]
 }
 
 ```
@@ -2990,7 +2986,10 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
         "motivation": "supplementing",
         "provides": [ "alternativeText" ],
         "body": {...},
-        "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
+        "target": {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
+          "type": "Canvas"
+        }
       }
     ]
   }
