@@ -1125,7 +1125,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
               {
                 "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder/image",
                 "type": "Annotation",
-                "motivation": "painting",
+                "motivation": ["painting"],
                 "body":
                   {
                     "id": "https://example.org/image/placeholder.png",
@@ -1151,7 +1151,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/anno1",
               "type": "Annotation",
-              "motivation": "painting",
+              "motivation": ["painting"],
               "body": 
                 {
                   "type": "Choice",
@@ -1194,7 +1194,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
               "type": "Annotation",
-              "motivation": "supplementing",
+              "motivation": ["supplementing"],
               "provides": [ "subtitles" ],
               "body": {
                 "id": "https://example.org/text/subtitles.vtt",
@@ -2300,7 +2300,7 @@ The resource the user should be taken to is the [`body`][prezi-40-model-body] of
 {
   "id": "https://example.com/annotation/p0002-link",
   "type": "Annotation",
-  "motivation": "linking",
+  "motivation": ["linking"],
   "body":
     {
     "id": "https://example.com/website1",
@@ -2983,7 +2983,7 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
       {
         "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
         "type": "Annotation",
-        "motivation": "supplementing",
+        "motivation": ["supplementing"],
         "provides": [ "alternativeText" ],
         "body": {...},
         "target": {
