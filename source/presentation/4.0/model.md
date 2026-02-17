@@ -3109,7 +3109,7 @@ Collections can be divided up into pages at any level of the hierarchy, and thus
 
 The Manifest has an `items` list of Containers. The default and most common scenario is that this list is the only structure for navigation, and all views are listed in the correct order. The navigation for a Manifest without any ranges is thus to allow the user to step through, and perhaps jump around in, this list.
 
-Ranges and 
+Ranges provide alternative ways to navigate between and within the containers. A typical use case is a hierarchical, rather than flat, table of contents in which containers and parts of containers are grouped together into sections. If there is a `structures` field in the Manifest, then 
 
 
 ### Painting Resources to Containers
