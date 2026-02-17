@@ -2359,7 +2359,7 @@ This example is a light switch that can be toggled on and off using activating a
                   "type": "Model"
                 },
               "target": {
-                "id": "https://example.org/iiif/scene/switch/scene-1,
+                "id": "https://example.org/iiif/scene/switch/scene-1",
                 "type": "Scene"
               }
             },
