@@ -3097,6 +3097,21 @@ The value _MUST_ be a number (floating point or integer).
 
 ## Processing Model
 
+### Collections and Collection Pages
+
+Collections are intended to be navigational constructs across the member collections and manifests, which are separate resources on the web. As Collections can be included as members of other Collections, this forms a hierarchy, and as a single collection can be included in multiple higher level Collections, it forms a polyhierarchy, where Manifests are the leaf nodes.
+
+Care must be taken that Collections are not cyclic, where Collection A includes B, which includes C, which then includes A, forming a loop. Clients _SHOULD_ detect this condition and stop processing collections that have already been processed.
+
+Collections can be divided up into pages at any level of the hierarchy, and thus the processing model must not be dependent on the document structure, but rather on the more abstract membership structure, regardless of which document (a Collection or a Collection Page) includes the `items` property that lists the members.
+
+### Manifests and Ranges
+
+The Manifest has an `items` list of Containers. The default and most common scenario is that this list is the only structure for navigation, and all views are listed in the correct order. The navigation for a Manifest without any ranges is thus to allow the user to step through, and perhaps jump around in, this list.
+
+Ranges and 
+
+
 ### Painting Resources to Containers
 
 * For Canvas without z axis, first in list is lowest.
