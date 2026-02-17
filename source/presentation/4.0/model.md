@@ -843,7 +843,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific direction or position.
 
 __Properties__<br/>
-An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap) and [environmentMapProjection](#environmentMapProjection).<br/><br/>
+An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
 {: .note}
 
 {% include api/code_header.html %}
@@ -854,9 +854,9 @@ An Image-Based Light _MUST_ have the following properties: [environmentMap](#env
   "environmentMap": {
     "id": "https://example.org/iiif/light/3/environment.hdr",
     "type": "Image",
-    "format": "image/vnd.radiance"
+    "format": "image/vnd.radiance",
+    "profile": "equirectangular"
   },
-  "environmentMapProjection": "equirectangular",
   "intensity": {
     "type": "Quantity",
     "quantityValue": 0.5,
@@ -1436,9 +1436,9 @@ The value _MUST_ be a positive floating point number.
 ### environmentMap
 {: #environmentMap}
 
-A content resource representing the environment map image used by an [ImageBasedLight](#ImageBasedLight). The image provides omnidirectional lighting information and may use high dynamic range (HDR) encoding.
+A content resource representing the environment map image used by an [ImageBasedLight](#ImageBasedLight). The image provides omnidirectional lighting information and may use high dynamic range (HDR) encoding. The projection type of the image, such as equirectangular or cubic, is specified via the `profile` property.
 
-The value _MUST_ be a JSON object representing an Image which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `format` property.
+The value _MUST_ be a JSON object representing an Image which _MUST_ have the `id`, `type`, and `profile` properties, and _SHOULD_ have the `format` property.
 
 * An Image-Based Light _MUST_ have the `environmentMap` property.<br/>
   Clients _SHOULD_ process `environmentMap` on an Image-Based Light.
@@ -1449,28 +1449,8 @@ The value _MUST_ be a JSON object representing an Image which _MUST_ have the `i
   "id": "https://example.org/iiif/light/3/environment.hdr",
   "type": "Image",
   "format": "image/vnd.radiance"
-},
-```
-
-### environmentMapProjection
-{: #environmentMapProjection}
-
-The projection type used to create the image represented by the `environmentMap` property of an [ImageBasedLight](#ImageBasedLight). This specification defines values in the table below for projection types. Other values for additional projection types may be defined externally as an [extension][prezi30-ldce].
-
-The value _MUST_ be a string.
-
-* An Image-Based Light _MUST_ have the `environmentMapProjection` property.<br/>
-  Clients _SHOULD_ process `environmentMapProjection` on an Image-Based Light.
-
-| Value | Description |
-| ----- | ----------- |
-| `equirectangular` | The image uses equirectangular projection, mapping a full spherical environment onto a 2:1 rectangular image. |
-| `cubic` | The image uses cube map projection, representing the environment as six square faces of a cube. |
-{: .api-table #table-environmentmapprojection}
-
-{% include api/code_header.html %}
-``` json-doc
-{ "environmentMapProjection": "equirectangular" }
+  "profile": "equirectangular"
+}
 ```
 
 
@@ -2144,12 +2124,22 @@ The value must be a JSON object, with the `id` and `type` properties. The value 
 
 A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
-The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles] or a full URI.
+When `profile` is used in a resource [referenced][prezi30-terminology] by the `environmentMap` property, the specification defines values in the table below for environment map projection types. Other values for additional projection types may be taken from the [profiles registry][registry-profiles] or as a full URI.
 
+The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles], a full URI, or from the table below.
+
+* Resources [referenced][prezi30-terminology] by the `environmentMap` property _MUST_ have the `profile` property.<br/>
+  Clients _SHOULD_ process the `profile` of an environment map.
 * Resources [referenced][prezi30-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
 * Other types of resource _MAY_ have the `profile` property.<br/>
   Clients _MAY_ process the `profile` of other types of resource.
+
+| Value | Description |
+| ----- | ----------- |
+| `equirectangular` | For environment map, the image uses equirectangular projection, mapping a full spherical environment onto a 2:1 rectangular image. |
+| `cubic` | For environment map, the image uses cube map projection, representing the environment as six square faces of a cube. |
+{: .api-table #table-profile}
 
 {% include api/code_header.html %}
 ``` json-doc
