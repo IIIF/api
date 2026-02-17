@@ -101,7 +101,7 @@ a:hover > code {
    margin-top: 0px;
    margin-bottom: 0px;
    text-align: left;
-  
+
  }
 
  code.language-json {
@@ -1194,7 +1194,7 @@ There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveC
 
 ### Lights
 
-There are four types of Light: AmbientLight, DirectionalLight, PointLight and SpotLight. They have a [`color`][prezi-40-model-color] and an [`intensity`][prezi-40-model-intensity]. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone.
+There are five types of Light: AmbientLight, DirectionalLight, ImageBasedLight, PointLight, and SpotLight. They have an [`intensity`][prezi-40-model-intensity] property, and all Lights except ImageBasedLight have a [`color`][prezi-40-model-color] property. ImageBasedLight has an additional property of [`environmentMap`][prezi-40-model-environment-map] that specifies the environment map image used to simulate lighting. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone. PointLights and SpotLights can be painted at specific positions within the Scene. DirectionalLights, PointLights, and SpotLights have directional facing in the Scene that affects how light is casted.
 
 If the Scene has no Lights, then the client provides its own lighting as it sees fit.
 
@@ -1388,7 +1388,7 @@ The Light is green and has a position, but has its default orientation of lookin
 
 >
 **Key Points**
-* This example uses some of the Scene-Specific resources introduced in the next section.
+* This example uses some of the Scene-Specific resources introduced in [3D Supporting Resources](#3d-supporting-resources).
 * A Point Selector explicitly places the model in the Scene via the Painting Annotation's [`target`][prezi-40-model-target] property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
 * The provided Light should replace any default lighting the client might have.
 {: .note}
@@ -1400,7 +1400,7 @@ Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40
 
 ## Use Case 6: Complex Scene
 
-This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content.
+This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content. This example also introduces an Image-Based Light Annotation to simulate real-world lighting of the chess game pieces.
 
 ```jsonc
 {
@@ -1446,7 +1446,7 @@ This example is a Manifest with a single Scene with multiple models painted into
               }]
             },
             {
-              "id": "https://example.org/iiif/3d/anno1",
+              "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
               "body": [{
@@ -1490,7 +1490,7 @@ This example is a Manifest with a single Scene with multiple models painted into
               }]
             },
             {
-              "id": "https://example.org/iiif/3d/anno1",
+              "id": "https://example.org/iiif/3d/anno3",
               "type": "Annotation",
               "motivation": ["painting"],
               "exclude": ["Audio", "Lights"],
@@ -1528,6 +1528,26 @@ This example is a Manifest with a single Scene with multiple models painted into
                 ]
               }
               ]
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno4",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://example.org/iiif/3d/lights/1",
+                "type": "ImageBasedLight",
+                "label": {"en": ["Image-Based Light"]},
+                "environmentMap": {
+                  "id": "https://example.org/iiif/light/3/environment.hdr",
+                  "type": "Image",
+                  "format": "image/vnd.radiance",
+                  "profile": "equirectangular"
+                }
+              },
+              "target": {
+                "id": "https://example.org/iiif/scene1/page/p1/1",
+                "type": "Scene"
+              }
             }
           ]
         }
@@ -1542,6 +1562,7 @@ This example is a Manifest with a single Scene with multiple models painted into
 * Each Annotation is painted into the Scene at a different point via Point Selectors.
 * The second Annotation represents a pawn game piece that is tipped over, and Transforms are used to achieve this. RotateTransform is used to tip the pawn over and TranslateTransform is used to align the bottom of the pawn with the coordinate origin's XY plane.
 * The third Annotation represents a queen game piece that is scaled to be larger than the pawns using ScaleTransform.
+* The fourth Annotation represents an Image-Based Light where an environment map texture image is used to simulate omnidirectional real-world light on the chess game pieces.
 * The [`exclude`][prezi-40-model-exclude] property instructs clients not to import or render any external audio or light content present in the Content Resource for the queen game piece.
 * The [`interactionMode`][prezi-40-model-interactionMode] property instructs clients that, if possible, user interactions relating to orbiting the scene should be restricted to a hemisphere.
 {: .note}
