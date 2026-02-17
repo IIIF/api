@@ -1448,7 +1448,7 @@ The value _MUST_ be a JSON object representing an Image which _MUST_ have the `i
 "environmentMap": {
   "id": "https://example.org/iiif/light/3/environment.hdr",
   "type": "Image",
-  "format": "image/vnd.radiance"
+  "format": "image/vnd.radiance",
   "profile": "equirectangular"
 }
 ```
