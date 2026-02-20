@@ -245,6 +245,7 @@
 [prezi3-considerations]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#4-json-ld-considerations "Presentation API Section 4"
 [prezi3-html]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#45-html-markup-in-property-values "Presentation API Section 4.4"
 [prezi3-languages]: {{ site.api_url | absolute_url }}/presentation/{{site.data.apis.presentation.latest.major}}.{{ site.data.apis.presentation.latest.minor }}/#language-of-property-values "Language of Property Values"
+[prezi40-languages]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#language-of-property-values "Language of Property Values"
 [prezi3-ldce]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#linked-data-context-and-extensions "Linked Data Context and Extensions"
 [prezi3-provider]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#provider
 [prezi3-service]: {{ site.api_url | absolute_url }}/presentation/3.{{ site.data.apis.presentation.latest.minor }}/#service
@@ -287,6 +288,7 @@
 [registry-selectors]: {{ site.api_url | absolute_url }}/registry/selectors/
 [registry-services]: {{ site.api_url | absolute_url }}/registry/services/
 [registry-profiles]: {{ site.api_url | absolute_url }}/registry/profiles/
+[registry-rights]: {{ site.api_url | absolute_url }}/registry/rights/
 [registry-timeModes]: {{ site.api_url | absolute_url }}/registry/timeModes/
 [registry-types]: {{ site.api_url | absolute_url }}/registry/types/
 [registry-viewingDirections]: {{ site.api_url | absolute_url }}/registry/viewingDirections/
@@ -350,8 +352,10 @@
 [prezi-40-model-body]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#body
 [prezi-40-model-color]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#color
 [prezi-40-model-duration]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#duration
+[prezi-40-model-environment-map]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#environmentMap
 [prezi-40-model-exclude]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#exclude
 [prezi-40-model-far]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#far
+[prezi-40-model-fileSize]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#fileSize
 [prezi-40-model-fieldOfView]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#fieldOfView
 [prezi-40-model-format]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#format
 [prezi-40-model-height]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#height
@@ -363,12 +367,14 @@
 [prezi-40-model-items]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#items
 [prezi-40-model-label]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#label
 [prezi-40-model-language]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#language
+[prezi-40-model-list]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#List
 [prezi-40-model-lookAt]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#lookAt
 [prezi-40-model-metadata]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#metadata
 [prezi-40-model-motivation]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#motivation
 [prezi-40-model-navDate]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#navDate
 [prezi-40-model-navPlace]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#navPlace
 [prezi-40-model-near]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#near
+[prezi-40-model-partOf]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#partOf
 [prezi-40-model-placeholderContainer]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#placeholderContainer
 [prezi-40-model-position]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#position
 [prezi-40-model-profile]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#profile
@@ -378,6 +384,7 @@
 [prezi-40-model-rendering]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#rendering
 [prezi-40-model-requiredStatement]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#requiredStatement
 [prezi-40-model-rights]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#rights
+[prezi-40-model-seeAlso]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#seeAlso
 [prezi-40-model-service]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#service
 [prezi-40-model-source]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#source
 [prezi-40-model-spatialScale]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#spatialScale

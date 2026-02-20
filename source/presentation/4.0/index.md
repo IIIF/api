@@ -151,7 +151,7 @@ This document acts as an introduction to the specification through a set of typi
 8. **Comment on Feature of a Painting** - a Manifest that represents a painting and a comment highlighting a particular region of the painting.
 9. **Interactive 3D Light Switch** - a Manifest that represents a Scene containing a light and a 3D model of a light switch, where a user can click or otherwise interact with the switch to turn the light on and off.
 
-These use case were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook](link).
+These use case were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
 
 > TODO Consider diagrams
@@ -294,7 +294,7 @@ Scenes can have time-based and image content in them as well as 3D content. See 
 ## Annotations
 
 
-IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-web-anno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
+IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
 In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the [`body`][prezi-40-model-body] property is _painted_ into the Container by an Annotation whose [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container. In all three simple cases here the [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container with no further qualification.
 
@@ -1332,7 +1332,7 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
 
 This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position.
 
-Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
+Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration. The final commenting annotation in the [Audio in 3D](#audio-in-3d) section has an example of this property.
 
 The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the [`lookAt`][prezi-40-model-lookAt] property. The Camera has a [`fieldOfView`][prezi-40-model-fieldOfView] of 50. The [`near`][prezi-40-model-near] and [`far`][prezi-40-model-far] properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
 
@@ -2799,7 +2799,7 @@ In a storytelling or exhibition scenario, the non-painting [`annotations`][prezi
 
 All the annotations referred to by the activating annotations' [`target`][prezi-40-model-target] and [`body`][prezi-40-model-body] properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
 
-Interactive examples are provided as recipes in the [IIIF Cookbook](link).
+Interactive examples are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
 
 #### The `sequence` behavior
@@ -2828,7 +2828,7 @@ While a IIIF Manifest carries the information required to present a resource on 
 
 ## Linked resources
 
-In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`](prezi-40-model-seeAlso) property, which is intended for machine-readable resources. The [`homepage`](prezi-40-model-homepage) property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
+In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`][prezi-40-model-seeAlso] property, which is intended for machine-readable resources. The [`homepage`][prezi-40-model-homepage] property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
 
 ```
 artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or something)
@@ -2836,11 +2836,11 @@ artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or somet
 (maybe the seeAlso is to a linked art description)
 ```
 
-There is one Canvas, and it has a [`rendering`](prezi-40-model-rendering) property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
+There is one Canvas, and it has a [`rendering`][prezi-40-model-rendering] property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
 
-The Manifest also has a [`partOf`](prezi-40-model-partOf) property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`](prezi-40-model-partOf) property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
+The Manifest also has a [`partOf`][prezi-40-model-partOf] property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`][prezi-40-model-partOf] property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
 
-Another common use of [`rendering`](prezi-40-model-rendering) is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
+Another common use of [`rendering`][prezi-40-model-rendering] is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
 
 ```jsonc
 {
@@ -2875,11 +2875,11 @@ Another common use of [`rendering`](prezi-40-model-rendering) is at the Manifest
 }
 ```
 
-This example also shows how the [`fileSize`](prezi-40-model-fileSize) property can give useful information to a user when deciding what they want to download.
+This example also shows how the [`fileSize`][prezi-40-model-fileSize] property can give useful information to a user when deciding what they want to download.
 
 ## Services
 
-In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`](prezi-40-model-service) in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
+In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
 
 Further IIIF Services are provided by the [IIIF Authorization Flow API](auth-api), which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
 
