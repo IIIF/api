@@ -3205,6 +3205,10 @@ The value _MUST_ be a number (floating point or integer).
 
 ## Processing Model
 
+### Scope
+
+The IIIF Presentation API processing model is intended to inform and clarify the requirements of the features described in the classes and properties above for the purposes of interoperability between the publisher and the consuming application. It specifies how the content should be presented, but not how the application should look, in the same way that the HTML specification describes how to render the elements and does not describe the panes, menus and features of web browsers. This processing model attempts to be as unintrusive as possible, with only the rules needed to ensure that content isn't inadvertantly presented in an unusable fashion.
+
 ### Collections and Collection Pages
 
 Collections are intended to be navigational constructs across the member collections and manifests, which are separate resources on the web. As Collections can be included as members of other Collections, this forms a hierarchy, and as a single collection can be included in multiple higher level Collections, it forms a polyhierarchy, where Manifests are the leaf nodes.
@@ -3217,78 +3221,26 @@ Collections can be divided up into pages at any level of the hierarchy, and thus
 
 The Manifest has an `items` list of Containers. The default and most common scenario is that this list is the only structure for navigation, and all views are listed in the correct order. The navigation for a Manifest without any ranges is thus to allow the user to step through, and perhaps jump around in, this list.
 
-Ranges provide alternative ways to navigate between and within the containers. A typical use case is a hierarchical, rather than flat, table of contents in which containers and parts of containers are grouped together into sections. If there is a `structures` field in the Manifest, then 
+Ranges provide alternative ways to navigate between and within the containers. A typical use case is a hierarchical, rather than flat, table of contents in which containers and parts of containers are grouped together into sections. If there is a `structures` field in the Manifest, then the Range instances within it provide additional navigational structures. A Range with the `behavior` value of `sequence` provides an alternative ordering, and a range with `no-nav` is not to be rendered in the hierarchy.
 
+There are no requirements as to the interaction with the user and the navigational UI generated from these structures as to how the tree is expanded and collapsed, the exact effects of activating a node to navigate to it, and so forth. Those user interface details are left to the client implementations to decide what is the most intuitive experience within their own contexts.
 
-### Painting Resources to Containers
+### Annotating Containers
 
-* For Canvas without z axis, first in list is lowest.
-* 
+The core paradigm of the Presentation API is the painting of resources into an abstract container (a Timeline, Canvas or Scene) as identified and specified in a painting Annotation. As the spatial dimensions of Canvases and Scenes are abstract rather than pixel or real-world distances, it is always necessary to scale content into the abstract area or volume and perform all calculations with those values. There is only one scale for time, which is seconds.
+
+For painting to Canvases, the main processing rule is that the painting annotations are to be processed in order. This means that, lacking an explicit z or depth axis, the first annotations to be painted into the 2 dimensional space are at the bottom of the z stack, and the last is at the top.
+
 
 
 ### Dynamic Content
 {: #dynamic-content}
 
-TODO note that SpecificResource body `source` must exist in manifest elsewhere, is only a reference.
+Interactions are also associated with resources using annotations in the same way that resources are associated with their position in the container. Annotations that create interactivity are called activating Annotations and have the `motivation` of "activating". The `body` is a Specific Resource, or aggregate class with members that are Specific Resources, each of which has an `action` property that lists the actions to take, and a reference to a `source` resource on which to apply the actions. The `target` of the activating Annotation is the resource which, when interacted with, will activate the actions. The `target` resource can be one of two different patterns: an Annotation, in which case interacting with the painted resource, the rendering of the non-painting resource, or the activation of another activating annotation, will trigger the activation; or an extent within a Container such as a volume of a Scene, a region of a Canvas, or an interval of time in any Container with a `duration`. The method of interaction is left up to the client.
 
-An annotation with the motivation `activating` has any valid IIIF Resource, or list of IIIF resources, or references to IIIF resources as its `body` property, and any potentially interactable resource as its `target`. The `body` is activated by the `target`.
+If multiple actions are listed for a single Specific Resource, then they _MUST_ be processed in the order given. If multiple Specific Resources are given in a List, then they must be processed in order. 
 
-There are two categories of activating annotation targets (interactable things):
-
-* Annotations - content of the container (a painting annotation rendered in the Scene) or content that targets the container (a commenting annotation, a map pin... which may have off-Container representations in a UI eg comments in a side panel).
-* Extents of Containers - a volume of a Scene, region of a Canvas, or interval of time in any Container with a `duration` (the client may or may not render these "hit boxes")
-
-How the client makes these interactable is client-dependent.
-
-Need to cover:
-
-Clients supporting dynamic content need to support
-
- - non-painting annotations e.g., commenting annos (and other annos that usually have textual bodies that could be made clickable by a client, or map pin markers, etc)
- - painted resources such as models
- - volumes
- - time extents
- - other activating annos
-
-This specification defines the following client behaviors; others may be found in the [IIIF Cookbook][ref].
-
-> enables first then disables (?)
-
-breaking change
-anno `body` => Ordered List, redefine in context
-will break any `"body": {}` annos
-
-
-#### Showing and hiding content
-
-If the body is a reference to a Painting Annotation or a non-painting , the client must render the `target` resource as an interactive element in the user interface, which the user (or _Container time_) can trigger (e.g., clicking, selecting, entering). The `body` of the annotation is then activated by this interaction.
-
- * if the annotation has the `behavior` "hidden", then remove "hidden" from the `behavior`.
-
-(example: click the comment, object appears, light goes on)
-
-enables and disables
-
-#### Activating Lights
-
-You can just use enables and disables
-
-#### Activating Cameras
-
- * if the annotation paints a Camera, make that Camera the active Camera (i.e., make this the viewport) (see [ref]).
-
-#### Playing animations
-
-If the `body` is of type `SpecificResource` with a `selector` property of type `AnimationSelector`, the named animation in the model painted by the `source` is played when the `target` is activated.
-* If the body is a SpecificResource with a `selector` property with the type "AnimationSelector", play the animation named by the `value` property of the Selector. (see [ref]).
-
-How do you stop the animation? And if you can stop it, what happens - reset? If you activate it again, does it resume or restart?
-
-scope
-
-
-
-
+If a resource has a built in named Animation feature, then these can be activated (including starting, stopping and reseting) by adding an AnimationSelector to the Specific Resource with the `action` property.
 
 
 ## JSON-LD and Extensions
