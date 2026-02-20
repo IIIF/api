@@ -1539,6 +1539,7 @@ The value _MUST_ be a floating point number greater than 0 and less than 180, an
 ```
 
 ### fileSize
+{: #fileSize}
 
 The size of a content resource in bytes. This will allow clients to determine whether the resource should be retrieved in the user's current context. For example, the same 3d Model or AV file might be available in multiple formats, and the client can choose the most appropriate one based on the `fileSize` property.
 
