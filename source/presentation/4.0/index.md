@@ -142,7 +142,7 @@ This document acts as an introduction to the specification through a set of typi
 ## IIIF Use cases
 
 1. **Artwork** - a Manifest that represents a painting, comprising a single image and accompanying display information.
-2. **Book** - a Manifest that represents a digitized bound volume made up many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
+2. **Book** - a Manifest that represents a digitized bound volume made up of many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
 3. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
 4. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
 5. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
@@ -270,7 +270,6 @@ Scenes may also have the [`duration`][prezi-40-model-duration] property in the s
               "type": "Model",
               "format": "model/gltf-binary"
             },
-
           "target": {
             "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/scene",
             "type": "Scene"
@@ -791,7 +790,7 @@ IIIF Collection with [`behavior`][prezi-40-model-behavior] "multi-part" for the 
 ```json
 {
   "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/periodical/multi-part-collection/v1.json",
+  "id": "https://example.org/iiif/periodical/multi-part-collection/v2.json",
   "type": "Collection",
   "label": { "en": ["The Tombstone Epitaph, 1881"] },
   "behavior": ["multi-part"],
@@ -963,6 +962,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
             "target": {
               "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
               "type": "Canvas"
+            }
           }
         ]
       }
@@ -990,8 +990,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
                   "format": "audio/mp4",
                   "duration": 231,
                   "language": ["de"]
-                }
-
+                },
               "target": {
                 "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
                 "type": "Timeline"
@@ -1061,10 +1060,11 @@ This example is a Manifest with two Timelines, each of which represent a tempora
           "format": "text/plain",
           "value": "Hast du etwas Zeit für mich?"
         },
-      "target": {
-        "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8",
-        "type": "Timeline"
-      }
+      "target": 
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8",
+          "type": "Timeline"
+        }
     }
   ]
   // (annotations for the rest of the song lines)
@@ -1117,14 +1117,15 @@ This example is a Manifest with one Canvas that represents the temporal extent o
                 "type": "Annotation",
                 "motivation": ["painting"],
                 "body":
-                  {
-                    "id": "https://example.org/image/placeholder.png",
-                    "type": "Image",
-                    "format": "image/png",
-                    "height": 320,
-                    "width": 400
-                  }
-                "target": {
+                {
+                  "id": "https://example.org/image/placeholder.png",
+                  "type": "Image",
+                  "format": "image/png",
+                  "height": 320,
+                  "width": 400
+                },
+                "target": 
+                {
                   "id": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/canvas/donizetti/placeholder",
                   "type": "Canvas"
                 }
@@ -1249,7 +1250,7 @@ There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveC
 
 ### Lights
 
-There are five types of Light: AmbientLight, DirectionalLight, ImageBasedLight, PointLight, and SpotLight. They have an [`intensity`][prezi-40-model-intensity] property, and all Lights except ImageBasedLight have a [`color`][prezi-40-model-color] property. ImageBasedLight has an additional property of [`environmentMap`][prezi-40-model-environment-map] that specifies the environment map image used to simulate lighting. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone. PointLights and SpotLights can be painted at specific positions within the Scene. DirectionalLights, PointLights, and SpotLights have directional facing in the Scene that affects how light is casted.
+There are five types of Light: AmbientLight, DirectionalLight, ImageBasedLight, PointLight, and SpotLight. They have an [`intensity`][prezi-40-model-intensity] property, and all Lights except ImageBasedLight have a [`color`][prezi-40-model-color] property. ImageBasedLight has an additional property of [`environmentMap`][prezi-40-model-environment-map] that specifies the environment map image used to simulate lighting. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone. PointLights and SpotLights can be painted at specific positions within the Scene. DirectionalLights, PointLights, and SpotLights have directional facing in the Scene that affects how light is cast.
 
 If the Scene has no Lights, then the client provides its own lighting as it sees fit.
 
@@ -1352,27 +1353,27 @@ The Light is green and has a position, but has its default orientation of lookin
               "type": "Annotation",
               "motivation": ["painting"],
               "body": 
-                {
-                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
-                  "type": "Model",
-                  "format": "model/gltf-binary"
-                },
+              {
+                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
+                "type": "Model",
+                "format": "model/gltf-binary"
+              },
               "target": 
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": -1.0,
-                      "y": 1.0,
-                      "z": 1.0
-                    }
-                }
-              ]
+              {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": -1.0,
+                    "y": 1.0,
+                    "z": 1.0
+                  }
+                ]
+              }              
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
@@ -1394,8 +1395,7 @@ The Light is green and has a position, but has its default orientation of lookin
               "target": 
                 {
                   "type": "SpecificResource",
-                  "source":
-                  {
+                  "source": {
                     "id": "https://example.org/iiif/scene1/page/p1/1",
                     "type": "Scene"
                   },
@@ -1490,7 +1490,7 @@ This example is a Manifest with a single Scene with multiple models painted into
                   "type": "Model",
                   "format": "model/gltf-binary"
                 },
-              "target": [
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1505,7 +1505,7 @@ This example is a Manifest with a single Scene with multiple models painted into
                       "z": 0.0
                     }
                   ]
-                }
+                }              
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
@@ -1558,40 +1558,39 @@ This example is a Manifest with a single Scene with multiple models painted into
               "motivation": ["painting"],
               "exclude": ["Audio", "Lights"],
               "body": 
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
-                    "label": { "en": ["Queen"] },
-                    "type": "Model",
-                    "format": "model/gltf-binary"
-                  },
-                  "transform": [
-                    {
-                      "type": "ScaleTransform",
-                      "x": 1.5,
-                      "y": 1.5,
-                      "z": 1.5
-                    }
-                  ]
+              {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
+                  "label": { "en": ["Queen"] },
+                  "type": "Model",
+                  "format": "model/gltf-binary"
                 },
+                "transform": [
+                  {
+                    "type": "ScaleTransform",
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                  }
+                ]
+              },
               "target": 
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": 1.0,
-                      "y": 0.0,
-                      "z": 2.0
-                    }
-                  ]
-                }
-              ]
+              {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 2.0
+                  }
+                ]
+              }              
             },
             {
               "id": "https://example.org/iiif/3d/anno4",
@@ -1716,7 +1715,7 @@ In this example, the audio content resources have durations that do not match th
                 "unit": "relative",
                 "quantityValue": 0.2
               }
-            }
+            },
           "target": 
             {
               "id": "https://example.org/iiif/selectors/anno2",
@@ -1872,7 +1871,8 @@ This example is a Manifest with a Canvas that represents two images displayed si
                           "format": "image/jpeg"
                         },
                         "target": 
-                        {"id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2",
+                        {
+                          "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2",
                           "type": "Canvas"
                         }
                       },
@@ -1963,11 +1963,11 @@ A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only
 
 ## Painting a Canvas or Timeline into a Scene
 
-Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`body`][prezi-40-model-body] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
+Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`source`][prezi-40-model-source] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
 
 A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width] measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and width in coordinate units, and this has important consequences for painting Canvases into Scenes.
 
-When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is collinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is collinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (i.e., is collinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (i.e., is collinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
 
 The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 16 units wide and 9 units high will extend 16 coordinate units across the x axis and 9 coordinate units across the y axis. Because Canvas coordinate units and image content resource pixels are not equivalent, any image with a 16:9 aspect ratio painted on this Canvas would extend 16 coordinate units by 9 coordinate units in the 3D space of the Scene, whether it was 160 pixels wide and 90 pixels high or 16,000 pixels wide and 9,000 pixels high. This provides one way to control the size of a Canvas painted into a Scene.
 
@@ -2268,12 +2268,10 @@ In some cases it is desirable to influence the client's positioning of the comme
                 "value": "This marble portrait exemplifies the veristic tradition that dominated Roman Republican portraiture and persisted into the early Imperial period.",
                 "position": {
                   "type": "SpecificResource",
-                  "source": [
-                    {
-                      "id": "https://example.org/iiif/scene/commenting/scene3",
-                      "type": "Scene"
-                    }
-                  ],
+                  "source": {
+                    "id": "https://example.org/iiif/scene/commenting/scene3",
+                    "type": "Scene"
+                  },
                   "selector": [
                     {
                       "type": "PointSelector",
@@ -2285,7 +2283,7 @@ In some cases it is desirable to influence the client's positioning of the comme
                 }
               },
             "target": {
-              "id": "https://example.org/iiif/scene/commenting/scene3/sculpture",
+              "id": "https://example.org/iiif/scene/commenting/scene3",
               "type": "Scene"
             }
           }
@@ -2387,7 +2385,10 @@ This example is a light switch that can be toggled on and off using activating a
               "target":
                 {
                   "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1",
+                  "source": {
+                    "id": "https://example.org/iiif/scene/switch/scene-1",
+                    "type": "Scene"
+                  },
                   "selector": [
                     {
                       "type": "PointSelector",
@@ -2413,7 +2414,7 @@ This example is a light switch that can be toggled on and off using activating a
                 {
                   "type": "TextualBody",
                   "value": "Click the switch to turn the light on or off"
-                }
+                },
               "target": {
                 "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
                 "type": "Annotation"
@@ -2432,17 +2433,26 @@ This example is a light switch that can be toggled on and off using activating a
                 "items": [
                   {
                     "type": "SpecificResource",
-                    "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                    "source": {
+                      "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                      "type": "Annotation"
+                    },
                     "action": ["disable"]
                   },
                   {
                     "type": "SpecificResource",
-                    "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                    "source": {
+                      "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                      "type": "Annotation"
+                    },
                     "action": ["enable"]
                   },
                   {
                     "type": "SpecificResource",
-                    "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                    "source": {
+                      "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                      "type": "Annotation"
+                    },
                     "action": ["show"]
                   }
                 ]
@@ -2464,17 +2474,26 @@ This example is a light switch that can be toggled on and off using activating a
                   [
                     {
                       "type": "SpecificResource",
-                      "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                      "source": {
+                        "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                        "type": "Annotation"
+                      },
                       "action": ["disable"]
                     },
                     {
                       "type": "SpecificResource",
-                      "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                      "source": {
+                        "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                        "type": "Annotation"
+                      },
                       "action": ["hide"]
                     },
                     {
                       "type": "SpecificResource",
-                      "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                      "source": {
+                        "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                        "type": "Annotation"
+                      },
                       "action": ["enable"]
                     }
                   ]
@@ -2569,7 +2588,10 @@ The format of the `value` string is implementation-specific, and will depend on 
                   "body": 
                     {
                       "type": "SpecificResource",
-                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "source": {
+                        "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                        "type": "Annotation"
+                      },
                       "selector": [
                         {
                           "type": "AnimationSelector",
@@ -2641,12 +2663,10 @@ It is possible to associate a particular camera with a particular commenting ann
               "target": 
                 {
                   "type": "SpecificResource",
-                  "source": [
-                    {
-                      "id": "https://example.org/iiif/scene1",
-                      "type": "Scene"
-                    }
-                  ],
+                  "source": {
+                    "id": "https://example.org/iiif/scene1",
+                    "type": "Scene"
+                  },
                   "selector": [
                     {
                       "type": "PointSelector",
@@ -2663,7 +2683,7 @@ It is possible to associate a particular camera with a particular commenting ann
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
                   "type": "Model"
-                }
+                },
               "target": 
                 {
                   // SpecificResource with PointSelector
@@ -2685,8 +2705,8 @@ It is possible to associate a particular camera with a particular commenting ann
           "motivation": ["commenting"],
           "body": 
             {
-            "type": "TextualBody",
-            "value": "Mandibular tooth"
+              "type": "TextualBody",
+              "value": "Mandibular tooth"
             },
           "target":
             {
@@ -2715,11 +2735,14 @@ It is possible to associate a particular camera with a particular commenting ann
             {
               "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
               "type": "Annotation"
-            }
+            },
           "body": 
             {
               "type": "SpecificResource",
-              "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+              "source": {
+                "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+                "type": "Annotation"
+              },
               "action": ["show", "enable", "select"]
             }
         }
@@ -2909,10 +2932,12 @@ An image might not be correctly aligned with the Canvas, and require rotation as
           "profile": "level2"
         }
       },
-      "selector": {
-        "type": "ImageApiSelector",
-        "rotation": "90"
-      }
+      "selector": [
+        {
+          "type": "ImageApiSelector",
+          "rotation": "90"
+        }
+      ]
     },
   "target": 
     {
@@ -3010,7 +3035,7 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
 
 **Key Points**
 * The `provides` property is placed on the annotation and not on the target of the annotation.
-* The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcription`.
+* The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcript`.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties

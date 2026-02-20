@@ -421,9 +421,11 @@ Annotation Collections _MUST_ have an HTTP(S) URI. The JSON-LD description _SHOU
 Annotation Collections are always paged using `first` and `last`, rather than `items` as is possible for IIIF Collections, following the regular ActivityStreams paging model.
 
 __Properties__<br/>
-An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), [first](#first), and [last](#last).<br/><br/>
+An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/><br/>
+An Annotation Collection _MUST_ have the [first](#first) and [last](#last) properties if it doesn't have the [items](#items) property.<br/><br/>
+An Annotation Collection _MUST NOT_ have the [first](#first) and [last](#last) properties if has the [items](#items) property.<br/><br/>
 An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail).<br/><br/>
-An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
 
 
@@ -1276,7 +1278,7 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
 ### angle
 {: #angle}
 
-The `angle` property is used with SpotLights and Spot Audio Emitters to define the radius of the cone of emitted light or sound. Note that the `fieldOfView` property is defined as the entire field of view, not half (as might be inferred from `angle` using radius).
+The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound. Note that the `fieldOfView` property is defined as the entire field of view, not half (as might be inferred from `angle` using radius).
 
 The value _MUST_ be a floating point number greater than 0 and less than 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
@@ -1331,9 +1333,9 @@ This property sets the background color behind any painted resources on a spatia
 The value _MUST_ be a string which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
 
  * A Canvas _MAY_ have the `backgroundColor` property<br/>
-   Clients _SHOULD_ render `backgroundColor` on any resource type.
+   Clients _SHOULD_ render `backgroundColor` on a Canvas.
  * A Scene _MAY_ have the `backgroundColor` property<br/>
-   Clients _SHOULD_ render `backgroundColor` on any resource type.
+   Clients _SHOULD_ render `backgroundColor` on a Scene.
  * Other resources _MUST NOT_ have the `backgroundColor` property.
 
 {% include api/code_header.html %}
@@ -1419,7 +1421,7 @@ The URI that _SHOULD_ be used to track the resource's identity, regardless of wh
 
 For more information about `canonical`, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#other-identities).
 
-The value _MUST_ be a string, and the value must be an absolute HTTP(S) URI.
+The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI.
 
 * Any resource _MAY_ have the `canonical` property.<br/>
   Clients _MAY_ process the `canonical` property on any resource.
@@ -1679,7 +1681,7 @@ The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI fo
 
 The existence of an HTTP(S) URI in the `id` property does not mean that the URI will always be dereferenceable.  If the resource with the `id` property is embedded, it _MAY_ also be dereferenceable. If the resource is referenced, it _MUST_ be dereferenceable.
 
-If a publisher wishes for a resource be able to be referenced, such as in an Annotation, then the resource _MUST_ have an `id` property.
+If a publisher wishes for a resource to be able to be referenced, such as in an Annotation, then the resource _MUST_ have an `id` property.
 
  * Collections, Collection Pages, Manifests, Timelines, Canvases, Scenes, Annotations, Annotation Pages, Annotation Collections, Ranges, Content Resources, and Services _MUST_ have the `id` property.<br/>
    Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Containers.
@@ -1895,7 +1897,7 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
 ### lookAt
 {: #lookAt}
 
-It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary container.
+It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary Container.
 
 If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
 
@@ -2067,7 +2069,7 @@ The value is a non-negative floating point number, in the coordinate space of th
 
 A reference from an Annotation Page to the following Annotation Page within an Annotation Collection, or from a Collection Page to the following Collection Page.
 
-The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the following Annotation or Collection Page. The value of the `type` property must be the string `AnnotationPage` or `CollectionPage`.
+The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Annotation or Collection Page. The value of the `type` property _MUST_ be the string `AnnotationPage` or `CollectionPage`.
 
 * An AnnotationPage _MUST_ have the `next` property, unless it is the last page in the AnnotationCollection or Collection.<br/>
   Clients _MUST_ process the `next` property on an AnnotationPage or CollectionPage.
@@ -2149,16 +2151,18 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
 ```json-doc
 { "position": {
     "type": "SpecificResource",
-      "source": [{
+      "source": {
         "id": "https://example.org/iiif/scene1",
         "type": "Scene"
-        }],
-      "selector": [{
-        "type": "PointSelector",
-        "x": 1.0,
-        "y": 19.2,
-        "z": 2.7
-      }]
+      },
+      "selector": [
+        {
+          "type": "PointSelector",
+          "x": 1.0,
+          "y": 19.2,
+          "z": 2.7
+        }
+      ]
     }
 }
 
@@ -2169,7 +2173,7 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
 
 A reference from an Annotation Page to the preceding Annotation Page within an Annotation Collection, or from a Collection Page to the preceding Collection Page.
 
-The value must be a JSON object, with the `id` and `type` properties. The value of the `id` property must be a string, and must be the HTTP(S) URI of the preceding Annotation or Collection Page. The value of the `type` property must be the string `AnnotationPage` or `CollectionPage`.
+The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the preceding Annotation or Collection Page. The value of the `type` property _MUST_ be the string `AnnotationPage` or `CollectionPage`.
 
 * An AnnotationPage _SHOULD_ have the `prev` property, unless it is the first page in the AnnotationCollection.<br/>
   Clients _SHOULD_ process the `prev` property on an AnnotationPage.
@@ -2294,7 +2298,7 @@ Note that the majority of the values have been selected from the [W3C accessibil
 | `highContrastDisplay`{: #value-highContrastDisplay} | An alternative form of visual content where the contrast is high, making it easier to see |
 | `transcript`{: #value-transcript} | A transcript of the audio content, as opposed to closed captions which might include other descriptions such as music or sound effects |
 | `translation`{: #value-translation} | A translation of the content into another language, defined on the content resource (IIIF Defined) |
-{: .api-table #table-behavior}
+{: .api-table #table-provides}
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2356,7 +2360,7 @@ The value of the `refinedBy` property _MUST_ be a JSON Object, which _MUST_ desc
 
 The value of the region parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
 
-The value of `region` _MUST_ be a string, and must conform to the requirements for the region parameter described in the Image API.
+The value of `region` _MUST_ be a string, and _MUST_ conform to the requirements for the region parameter described in the Image API.
 
 * The IIIF Image API Selector _MAY_ have the `region` property with exactly one value.<br/>
   Clients _MUST_ process the `region` property on a IIIF Image API Selector.
@@ -2463,6 +2467,8 @@ The value _MUST_ be an array of JSON objects.
 
 * A Specific Resource _MAY_ have the `scope` property with at least one item.<br/>
   Clients _SHOULD_ process `scope` on Specific Resources.
+* An Annotation _MAY_ have the `scope` property with at least one item.<br/>
+  Clients _SHOULD_ process `scope` on Annotations.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2711,11 +2717,16 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
   "start": {
     "id": "https://example.org/iiif/1/canvas-segment/1",
     "type": "SpecificResource",
-    "source": "https://example.org/iiif/1/canvas/1",
-    "selector": {
-      "type": "PointSelector",
-      "instant": 14.5
-    }
+    "source": {
+      "id": "https://example.org/iiif/1/canvas/1",
+      "type": "Canvas"
+    },
+    "selector": [
+      {
+        "type": "PointSelector",
+        "instant": 14.5
+      }
+    ]
   }
 }
 ```
@@ -2725,7 +2736,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 
 A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Collection Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
 
-The value of `startIndex` must be an integer greater than -1.
+The value of `startIndex` _MUST_ be an integer greater than -1.
 
 * An Annotation Page _MAY_ have the `startIndex` property.<br/>
   Clients _MAY_ process `startIndex` on an Annotation Page.
