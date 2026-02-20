@@ -239,7 +239,7 @@ Canvases have two additional required properties: [`height`][prezi-40-model-heig
               "height": 3000
             },
           "target": {
-            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas".
+            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
             "type": "Canvas"
           }
         }
@@ -1868,7 +1868,7 @@ This example is a Manifest with a Canvas that represents two images displayed si
                   }
                 ]
               },
-              "target": {}
+              "target": {
                 "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=0,0,300,300",
                 "type": "Canvas"
               }
@@ -2329,7 +2329,7 @@ Activating annotations are provided in a Container's [`annotations`][prezi-40-mo
 
 ### Use Case 9: Interactive 3D light switch
 
-This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
+This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. As there are multiple annotations being enabled and disabled in order, the `body` of the activating Annotation is an instance of the [`List`][prezi-40-model-list] class. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
 ```jsonc
 {
