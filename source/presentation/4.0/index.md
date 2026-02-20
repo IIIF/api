@@ -2035,7 +2035,7 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
 
 Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
 
-When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
+When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it iwould have no meaningful effect. Similarly, if both Scenes have ImageBasedLight Annotations, the ImageBasedLight Annotation of the Scene into which the Scene will be nested takes precedence. All other Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
 ```jsonc
 {
