@@ -1373,7 +1373,7 @@ The Light is green and has a position, but has its default orientation of lookin
                     "z": 1.0
                   }
                 ]
-              }              
+              }
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
@@ -1505,7 +1505,7 @@ This example is a Manifest with a single Scene with multiple models painted into
                       "z": 0.0
                     }
                   ]
-                }              
+                }
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
