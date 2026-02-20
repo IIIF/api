@@ -153,10 +153,6 @@ This document acts as an introduction to the specification through a set of typi
 
 These use cases were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
-
-> TODO Consider diagrams
-
-
 # Foundations
 
 This section is what you need to know to make sense of the examples that follow it.
@@ -928,10 +924,6 @@ Classes: [Collection][prezi-40-model-Collection], [Range][prezi-40-model-Range],
 Properties: [behavior][prezi-40-model-behavior], [navPlace][prezi-40-model-navPlace], [navDate][prezi-40-model-navDate], [structure][prezi-40-model-structures], [supplementary][prezi-40-model-supplementary]
 {: .note}
 
-thumbnail-nav
-sequence
-
-
 
 # Audio and Video
 
@@ -945,7 +937,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
   "@context": "http://iiif.io/api/presentation/4/context.json",
   "id": "https://example.org/iiif/presentation/examples/manifest-with-audio.json",
   "type": "Manifest",
-  "label": { "en": ["Use case 3: 45 single with 2 tracks"] },
+  "label": { "en": ["Use case 4: 45 single with 2 tracks"] },
   "behavior": ["auto-advance"],
   "accompanyingContainer": {
     "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
@@ -2814,7 +2806,7 @@ In many cases, the dimensions of a Canvas, or the pixel density of a photograph,
 
 The [`spatialScale`][prezi-40-model-spatialScale] property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects.
 
-The value of [`spatialScale`][prezi-40-model-spatialScale] is a `UnitValue` (ref) that has as a value a length unit. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in [`spatialScale`][prezi-40-model-spatialScale]. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a [`metadata`][prezi-40-model-metadata] field for context.
+The value of [`spatialScale`][prezi-40-model-spatialScale] is a [`Quantity`][prezi-40-model-Quantity] that has a unit of length for its `unit` property. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in [`spatialScale`][prezi-40-model-spatialScale]. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a [`metadata`][prezi-40-model-metadata] field for context.
 
 The Presentation API also offers a corresponding [`temporalScale`][prezi-40-model-temporalScale] property for the [`duration`][prezi-40-model-duration] dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video.
 

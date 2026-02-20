@@ -330,6 +330,7 @@
 [prezi-40-model-PerspectiveCamera]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#PerspectiveCamera
 [prezi-40-model-PointAudio]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#PointAudio
 [prezi-40-model-PointSelector]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#PointSelector
+[prezi-40-model-Quantity]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Quantity
 [prezi-40-model-Range]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Range
 [prezi-40-model-RotateTransform]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#RotateTransform
 [prezi-40-model-ScaleTransform]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#ScaleTransform
