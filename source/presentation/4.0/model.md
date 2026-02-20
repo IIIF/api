@@ -3211,17 +3211,17 @@ The IIIF Presentation API processing model is intended to inform and clarify the
 
 ### Collections and Collection Pages
 
-Collections are intended to be navigational constructs across the member collections and manifests, which are separate resources on the web. As Collections can be included as members of other Collections, this forms a hierarchy, and as a single collection can be included in multiple higher level Collections, it forms a polyhierarchy, where Manifests are the leaf nodes.
+Collections are intended to be navigational constructs across the member collections and manifests, which are separate resources on the web. Collections can be included as members of other Collections, forming a hierarchy where Manifests are the leaf nodes. A single collection can also be included in multiple higher level Collections, forming a polyhierarchy rather than a strict tree structure.
 
 Care must be taken that Collections are not cyclic, where Collection A includes B, which includes C, which then includes A, forming a loop. Clients _SHOULD_ detect this condition and stop processing collections that have already been processed.
 
 Collections can be divided up into pages at any level of the hierarchy, and thus the processing model must not be dependent on the document structure, but rather on the more abstract membership structure, regardless of which document (a Collection or a Collection Page) includes the `items` property that lists the members.
 
-### Manifests and Ranges
+### Navigation within a Manifest
 
-The Manifest has an `items` list of Containers. The default and most common scenario is that this list is the only structure for navigation, and all views are listed in the correct order. The navigation for a Manifest without any ranges is thus to allow the user to step through, and perhaps jump around in, this list.
+The Manifest has an `items` list of Containers. The most common scenario is that this list is the only structure available for navigation, and all views are listed in the correct order. The client might thus allow the user to step through or skip around in the list.
 
-Ranges provide alternative ways to navigate between and within the containers. A typical use case is a hierarchical, rather than flat, table of contents in which containers and parts of containers are grouped together into sections. If there is a `structures` field in the Manifest, then the Range instances within it provide additional navigational structures. A Range with the `behavior` value of `sequence` provides an alternative ordering, and a range with `no-nav` is not to be rendered in the hierarchy.
+Ranges, listed in the `structures` field of a Manifest, provide alternative ways to navigate between and within the Containers. A typical use case is a hierarchical, rather than flat, table of contents in which Containers and parts of Containers are grouped together into sections. A Range with the `behavior` value of `sequence` provides an alternative ordering, and a Range with `no-nav` is not to be rendered in the hierarchy.
 
 There are no requirements as to the interaction with the user and the navigational UI generated from these structures as to how the tree is expanded and collapsed, the exact effects of activating a node to navigate to it, and so forth. Those user interface details are left to the client implementations to decide what is the most intuitive experience within their own contexts.
 
