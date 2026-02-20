@@ -230,16 +230,18 @@ Canvases have two additional required properties: [`height`][prezi-40-model-heig
           "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
           "type": "Annotation",
           "motivation": ["painting"],
-          "body": [
+          "body": 
             {
               "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
               "type": "Image",
               "format": "image/jpeg",
               "width": 4000,
               "height": 3000
-            }
-          ],
-          "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/canvas"]
+            },
+          "target": {
+            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+            "type": "Canvas"
+          }
         }
       ]
     }
@@ -266,14 +268,17 @@ Scenes may also have the [`duration`][prezi-40-model-duration] property in the s
           "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/s1",
           "type": "Annotation",
           "motivation": ["painting"],
-          "body": [
+          "body":
             {
               "id": "https://iiif.io/api/presentation/example-content-resources/models/astronaut.glb",
               "type": "Model",
               "format": "model/gltf-binary"
-            }
-          ],
-          "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/scene"]
+            },
+
+          "target": {
+            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/scene",
+            "type": "Scene"
+          }
         }
       ]
     }
@@ -327,16 +332,18 @@ There are different types of fragment based on the format of the resource. The m
   "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
   "type": "Annotation",
   "motivation": ["commenting"],
-  "body": [
+  "body": 
     {
       "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
       "type": "TextualBody",
       "value": "Koto with a cover being carried",
       "language": "en",
       "format": "text/plain"
-    }
-  ],
-  "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/canvas#xywh=6050,3220,925,1250"]
+    },
+  "target": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas#xywh=6050,3220,925,1250",
+    "type": "Canvas"
+  }
 }
 ```
 
@@ -358,16 +365,15 @@ The fragment example above can be expressed using a Specific Resource:
   "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
   "type": "Annotation",
   "motivation": ["commenting"],
-  "body": [
+  "body": 
     {
       "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
       "type": "TextualBody",
       "value": "Koto with a cover being carried",
       "language": "en",
       "format": "text/plain"
-    }
-  ],
-  "target": [
+    },
+  "target": 
     {
       "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/resources/koto-sr",
       "type": "SpecificResource",
@@ -381,7 +387,6 @@ The fragment example above can be expressed using a Specific Resource:
         "value": "xywh=6050,3220,925,1250"
       }
     }
-  ]
 }
 ```
 
@@ -548,7 +553,7 @@ The example demonstrates the use of the common descriptive properties [`label`][
               "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
                   "type": "Image",
@@ -563,9 +568,11 @@ The example demonstrates the use of the common descriptive properties [`label`][
                       // etc
                     }
                   ]
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-containers/canvas"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -640,16 +647,18 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
               "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://iiif.io/api/presentation/example-content-resources/image/page1.jpg",
                   "type": "Image",
                   "format": "image/jpeg",
                   "height": 4613,
                   "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c1"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c1",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -670,16 +679,18 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
               "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://iiif.io/api/presentation/example-content-resources/image/page2.jpg",
                   "type": "Image",
                   "format": "image/jpeg",
                   "height": 4613,
                   "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c2",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -700,16 +711,18 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
               "id": "https://example.org/iiif/presentation/examples/manifest-with-book/annotation/a3",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://iiif.io/api/presentation/example-content-resources/image/page3.jpg",
                   "type": "Image",
                   "format": "image/jpeg",
                   "height": 4613,
                   "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c3"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-book/canvas/c3",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -826,16 +839,18 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents:
               "id": "https://example.org/iiif/periodical/multi-part-collection/annotation/a1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://example.org/image/page1.jpg",
                   "type": "Image",
                   "format": "image/jpeg",
                   "height": 4613,
                   "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/periodical/multi-part-collection/canvas/c1"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c1",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -856,16 +871,18 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents:
               "id": "https://example.org/iiif/periodical/multi-part-collection/annotation/a2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://example.org/image/page2.jpg",
                   "type": "Image",
                   "format": "image/jpeg",
                   "height": 4613,
                   "width": 3204
-                }
-              ],
-              "target": ["https://example.org/iiif/periodical/multi-part-collection/canvas/c2"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/periodical/multi-part-collection/canvas/c2",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -945,16 +962,17 @@ This example is a Manifest with two Timelines, each of which represent a tempora
             "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1/image",
             "type": "Annotation",
             "motivation": ["painting"],
-            "body": [
+            "body": 
               {
                 "id": "https://example.org/presentation/example-content-resources/image/cover.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
                 "height": 900,
                 "width": 900
-              }
-            ],
-            "target": ["https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/ac1"]
+              },
+            "target": {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
+              "type": "Canvas"
           }
         ]
       }
@@ -975,7 +993,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
               "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/presentation/example-content-resources/audio/track1.mp4",
                   "type": "Sound",
@@ -983,8 +1001,11 @@ This example is a Manifest with two Timelines, each of which represent a tempora
                   "duration": 231,
                   "language": ["de"]
                 }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1"]
+
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1",
+                "type": "Timeline"
+              }
             }
           ]
         }
@@ -1004,16 +1025,18 @@ This example is a Manifest with two Timelines, each of which represent a tempora
               "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/annotation/a2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/presentation/example-content-resources/audio/track2.mp4",
                   "type": "Sound",
                   "format": "audio/mp4",
                   "duration": 230.5,
                   "language": ["en"]
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t2",
+                "type": "Timeline"
+              }
             }
           ]
         }
@@ -1040,16 +1063,18 @@ This example is a Manifest with two Timelines, each of which represent a tempora
       "id": "https://example.org/iiif/presentation/examples/external-anno/a1",
       "type": "Annotation",
       "motivation": ["supplementing"],
-      "body": [
+      "body": 
         {
           "id": "https://example.org/presentation/example-content-resources/lyrics1.txt",
           "type": "TextualBody",
           "language": "de",
           "format": "text/plain",
           "value": "Hast du etwas Zeit für mich?"
-        }
-      ],
-      "target": ["https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8"]
+        },
+      "target": {
+        "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/timeline/t1#t=3.5,6.8",
+        "type": "Timeline"
+      }
     }
   ]
   // (annotations for the rest of the song lines)
@@ -1100,8 +1125,8 @@ This example is a Manifest with one Canvas that represents the temporal extent o
               {
                 "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/placeholder/image",
                 "type": "Annotation",
-                "motivation": "painting",
-                "body": [
+                "motivation": ["painting"],
+                "body":
                   {
                     "id": "https://example.org/image/placeholder.png",
                     "type": "Image",
@@ -1109,8 +1134,10 @@ This example is a Manifest with one Canvas that represents the temporal extent o
                     "height": 320,
                     "width": 400
                   }
-                ],
-                "target": ["https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/canvas/donizetti/placeholder"]
+                "target": {
+                  "id": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/canvas/donizetti/placeholder",
+                  "type": "Canvas"
+                }
               }
             ]
           }
@@ -1124,8 +1151,8 @@ This example is a Manifest with one Canvas that represents the temporal extent o
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/anno1",
               "type": "Annotation",
-              "motivation": "painting",
-              "body": [
+              "motivation": ["painting"],
+              "body": 
                 {
                   "type": "Choice",
                   "items": [
@@ -1150,9 +1177,11 @@ This example is a Manifest with one Canvas that represents the temporal extent o
                       "fileSize": 1345876231
                     }
                   ]
-                }
-              ],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -1165,9 +1194,9 @@ This example is a Manifest with one Canvas that represents the temporal extent o
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
               "type": "Annotation",
-              "motivation": "supplementing",
+              "motivation": ["supplementing"],
               "provides": [ "subtitles" ],
-              "body": [{
+              "body": {
                 "id": "https://example.org/text/subtitles.vtt",
                 "type": "Text",
                 "format": "text/vtt",
@@ -1177,8 +1206,11 @@ This example is a Manifest with one Canvas that represents the temporal extent o
                   ]
                 },
                 "language": "en"
-              }],
-              "target": ["https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"]
+              },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -1270,14 +1302,16 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
                   "type": "Model",
                   "format": "model/gltf-binary"
-                }
-              ],
-              "target": ["https://example.org/iiif/scene1/page/p1/1"]
+                },
+              "target": {
+                "id": "https://example.org/iiif/scene1/page/p1/1",
+                "type": "Scene"
+              }
             }
           ]
         }
@@ -1327,14 +1361,13 @@ The Light is green and has a position, but has its default orientation of lookin
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
                   "type": "Model",
                   "format": "model/gltf-binary"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1348,7 +1381,6 @@ The Light is green and has a position, but has its default orientation of lookin
                       "y": 1.0,
                       "z": 1.0
                     }
-                  ]
                 }
               ]
             },
@@ -1356,7 +1388,7 @@ The Light is green and has a position, but has its default orientation of lookin
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/3d/cameras/1",
                   "type": "PerspectiveCamera",
@@ -1368,9 +1400,8 @@ The Light is green and has a position, but has its default orientation of lookin
                   "near": 1,
                   "far": 100,
                   "fieldOfView": 50
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source":
@@ -1387,22 +1418,20 @@ The Light is green and has a position, but has its default orientation of lookin
                     }
                   ]
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/3d/lights/1",
                   "type": "SpotLight",
                   "label": { "en": ["Spot Light 1"] },
                   "angle": 90.0,
                   "color": "#A0FFA0"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1418,7 +1447,6 @@ The Light is green and has a position, but has its default orientation of lookin
                     }
                   ]
                 }
-              ]
             }
           ]
         }
@@ -1465,14 +1493,13 @@ This example is a Manifest with a single Scene with multiple models painted into
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
                   "label": { "en": ["Pawn 1"] },
                   "type": "Model",
                   "format": "model/gltf-binary"
-                }
-              ],
+                },
               "target": [
                 {
                   "type": "SpecificResource",
@@ -1489,13 +1516,12 @@ This example is a Manifest with a single Scene with multiple models painted into
                     }
                   ]
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1518,9 +1544,8 @@ This example is a Manifest with a single Scene with multiple models painted into
                       "z": 0.0
                     }
                   ]
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1536,14 +1561,13 @@ This example is a Manifest with a single Scene with multiple models painted into
                     }
                   ]
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno3",
               "type": "Annotation",
               "motivation": ["painting"],
               "exclude": ["Audio", "Lights"],
-              "body": [
+              "body": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1560,9 +1584,8 @@ This example is a Manifest with a single Scene with multiple models painted into
                       "z": 1.5
                     }
                   ]
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1660,7 +1683,7 @@ In this example, the audio content resources have durations that do not match th
           "id": "https://example.org/iiif/3d/anno1",
           "type": "Annotation",
           "motivation": ["painting"],
-          "body": [
+          "body": 
             {
               "id": "https://example.org/iiif/audio/1",
               "type": "AmbientAudio",
@@ -1675,21 +1698,19 @@ In this example, the audio content resources have durations that do not match th
                 "unit": "relative",
                 "quantityValue": 0.1
               }
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               "id": "https://example.org/iiif/scene1",
               "type": "Scene"
             }
-           ]
         },
         {
           "id": "https://example.org/iiif/3d/anno2",
           "type": "Annotation",
           "motivation": ["painting"],
           "timeMode": "trim",
-          "body": [
+          "body": 
             {
               "id": "https://example.org/iiif/audio/2",
               "type": "PointAudio",
@@ -1706,8 +1727,7 @@ In this example, the audio content resources have durations that do not match th
                 "quantityValue": 0.2
               }
             }
-          ],
-          "target": [
+          "target": 
             {
               "id": "https://example.org/iiif/selectors/anno2",
               "type": "SpecificResource",
@@ -1730,14 +1750,13 @@ In this example, the audio content resources have durations that do not match th
                 }
               ]
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/anno3",
           "type": "Annotation",
           "motivation": ["painting"],
           "timeMode": "loop",
-          "body": [
+          "body": 
             {
               "id": "https://example.org/iiif/audio/3",
               "type": "SpotAudio",
@@ -1755,14 +1774,12 @@ In this example, the audio content resources have durations that do not match th
                 "quantityValue": 0.3
               },
               "lookAt": "https://example.org/iiif/scene1"
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               "id": "https://example.org/iiif/scene1#xyz=3,0,-2&t=30,60",
               "type": "Scene"
             }
-          ]
         }
       ],
       "annotations": [
@@ -1770,13 +1787,12 @@ In this example, the audio content resources have durations that do not match th
           "id": "https://example.org/iiif/3d/commenting",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
               "type": "TextualBody",
               "value": "This is the point when the percussion stops playing and the tuba begins playing."
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               "type": "SpecificResource",
               "source": {
@@ -1790,7 +1806,6 @@ In this example, the audio content resources have durations that do not match th
                 }
               ]
             }
-          ]
         }
       ]
     }
@@ -1866,13 +1881,19 @@ This example is a Manifest with a Canvas that represents two images displayed si
                           "type": "Image",
                           "format": "image/jpeg"
                         },
-                        "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2"
+                        "target": 
+                        {"id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2",
+                          "type": "Canvas"
+                        }
                       },
                     ]
                   }
                 ]
               },
-              "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=0,0,300,300"
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=0,0,300,300",
+                "type": "Canvas"
+              }
             },
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/annotation/anno2",
@@ -1897,13 +1918,19 @@ This example is a Manifest with a Canvas that represents two images displayed si
                           "type": "Image",
                           "format": "image/jpeg"
                         },
-                        "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c3"
+                        "target": {
+                          "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c3",
+                          "type": "Canvas"
+                        }
                       },
                     ]
                   }
                 ]
               },
-              "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=300,0,300,300"
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=300,0,300,300",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -1929,15 +1956,17 @@ A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only
   "type": "Annotation",
   "motivation": ["painting"],
   "timeMode": "loop",
-  "body": [
+  "body": 
     {
       "id": "https://example.org/iiif/presentation/examples/nesting/timeline/t1",
       "type": "Timeline",
       "label": { "en": ["Side A: 99 Luftballons"] },
       "duration": 231
-    }
-  ],
-  "target": ["https://example.org/iiif/presentation/examples/nesting/canvas-10minute-duration"]
+    },
+  "target": {
+    "id": "https://example.org/iiif/presentation/examples/nesting/canvas-10minute-duration",
+    "type": "Canvas"
+  }
 }
 ```
 
@@ -1965,7 +1994,7 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
   "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
   "type": "Annotation",
   "motivation": ["painting"],
-  "body": [
+  "body": 
     {
       "type": "SpecificResource",
       "source": {
@@ -1983,9 +2012,8 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
           "z": -1.0
         }
       ]
-    }
-  ],
-  "target": [
+    },
+  "target": 
     {
       "type": "SpecificResource",
       "source": {
@@ -2001,7 +2029,6 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
         }
       ]
     }
-  ]
 }
 ```
 
@@ -2025,13 +2052,15 @@ When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-mode
     "id": "https://example.org/iiif/presentation/examples/nesting/anno3",
     "type": "Annotation",
     "motivation": ["painting"],
-    "body": [
+    "body":
       {
         "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
         "type": "Scene"
-      }
-    ],
-    "target": ["https://example.org/iiif/presentation/examples/nesting/scene/s2"]
+      },
+    "target": {
+      "id": "https://example.org/iiif/presentation/examples/nesting/scene/s2",
+      "type": "Scene"
+    }
 }
 ```
 
@@ -2143,22 +2172,24 @@ This example is a Manifest with a Canvas that contains a single painting and an 
                 "type": "Image",
                 "format": "image/jpeg"
               },
-              "target": "https://example.org/iiif/presentation/examples/manifest-comment/canvas"
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-comment/canvas",
+                "type": "Canvas"
+              }
             },
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2",
               "type": "Annotation",
               "motivation": ["commenting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2/person2",
                   "type": "TextualBody",
                   "language": "en",
                   "format": "text/plain",
                   "value": "Note the expressive eyes of the subject of this painting."
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -2173,7 +2204,6 @@ This example is a Manifest with a Canvas that contains a single painting and an 
                     }
                   ]
                 }
-              ]
             }
           ]
         }
@@ -2215,13 +2245,15 @@ In some cases it is desirable to influence the client's positioning of the comme
                     "label": {
                         "en": ["A 1st century Roman portait bust."]
                     },
-                    "body": [
+                    "body": 
                       {
                         "id": "https://example.org/iiif/scene/commenting/models/portait.gltf",
                         "type": "Model"
-                      }
-                    ],
-                    "target": ["https://example.org/iiif/scene/commenting/scene3"]
+                      },
+                    "target": {
+                      "id": "https://example.org/iiif/scene/commenting/scene3",
+                      "type": "Scene"
+                    }
                 }
             ]
           }
@@ -2237,7 +2269,7 @@ In some cases it is desirable to influence the client's positioning of the comme
             "id": "https://example.org/iiif/presentation/examples/commenting/anno/3",
             "type": "Annotation",
             "motivation": ["commenting"],
-            "body": [
+            "body": 
               {
                 "id": "https://example.org/iiif/presentation/examples/commenting/anno/3/comment1",
                 "type": "TextualBody",
@@ -2261,9 +2293,11 @@ In some cases it is desirable to influence the client's positioning of the comme
                     }
                   ]
                 }
-              }
-            ],
-            "target": ["https://example.org/iiif/scene/commenting/scene3/sculpture"]
+              },
+            "target": {
+              "id": "https://example.org/iiif/scene/commenting/scene3/sculpture",
+              "type": "Scene"
+            }
           }
         ]
       }
@@ -2288,14 +2322,16 @@ The resource the user should be taken to is the [`body`][prezi-40-model-body] of
 {
   "id": "https://example.com/annotation/p0002-link",
   "type": "Annotation",
-  "motivation": "linking",
-  "body": [
+  "motivation": ["linking"],
+  "body":
     {
     "id": "https://example.com/website1",
     "type": "Text"
-    }
-  ],
-  "target": ["https://example.com/canvas/p1#xywh=265,661,1260,1239"]
+    },
+  "target": {
+    "id": "https://example.com/canvas/p1#xywh=265,661,1260,1239",
+    "type": "Canvas"
+  }
 }
 ```
 
@@ -2315,7 +2351,7 @@ Activating annotations are provided in a Container's [`annotations`][prezi-40-mo
 
 ### Use Case 9: Interactive 3D light switch
 
-This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
+This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. As there are multiple annotations being enabled and disabled in order, the `body` of the activating Annotation is an instance of the [`List`][prezi-40-model-list] class. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
 ```jsonc
 {
@@ -2339,25 +2375,26 @@ This example is a light switch that can be toggled on and off using activating a
               "label": {
                 "en": ["A light switch"]
               },
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/model/models/lightswitch.gltf",
                   "type": "Model"
-                }
-              ],
-              "target": "https://example.org/iiif/scene/switch/scene-1"
+                },
+              "target": {
+                "id": "https://example.org/iiif/scene/switch/scene-1",
+                "type": "Scene"
+              }
             },
             {
               "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/scene/switch/scene-1/lights/4/body",
                   "type": "PointLight"
-                }
-              ],
-              "target": [
+                },
+              "target":
                 {
                   "type": "SpecificResource",
                   "source": "https://example.org/iiif/scene/switch/scene-1",
@@ -2367,8 +2404,7 @@ This example is a light switch that can be toggled on and off using activating a
                       "x": 5, "y": 5, "z": 5
                     }
                   ]
-                }
-              ],
+                },
               "behavior": ["hidden"]
             }
           ]
@@ -2383,36 +2419,44 @@ This example is a light switch that can be toggled on and off using activating a
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/switch-comment-0",
               "type": "Annotation",
               "motivation": ["commenting"],
-              "body": [
+              "body": 
                 {
                   "type": "TextualBody",
                   "value": "Click the switch to turn the light on or off"
                 }
-              ],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1"
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
+              }
             },
             {
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
               "type": "Annotation",
               "motivation": ["activating"],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-              "body": [
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                  "action": ["disable"]
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
                 },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                  "action": ["enable"]
-                },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                  "action": ["show"]
-                }
-              ]
+              "body": {
+                "type": "List",
+                "items": [
+                  {
+                    "type": "SpecificResource",
+                    "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                    "action": ["disable"]
+                  },
+                  {
+                    "type": "SpecificResource",
+                    "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                    "action": ["enable"]
+                  },
+                  {
+                    "type": "SpecificResource",
+                    "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                    "action": ["show"]
+                  }
+                ]
+              }
             },
             {
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
@@ -2420,24 +2464,31 @@ This example is a light switch that can be toggled on and off using activating a
               "motivation": [
                 "activating"
               ],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-              "body": [
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                  "action": ["disable"]
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
+              },
+              "body": {
+                "type": "List",
+                "items": 
+                  [
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                      "action": ["disable"]
+                    },
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                      "action": ["hide"]
+                    },
+                    {
+                      "type": "SpecificResource",
+                      "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                      "action": ["enable"]
+                    }
+                  ]
                 },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                  "action": ["hide"]
-                },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                  "action": ["enable"]
-                }
-              ],
               "behavior": ["disabled"]
             }
           ]
@@ -2485,17 +2536,15 @@ The format of the `value` string is implementation-specific, and will depend on 
               "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
                   "type": "Model"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             }
           ],
           "annotations": [
@@ -2507,30 +2556,27 @@ The format of the `value` string is implementation-specific, and will depend on 
                   "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
                   "type": "Annotation",
                   "motivation": ["commenting"],
-                  "body": [
+                  "body": 
                     {
                       "type": "TextualBody",
                       "value": "Click me to open the lid"
-                    }
-                  ],
-                  "target": [
+                    },
+                  "target": 
                     {
                       "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
                       "type": "Annotation"
                     }
-                  ]
                 }
                 {
                   "id": "https://example.org/iiif/3d/box-opening-activating-anno",
                   "type": "Annotation",
                   "motivation": ["activating"],
-                  "target": [
+                  "target": 
                     {
                       "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
                       "type": "Annotation"
-                    }
-                  ],
-                  "body": [
+                    },
+                  "body": 
                     {
                       "type": "SpecificResource",
                       "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
@@ -2542,7 +2588,6 @@ The format of the `value` string is implementation-specific, and will depend on 
                       ],
                       "action": ["start"]
                     }
-                  ]
                 }
               ]
             }
@@ -2579,24 +2624,22 @@ It is possible to associate a particular camera with a particular commenting ann
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
                   "type": "Model"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
               "type": "Annotation",
               "motivation": ["painting"],
               "behavior": ["hidden"],
-              "body":  [
+              "body":  
                 {
                   "id": "https://example.org/iiif/3d/cameras/1",
                   "type": "PerspectiveCamera",
@@ -2604,9 +2647,8 @@ It is possible to associate a particular camera with a particular commenting ann
                   "fieldOfView": 50.0,
                   "near": 0.10,
                   "far": 2000.0
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": [
@@ -2622,23 +2664,20 @@ It is possible to associate a particular camera with a particular commenting ann
                     }
                   ]
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
                   "type": "Model"
                 }
-              ],
-              "target": [
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             }
           ]
         }
@@ -2654,51 +2693,45 @@ It is possible to associate a particular camera with a particular commenting ann
           "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
             "type": "TextualBody",
             "value": "Mandibular tooth"
-            }
-          ],
-          "target": [
+            },
+          "target":
             {
               // SpecificResource with PointSelector
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
               "type": "TextualBody",
               "value": "Right pterygoid hamulus"
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               // SpecificResource with PointSelector
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/anno9",
           "type": "Annotation",
           "motivation": ["activating"],
-          "target": [
+          "target": 
             {
               "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
               "type": "Annotation"
             }
-          ],
-          "body": [
+          "body": 
             {
               "type": "SpecificResource",
               "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
               "action": ["show", "enable", "select"]
             }
-          ]
         }
       ]
     }
@@ -2728,18 +2761,21 @@ The commenting annotation now looks like this:
   "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
   "type": "Annotation",
   "motivation": ["commenting"],
-  "bodyValue": "Mandibular tooth",
+  "body": {
+    "type": "TextualBody", 
+    "value": "Mandibular tooth"
+  },
   "scope": [
     {
       "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
       "type": "Annotation"
     }
   ],
-  "target": [
+  "target":
     {
       // SpecificResource with PointSelector
     }
-  ]
+  
 },
 ```
 
@@ -2871,7 +2907,7 @@ An image might not be correctly aligned with the Canvas, and require rotation as
   "id": "http://example.org/iiif/book1/annotation/anno1",
   "type": "Annotation",
   "motivation": ["painting"],
-  "body": [
+  "body": 
     {
       "type": "SpecificResource",
       "source": {
@@ -2887,14 +2923,12 @@ An image might not be correctly aligned with the Canvas, and require rotation as
         "type": "ImageApiSelector",
         "rotation": "90"
       }
-  }
-  ],
-  "target": [
+    },
+  "target": 
     {
       "id": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240",
       "type": "Canvas"
     }
-  ]
 }
 
 ```
@@ -2971,10 +3005,13 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
       {
         "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
         "type": "Annotation",
-        "motivation": "supplementing",
+        "motivation": ["supplementing"],
         "provides": [ "alternativeText" ],
         "body": {...},
-        "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
+        "target": {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
+          "type": "Canvas"
+        }
       }
     ]
   }

@@ -487,6 +487,45 @@ A Choice _SHOULD_ have the following properties: [label](#label)<br/><br/>
 A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
+#### Composite
+{: #Composite}
+
+> `"type": "Composite"`
+
+A Composite is a Web Annotation construction where all of the resources are required for the correct interpretation of the set of resources in the context of the Annotation, as opposed to Choice where the client selects only one of the items or allows the user to make that selection. For Composite, the client should present all of the resources listed in the `items` property, however order or priority is not specified. For example, if a Composite is used as the `target` of a commenting Annotation, then it is the unordered set of resources that is being commented on.
+
+__Properties__<br/>
+A Composite _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+A Composite _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A Composite _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### List
+{: #List}
+
+> `"type": "List"`
+
+A List is a Web Annotation construction where all of the resources are required, in the given order, for the correct interpretation of the set. For example, if a List is used as the `target` of a commenting Annotation, then it is the ordered list of resources that are being commented on, rather than each independently.
+
+__Properties__<br/>
+A List _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+A List _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### Independents
+{: #Independents}
+
+> `"type": "Independents"`
+
+An independents is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
+
+__Properties__<br/>
+An Independents _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+An Independents _SHOULD_ have the following properties: [label](#label)<br/><br/>
+An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
 
 ### Content Resources
 {: #ContentResources}
@@ -1355,13 +1394,13 @@ The value _MUST_ be an array of strings.
 ### body
 {: #body}
 
-The list of bodies of an Annotation. As there _MAY_ be more than one body, the value _MUST_ be an array, even though the W3C specification does not require this. The resources listed in `body` can be instances of `TextualBody`, `SpecificResource`, core Structural Resources, or Content Resources.
+The body of an Annotation. The resources listed in `body` can be instances of `TextualBody`, `SpecificResource`, core Structural Resources, Content Resources, or the Annotation aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple bodies.
 
 Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the `TextualBody` class _MUST_ be used instead.
 
 For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property.
+The value _MUST_ be a JSON object. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _SHOULD_ have the `body` property.<br/>
   Clients _MUST_ process the `body` property on Annotations.
@@ -1369,9 +1408,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `type` p
 {% include api/code_header.html %}
 ``` json-doc
 { "body": 
-  [ 
-    {"type": "TextualBody", "value": "Great!"} 
-  ] 
+  {"type": "TextualBody", "value": "Great!"} 
 }
 ```
 
@@ -2783,18 +2820,20 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### target
 {: #target}
 
-The list of targets of an Annotation. As there _MAY_ be more than one target, the value _MUST_ be an array, even though the W3C specification does not require this. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, or Content Resources.
+The target of an Annotation. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, Content Resources, or one of the aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple targets.
 
 For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be an array. Each item _MUST_ be a JSON object with the `type` property, and referenced resources _MUST_ also have the `id` property.
+The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _MUST_ have the `target` property.<br/>
   Clients _MUST_ process the `target` property on Annotations.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "target": [ { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" } ] }
+{ "target": 
+  { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" }
+}
 ```
 
 
