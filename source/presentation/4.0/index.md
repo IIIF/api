@@ -174,7 +174,7 @@ The Manifest's [`items`][prezi-40-model-items] property is an ordered list of _C
 
 Manifests have descriptive, technical and linking properties. The required properties of Manifests are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`rights`][prezi-40-model-rights], [`thumbnail`][prezi-40-model-thumbnail], [`homepage`][prezi-40-model-homepage] and [`provider`][prezi-40-model-provider].
 
-(👀) [Model Documentation](model/#manifest)
+(👀) [Model Documentation](model/#Manifest)
 
 
 ```jsonc
@@ -288,7 +288,7 @@ Scenes may also have the [`duration`][prezi-40-model-duration] property in the s
 
 Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
 
-[👀 Model Documentation](model/#containers)
+[👀 Model Documentation](model/#Containers)
 
 
 ## Annotations
@@ -591,7 +591,7 @@ The example demonstrates the use of the common descriptive properties [`label`][
 * The Painting Annotation is a member of the [`items`][prezi-40-model-items] property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
 * The [`metadata`][prezi-40-model-metadata] label and value pairs are for display to the user rather than for machines to interpret.
 * The [`rights`][prezi-40-model-rights] property is always a single string value which is a URI.
-* Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
+* Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#Agent).
 * The [`service`][prezi-40-model-service] property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
 {: .note}
 
@@ -2881,13 +2881,13 @@ This example also shows how the [`fileSize`][prezi-40-model-fileSize] property c
 
 In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
 
-Further IIIF Services are provided by the [IIIF Authorization Flow API](auth-stable-version), which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
+Further IIIF Services are provided by the [IIIF Authorization Flow API][auth-stable-version], which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
 
 Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
 
 ## Content State
 
-Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API](contenstate-stable-version) defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
+Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API][contenstate-stable-version] defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
 
 ```
 (region of a Canvas that is partOf a Manifest)

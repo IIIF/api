@@ -1152,7 +1152,7 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and
 A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible unit values](#unit).
 
 __Properties__<br/>
-A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#value), and [unit](#unit).<br/><br/>
+A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#quantityValue), and [unit](#unit).<br/><br/>
 A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
 {: .note}
 
@@ -1443,6 +1443,24 @@ The value _MUST_ be string, which defines an RGB color. It SHOULD be a hex value
 
 ```json
 "color": "#FFA0A0"
+```
+
+
+### conformsTo
+{: #conformsTo}
+
+The specification that the fragment identifier in the `value` property of a `FragmentSelector` conforms to. The value allows clients to correctly interpret the fragment identifier syntax. For example, a `FragmentSelector` using the media fragments specification would have a `conformsTo` value of `http://www.w3.org/TR/media-frags/`.
+
+For more information about `conformsTo`, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
+
+The value _MUST_ be a string, and _MUST_ be an absolute URI.
+
+* A FragmentSelector _MAY_ have the `conformsTo` property.<br/>
+  Clients _SHOULD_ process `conformsTo` on a FragmentSelector.
+
+{% include api/code_header.html %}
+``` json-doc
+{ "conformsTo": "http://www.w3.org/TR/media-frags/" }
 ```
 
 
@@ -3071,6 +3089,21 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 {% include api/code_header.html %}
 ``` json-doc
 { "via": [ "https://example.com/manifests/6" ] }
+```
+
+
+### viewHeight
+{: #viewHeight}
+
+The height of the visible region for an OrthographicCamera, in the coordinate space of the Scene. Unlike a PerspectiveCamera which uses a field of view angle, an OrthographicCamera defines its visible region by a rectangular volume. The `viewHeight` gives the vertical extent of that region in Scene coordinate units; the corresponding horizontal extent is derived proportionally from the aspect ratio of the client's viewport.
+
+The value _MUST_ be a positive floating point number in the coordinate space of the Scene. If this property is not specified, then the default value is client-dependent.
+
+* An OrthographicCamera _SHOULD_ have the `viewHeight` property.<br/>
+  Clients _SHOULD_ process the `viewHeight` property on OrthographicCameras.
+
+```json-doc
+{ "viewHeight": 40.0 }
 ```
 
 
