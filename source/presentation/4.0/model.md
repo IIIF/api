@@ -1012,7 +1012,7 @@ Point Audio emits in all directions from a single point in the Scene.
 
 Spot Audio emits a cone of sound in a given direction from a single point.  The Spot Audio's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
 
-The SpotAudio emits in the negative Y direction by default, but the orientation of the sound can be altered by subsequent transforms, or by setting the `lookAt` property.
+The Spot Audio emits in the negative Y direction by default, but the orientation of the sound can be altered by subsequent transforms, or by setting the `lookAt` property.
 
 __Properties__<br/>
 Spot Audio Emitters _SHOULD_ have the following additional properties: [angle](#angle)<br/><br/>
