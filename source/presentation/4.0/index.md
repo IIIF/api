@@ -151,11 +151,7 @@ This document acts as an introduction to the specification through a set of typi
 8. **Comment on Feature of a Painting** - a Manifest that represents a painting and a comment highlighting a particular region of the painting.
 9. **Interactive 3D Light Switch** - a Manifest that represents a Scene containing a light and a 3D model of a light switch, where a user can click or otherwise interact with the switch to turn the light on and off.
 
-These use case were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook](link).
-
-
-> TODO Consider diagrams
-
+These use cases were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
 # Foundations
 
@@ -174,7 +170,7 @@ The Manifest's [`items`][prezi-40-model-items] property is an ordered list of _C
 
 Manifests have descriptive, technical and linking properties. The required properties of Manifests are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`rights`][prezi-40-model-rights], [`thumbnail`][prezi-40-model-thumbnail], [`homepage`][prezi-40-model-homepage] and [`provider`][prezi-40-model-provider].
 
-(👀) [Model Documentation](model/#manifest)
+(👀) [Model Documentation](model/#Manifest)
 
 
 ```jsonc
@@ -288,13 +284,13 @@ Scenes may also have the [`duration`][prezi-40-model-duration] property in the s
 
 Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
 
-[👀 Model Documentation](model/#containers)
+[👀 Model Documentation](model/#Containers)
 
 
 ## Annotations
 
 
-IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-web-anno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
+IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
 In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the [`body`][prezi-40-model-body] property is _painted_ into the Container by an Annotation whose [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container. In all three simple cases here the [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container with no further qualification.
 
@@ -425,7 +421,6 @@ Collections may include both other Collections and Manifests, forming a tree-str
 }
 ```
 
-:eyes:
 
 ### Range
 
@@ -465,7 +460,6 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
 }
 ```
 
-:eyes:
 
 
 
@@ -475,7 +469,7 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
-The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
+The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image. The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
 The example demonstrates the use of the common descriptive properties [`label`][prezi-40-model-label] for the title of the artwork, [`metadata`][prezi-40-model-metadata] for additional information to display to the user, [`summary`][prezi-40-model-summary] for a brief description of the artwork, [`rights`][prezi-40-model-rights] to assert a rights statement or license from a controlled vocabulary, [`homepage`][prezi-40-model-homepage] to link to the artwork's specific web page, [`thumbnail`][prezi-40-model-thumbnail] to provide a small image to stand for the Manifest, [`provider`][prezi-40-model-provider] to give information about the publisher of the Manifest, and finally, [`service`][prezi-40-model-service] to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
 
@@ -591,7 +585,7 @@ The example demonstrates the use of the common descriptive properties [`label`][
 * The Painting Annotation is a member of the [`items`][prezi-40-model-items] property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
 * The [`metadata`][prezi-40-model-metadata] label and value pairs are for display to the user rather than for machines to interpret.
 * The [`rights`][prezi-40-model-rights] property is always a single string value which is a URI.
-* Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
+* Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#Agent).
 * The [`service`][prezi-40-model-service] property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
 {: .note}
 
@@ -605,7 +599,7 @@ Properties: [id][prezi-40-model-id], [type][prezi-40-model-type], [label][prezi-
 
 ## Use Case 2: Book
 
-This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the [`behavior`][prezi-40-model-behavior] property to indicate to a client that the object is _paged_---this helps a client generate the correct user experience. The [`viewingDirection`][prezi-40-model-viewingDirection] property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a [`rendering`][prezi-40-model-rendering] property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The [`start`][prezi-40-model-start] property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The [`requiredStatement`][prezi-40-model-requiredStatement] is a message that a client MUST show to the user when presenting the Manifest.
+This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the [`behavior`][prezi-40-model-behavior] property to indicate to a client that the object is _paged_---this helps a client generate the correct user experience. The [`viewingDirection`][prezi-40-model-viewingDirection] property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a [`rendering`][prezi-40-model-rendering] property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The [`start`][prezi-40-model-start] property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The [`requiredStatement`][prezi-40-model-requiredStatement] is a message that a client _MUST_ show to the user when presenting the Manifest.
 
 ```json
 {
@@ -749,7 +743,7 @@ Properties: [behavior][prezi-40-model-behavior], [viewingDirection][prezi-40-mod
 
 ## Use Case 3: Periodical
 
-This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a run of the _The Tombstone Epitaph_, published from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the [`behavior`][prezi-40-model-behavior] "multi-part" to signal that the Collections and their Manifests are part of a logical set. Each of the year Collections has one Manifest for each issue of the newspaper.
+This example demonstrates the use of IIIF Collections to group Manifests into a hierarchy. In this case, there is a Collection for a run of _The Tombstone Epitaph_, published from 1880 to 1920. This contains 41 child Collections each representing a year's worth of issues. The parent Collection and each of its child Collections use the [`behavior`][prezi-40-model-behavior] "multi-part" to signal that the Collections and their Manifests are part of a logical set. Each of the year Collections has one Manifest for each issue of the newspaper.
 
 The top-level Collection has a [`navPlace`][prezi-40-model-navPlace] property that could be used on a "Newspapers of America" map to allow users to view newspapers by location. Each Manifest has a [`navDate`][prezi-40-model-navDate] property that could be used to plot the issues on a timeline or calendar-style user interface. Within each Manifest, the [`structures`][prezi-40-model-structures] property provides Ranges which are used to identify individual sections of the Newspaper, and individual stories within those sections, which may be spread across multiple columns and pages. Each story's Range includes the [`supplementary`][prezi-40-model-supplementary] property to link to an Annotation Collection that provides the text of the story.
 
@@ -928,10 +922,6 @@ Classes: [Collection][prezi-40-model-Collection], [Range][prezi-40-model-Range],
 Properties: [behavior][prezi-40-model-behavior], [navPlace][prezi-40-model-navPlace], [navDate][prezi-40-model-navDate], [structure][prezi-40-model-structures], [supplementary][prezi-40-model-supplementary]
 {: .note}
 
-thumbnail-nav
-sequence
-
-
 
 # Audio and Video
 
@@ -945,7 +935,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
   "@context": "http://iiif.io/api/presentation/4/context.json",
   "id": "https://example.org/iiif/presentation/examples/manifest-with-audio.json",
   "type": "Manifest",
-  "label": { "en": ["Use case 3: 45 single with 2 tracks"] },
+  "label": { "en": ["Use case 4: 45 single with 2 tracks"] },
   "behavior": ["auto-advance"],
   "accompanyingContainer": {
     "id": "https://example.org/iiif/presentation/examples/manifest-with-audio/accompany/c1",
@@ -1055,7 +1045,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 
 ```json
 {
-  "@context": "http://iiif.io/api/presentation/3/context.json",
+  "@context": "http://iiif.io/api/presentation/4/context.json",
   "id": "https://example.org/iiif/presentation/examples/external-anno.json",
   "type": "AnnotationPage",
   "items": [
@@ -1103,7 +1093,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
   "@context": "http://iiif.io/api/presentation/4/context.json",
   "id": "https://example.org/iiif/presentation/examples/manifest-with-movie.json",
   "type": "Manifest",
-  "label": { "en": ["Use Case 4: Movie with Subtitles"] },
+  "label": { "en": ["Use Case 5: Movie with Subtitles"] },
   "items": [
     {
       "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
@@ -1231,7 +1221,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [Choice][prezi-40-model-Choice]<br/><br/>
-Properties: [fileSize](#model/fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
+Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
 # 3D
@@ -1254,7 +1244,7 @@ Constructs from the domain of 3D graphics are expressed in IIIF as Resources. Th
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model#value-hidden) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model/#value-hidden) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
 
 
 ### Lights
@@ -1332,7 +1322,7 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
 
 This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position.
 
-Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
+Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration. The final commenting annotation in the [Audio in 3D](#audio-in-3d) section has an example of this property.
 
 The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the [`lookAt`][prezi-40-model-lookAt] property. The Camera has a [`fieldOfView`][prezi-40-model-fieldOfView] of 50. The [`near`][prezi-40-model-near] and [`far`][prezi-40-model-far] properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
 
@@ -1464,8 +1454,8 @@ The Light is green and has a position, but has its default orientation of lookin
 {: .note}
 
 __Definitions__<br/>
-Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Model](#model/Model), [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [PerspectiveCamera][prezi-40-model-PerspectiveCamera], [SpotLight][prezi-40-model-SpotLight] <br/><br/>
-Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [feildOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [PerspectiveCamera][prezi-40-model-PerspectiveCamera], [SpotLight][prezi-40-model-SpotLight] <br/><br/>
+Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [fieldOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
 {: .note}
 
 ### Multiple 3D Objects with Transforms
@@ -1642,7 +1632,7 @@ This example is a Manifest with a single Scene with multiple models painted into
 {: .note}
 
 __Definitions__<br/>
-Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Model](#model/Model), [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [TranslateTransform][prezi-40-model-TranslateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]<br/><br/>
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [TranslateTransform][prezi-40-model-TranslateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]<br/><br/>
 Properties: [exclude][prezi-40-model-exclude], [interactionMode][prezi-40-model-interactionMode]
 {: .note}
 
@@ -1664,7 +1654,7 @@ A content resource may be annotated into a Scene for a period of time by use of 
 
 An Annotation may target a specific point in time using a PointSelector's [`instant`][prezi-40-model-instant] property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration. In this example this is used for a comment Annotation.
 
-In this example, the audio content resources have durations that do not match the Scene's duration. The Annotation property [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
+In this example, the audio content resources have durations that do not match the Scene's duration. The [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
 
 ```jsonc
 {
@@ -1975,9 +1965,9 @@ A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only
 
 Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`body`][prezi-40-model-body] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
 
-A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width] measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and weight in coordinate units, and this has important consequences for painting Canvases into Scenes.
+A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width] measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and width in coordinate units, and this has important consequences for painting Canvases into Scenes.
 
-When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is collinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is collinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
 
 The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 16 units wide and 9 units high will extend 16 coordinate units across the x axis and 9 coordinate units across the y axis. Because Canvas coordinate units and image content resource pixels are not equivalent, any image with a 16:9 aspect ratio painted on this Canvas would extend 16 coordinate units by 9 coordinate units in the 3D space of the Scene, whether it was 160 pixels wide and 90 pixels high or 16,000 pixels wide and 9,000 pixels high. This provides one way to control the size of a Canvas painted into a Scene.
 
@@ -2045,7 +2035,7 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
 
 Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
 
-When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
+When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
 ```jsonc
 {
@@ -2228,7 +2218,7 @@ In some cases it is desirable to influence the client's positioning of the comme
     "@context": "http://iiif.io/api/presentation/4/context.json",
     "id": "https://example.org/iiif/manifest/commenting/manifest/3",
     "type": "Manifest",
-    "label": { "en": ["1st Centry Roman portrait bust with comment"] },
+    "label": { "en": ["1st Century Roman portrait bust with comment"] },
     "items": [
       {
         "id": "https://example.org/iiif/scene/commenting/scene3",
@@ -2243,11 +2233,11 @@ In some cases it is desirable to influence the client's positioning of the comme
                     "type": "Annotation",
                     "motivation": ["painting"] ,
                     "label": {
-                        "en": ["A 1st century Roman portait bust."]
+                        "en": ["A 1st century Roman portrait bust."]
                     },
                     "body": 
                       {
-                        "id": "https://example.org/iiif/scene/commenting/models/portait.gltf",
+                        "id": "https://example.org/iiif/scene/commenting/models/portrait.gltf",
                         "type": "Model"
                       },
                     "target": {
@@ -2799,7 +2789,7 @@ In a storytelling or exhibition scenario, the non-painting [`annotations`][prezi
 
 All the annotations referred to by the activating annotations' [`target`][prezi-40-model-target] and [`body`][prezi-40-model-body] properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
 
-Interactive examples are provided as recipes in the [IIIF Cookbook](link).
+Interactive examples are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
 
 #### The `sequence` behavior
@@ -2814,7 +2804,7 @@ In many cases, the dimensions of a Canvas, or the pixel density of a photograph,
 
 The [`spatialScale`][prezi-40-model-spatialScale] property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects.
 
-The value of [`spatialScale`][prezi-40-model-spatialScale] is a `UnitValue` (ref) that has as a value a length unit. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in [`spatialScale`][prezi-40-model-spatialScale]. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a [`metadata`][prezi-40-model-metadata] field for context.
+The value of [`spatialScale`][prezi-40-model-spatialScale] is a [`Quantity`][prezi-40-model-Quantity] that has a unit of length for its `unit` property. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in [`spatialScale`][prezi-40-model-spatialScale]. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a [`metadata`][prezi-40-model-metadata] field for context.
 
 The Presentation API also offers a corresponding [`temporalScale`][prezi-40-model-temporalScale] property for the [`duration`][prezi-40-model-duration] dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video.
 
@@ -2828,7 +2818,7 @@ While a IIIF Manifest carries the information required to present a resource on 
 
 ## Linked resources
 
-In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`](prezi-40-model-seeAlso) property, which is intended for machine-readable resources. The [`homepage`](prezi-40-model-homepage) property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
+In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`][prezi-40-model-seeAlso] property, which is intended for machine-readable resources. The [`homepage`][prezi-40-model-homepage] property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
 
 ```
 artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or something)
@@ -2836,11 +2826,11 @@ artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or somet
 (maybe the seeAlso is to a linked art description)
 ```
 
-There is one Canvas, and it has a [`rendering`](prezi-40-model-rendering) property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
+There is one Canvas, and it has a [`rendering`][prezi-40-model-rendering] property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
 
-The Manifest also has a [`partOf`](prezi-40-model-partOf) property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`](prezi-40-model-partOf) property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
+The Manifest also has a [`partOf`][prezi-40-model-partOf] property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`][prezi-40-model-partOf] property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
 
-Another common use of [`rendering`](prezi-40-model-rendering) is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
+Another common use of [`rendering`][prezi-40-model-rendering] is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
 
 ```jsonc
 {
@@ -2875,19 +2865,19 @@ Another common use of [`rendering`](prezi-40-model-rendering) is at the Manifest
 }
 ```
 
-This example also shows how the [`fileSize`](prezi-40-model-fileSize) property can give useful information to a user when deciding what they want to download.
+This example also shows how the [`fileSize`][prezi-40-model-fileSize] property can give useful information to a user when deciding what they want to download.
 
 ## Services
 
-In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`](prezi-40-model-service) in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
+In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
 
-Further IIIF Services are provided by the [IIIF Authorization Flow API](auth-api), which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
+Further IIIF Services are provided by the [IIIF Authorization Flow API][auth-stable-version], which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
 
 Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
 
 ## Content State
 
-Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API](content-state-api) defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
+Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API][contenstate-stable-version] defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
 
 ```
 (region of a Canvas that is partOf a Manifest)
@@ -2989,7 +2979,7 @@ Responses _SHOULD_ be compressed by the server as there are significant performa
 
 # Accessibility
 
-Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](link to section) above.
+Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](#use-case-5-movie-with-subtitles) above.
 
 IIIF uses the `provides` property on supplementing annotations to define the specific accessibility functionality that a linked resource enables for its target, describing why and how a client might use it rather than what the resource is by type or format. For example, a text file linked from a video might provide `closedCaptions`, or an audio file associated with a Canvas might provide an `audioDescription`.
 
@@ -3020,13 +3010,13 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
 
 **Key Points**
 * The `provides` property is placed on the annotation and not on the target of the annotation.
-* The property is primarly used to define accessibility features, but can be used to define other types of functionality, such as `transcription`.
+* The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcription`.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Properties: [provides](#model/provides)
+Properties: [provides](model/#provides)
 {: .note}
 
 
