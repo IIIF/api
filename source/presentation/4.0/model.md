@@ -300,7 +300,7 @@ All Collection Pages in a Collection, with the exception of the last page, _MUST
 
 __Properties__<br/>
 A Collection Page _MUST_ have the following properties: [id](#id), [type](#type), [partOf](#partOf) and [items](#items)<br/><br/>
-A Collection Page _SHOULD_ have the following properties:  [next](#next), and [prev](#prev)<br/><br/>
+A Collection Page _SHOULD_ have the following properties: [next](#next) and [prev](#prev)<br/><br/>
 A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
 
@@ -334,8 +334,8 @@ Containers _SHOULD_ have an `items` property which is a list of Annotation Pages
 Containers specify extents in space and/or time with one or more space or time dimensions such as `height`, `width`, or `duration`. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Container's dimensions, such as at coordinates below 0,0 or greater than specified height or width for a Canvas, or before 0 seconds or after the duration for a Timeline. Content resources that have dimensions which are not defined for the Container _MUST NOT_ be associated with that Container by an Annotation that has the `motivation` value "painting". For example, it is valid to use an Annotation that has the `motivation` value "painting" to associate an Image (which has only height and width) with a Canvas that has `height`, `width`, and `duration` properties, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not `duration`. Such a resource _MAY_ instead be referenced using the rendering property, or by Annotations that have a `motivation` value other than "painting" in the annotations property.
 
 __Properties__<br/>
-All Containers _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
-All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items)<br/><br/>
+All Containers _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
+All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items).<br/><br/>
 All Containers _MAY_ have the following properites: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
 
@@ -359,7 +359,7 @@ A Timeline _MUST_ have the following additional properties: [duration](#duration
 A Canvas is a Container that represents a particular rectangular 2 dimensional view and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as in the 2 dimensional space.
 
 __Properties__<br/>
-A Canvas _MUST_ have the following additional properties: [height](#height), and [width](#width).<br/><br/>
+A Canvas _MUST_ have the following additional properties: [height](#height) and [width](#width).<br/><br/>
 A Canvas _MAY_ have the following additional properties: [duration](#duration).
 {: .note}
 
@@ -487,6 +487,45 @@ A Choice _SHOULD_ have the following properties: [label](#label)<br/><br/>
 A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
+#### Composite
+{: #Composite}
+
+> `"type": "Composite"`
+
+A Composite is a Web Annotation construction where all of the resources are required for the correct interpretation of the set of resources in the context of the Annotation, as opposed to Choice where the client selects only one of the items or allows the user to make that selection. For Composite, the client should present all of the resources listed in the `items` property, however order or priority is not specified. For example, if a Composite is used as the `target` of a commenting Annotation, then it is the unordered set of resources that is being commented on.
+
+__Properties__<br/>
+A Composite _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+A Composite _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A Composite _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### List
+{: #List}
+
+> `"type": "List"`
+
+A List is a Web Annotation construction where all of the resources are required, in the given order, for the correct interpretation of the set. For example, if a List is used as the `target` of a commenting Annotation, then it is the ordered list of resources that are being commented on, rather than each independently.
+
+__Properties__<br/>
+A List _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+A List _SHOULD_ have the following properties: [label](#label)<br/><br/>
+A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### Independents
+{: #Independents}
+
+> `"type": "Independents"`
+
+An independents is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
+
+__Properties__<br/>
+An Independents _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
+An Independents _SHOULD_ have the following properties: [label](#label)<br/><br/>
+An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
 
 ### Content Resources
 {: #ContentResources}
@@ -510,7 +549,7 @@ A Canvas painted into a Scene has special requirements. The top-left corner of t
 A Scene painted into a Scene has one special requirement, that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored.
 
 __Properties__<br/>
-A Content Resource _MUST_ have the following properties: [id](#id), and [type](#type)<br/><br/>
+A Content Resource _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
 A Content Resource _SHOULD_ have the following properties: [label](#label)<br/><br/>
 A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [fileSize](#fileSize),[metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
 {: .note}
@@ -531,7 +570,7 @@ Fragment Selectors use the fragment part of the URI specification to define a se
 For more information about Fragment Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
 
 __Properties__<br/>
-A Fragment Selector _MUST_ have the following properties: [type](#type), and [value](#value)<br/><br/>
+A Fragment Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
 A Fragment Selector _MAY_ have the following properties: [id](#id) and [conformsTo](#conformsTo).<br/><br/>
 {: .note}
 
@@ -546,7 +585,7 @@ SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to defin
 For more information about SVG Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#svg-selector).
 
 __Properties__<br/>
-An SVG Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
+An SVG Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
 A Fragment Selector _MAY_ have the following properties: [id](#id).<br/><br/>
 {: .note}
 
@@ -589,7 +628,7 @@ Well-known text, or WKT, is an ISO standard method for describing 2 and 3 dimens
 The text representation is given in the `value` property of the selector.
 
 __Properties__<br/>
-A WKT Selector _MUST_ have the following properties: [type](#type), and [value](#value).<br/><br/>
+A WKT Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
 A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
@@ -675,7 +714,7 @@ The Image API Selector has properties following the parameters from the API, and
 | `rotation` | "0"       | The string to put in the rotation parameter of the URI. Note that this must be a string in order to allow mirroring, for example "!90". |
 | `quality`  | "default" | The string to put in the quality parameter of the URI. |
 | `format`   | "jpg"     | The string to put in the format parameter of the URI.  Note that the '.' character is not part of the format, just the URI syntax.  |
-| `version`   | "2.1"    | The string representation of a published version number in "major.minor" form of the IIIF Image API. If the version given in the Selector differs from the version exposed by a Image API service, the client is expected to translate between versions as possible. | 
+| `version`   | "2.1"    | The string representation of a published version number in "major.minor" form of the IIIF Image API. If the version given in the Selector differs from the version exposed by a Image API service, the client is expected to translate between versions as possible. |
 
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/><br/>
@@ -703,8 +742,8 @@ Ranges _MUST_ have an HTTP(s) URI given in `id`. Top level Ranges are embedded o
 The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
 __Properties__<br/>
-A Range _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
-A Range _SHOULD_ have the following properties: [label](#label), and [items](#items)<br/><br/>.
+A Range _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
+A Range _SHOULD_ have the following properties: [label](#label) and [items](#items).<br/><br/>
 A Range _MAY_ have the following properties: [start](#start), [supplementary](#supplementary), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
 
@@ -737,7 +776,7 @@ All Cameras _MAY_ have the following properties: [id](#id), [label](#label), [lo
 An Orthographic Camera removes visual perspective, resulting in object size remaining constant regardless of its distance from the camera.
 
 __Properties__<br/>
-Orthographic Cameras _SHOULD_ have the following additional properties: [viewHeight](#viewHeight).
+An Orthographic Camera _SHOULD_ have the following additional properties: [viewHeight](#viewHeight).
 {: .note}
 
 ```json
@@ -762,7 +801,7 @@ The region of the Scene's space that is observable by the camera is bounded by t
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/near-far.png" title="Diagram showing near and far properties"  alt="drawing of a geometrical frustrum truncated by near and far distances" width="300" />
 
 __Properties__<br/>
-Perspective Cameras _SHOULD_ have the following additional properties: [fieldOfView](#fieldOfView).
+A Perspective Camera _SHOULD_ have the following additional properties: [fieldOfView](#fieldOfView).
 {: .note}
 
 {% include api/code_header.html %}
@@ -783,12 +822,12 @@ It is necessary for there to be a Light within a Scene that illuminates the obje
 
 This specification does not define other aspects of Lights, such as the rate of decay of the intensity of the light over a distance, the maximum range of the light, or the penumbra of a cone. Implementation of these aspects is client-dependent.
 
-The specification defines four types, or subclasses, of Light below.
+The specification defines five types, or subclasses, of Light below.
 
 __Properties__<br/>
 All Lights _MUST_ have the following properties: [type](#type).<br/><br/>
-All Lights _SHOULD_ have the following properties: [color](#color), and [intensity](#intensity).<br/><br/>
-All Lights _MAY_ have the following properties: [id](#id), and [label](#label).
+All Lights _SHOULD_ have the following properties: [intensity](#intensity).<br/><br/>
+All Lights _MAY_ have the following properties: [id](#id) and [label](#label).
 {: .note}
 
 
@@ -797,6 +836,10 @@ All Lights _MAY_ have the following properties: [id](#id), and [label](#label).
 > `"type": "AmbientLight"`
 
 Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties. The Light itself _MUST_ be added into the scene at a specific position, however this is only such that editing interfaces can render the object to the user.
+
+__Properties__<br/>
+An Ambient Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
+{: .note}
 
 {% include api/code_header.html %}
 ```json
@@ -816,7 +859,8 @@ Directional Lights emit their light in a specific direction as if infinitely far
 The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotateTransform`.
 
 __Properties__<br/>
-Directional Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
+A Directional Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
+A Directional Light _MAY_ have the following additional properties: [lookAt](#lookAt).<br/><br/>
 {: .note}
 
 {% include api/code_header.html %}
@@ -829,16 +873,49 @@ Directional Lights _MAY_ have the following additional properties: [lookAt](#loo
 }
 ```
 
+##### Image-Based Light
+{: #ImageBasedLight}
+> `"type": "ImageBasedLight"`
+
+Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific direction or position.
+
+__Properties__<br/>
+An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
+{: .note}
+
+{% include api/code_header.html %}
+```json
+{
+  "id": "https://example.org/iiif/light/3",
+  "type": "ImageBasedLight",
+  "environmentMap": {
+    "id": "https://example.org/iiif/light/3/environment.hdr",
+    "type": "Image",
+    "format": "image/vnd.radiance",
+    "profile": "equirectangular"
+  },
+  "intensity": {
+    "type": "Quantity",
+    "quantityValue": 0.5,
+    "unit": "relative"
+  }
+}
+```
+
 ##### Point Light
 {: #PointLight}
 > `"type": "PointLight"`
 
 Point Lights emit in all directions from a single point within the Scene.
 
+__Properties__<br/>
+A Point Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
+{: .note}
+
 {% include api/code_header.html %}
 ```json
 {
-  "id": "https://example.org/iiif/light/3",
+  "id": "https://example.org/iiif/light/4",
   "type": "PointLight",
   "color": "#A0F0F0"
 }
@@ -856,14 +933,14 @@ The Spot Light emits in the negative Y direction by default, but the orientation
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
 
 __Properties__<br/>
-Spot Lights _SHOULD_ have the following additional properties: [angle](#angle)<br/><br/>
-Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt)
+Spot Lights _SHOULD_ have the following additional properties: [color](#color) and [angle](#angle).<br/><br/>
+Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt).<br/><br/>
 {: .note}
 
 {% include api/code_header.html %}
 ```json
 {
-  "id": "https://example.org/iiif/spotlight/1",
+  "id": "https://example.org/iiif/light/5",
   "type": "SpotLight",
   "angle": 15.0,
   "color": "#FFFFFF",
@@ -1035,7 +1112,7 @@ The Agent is not intended to be used as a primary identifier for the person or o
 
 __Properties__<br/>
 An Agent _MUST_ have the following properties: [type](#type) and [label](#label).<br/><br/>
-An Agent _SHOULD_ have the following properties: [homepage](#homepage) and [logo](#logo)<br/><br/>.
+An Agent _SHOULD_ have the following properties: [homepage](#homepage) and [logo](#logo).<br/><br/>
 An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and [summary](#summary).
 {: .note}
 
@@ -1112,7 +1189,7 @@ For cross-version consistency, this specification defines the following values f
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document.
 
 __Properties__<br/>
-A Service _MUST_ have the following properties: [id](#id), and [type](#type).<br/><br/>
+A Service _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
 A Service _SHOULD_ have the following properties: [label](#label), [profile](#profile).<br/><br/>
 A Service _MAY_ have the following properties: [service](#service), `@id` and `@type`.<br/><br/>
 Services will also have specific requirements as to additional properties based on the type of service.
@@ -1317,13 +1394,13 @@ The value _MUST_ be an array of strings.
 ### body
 {: #body}
 
-The list of bodies of an Annotation. As there _MAY_ be more than one body, the value _MUST_ be an array, even though the W3C specification does not require this. The resources listed in `body` can be instances of `TextualBody`, `SpecificResource`, core Structural Resources, or Content Resources.
+The body of an Annotation. The resources listed in `body` can be instances of `TextualBody`, `SpecificResource`, core Structural Resources, Content Resources, or the Annotation aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple bodies.
 
 Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the `TextualBody` class _MUST_ be used instead.
 
 For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property.
+The value _MUST_ be a JSON object. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _SHOULD_ have the `body` property.<br/>
   Clients _MUST_ process the `body` property on Annotations.
@@ -1331,9 +1408,7 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `type` p
 {% include api/code_header.html %}
 ``` json-doc
 { "body": 
-  [ 
-    {"type": "TextualBody", "value": "Great!"} 
-  ] 
+  {"type": "TextualBody", "value": "Great!"} 
 }
 ```
 
@@ -1390,6 +1465,27 @@ The value _MUST_ be a positive floating point number.
 {% include api/code_header.html %}
 ``` json-doc
 { "duration": 125.0 }
+```
+
+
+### environmentMap
+{: #environmentMap}
+
+A content resource representing the environment map image used by an [ImageBasedLight](#ImageBasedLight). The image provides omnidirectional lighting information and may use high dynamic range (HDR) encoding. The projection type of the image, such as equirectangular or cubic, is specified via the `profile` property.
+
+The value _MUST_ be a JSON object representing an Image which _MUST_ have the `id`, `type`, and `profile` properties, and _SHOULD_ have the `format` property.
+
+* An Image-Based Light _MUST_ have the `environmentMap` property.<br/>
+  Clients _SHOULD_ process `environmentMap` on an Image-Based Light.
+
+{% include api/code_header.html %}
+``` json-doc
+"environmentMap": {
+  "id": "https://example.org/iiif/light/3/environment.hdr",
+  "type": "Image",
+  "format": "image/vnd.radiance",
+  "profile": "equirectangular"
+}
 ```
 
 
@@ -1622,7 +1718,7 @@ When more than one interaction mode is present, the client _SHOULD_ pick the fir
 
 For interaction modes that involve a Camera orbiting around a target point, the target point _SHOULD_ be the same as the Camera's `lookAt` property.
 
-If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time. 
+If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time.
 
 The value _MUST_ be an array of strings.
 
@@ -2020,7 +2116,7 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
 ### position
 {: #position}
 
-It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a `TextualBody` or a `SpecificResource`. 
+It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a `TextualBody` or a `SpecificResource`.
 
 The value of this property _MUST_ be a JSON object conforming to the `SpecificResource` pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
@@ -2076,12 +2172,22 @@ The value must be a JSON object, with the `id` and `type` properties. The value 
 
 A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
-The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles] or a full URI.
+When `profile` is used in a resource [referenced][prezi30-terminology] by the `environmentMap` property, the specification defines values in the table below for environment map projection types. Other values for additional projection types may be taken from the [profiles registry][registry-profiles] or as a full URI.
 
+The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles], a full URI, or from the table below.
+
+* Resources [referenced][prezi30-terminology] by the `environmentMap` property _MUST_ have the `profile` property.<br/>
+  Clients _SHOULD_ process the `profile` of an environment map.
 * Resources [referenced][prezi30-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
 * Other types of resource _MAY_ have the `profile` property.<br/>
   Clients _MAY_ process the `profile` of other types of resource.
+
+| Value | Description |
+| ----- | ----------- |
+| `equirectangular` | For environment map, the image uses equirectangular projection, mapping a full spherical environment onto a 2:1 rectangular image. |
+| `cubic` | For environment map, the image uses cube map projection, representing the environment as six square faces of a cube. |
+{: .api-table #table-profile}
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2315,7 +2421,7 @@ The machine actionable URIs for both Creative Commons licenses and RightsStateme
 ### rotation
 {: #rotation}
 
-The value of the rotation parameter in the IIIF Image API URL structure, as recorded in an Image API Selector. 
+The value of the rotation parameter in the IIIF Image API URL structure, as recorded in an Image API Selector.
 
 The value _MUST_ be a string, not a number, in order to allow for the "!" character which indicates a mirror image.
 
@@ -2714,18 +2820,20 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### target
 {: #target}
 
-The list of targets of an Annotation. As there _MAY_ be more than one target, the value _MUST_ be an array, even though the W3C specification does not require this. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, or Content Resources.
+The target of an Annotation. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, Content Resources, or one of the aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple targets.
 
 For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be an array. Each item _MUST_ be a JSON object with the `type` property, and referenced resources _MUST_ also have the `id` property.
+The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _MUST_ have the `target` property.<br/>
   Clients _MUST_ process the `target` property on Annotations.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "target": [ { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" } ] }
+{ "target": 
+  { "id": "https://example.org/iiif/1/canvas/1", "type": "Canvas" }
+}
 ```
 
 
@@ -2895,7 +3003,7 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 
 The unit of measurement of a quantity expressed by a Quantity. This unit is necessary to interpet the value, as the same number could result in very different processing for different units: consider a physical scale of 1 meter vs 1 inch, and how clients might misrepresent the intent of the content of the Manifest.
 
-The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be registered via the IIIF unit registry. 
+The value _MUST_ be a string value.  This specification defines the values in the table below. Others may be registered via the IIIF unit registry.
 
 | Value      |  Unit     |
 |------------|-----------|
@@ -3008,12 +3116,12 @@ The `value` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ 
-  "volume": { 
-    "type": "Quantity", 
+{
+  "volume": {
+    "type": "Quantity",
     "quantityValue": 0.5,
-    "unit": "relative"   
-  } 
+    "unit": "relative"
+  }
 }
 ```
 
