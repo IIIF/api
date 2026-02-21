@@ -25,7 +25,7 @@
                         {
                             "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno/1",
                             "type": "Annotation",
-                            "motivation": [ "painting" ],
+                            "motivation":  ["painting"],
                             "body": [
                                 {
                                     "id": "https://fixtures.iiif.io/3d/google/astronaut.glb",

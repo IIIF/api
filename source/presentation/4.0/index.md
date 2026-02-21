@@ -484,7 +484,7 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
 
 > PNG of Scene
 
-{% include code_example.html src="uv06_3d.json" %}
+{% include code_example.html src="uc06_3d.json" %}
 
 >
 **Key Points**
@@ -503,129 +503,7 @@ The Light is green and has a position, but has its default orientation of lookin
 
 <img src="{{ site.api_url | absolute_url }}/assets/images/p4/use-case-5a.png" alt="Use case 5a" >
 
-
-```jsonc
- {
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/3d/model_origin.json",
-  "type": "Manifest",
-  "label": { "en": ["Single Model with light and Camera"] },
-  "summary": { "en": ["Viewer should render the model at (-1,0,1), add the light, and base the viewport on the provided camera"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/1",
-      "type": "Scene",
-      "label": { "en": ["A Scene"] },
-      "backgroundColor": "#FF00FE",
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
-                  "type": "Model",
-                  "format": "model/gltf-binary"
-                }
-              ],
-              "target": [
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": -1.0,
-                      "y": 1.0,
-                      "z": 1.0
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://example.org/iiif/3d/cameras/1",
-                  "type": "PerspectiveCamera",
-                  "label": {"en": ["Perspective Camera 1"]},
-                  "lookAt": {
-                    "id": "https://example.org/iiif/3d/anno1",
-                    "type": "Annotation"
-                  },
-                  "near": 1,
-                  "far": 100,
-                  "fieldOfView": 50
-                }
-              ],
-              "target": [
-                {
-                  "type": "SpecificResource",
-                  "source":
-                  {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": 0.0,
-                      "y": 6.0,
-                      "z": 10.0
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": [
-                {
-                  "id": "https://example.org/iiif/3d/lights/1",
-                  "type": "SpotLight",
-                  "label": { "en": ["Spot Light 1"] },
-                  "angle": 90.0,
-                  "color": "#A0FFA0"
-                }
-              ],
-              "target": [
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": 0.0,
-                      "y": 3.0,
-                      "z": 1.0
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+{% include code_example.html src="uc06_3d_annotation.json" %}
 
 >
 **Key Points**
