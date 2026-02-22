@@ -32,16 +32,15 @@
                             "motivation": [
                                 "painting"
                             ],
-                            "body": [
-                                {
-                                    "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
-                                    "type": "Model",
-                                    "format": "model/gltf-binary"
-                                }
-                            ],
-                            "target": [
-                                "https://iiif.io/api/presentation/4.0/example/scene/1/annotationPage/1"
-                            ]
+                            "body": {
+                                "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/astronaut/astronaut.glb",
+                                "type": "Model",
+                                "format": "model/gltf-binary"
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/scene/1",
+                                "type": "Scene"
+                            }
                         }
                     ]
                 }

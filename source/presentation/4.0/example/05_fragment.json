@@ -27,25 +27,24 @@
               "motivation": [
                 "painting"
               ],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004/full/max/0/default.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "height": 3966,
-                  "width": 8800,
-                  "service": [
-                    {
-                      "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004",
-                      "profile": "level1",
-                      "type": "ImageService3"
-                    }
-                  ]
-                }
-              ],
-              "target": [
-                "https://iiif.io/api/presentation/4.0/example/05/canvas/p1"
-              ]
+              "body": {
+                "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004/full/max/0/default.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "height": 3966,
+                "width": 8800,
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004",
+                    "profile": "level1",
+                    "type": "ImageService3"
+                  }
+                ]
+              },
+              "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/05/canvas/p1",
+                "type":"Canvas"
+              }
             }
           ]
         }
@@ -59,16 +58,17 @@
               "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/p0001-comment",
               "type": "Annotation",
               "motivation": [ "commenting" ],
-              "body": [
-                {
-                  "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/bodies/koto-body",
-                  "type": "TextualBody",
-                  "value": "Koto with a cover being carried",
-                  "language": "en",
-                  "format": "text/plain"
-                }
-              ],
-              "target": [ "https://iiif.io/api/presentation/4.0/example/05/canvas/p1#xywh=1650,1200,925,1250" ]
+              "body": {
+                "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/bodies/koto-body",
+                "type": "TextualBody",
+                "value": "Koto with a cover being carried",
+                "language": "en",
+                "format": "text/plain"
+              },
+              "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/05/canvas/p1#xywh=1650,1200,925,1250",
+                "type": "Canvas"
+              }
             }
           ]
         }

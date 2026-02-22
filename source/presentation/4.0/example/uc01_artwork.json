@@ -109,25 +109,24 @@
                             "motivation": [
                                 "painting"
                             ],
-                            "body": [
-                                {
-                                    "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
-                                    "type": "Image",
-                                    "format": "image/jpeg",
-                                    "width": 2000,
-                                    "height": 1271,
-                                    "service": [
-                                        {
-                                            "id": "https://iiif.io/api/image/3.0/example/reference/421e65be2ce95439b3ad6ef1f2ab87a9-dee-natural",
-                                            "type": "ImageService3",
-                                            "profile": "level1"
-                                        }
-                                    ]
-                                }
-                            ],
-                            "target": [
-                                "https://iiif.io/api/presentation/4.0/example/09/canvas"
-                            ]
+                            "body": {
+                                "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
+                                "type": "Image",
+                                "format": "image/jpeg",
+                                "width": 2000,
+                                "height": 1271,
+                                "service": [
+                                    {
+                                        "id": "https://iiif.io/api/image/3.0/example/reference/421e65be2ce95439b3ad6ef1f2ab87a9-dee-natural",
+                                        "type": "ImageService3",
+                                        "profile": "level1"
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas",
+                                "type":"Canvas"
+                            }
                         }
                     ]
                 }

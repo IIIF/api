@@ -37,7 +37,7 @@
               "id": "https://iiif.io/api/presentation/4.0/example/uc02/annotation/p0001-image",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [{
+              "body": {
                 "id": "https://iiif.io/api/image/3.0/example/reference/59d09e6773341f28ea166e9f3c1e674f-gallica_ark_12148_bpt6k1526005v_f18/full/max/0/default.jpg",
                 "type": "Image",
                 "format": "image/jpeg",
@@ -50,7 +50,7 @@
                     "profile": "level1"
                   }
                 ]
-              }],
+              },
               "target": {
                 "id": "https://iiif.io/api/presentation/4.0/example/uc02/canvas/p1",
                 "type": "Canvas"
