@@ -6,21 +6,18 @@
         {
             "id": "https://iiif.io/api/presentation/4.0/example/uc04_annotations/a1",
             "type": "Annotation",
-            "motivation": [
-                "supplementing"
-            ],
-            "body": [
-                {
-                    "id": "https://iiif.io/api/presentation/4.0/example/uc04_annotations/text/1",
-                    "type": "TextualBody",
-                    "language": "de",
-                    "format": "text/plain",
-                    "value": "Hast du etwas Zeit für mich?"
-                }
-            ],
-            "target": [
-                "https://iiif.io/api/presentation/4.0/example/uc04_audio/track/tr1#t=8,10"
-            ]
+            "motivation": [ "supplementing" ],
+            "body": {
+                "id": "https://iiif.io/api/presentation/4.0/example/uc04_annotations/text/1",
+                "type": "TextualBody",
+                "language": "de",
+                "format": "text/plain",
+                "value": "Hast du etwas Zeit für mich?"
+            },
+            "target": {
+                "id":"https://iiif.io/api/presentation/4.0/example/uc04_audio/track/tr1#t=8,10",
+                "type": "Timeline"
+            }
         }
     ]
 }

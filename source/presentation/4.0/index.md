@@ -142,7 +142,7 @@ This document acts as an introduction to the specification through a set of typi
 ## IIIF Use cases
 
 1. **Artwork** - a Manifest that represents a painting, comprising a single image and accompanying display information.
-2. **Book** - a Manifest that represents a digitized bound volume made up many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
+2. **Book** - a Manifest that represents a digitized bound volume made up of many separate images in order. The IIIF model provides structural elements to indicate the chapters. The text of the book is made available in machine-readable form as Web Annotations.
 3. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
 4. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
 5. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
@@ -151,11 +151,7 @@ This document acts as an introduction to the specification through a set of typi
 8. **Comment on Feature of a Painting** - a Manifest that represents a painting and a comment highlighting a particular region of the painting.
 9. **Interactive 3D Light Switch** - a Manifest that represents a Scene containing a light and a 3D model of a light switch, where a user can click or otherwise interact with the switch to turn the light on and off.
 
-These use case were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook](link).
-
-
-> TODO Consider diagrams
-
+These use cases were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
 # Foundations
 
@@ -174,7 +170,7 @@ The Manifest's [`items`][prezi-40-model-items] property is an ordered list of _C
 
 Manifests have descriptive, technical and linking properties. The required properties of Manifests are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`rights`][prezi-40-model-rights], [`thumbnail`][prezi-40-model-thumbnail], [`homepage`][prezi-40-model-homepage] and [`provider`][prezi-40-model-provider].
 
-(👀) [Model Documentation](model/#manifest)
+(👀) [Model Documentation](model/#Manifest)
 
 
 ```jsonc
@@ -215,7 +211,43 @@ A Container that represents a bounded, two-dimensional space, optionally with a 
 
 Canvases have two additional required properties: [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width], which give the spatial extent as integers. Canvases may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
 
+<<<<<<< HEAD
 {% include code_example.html src="03_canvas.json" from=11 to=39 %}
+=======
+```json
+{
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+  "type": "Canvas",
+  "width": 12000,
+  "height": 9000,
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p2",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
+          "type": "Annotation",
+          "motivation": ["painting"],
+          "body": 
+            {
+              "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
+              "type": "Image",
+              "format": "image/jpeg",
+              "width": 4000,
+              "height": 3000
+            },
+          "target": {
+            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+            "type": "Canvas"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+>>>>>>> prezi-4
 
 ### Scene
 
@@ -223,17 +255,49 @@ A Container that represents a boundless three-dimensional space, optionally with
 
 Scenes may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
 
+<<<<<<< HEAD
 {% include code_example.html src="04_scene.json" from=16 to=49 %}
+=======
+```json
+{
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/scene",
+  "type": "Scene",
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p3",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/s1",
+          "type": "Annotation",
+          "motivation": ["painting"],
+          "body":
+            {
+              "id": "https://iiif.io/api/presentation/example-content-resources/models/astronaut.glb",
+              "type": "Model",
+              "format": "model/gltf-binary"
+            },
+          "target": {
+            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/scene",
+            "type": "Scene"
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+>>>>>>> prezi-4
 
 Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
 
-[👀 Model Documentation](model/#containers)
+[👀 Model Documentation](model/#Containers)
 
 
 ## Annotations
 
 
-IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-web-anno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
+IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
 In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the [`body`][prezi-40-model-body] property is _painted_ into the Container by an Annotation whose [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container. In all three simple cases here the [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container with no further qualification.
 
@@ -266,9 +330,31 @@ Parts of resources on the Web can be identified using URIs with a fragment compo
 
 There are different types of fragment based on the format of the resource. The most commonly used type in IIIF is the W3C's Media Fragments specification, as it can define a temporal and 2D spatial region.
 
+<<<<<<< HEAD
 
 {% include code_example.html src="05_fragment.json" from=58 to=72 %}
 
+=======
+```json
+{
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
+  "type": "Annotation",
+  "motivation": ["commenting"],
+  "body": 
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
+      "type": "TextualBody",
+      "value": "Koto with a cover being carried",
+      "language": "en",
+      "format": "text/plain"
+    },
+  "target": {
+    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas#xywh=6050,3220,925,1250",
+    "type": "Canvas"
+  }
+}
+```
+>>>>>>> prezi-4
 
 Here the Canvas [`id`][prezi-40-model-id] from the earlier example is still the [`target`][prezi-40-model-target] of an Annotation, but it has been qualified to a specific region of that Canvas by a URI fragment `#xywh=6050,3220,925,1250`. Note that the x, y, w, and h are in the Canvas coordinate space, not the image pixel dimensions space. This annotation has no knowledge of or dependency on the particular image we painted onto the Canvas; we could replace that image with one of a different, higher resolution without affecting this annotation or the region of the Canvas it targets.
 
@@ -283,7 +369,39 @@ The required properties of Specific Resources are [`id`][prezi-40-model-id], [`t
 
 The fragment example above can be expressed using a Specific Resource:
 
+<<<<<<< HEAD
 {% include code_example.html src="06_specific_resource.json" from=58 to=86 %}
+=======
+```json
+{
+  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
+  "type": "Annotation",
+  "motivation": ["commenting"],
+  "body": 
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
+      "type": "TextualBody",
+      "value": "Koto with a cover being carried",
+      "language": "en",
+      "format": "text/plain"
+    },
+  "target": 
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/resources/koto-sr",
+      "type": "SpecificResource",
+      "source": {
+        "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+        "type": "Canvas"
+      },
+      "selector": {
+        "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/selectors/koto-selector",
+        "type": "FragmentSelector",
+        "value": "xywh=6050,3220,925,1250"
+      }
+    }
+}
+```
+>>>>>>> prezi-4
 
 ## Navigational Resources
 
@@ -297,7 +415,6 @@ Collections may include both other Collections and Manifests, forming a tree-str
 
 {% include code_example.html src="07_collection.json" %}
 
-:eyes:
 
 ### Range
 
@@ -307,7 +424,6 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
 
 {% include code_example.html src="08_range.json" from=283 to=311 %}
 
-:eyes:
 
 # Image Content
 
@@ -315,11 +431,121 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
+<<<<<<< HEAD
 The unit integer coordinates of the Canvas (6000 x 3813) are not the same as the pixel dimensions of the JPEG image (2000 x 1271), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
 The example demonstrates the use of the common descriptive properties [`label`][prezi-40-model-label] for the title of the artwork, [`metadata`][prezi-40-model-metadata] for additional information to display to the user, [`summary`][prezi-40-model-summary] for a brief description of the artwork, [`rights`][prezi-40-model-rights] to assert a rights statement or license from a controlled vocabulary, [`homepage`][prezi-40-model-homepage] to link to the artwork's specific web page, [`thumbnail`][prezi-40-model-thumbnail] to provide a small image to stand for the Manifest, [`provider`][prezi-40-model-provider] to give information about the publisher of the Manifest, and finally, [`service`][prezi-40-model-service] to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
 
 {% include code_example.html src="uc01_artwork.json" %}
+=======
+The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image. The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
+
+The example demonstrates the use of the common descriptive properties [`label`][prezi-40-model-label] for the title of the artwork, [`metadata`][prezi-40-model-metadata] for additional information to display to the user, [`summary`][prezi-40-model-summary] for a brief description of the artwork, [`rights`][prezi-40-model-rights] to assert a rights statement or license from a controlled vocabulary, [`homepage`][prezi-40-model-homepage] to link to the artwork's specific web page, [`thumbnail`][prezi-40-model-thumbnail] to provide a small image to stand for the Manifest, [`provider`][prezi-40-model-provider] to give information about the publisher of the Manifest, and finally, [`service`][prezi-40-model-service] to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
+
+```jsonc
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/cookbook/recipe/0001-mvm-image/manifest.json",
+  "type": "Manifest",
+  "label": { "en": ["Use case 1: Artwork"] },
+  "metadata": [
+    {
+      "label": { "en": ["Artist"] },
+      "value": { "en": ["Anne Artist"] }
+    },
+    {
+      "label": { "en": ["Date"] },
+      "value": { "en": ["c. 1800"] }
+    }
+  ],
+  "summary": { "en": ["A longer piece of text to be shown when the metadata is not."] },
+  "rights": "http://rightsstatements.org/vocab/NoC-NC/1.0/",
+  "homepage": [
+    {
+      "id": "https://example.org/works/artwork37",
+      "type": "Text",
+      "format": "text/html",
+      "label": { "en": ["Homepage for artwork37"] }
+    }
+  ],
+  "thumbnail": [
+    {
+      "id": "https://example.org/works/artwork37/thumbnail.jpg",
+      "type": "Image",
+      "format": "image/jpeg",
+      "width": 100,
+      "height": 150
+    }
+  ],
+  "provider": [
+    {
+      "id": "https://example.org/about",
+      "type": "Agent",
+      "label": { "en": ["Example Organization"] },
+      "homepage": [
+        {
+          "id": "https://example.org/",
+          "type": "Text",
+          "label": { "en": ["Example Organization Homepage"] },
+          "format": "text/html"
+        }
+      ],
+      "logo": [
+        {
+          "id": "https://example.org/images/logo.png",
+          "type": "Image",
+          "format": "image/png",
+          "height": 100,
+          "width": 120
+        }
+      ]
+    }
+  ],
+  "items": [
+    {
+      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+      "type": "Canvas",
+      "width": 12000,
+      "height": 9000,
+      "items": [
+        {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p2",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body":
+                {
+                  "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
+                  "type": "Image",
+                  "format": "image/jpeg",
+                  "width": 4000,
+                  "height": 3000,
+                  "service": [
+                    {
+                      "id": "https://iiif.io/api/presentation/example/image/painting",
+                      "profile": "level1",
+                      "type": "ImageService3"
+                      // etc
+                    }
+                  ]
+                },
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
+                "type": "Canvas"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+>>>>>>> prezi-4
 
 >
 **Key Points**
@@ -329,7 +555,7 @@ The example demonstrates the use of the common descriptive properties [`label`][
 * The Painting Annotation is a member of the [`items`][prezi-40-model-items] property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
 * The [`metadata`][prezi-40-model-metadata] label and value pairs are for display to the user rather than for machines to interpret.
 * The [`rights`][prezi-40-model-rights] property is always a single string value which is a URI.
-* Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#agent).
+* Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#Agent).
 * The [`service`][prezi-40-model-service] property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
 {: .note}
 
@@ -343,7 +569,7 @@ Properties: [id][prezi-40-model-id], [type][prezi-40-model-type], [label][prezi-
 
 ## Use Case 2: Book
 
-This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the [`behavior`][prezi-40-model-behavior] property to indicate to a client that the object is _paged_---this helps a client generate the correct user experience. The [`viewingDirection`][prezi-40-model-viewingDirection] property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a [`rendering`][prezi-40-model-rendering] property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The [`start`][prezi-40-model-start] property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The [`requiredStatement`][prezi-40-model-requiredStatement] is a message that a client MUST show to the user when presenting the Manifest.
+This example is a Manifest with multiple Canvases, each of which represents a page of a book. It demonstrates the use of the [`behavior`][prezi-40-model-behavior] property to indicate to a client that the object is _paged_---this helps a client generate the correct user experience. The [`viewingDirection`][prezi-40-model-viewingDirection] property indicates that the book is read left-to-right. In this case, the property is redundant as `left-to-right` is the default value. The Manifest has a [`rendering`][prezi-40-model-rendering] property linking to a PDF representation; typically a client would offer this as a download or "view as" option. The [`start`][prezi-40-model-start] property is used to tell a client to initialize the view on a particular Canvas, useful if the digitized work contains a large amount of irrelevant front matter or blank pages. The [`requiredStatement`][prezi-40-model-requiredStatement] is a message that a client _MUST_ show to the user when presenting the Manifest.
 
 {% include code_example.html src="uc02_book.json" %}
 
@@ -389,10 +615,6 @@ Classes: [Collection][prezi-40-model-Collection], [Range][prezi-40-model-Range],
 Properties: [behavior][prezi-40-model-behavior], [navPlace][prezi-40-model-navPlace], [navDate][prezi-40-model-navDate], [structure][prezi-40-model-structures], [supplementary][prezi-40-model-supplementary]
 {: .note}
 
-thumbnail-nav
-sequence
-
-
 
 # Audio and Video
 
@@ -434,7 +656,7 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [Choice][prezi-40-model-Choice]<br/><br/>
-Properties: [fileSize](#model/fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
+Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
 # 3D
@@ -457,12 +679,12 @@ Constructs from the domain of 3D graphics are expressed in IIIF as Resources. Th
 
 A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
 
-There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model#value-hidden) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model/#value-hidden) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
 
 
 ### Lights
 
-There are four types of Light: AmbientLight, DirectionalLight, PointLight and SpotLight. They have a [`color`][prezi-40-model-color] and an [`intensity`][prezi-40-model-intensity]. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone.
+There are five types of Light: AmbientLight, DirectionalLight, ImageBasedLight, PointLight, and SpotLight. They have an [`intensity`][prezi-40-model-intensity] property, and all Lights except ImageBasedLight have a [`color`][prezi-40-model-color] property. ImageBasedLight has an additional property of [`environmentMap`][prezi-40-model-environment-map] that specifies the environment map image used to simulate lighting. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone. PointLights and SpotLights can be painted at specific positions within the Scene. DirectionalLights, PointLights, and SpotLights have directional facing in the Scene that affects how light is cast.
 
 If the Scene has no Lights, then the client provides its own lighting as it sees fit.
 
@@ -497,7 +719,7 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
 
 This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position.
 
-Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration, which gives the temporal point in seconds from the start of the duration, the use of which is defined in the [section on Scenes with Durations]().
+Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration. The final commenting annotation in the [Audio in 3D](#audio-in-3d) section has an example of this property.
 
 The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the [`lookAt`][prezi-40-model-lookAt] property. The Camera has a [`fieldOfView`][prezi-40-model-fieldOfView] of 50. The [`near`][prezi-40-model-near] and [`far`][prezi-40-model-far] properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
 
@@ -507,19 +729,19 @@ The Light is green and has a position, but has its default orientation of lookin
 
 >
 **Key Points**
-* This example uses some of the Scene-Specific resources introduced in the next section.
+* This example uses some of the Scene-Specific resources introduced in [3D Supporting Resources](#3d-supporting-resources).
 * A Point Selector explicitly places the model in the Scene via the Painting Annotation's [`target`][prezi-40-model-target] property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
 * The provided Light should replace any default lighting the client might have.
 {: .note}
 
 __Definitions__<br/>
-Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Model](#model/Model), [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [PerspectiveCamera][prezi-40-model-PerspectiveCamera], [SpotLight][prezi-40-model-SpotLight] <br/><br/>
-Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [feildOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [PerspectiveCamera][prezi-40-model-PerspectiveCamera], [SpotLight][prezi-40-model-SpotLight] <br/><br/>
+Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [fieldOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
 {: .note}
 
 ### Multiple 3D Objects with Transforms
 
-This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content.
+This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content. This example also introduces an Image-Based Light Annotation to simulate real-world lighting of the chess game pieces.
 
 ```jsonc
 {
@@ -542,15 +764,14 @@ This example is a Manifest with a single Scene with multiple models painted into
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/pawn.glb",
                   "label": { "en": ["Pawn 1"] },
                   "type": "Model",
                   "format": "model/gltf-binary"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -566,13 +787,12 @@ This example is a Manifest with a single Scene with multiple models painted into
                     }
                   ]
                 }
-              ]
             },
             {
-              "id": "https://example.org/iiif/3d/anno1",
+              "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -595,9 +815,8 @@ This example is a Manifest with a single Scene with multiple models painted into
                       "z": 0.0
                     }
                   ]
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -613,49 +832,66 @@ This example is a Manifest with a single Scene with multiple models painted into
                     }
                   ]
                 }
-              ]
             },
             {
-              "id": "https://example.org/iiif/3d/anno1",
+              "id": "https://example.org/iiif/3d/anno3",
               "type": "Annotation",
               "motivation": ["painting"],
               "exclude": ["Audio", "Lights"],
-              "body": [
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
-                    "label": { "en": ["Queen"] },
-                    "type": "Model",
-                    "format": "model/gltf-binary"
-                  },
-                  "transform": [
-                    {
-                      "type": "ScaleTransform",
-                      "x": 1.5,
-                      "y": 1.5,
-                      "z": 1.5
-                    }
-                  ]
+              "body": 
+              {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/chess/queen.glb",
+                  "label": { "en": ["Queen"] },
+                  "type": "Model",
+                  "format": "model/gltf-binary"
+                },
+                "transform": [
+                  {
+                    "type": "ScaleTransform",
+                    "x": 1.5,
+                    "y": 1.5,
+                    "z": 1.5
+                  }
+                ]
+              },
+              "target": 
+              {
+                "type": "SpecificResource",
+                "source": {
+                  "id": "https://example.org/iiif/scene1/page/p1/1",
+                  "type": "Scene"
+                },
+                "selector": [
+                  {
+                    "type": "PointSelector",
+                    "x": 1.0,
+                    "y": 0.0,
+                    "z": 2.0
+                  }
+                ]
+              }              
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno4",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://example.org/iiif/3d/lights/1",
+                "type": "ImageBasedLight",
+                "label": {"en": ["Image-Based Light"]},
+                "environmentMap": {
+                  "id": "https://example.org/iiif/light/3/environment.hdr",
+                  "type": "Image",
+                  "format": "image/vnd.radiance",
+                  "profile": "equirectangular"
                 }
-              ],
-              "target": [
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/scene1/page/p1/1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": 1.0,
-                      "y": 0.0,
-                      "z": 2.0
-                    }
-                  ]
-                }
-              ]
+              },
+              "target": {
+                "id": "https://example.org/iiif/scene1/page/p1/1",
+                "type": "Scene"
+              }
             }
           ]
         }
@@ -670,12 +906,13 @@ This example is a Manifest with a single Scene with multiple models painted into
 * Each Annotation is painted into the Scene at a different point via Point Selectors.
 * The second Annotation represents a pawn game piece that is tipped over, and Transforms are used to achieve this. RotateTransform is used to tip the pawn over and TranslateTransform is used to align the bottom of the pawn with the coordinate origin's XY plane.
 * The third Annotation represents a queen game piece that is scaled to be larger than the pawns using ScaleTransform.
+* The fourth Annotation represents an Image-Based Light where an environment map texture image is used to simulate omnidirectional real-world light on the chess game pieces.
 * The [`exclude`][prezi-40-model-exclude] property instructs clients not to import or render any external audio or light content present in the Content Resource for the queen game piece.
 * The [`interactionMode`][prezi-40-model-interactionMode] property instructs clients that, if possible, user interactions relating to orbiting the scene should be restricted to a hemisphere.
 {: .note}
 
 __Definitions__<br/>
-Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Model](#model/Model), [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [TranslateTransform][prezi-40-model-TranslateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]<br/><br/>
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [TranslateTransform][prezi-40-model-TranslateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]<br/><br/>
 Properties: [exclude][prezi-40-model-exclude], [interactionMode][prezi-40-model-interactionMode]
 {: .note}
 
@@ -697,7 +934,7 @@ A content resource may be annotated into a Scene for a period of time by use of 
 
 An Annotation may target a specific point in time using a PointSelector's [`instant`][prezi-40-model-instant] property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration. In this example this is used for a comment Annotation.
 
-In this example, the audio content resources have durations that do not match the Scene's duration. The Annotation property [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
+In this example, the audio content resources have durations that do not match the Scene's duration. The [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
 
 ```jsonc
 {
@@ -716,7 +953,7 @@ In this example, the audio content resources have durations that do not match th
           "id": "https://example.org/iiif/3d/anno1",
           "type": "Annotation",
           "motivation": ["painting"],
-          "body": [
+          "body": 
             {
               "id": "https://example.org/iiif/audio/1",
               "type": "AmbientAudio",
@@ -731,21 +968,19 @@ In this example, the audio content resources have durations that do not match th
                 "unit": "relative",
                 "quantityValue": 0.1
               }
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               "id": "https://example.org/iiif/scene1",
               "type": "Scene"
             }
-           ]
         },
         {
           "id": "https://example.org/iiif/3d/anno2",
           "type": "Annotation",
           "motivation": ["painting"],
           "timeMode": "trim",
-          "body": [
+          "body": 
             {
               "id": "https://example.org/iiif/audio/2",
               "type": "PointAudio",
@@ -761,9 +996,8 @@ In this example, the audio content resources have durations that do not match th
                 "unit": "relative",
                 "quantityValue": 0.2
               }
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               "id": "https://example.org/iiif/selectors/anno2",
               "type": "SpecificResource",
@@ -786,14 +1020,13 @@ In this example, the audio content resources have durations that do not match th
                 }
               ]
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/anno3",
           "type": "Annotation",
           "motivation": ["painting"],
           "timeMode": "loop",
-          "body": [
+          "body": 
             {
               "id": "https://example.org/iiif/audio/3",
               "type": "SpotAudio",
@@ -811,14 +1044,12 @@ In this example, the audio content resources have durations that do not match th
                 "quantityValue": 0.3
               },
               "lookAt": "https://example.org/iiif/scene1"
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               "id": "https://example.org/iiif/scene1#xyz=3,0,-2&t=30,60",
               "type": "Scene"
             }
-          ]
         }
       ],
       "annotations": [
@@ -826,13 +1057,12 @@ In this example, the audio content resources have durations that do not match th
           "id": "https://example.org/iiif/3d/commenting",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
               "type": "TextualBody",
               "value": "This is the point when the percussion stops playing and the tuba begins playing."
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               "type": "SpecificResource",
               "source": {
@@ -846,7 +1076,6 @@ In this example, the audio content resources have durations that do not match th
                 }
               ]
             }
-          ]
         }
       ]
     }
@@ -922,13 +1151,20 @@ This example is a Manifest with a Canvas that represents two images displayed si
                           "type": "Image",
                           "format": "image/jpeg"
                         },
-                        "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2"
+                        "target": 
+                        {
+                          "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c2",
+                          "type": "Canvas"
+                        }
                       },
                     ]
                   }
                 ]
               },
-              "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=0,0,300,300"
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=0,0,300,300",
+                "type": "Canvas"
+              }
             },
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/annotation/anno2",
@@ -953,13 +1189,19 @@ This example is a Manifest with a Canvas that represents two images displayed si
                           "type": "Image",
                           "format": "image/jpeg"
                         },
-                        "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c3"
+                        "target": {
+                          "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c3",
+                          "type": "Canvas"
+                        }
                       },
                     ]
                   }
                 ]
               },
-              "target": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=300,0,300,300"
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-composite-two-canvases/canvas/c1#xywh=300,0,300,300",
+                "type": "Canvas"
+              }
             }
           ]
         }
@@ -985,26 +1227,28 @@ A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only
   "type": "Annotation",
   "motivation": ["painting"],
   "timeMode": "loop",
-  "body": [
+  "body": 
     {
       "id": "https://example.org/iiif/presentation/examples/nesting/timeline/t1",
       "type": "Timeline",
       "label": { "en": ["Side A: 99 Luftballons"] },
       "duration": 231
-    }
-  ],
-  "target": ["https://example.org/iiif/presentation/examples/nesting/canvas-10minute-duration"]
+    },
+  "target": {
+    "id": "https://example.org/iiif/presentation/examples/nesting/canvas-10minute-duration",
+    "type": "Canvas"
+  }
 }
 ```
 
 
 ## Painting a Canvas or Timeline into a Scene
 
-Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`body`][prezi-40-model-body] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
+Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`source`][prezi-40-model-source] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
 
-A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width] measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and weight in coordinate units, and this has important consequences for painting Canvases into Scenes.
+A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width] measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and width in coordinate units, and this has important consequences for painting Canvases into Scenes.
 
-When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (e.g., is colinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (e.g., is colinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (i.e., is collinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (i.e., is collinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
 
 The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 16 units wide and 9 units high will extend 16 coordinate units across the x axis and 9 coordinate units across the y axis. Because Canvas coordinate units and image content resource pixels are not equivalent, any image with a 16:9 aspect ratio painted on this Canvas would extend 16 coordinate units by 9 coordinate units in the 3D space of the Scene, whether it was 160 pixels wide and 90 pixels high or 16,000 pixels wide and 9,000 pixels high. This provides one way to control the size of a Canvas painted into a Scene.
 
@@ -1021,7 +1265,7 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
   "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
   "type": "Annotation",
   "motivation": ["painting"],
-  "body": [
+  "body": 
     {
       "type": "SpecificResource",
       "source": {
@@ -1039,9 +1283,8 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
           "z": -1.0
         }
       ]
-    }
-  ],
-  "target": [
+    },
+  "target": 
     {
       "type": "SpecificResource",
       "source": {
@@ -1057,7 +1300,6 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
         }
       ]
     }
-  ]
 }
 ```
 
@@ -1074,20 +1316,22 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
 
 Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
 
-When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it is non-sensible to import. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
+When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. All Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
 ```jsonc
 {
     "id": "https://example.org/iiif/presentation/examples/nesting/anno3",
     "type": "Annotation",
     "motivation": ["painting"],
-    "body": [
+    "body":
       {
         "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
         "type": "Scene"
-      }
-    ],
-    "target": ["https://example.org/iiif/presentation/examples/nesting/scene/s2"]
+      },
+    "target": {
+      "id": "https://example.org/iiif/presentation/examples/nesting/scene/s2",
+      "type": "Scene"
+    }
 }
 ```
 
@@ -1199,22 +1443,24 @@ This example is a Manifest with a Canvas that contains a single painting and an 
                 "type": "Image",
                 "format": "image/jpeg"
               },
-              "target": "https://example.org/iiif/presentation/examples/manifest-comment/canvas"
+              "target": {
+                "id": "https://example.org/iiif/presentation/examples/manifest-comment/canvas",
+                "type": "Canvas"
+              }
             },
             {
               "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2",
               "type": "Annotation",
               "motivation": ["commenting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2/person2",
                   "type": "TextualBody",
                   "language": "en",
                   "format": "text/plain",
                   "value": "Note the expressive eyes of the subject of this painting."
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
                   "source": {
@@ -1229,7 +1475,6 @@ This example is a Manifest with a Canvas that contains a single painting and an 
                     }
                   ]
                 }
-              ]
             }
           ]
         }
@@ -1254,7 +1499,7 @@ In some cases it is desirable to influence the client's positioning of the comme
     "@context": "http://iiif.io/api/presentation/4/context.json",
     "id": "https://example.org/iiif/manifest/commenting/manifest/3",
     "type": "Manifest",
-    "label": { "en": ["1st Centry Roman portrait bust with comment"] },
+    "label": { "en": ["1st Century Roman portrait bust with comment"] },
     "items": [
       {
         "id": "https://example.org/iiif/scene/commenting/scene3",
@@ -1269,15 +1514,17 @@ In some cases it is desirable to influence the client's positioning of the comme
                     "type": "Annotation",
                     "motivation": ["painting"] ,
                     "label": {
-                        "en": ["A 1st century Roman portait bust."]
+                        "en": ["A 1st century Roman portrait bust."]
                     },
-                    "body": [
+                    "body": 
                       {
-                        "id": "https://example.org/iiif/scene/commenting/models/portait.gltf",
+                        "id": "https://example.org/iiif/scene/commenting/models/portrait.gltf",
                         "type": "Model"
-                      }
-                    ],
-                    "target": ["https://example.org/iiif/scene/commenting/scene3"]
+                      },
+                    "target": {
+                      "id": "https://example.org/iiif/scene/commenting/scene3",
+                      "type": "Scene"
+                    }
                 }
             ]
           }
@@ -1293,7 +1540,7 @@ In some cases it is desirable to influence the client's positioning of the comme
             "id": "https://example.org/iiif/presentation/examples/commenting/anno/3",
             "type": "Annotation",
             "motivation": ["commenting"],
-            "body": [
+            "body": 
               {
                 "id": "https://example.org/iiif/presentation/examples/commenting/anno/3/comment1",
                 "type": "TextualBody",
@@ -1302,12 +1549,10 @@ In some cases it is desirable to influence the client's positioning of the comme
                 "value": "This marble portrait exemplifies the veristic tradition that dominated Roman Republican portraiture and persisted into the early Imperial period.",
                 "position": {
                   "type": "SpecificResource",
-                  "source": [
-                    {
-                      "id": "https://example.org/iiif/scene/commenting/scene3",
-                      "type": "Scene"
-                    }
-                  ],
+                  "source": {
+                    "id": "https://example.org/iiif/scene/commenting/scene3",
+                    "type": "Scene"
+                  },
                   "selector": [
                     {
                       "type": "PointSelector",
@@ -1317,9 +1562,11 @@ In some cases it is desirable to influence the client's positioning of the comme
                     }
                   ]
                 }
-              }
-            ],
-            "target": ["https://example.org/iiif/scene/commenting/scene3/sculpture"]
+              },
+            "target": {
+              "id": "https://example.org/iiif/scene/commenting/scene3",
+              "type": "Scene"
+            }
           }
         ]
       }
@@ -1344,14 +1591,16 @@ The resource the user should be taken to is the [`body`][prezi-40-model-body] of
 {
   "id": "https://example.com/annotation/p0002-link",
   "type": "Annotation",
-  "motivation": "linking",
-  "body": [
+  "motivation": ["linking"],
+  "body":
     {
     "id": "https://example.com/website1",
     "type": "Text"
-    }
-  ],
-  "target": ["https://example.com/canvas/p1#xywh=265,661,1260,1239"]
+    },
+  "target": {
+    "id": "https://example.com/canvas/p1#xywh=265,661,1260,1239",
+    "type": "Canvas"
+  }
 }
 ```
 
@@ -1371,7 +1620,7 @@ Activating annotations are provided in a Container's [`annotations`][prezi-40-mo
 
 ### Use Case 9: Interactive 3D light switch
 
-This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
+This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. As there are multiple annotations being enabled and disabled in order, the `body` of the activating Annotation is an instance of the [`List`][prezi-40-model-list] class. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
 ```jsonc
 {
@@ -1395,36 +1644,39 @@ This example is a light switch that can be toggled on and off using activating a
               "label": {
                 "en": ["A light switch"]
               },
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/model/models/lightswitch.gltf",
                   "type": "Model"
-                }
-              ],
-              "target": "https://example.org/iiif/scene/switch/scene-1"
+                },
+              "target": {
+                "id": "https://example.org/iiif/scene/switch/scene-1",
+                "type": "Scene"
+              }
             },
             {
               "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://example.org/iiif/scene/switch/scene-1/lights/4/body",
                   "type": "PointLight"
-                }
-              ],
-              "target": [
+                },
+              "target":
                 {
                   "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1",
+                  "source": {
+                    "id": "https://example.org/iiif/scene/switch/scene-1",
+                    "type": "Scene"
+                  },
                   "selector": [
                     {
                       "type": "PointSelector",
                       "x": 5, "y": 5, "z": 5
                     }
                   ]
-                }
-              ],
+                },
               "behavior": ["hidden"]
             }
           ]
@@ -1439,36 +1691,53 @@ This example is a light switch that can be toggled on and off using activating a
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/switch-comment-0",
               "type": "Annotation",
               "motivation": ["commenting"],
-              "body": [
+              "body": 
                 {
                   "type": "TextualBody",
                   "value": "Click the switch to turn the light on or off"
-                }
-              ],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1"
+                },
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
+              }
             },
             {
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
               "type": "Annotation",
               "motivation": ["activating"],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-              "body": [
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                  "action": ["disable"]
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
                 },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                  "action": ["enable"]
-                },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                  "action": ["show"]
-                }
-              ]
+              "body": {
+                "type": "List",
+                "items": [
+                  {
+                    "type": "SpecificResource",
+                    "source": {
+                      "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                      "type": "Annotation"
+                    },
+                    "action": ["disable"]
+                  },
+                  {
+                    "type": "SpecificResource",
+                    "source": {
+                      "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                      "type": "Annotation"
+                    },
+                    "action": ["enable"]
+                  },
+                  {
+                    "type": "SpecificResource",
+                    "source": {
+                      "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                      "type": "Annotation"
+                    },
+                    "action": ["show"]
+                  }
+                ]
+              }
             },
             {
               "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
@@ -1476,24 +1745,40 @@ This example is a light switch that can be toggled on and off using activating a
               "motivation": [
                 "activating"
               ],
-              "target": "https://example.org/iiif/painting-annotation/lightswitch-1",
-              "body": [
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
-                  "action": ["disable"]
+              "target": {
+                "id": "https://example.org/iiif/painting-annotation/lightswitch-1",
+                "type": "Annotation"
+              },
+              "body": {
+                "type": "List",
+                "items": 
+                  [
+                    {
+                      "type": "SpecificResource",
+                      "source": {
+                        "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-off-3",
+                        "type": "Annotation"
+                      },
+                      "action": ["disable"]
+                    },
+                    {
+                      "type": "SpecificResource",
+                      "source": {
+                        "id": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
+                        "type": "Annotation"
+                      },
+                      "action": ["hide"]
+                    },
+                    {
+                      "type": "SpecificResource",
+                      "source": {
+                        "id": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
+                        "type": "Annotation"
+                      },
+                      "action": ["enable"]
+                    }
+                  ]
                 },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/lights/point-light-4",
-                  "action": ["hide"]
-                },
-                {
-                  "type": "SpecificResource",
-                  "source": "https://example.org/iiif/scene/switch/scene-1/annos/1/activating-on-2",
-                  "action": ["enable"]
-                }
-              ],
               "behavior": ["disabled"]
             }
           ]
@@ -1541,17 +1826,15 @@ The format of the `value` string is implementation-specific, and will depend on 
               "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/music-box.glb",
                   "type": "Model"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             }
           ],
           "annotations": [
@@ -1563,33 +1846,33 @@ The format of the `value` string is implementation-specific, and will depend on 
                   "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
                   "type": "Annotation",
                   "motivation": ["commenting"],
-                  "body": [
+                  "body": 
                     {
                       "type": "TextualBody",
                       "value": "Click me to open the lid"
-                    }
-                  ],
-                  "target": [
+                    },
+                  "target": 
                     {
                       "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
                       "type": "Annotation"
                     }
-                  ]
                 }
                 {
                   "id": "https://example.org/iiif/3d/box-opening-activating-anno",
                   "type": "Annotation",
                   "motivation": ["activating"],
-                  "target": [
+                  "target": 
                     {
                       "id": "https://example.org/iiif/3d/box-opening-commenting-anno",
                       "type": "Annotation"
-                    }
-                  ],
-                  "body": [
+                    },
+                  "body": 
                     {
                       "type": "SpecificResource",
-                      "source": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                      "source": {
+                        "id": "https://example.org/iiif/3d/painting-anno-for-music-box",
+                        "type": "Annotation"
+                      },
                       "selector": [
                         {
                           "type": "AnimationSelector",
@@ -1598,7 +1881,6 @@ The format of the `value` string is implementation-specific, and will depend on 
                       ],
                       "action": ["start"]
                     }
-                  ]
                 }
               ]
             }
@@ -1635,24 +1917,22 @@ It is possible to associate a particular camera with a particular commenting ann
               "id": "https://example.org/iiif/3d/anno1",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body":
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
                   "type": "Model"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
               "type": "Annotation",
               "motivation": ["painting"],
               "behavior": ["hidden"],
-              "body":  [
+              "body":  
                 {
                   "id": "https://example.org/iiif/3d/cameras/1",
                   "type": "PerspectiveCamera",
@@ -1660,17 +1940,14 @@ It is possible to associate a particular camera with a particular commenting ann
                   "fieldOfView": 50.0,
                   "near": 0.10,
                   "far": 2000.0
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   "type": "SpecificResource",
-                  "source": [
-                    {
-                      "id": "https://example.org/iiif/scene1",
-                      "type": "Scene"
-                    }
-                  ],
+                  "source": {
+                    "id": "https://example.org/iiif/scene1",
+                    "type": "Scene"
+                  },
                   "selector": [
                     {
                       "type": "PointSelector",
@@ -1678,23 +1955,20 @@ It is possible to associate a particular camera with a particular commenting ann
                     }
                   ]
                 }
-              ]
             },
             {
               "id": "https://example.org/iiif/3d/anno2",
               "type": "Annotation",
               "motivation": ["painting"],
-              "body": [
+              "body": 
                 {
                   "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
                   "type": "Model"
-                }
-              ],
-              "target": [
+                },
+              "target": 
                 {
                   // SpecificResource with PointSelector
                 }
-              ]
             }
           ]
         }
@@ -1710,51 +1984,48 @@ It is possible to associate a particular camera with a particular commenting ann
           "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
-            "type": "TextualBody",
-            "value": "Mandibular tooth"
-            }
-          ],
-          "target": [
+              "type": "TextualBody",
+              "value": "Mandibular tooth"
+            },
+          "target":
             {
               // SpecificResource with PointSelector
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
           "type": "Annotation",
           "motivation": ["commenting"],
-          "body": [
+          "body": 
             {
               "type": "TextualBody",
               "value": "Right pterygoid hamulus"
-            }
-          ],
-          "target": [
+            },
+          "target": 
             {
               // SpecificResource with PointSelector
             }
-          ]
         },
         {
           "id": "https://example.org/iiif/3d/anno9",
           "type": "Annotation",
           "motivation": ["activating"],
-          "target": [
+          "target": 
             {
               "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
               "type": "Annotation"
-            }
-          ],
-          "body": [
+            },
+          "body": 
             {
               "type": "SpecificResource",
-              "source": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+              "source": {
+                "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+                "type": "Annotation"
+              },
               "action": ["show", "enable", "select"]
             }
-          ]
         }
       ]
     }
@@ -1784,18 +2055,21 @@ The commenting annotation now looks like this:
   "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
   "type": "Annotation",
   "motivation": ["commenting"],
-  "bodyValue": "Mandibular tooth",
+  "body": {
+    "type": "TextualBody", 
+    "value": "Mandibular tooth"
+  },
   "scope": [
     {
       "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
       "type": "Annotation"
     }
   ],
-  "target": [
+  "target":
     {
       // SpecificResource with PointSelector
     }
-  ]
+  
 },
 ```
 
@@ -1819,7 +2093,7 @@ In a storytelling or exhibition scenario, the non-painting [`annotations`][prezi
 
 All the annotations referred to by the activating annotations' [`target`][prezi-40-model-target] and [`body`][prezi-40-model-body] properties are already present in the Scene from the beginning. Initially, many of them may have the behavior `hidden`, invisible until activated.
 
-Interactive examples are provided as recipes in the [IIIF Cookbook](link).
+Interactive examples are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
 
 #### The `sequence` behavior
@@ -1834,7 +2108,7 @@ In many cases, the dimensions of a Canvas, or the pixel density of a photograph,
 
 The [`spatialScale`][prezi-40-model-spatialScale] property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects.
 
-The value of [`spatialScale`][prezi-40-model-spatialScale] is a `UnitValue` (ref) that has as a value a length unit. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in [`spatialScale`][prezi-40-model-spatialScale]. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a [`metadata`][prezi-40-model-metadata] field for context.
+The value of [`spatialScale`][prezi-40-model-spatialScale] is a [`Quantity`][prezi-40-model-Quantity] that has a unit of length for its `unit` property. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in [`spatialScale`][prezi-40-model-spatialScale]. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a [`metadata`][prezi-40-model-metadata] field for context.
 
 The Presentation API also offers a corresponding [`temporalScale`][prezi-40-model-temporalScale] property for the [`duration`][prezi-40-model-duration] dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video.
 
@@ -1848,7 +2122,7 @@ While a IIIF Manifest carries the information required to present a resource on 
 
 ## Linked resources
 
-In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`](prezi-40-model-seeAlso) property, which is intended for machine-readable resources. The [`homepage`](prezi-40-model-homepage) property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
+In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`][prezi-40-model-seeAlso] property, which is intended for machine-readable resources. The [`homepage`][prezi-40-model-homepage] property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
 
 ```
 artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or something)
@@ -1856,11 +2130,11 @@ artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or somet
 (maybe the seeAlso is to a linked art description)
 ```
 
-There is one Canvas, and it has a [`rendering`](prezi-40-model-rendering) property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
+There is one Canvas, and it has a [`rendering`][prezi-40-model-rendering] property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
 
-The Manifest also has a [`partOf`](prezi-40-model-partOf) property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`](prezi-40-model-partOf) property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
+The Manifest also has a [`partOf`][prezi-40-model-partOf] property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`][prezi-40-model-partOf] property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
 
-Another common use of [`rendering`](prezi-40-model-rendering) is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
+Another common use of [`rendering`][prezi-40-model-rendering] is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
 
 ```jsonc
 {
@@ -1895,19 +2169,19 @@ Another common use of [`rendering`](prezi-40-model-rendering) is at the Manifest
 }
 ```
 
-This example also shows how the [`fileSize`](prezi-40-model-fileSize) property can give useful information to a user when deciding what they want to download.
+This example also shows how the [`fileSize`][prezi-40-model-fileSize] property can give useful information to a user when deciding what they want to download.
 
 ## Services
 
-In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`](prezi-40-model-service) in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
+In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
 
-Further IIIF Services are provided by the [IIIF Authorization Flow API](auth-api), which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
+Further IIIF Services are provided by the [IIIF Authorization Flow API][auth-stable-version], which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
 
 Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
 
 ## Content State
 
-Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API](content-state-api) defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
+Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API][contenstate-stable-version] defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
 
 ```
 (region of a Canvas that is partOf a Manifest)
@@ -1927,7 +2201,7 @@ An image might not be correctly aligned with the Canvas, and require rotation as
   "id": "http://example.org/iiif/book1/annotation/anno1",
   "type": "Annotation",
   "motivation": ["painting"],
-  "body": [
+  "body": 
     {
       "type": "SpecificResource",
       "source": {
@@ -1939,18 +2213,18 @@ An image might not be correctly aligned with the Canvas, and require rotation as
           "profile": "level2"
         }
       },
-      "selector": {
-        "type": "ImageApiSelector",
-        "rotation": "90"
-      }
-  }
-  ],
-  "target": [
+      "selector": [
+        {
+          "type": "ImageApiSelector",
+          "rotation": "90"
+        }
+      ]
+    },
+  "target": 
     {
       "id": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240",
       "type": "Canvas"
     }
-  ]
 }
 
 ```
@@ -2011,7 +2285,7 @@ Responses _SHOULD_ be compressed by the server as there are significant performa
 
 # Accessibility
 
-Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](link to section) above.
+Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](#use-case-5-movie-with-subtitles) above.
 
 IIIF uses the `provides` property on supplementing annotations to define the specific accessibility functionality that a linked resource enables for its target, describing why and how a client might use it rather than what the resource is by type or format. For example, a text file linked from a video might provide `closedCaptions`, or an audio file associated with a Canvas might provide an `audioDescription`.
 
@@ -2027,10 +2301,13 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
       {
         "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/subtitles/anno",
         "type": "Annotation",
-        "motivation": "supplementing",
+        "motivation": ["supplementing"],
         "provides": [ "alternativeText" ],
         "body": {...},
-        "target": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas"
+        "target": {
+          "id": "https://example.org/iiif/presentation/examples/manifest-with-movie/canvas",
+          "type": "Canvas"
+        }
       }
     ]
   }
@@ -2039,13 +2316,13 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
 
 **Key Points**
 * The `provides` property is placed on the annotation and not on the target of the annotation.
-* The property is primarly used to define accessibility features, but can be used to define other types of functionality, such as `transcription`.
+* The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcript`.
 {: .note}
 
 !!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
-Properties: [provides](#model/provides)
+Properties: [provides](model/#provides)
 {: .note}
 
 

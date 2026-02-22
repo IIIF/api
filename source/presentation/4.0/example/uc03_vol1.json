@@ -19,17 +19,12 @@
     {
       "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue1.json",
       "type": "Manifest",
-      "label": { "de": [ "Berliner Tageblatt - 1925-02-16" ]
-      }
+      "label": { "de": [ "Berliner Tageblatt - 1925-02-16" ] }
     },
     {
       "id": "https://iiif.io/api/presentation/4.0/example/uc03_issue2.json",
       "type": "Manifest",
-      "label": {
-        "de": [
-          "Berliner Tageblatt - 1925-03-13"
-        ]
-      }
+      "label": { "de": [ "Berliner Tageblatt - 1925-03-13" ] }
     }
   ]
 }
