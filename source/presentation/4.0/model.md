@@ -548,7 +548,7 @@ Containers _MAY_ be treated as content resources for the purposes of annotating 
 
 A Canvas painted into a Scene has special requirements. The top-left corner of the Canvas _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used. The Canvas _MUST_ be scaled to the Scene such that Canvas coordinate dimensions after any [Transforms](#transforms) are applied correspond to Scene coordinate dimensions with 1:1 scaling. A Canvas painted into a Scene as an Annotation has forward and backward faces, and by default the forward face is toward the positive z axis of the Scene, though this may be modified by Transforms. The content of the Canvas _SHOULD_ be displayed on the forward face, and the backward face _SHOULD_ display either any `backgroundColor` of the Canvas or a reverse view of the content.
 
-A Scene painted into a Scene has one special requirement, that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored.
+A Scene painted into a Scene has two special processing rules. The first is that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored. The second is that when both Scenes have ImageBasedLight Annotations, clients _MAY_ ignore any ImageBasedLight Annotation of the Scene to be painted.
 
 __Properties__<br/>
 A Content Resource _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
@@ -837,7 +837,7 @@ All Lights _MAY_ have the following properties: [id](#id) and [label](#label).
 {: #AmbientLight}
 > `"type": "AmbientLight"`
 
-Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties. The Light itself _MUST_ be added into the Scene at a specific position, however this is only such that editing interfaces can render the object to the user.
+Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties.
 
 __Properties__<br/>
 An Ambient Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
@@ -856,7 +856,7 @@ An Ambient Light _SHOULD_ have the following additional properties: [color](#col
 {: #DirectionalLight}
 > `"type": "DirectionalLight"`
 
-Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel. The Light itself _MUST_ be added into the Scene at a specific position, however this is only such that editing interfaces can render the object to the user.
+Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel.
 
 The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotateTransform`.
 
@@ -879,7 +879,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 {: #ImageBasedLight}
 > `"type": "ImageBasedLight"`
 
-Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific direction or position.
+Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a `RotateTransform`.
 
 __Properties__<br/>
 An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
@@ -973,7 +973,7 @@ All Audio Emitters _MAY_ have the following properties: [id](#id) and [label](#l
 {: #AmbientAudio}
 > `"type": "AmbientAudio"`
 
-Ambient Audio emits equally throughout the Scene, and does not have a position or direction. The Emitter _MUST_ be annotated somewhere within the Scene so that it can be rendered by editing interfaces, and exists within the Scene's hierarchy.
+Ambient Audio emits equally throughout the Scene, and does not have a position or direction.
 
 {% include api/code_header.html %}
 ```json
@@ -1439,7 +1439,13 @@ This property sets the color of a Light.
 
 The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is "#FFFFFF".
 
- * A Light _SHOULD_ have the `color` property<br/>
+ * An AmbientLight _SHOULD_ have the `color` property<br/>
+   Clients _SHOULD_ render `color` on any resource type.
+ * A DirectionalLight _SHOULD_ have the `color` property<br/>
+   Clients _SHOULD_ render `color` on any resource type.
+ * A PointLight _SHOULD_ have the `color` property<br/>
+   Clients _SHOULD_ render `color` on any resource type.
+ * A SpotLight _SHOULD_ have the `color` property<br/>
    Clients _SHOULD_ render `color` on any resource type.
  * Other resources _MUST NOT_ have the `color` property.
 
@@ -1907,8 +1913,8 @@ The value _MUST_ be a JSON object, conforming to either a reference to an Annota
 
 * A Camera _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Cameras.
-* A SpotLight or a DirectionalLight _SHOULD_ have the `lookAt` property.<br/>
-* A SpotAudio _SHOULD_ have the `lookAt` property.
+* A SpotLight or a DirectionalLight _MAY_ have the `lookAt` property.<br/>
+* A SpotAudio _MAY_ have the `lookAt` property.
 
 {% include api/code_header.html %}
 ```json
