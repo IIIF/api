@@ -2517,7 +2517,7 @@ This example is a light switch that can be toggled on and off using activating a
 * Subsequent clicks simply alternate between these two states, indefinitely.
 
 
-### Triggering a named animation in a model
+### Triggering Model Animations
 
 Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
 
@@ -2614,7 +2614,7 @@ The format of the `value` string is implementation-specific, and will depend on 
 
 ### 3D Comments with Cameras
 
-It is possible to associate a particular camera with a particular commenting annotation. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is activated, moving the user (i.e., setting the viewport) to a chosen position suitable for looking at the point of interest:
+It is possible to associate a particular camera with a particular commenting annotation via activating annotations. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is shown, enabled, and selected. The selected Camera is now the active Camera, and the viewport into the Scene is moved to a chosen position suitable for looking at the point of interest.
 
 
 ```jsonc
@@ -2752,7 +2752,11 @@ It is possible to associate a particular camera with a particular commenting ann
 }
 ```
 
-The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided (while there is a Camera in the Scene it has [`behavior`][prezi-40-model-behavior] "hidden", i.e., it is inactive: not usable). The commenting annotations are ordered; while the user might explore them freely in the Scene they might also go "forward" from the first to the second commenting annotation and "back" to the first from the second. In either case the above example instructs the client to activate the Camera when the user interacts with the comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. (forward ref to chains of activation example)
+**Key Points**
+* The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided. While there is a Camera in the Scene, it has [`behavior`][prezi-40-model-behavior] "hidden", and is inactive and not usable.
+* The commenting annotations are ordered. The client may either allow the user to navigate between annotations freely or mandate they must be explored in the given order.
+* The above example instructs the client to activate the Camera when the user interacts with the first comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. 
+{: .note}
 
 Default camera:
 
@@ -2763,9 +2767,9 @@ Camera when annotation selected:
 <img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-anno-camera.png" alt="Camera for annotation" >
 
 
-#### Using scope to select a Camera
+#### Using Scope to Select a Camera
 
-The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation.
+The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation. When `scope` is used in this way, it provides a short-hand way of specifying an Annotation with motivation `activating` that will show, enable, and select the resource(s) referenced by the `scope` property when a user interacts with the Annotation containing the `scope` property. 
 
 The commenting annotation now looks like this:
 
@@ -2792,12 +2796,11 @@ The commenting annotation now looks like this:
 },
 ```
 
-... and the activating annotation is no longer required.
-
-This only works for cameras.
-
-Repeat full example? no, link to external.
-
+**Key Points**
+* This example would not include an explicit activating annotation, but it has functionality equivalent to the longer example above that does include an explicit activating annotation. When the user interacts with the comment, the Camera is shown, enabled, and selected to be the active Camera, moving the client viewport to the Camera target position.
+* Compared to the example above, it is much shorter. This is the simplest and more direct approach for the common 3D use case of associating comments with Cameras.
+* Although these examples concern comments and Cameras, it is also possible to use `scope` in other situations where an activating annotation with `action` show, enable, and select is appropriate.
+{: .note}
 
 ### Interactivity, Guided Viewing and Storytelling
 
