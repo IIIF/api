@@ -340,7 +340,7 @@ URIs with fragments are insufficient for complex referencing, like circular regi
 
 Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called [`FragmentSelector`][prezi-40-model-FragmentSelector]. The fragment is given in the `value` property of the [`FragmentSelector`][prezi-40-model-FragmentSelector], and the resource it should be applied to is given in [`source`][prezi-40-model-source].
 
-The required properties of Specific Resources are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`source`][prezi-40-model-source]. Other commonly used properties include `selector`, [`transform`][prezi-40-model-transform], and `scope`.
+The required properties of Specific Resources are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`source`][prezi-40-model-source]. Other commonly used properties include [`selector`][prezi-40-model-selector], [`transform`][prezi-40-model-transform], and [`scope`][prezi-40-model-scope]. See the [Specific Resource Documentation](model/#SpecificResource) for more detail.
 
 The fragment example above can be expressed using a Specific Resource:
 
@@ -384,6 +384,9 @@ IIIF Collections are ordered lists of Manifests and Collections. Collections all
 
 Collections may include both other Collections and Manifests, forming a tree-structured hierarchy that expresses relationships among IIIF resources. This organization can represent archival or curatorial structures, logical groupings such as volumes or series, or dynamically generated sets of related items. As such, they enable clients to load predefined sets of resources at initialization, render dynamically generated sets such as search results, visualize lists or hierarchies of related content, and facilitate navigation through structured aggregations of Manifests and Collections.
 
+The required properties of Collections are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`thumbnail`][prezi-40-model-thumbnail], and [`provider`][prezi-40-model-provider]. See the [Collection Documentation](model/#Collection) for more detail.
+
+
 ```json
 {
   "id": "https://iiif.example.org/collection/top",
@@ -412,9 +415,11 @@ Collections may include both other Collections and Manifests, forming a tree-str
 
 ### Range
 
-IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the [`items`][prezi-40-model-items] property. Ranges define meaningful divisions or sequences---such as chapters in a book, sections of a newspaper, or movements of a musical work---that allow clients to present hierarchical or linear navigation interfaces that enable the user to quickly move through the object's content.
+IIIF Ranges are used to represent structure _within_ a Manifest beyond the default order of the Containers in the [`items`][prezi-40-model-items] property. Ranges define meaningful divisions or sequences---such as chapters in a book, sections of a newspaper, or movements of a musical work---that allow clients to present hierarchical or linear navigation interfaces that enable the user to quickly move through the object's content.
 
 Ranges may include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating tree-like structures that reflect the logical or intellectual organization of the resource, such as a table of contents or an alternative ordering of items.
+
+The required properties of Collections are [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type]. Other commonly used properties include [`label`][prezi-40-model-label] and [`items`][prezi-40-model-items]. See the [Range Documentation](model/#Range) for more detail.
 
 ```json
 {
@@ -447,7 +452,6 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
   ]
 }
 ```
-
 
 
 
