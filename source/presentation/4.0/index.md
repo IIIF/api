@@ -290,16 +290,14 @@ The same linking mechanism is also used in IIIF with other motivations for trans
 
 Annotations are grouped within the [`items`][prezi-40-model-items] property of an Annotation Page, and the [`items`][prezi-40-model-items] property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required.
 
-(👀) [Model Documentation](model/#Annotations)
+The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body]. See the [Annotation Documentation](model/#Annotation) for more detail.
 
 
 ## Content Resources
 
 Content Resources are external web resources, including images, video, audio, 3D models, data, web pages or any other format. Typically these are the resources that will be painted into a Container using a Painting Annotation.
 
-In addition to the required properties [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type], other commonly used properties include [`format`][prezi-40-model-format], and [`width`][prezi-40-model-width], [`height`][prezi-40-model-height] and [`duration`][prezi-40-model-duration] as appropriate to the Content Resource format. The values of these properties are often the source of the equivalent Container properties.
-
-(👀) [Model Documentation](model/#ContentResources)
+In addition to the required properties [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type], other commonly used properties include [`format`][prezi-40-model-format], and [`width`][prezi-40-model-width], [`height`][prezi-40-model-height] and [`duration`][prezi-40-model-duration] as appropriate to the Content Resource format. The values of these properties are often the source of the equivalent Container properties. See the [Content Resource Documentation](model/#ContentResources) for more detail.
 
 ### Containers as Content Resources
 
