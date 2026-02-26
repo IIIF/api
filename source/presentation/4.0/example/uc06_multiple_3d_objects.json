@@ -1,0 +1,152 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/uc06_multiple_3d_objects.json",
+    "type": "Manifest",
+    "label": { "en": [ "Use Case 6: Complex Scene" ] },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
+            "type": "Scene",
+            "label": { "en": [ "Chess Game Pieces" ] },
+            "interactionMode": [ "hemisphere-orbit" ],
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/1",
+                            "type": "Annotation",
+                            "motivation": [ "painting" ],
+                            "body": {
+                                "id": "https://fixtures.iiif.io/3d/tom_flynn/chess/Pawn_black.glb",
+                                "label": { "en": [ "Pawn 1" ] },
+                                "type": "Model",
+                                "format": "model/gltf-binary"
+                            },
+                            "target": {
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
+                                    "type": "Scene"
+                                },
+                                "selector": [
+                                    {
+                                        "type": "PointSelector",
+                                        "x": 1.0,
+                                        "y": 0.0,
+                                        "z": 0.0
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno2",
+                            "type": "Annotation",
+                            "motivation": [ "painting" ],
+                            "body": {
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://fixtures.iiif.io/3d/tom_flynn/chess/Pawn_black.glb",
+                                    "label": { "en": [ "Pawn 2 tipped over" ] },
+                                    "type": "Model",
+                                    "format": "model/gltf-binary"
+                                },
+                                "transform": [
+                                    {
+                                        "type": "RotateTransform",
+                                        "x": 0.0,
+                                        "y": 0.0,
+                                        "z": -90.0
+                                    },
+                                    {
+                                        "type": "TranslateTransform",
+                                        "x": 0.0,
+                                        "y": 1.0,
+                                        "z": 0.0
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
+                                    "type": "Scene"
+                                },
+                                "selector": [
+                                    {
+                                        "type": "PointSelector",
+                                        "x": 2.0,
+                                        "y": 0.0,
+                                        "z": 3.0
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno3",
+                            "type": "Annotation",
+                            "motivation": [ "painting" ],
+                            "exclude": [
+                                "Audio",
+                                "Lights"
+                            ],
+                            "body": {
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://fixtures.iiif.io/3d/tom_flynn/chess/Queen_black.glb",
+                                    "label": { "en": [ "Queen" ] },
+                                    "type": "Model",
+                                    "format": "model/gltf-binary"
+                                },
+                                "transform": [
+                                    {
+                                        "type": "ScaleTransform",
+                                        "x": 1.5,
+                                        "y": 1.5,
+                                        "z": 1.5
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
+                                    "type": "Scene"
+                                },
+                                "selector": [
+                                    {
+                                        "type": "PointSelector",
+                                        "x": 1.0,
+                                        "y": 0.0,
+                                        "z": 2.0
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno4",
+                            "type": "Annotation",
+                            "motivation": [ "painting" ],
+                            "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/lights/1",
+                                "type": "ImageBasedLight",
+                                "label": { "en": [ "Image-Based Light" ] },
+                                "environmentMap": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc06/light/3/environment.hdr",
+                                    "type": "Image",
+                                    "format": "image/vnd.radiance",
+                                    "profile": "equirectangular"
+                                }
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
+                                "type": "Scene"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
