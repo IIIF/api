@@ -129,15 +129,13 @@ __Previous Version:__ [3.0][prezi30]
 
 # Introduction
 
-The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model.
-
-It provides a document format---the IIIF Manifest---for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable way. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
+The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable way. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
 
 **If you have existing images, audio, video and models on the web, you can easily provide IIIF Manifests for them by publishing the appropriate JSON documents.**
 
 The IIIF Presentation API is concerned with enabling user experiences---providing enough information to present objects in compatible software, and leaving the meaning of the objects to external descriptive metadata standards.
 
-This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The [Presentation API 4.0 Properties](model) document provides the formal specification of the model and terms used in this introduction.
+This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The [Presentation API 4.0 Data Model](model) document provides the formal specification of the model and terms used in this introduction.
 
 ## IIIF Use cases
 

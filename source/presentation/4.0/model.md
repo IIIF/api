@@ -1,6 +1,6 @@
 ---
-title: "Presentation API 4.0 Properties"
-title_override: "IIIF Presentation API 4.0 Properties"
+title: "Presentation API 4.0 Data Model"
+title_override: "IIIF Presentation API 4.0 Data Model"
 id: presentation-api-model
 layout: spec
 cssversion: 3
