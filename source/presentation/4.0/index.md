@@ -166,10 +166,7 @@ A Manifest is the primary unit of distribution of IIIF. Each Manifest usually de
 
 The Manifest's [`items`][prezi-40-model-items] property is an ordered list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents each Container's Content Resources. The client software also presents user interface controls to navigate the list of Content Containers.
 
-Manifests have descriptive, technical and linking properties. The required properties of Manifests are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`rights`][prezi-40-model-rights], [`thumbnail`][prezi-40-model-thumbnail], [`homepage`][prezi-40-model-homepage] and [`provider`][prezi-40-model-provider].
-
-(👀) [Model Documentation](model/#Manifest)
-
+Manifests have descriptive, technical and linking properties. The required properties of Manifests are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`rights`][prezi-40-model-rights], [`thumbnail`][prezi-40-model-thumbnail], [`homepage`][prezi-40-model-homepage] and [`provider`][prezi-40-model-provider]. See the [Manifest Documentation](model/#Manifest) for more detail.
 
 ```jsonc
 {
@@ -189,9 +186,9 @@ Manifests have descriptive, technical and linking properties. The required prope
 
 ## Containers
 
-A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration).
+A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. The IIIF Presentation API defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration).
 
-The required properties of all Containers are [`id`][prezi-40-model-id], and [`type`][prezi-40-model-type]. Most Containers also have the [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label] properties. Further properties are required for the different types of Container.
+The required properties of all Containers are [`id`][prezi-40-model-id], and [`type`][prezi-40-model-type]. Most Containers also have the [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label] properties. Further properties are required for the different types of Container. See the [Container Documentation](model/#Containers) for more detail.
 
 The defined Container types are:
 
@@ -199,7 +196,7 @@ The defined Container types are:
 
 A Container that represents a bounded temporal range, without any spatial coordinates. It is typically used for audio-only content.
 
-Timelines have an additional required property of [`duration`][prezi-40-model-duration], which gives the extent of the Timeline as a floating point number of seconds.
+Timelines have an additional required property of [`duration`][prezi-40-model-duration], which gives the extent of the Timeline as a floating point number of seconds. 
 
 {% include code_example.html src="02_timeline.json" from=11 to=35 %}
 
@@ -279,15 +276,11 @@ Scenes may also have the [`duration`][prezi-40-model-duration] property in the s
 }
 ```
 
-Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
-
-[👀 Model Documentation](model/#Containers)
-
+Scenes can have time-based and image content in them as well as 3D content.
 
 ## Annotations
 
-
-IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
+IIIF uses the concept of _annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
 In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the [`body`][prezi-40-model-body] property is _painted_ into the Container by an Annotation whose [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container. In all three simple cases here the [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container with no further qualification.
 
