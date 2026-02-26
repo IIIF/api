@@ -23,7 +23,7 @@
               "motivation": ["painting"],
               "body": {
                 "id": "https://fixtures.iiif.io/audio/indiana/mahler-symphony-3/CD1/medium/128Kbps.mp4",
-                "type": "Sound",
+                "type": "Audio",
                 "format": "audio/mp4",
                 "duration": 1985.024
               },
