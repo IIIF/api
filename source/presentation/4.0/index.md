@@ -109,6 +109,11 @@ a:hover > code {
    line-height: 1.0;
    font-family: "Courier Prime", monospace;
  }
+
+  .callout {
+      background-color: rgb(244,252,239);
+  }
+
 </style>
 
 # Status of this Document
@@ -156,7 +161,7 @@ These use cases were chosen as a broad sample to introduce IIIF concepts. Many m
 This section is what you need to know to make sense of the examples that follow it.
 
 <p style="float: right">
-  <img src="{{ site.api_url | absolute_url }}/assets/images/data-model.png" alt="Data Model" width="400"><br/>
+  <img src="presentation_data_model.png" alt="Data Model" width="400"><br/>
 </p>
 
 
@@ -571,17 +576,15 @@ The example demonstrates the use of the common descriptive properties [`label`][
 
 >
 **Key Points**
-* All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. [👀 Model Documentation](model/#json-ld-contexts-and-extensions)
+* All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. See [JSON-LD Documentation](model/#json-ld-contexts-and-extensions)
 * Every JSON object that has a [`type`][prezi-40-model-type] property also has an [`id`][prezi-40-model-id] property and vice versa.
-* Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  [👀 Model Documentation](model/#language-of-property-values)
+* Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  See [Language Documentation](model/#language-of-property-values)
 * The Painting Annotation is a member of the [`items`][prezi-40-model-items] property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
 * The [`metadata`][prezi-40-model-metadata] label and value pairs are for display to the user rather than for machines to interpret.
 * The [`rights`][prezi-40-model-rights] property is always a single string value which is a URI.
 * Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#Agent).
 * The [`service`][prezi-40-model-service] property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [AnnotationPage][prezi-40-model-AnnotationPage], [Annotation][prezi-40-model-Annotation], [Agent][prezi-40-model-Agent]<br/><br/>
@@ -722,9 +725,8 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 >
 **Key Points**
 * Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+* **TODO: Finish Me**{: .warning}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas]<br/><br/>
@@ -906,8 +908,8 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents:
 
 >
 **Key Points**
-*
-{: .note}
+* **TODO: Finish Me**{: .warning}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Collection][prezi-40-model-Collection], [Range][prezi-40-model-Range], [AnnotationCollection][prezi-40-model-AnnotationCollection]<br/><br/>
