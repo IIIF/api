@@ -1743,7 +1743,6 @@ When `interactionMode` is specified on a Scene and no Cameras are supplied withi
 
 When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting.
 
-For interaction modes that involve a Camera orbiting around a target point, the target point _MAY_ be the same as the Camera's `lookAt` property.
 
 If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time.
 
