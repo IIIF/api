@@ -211,43 +211,7 @@ A Container that represents a bounded, two-dimensional space, optionally with a 
 
 Canvases have two additional required properties: [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width], which give the spatial extent as integers. Canvases may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
 
-<<<<<<< HEAD
 {% include code_example.html src="03_canvas.json" from=11 to=39 %}
-=======
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-  "type": "Canvas",
-  "width": 12000,
-  "height": 9000,
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p2",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
-          "type": "Annotation",
-          "motivation": ["painting"],
-          "body": 
-            {
-              "id": "https://iiif.io/api/presentation/example-content-resources/image/painting.jpg",
-              "type": "Image",
-              "format": "image/jpeg",
-              "width": 4000,
-              "height": 3000
-            },
-          "target": {
-            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-            "type": "Canvas"
-          }
-        }
-      ]
-    }
-  ]
-}
-```
->>>>>>> prezi-4
 
 ### Scene
 
@@ -255,39 +219,7 @@ A Container that represents a boundless three-dimensional space, optionally with
 
 Scenes may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
 
-<<<<<<< HEAD
 {% include code_example.html src="04_scene.json" from=16 to=49 %}
-=======
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/scene",
-  "type": "Scene",
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p3",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/s1",
-          "type": "Annotation",
-          "motivation": ["painting"],
-          "body":
-            {
-              "id": "https://iiif.io/api/presentation/example-content-resources/models/astronaut.glb",
-              "type": "Model",
-              "format": "model/gltf-binary"
-            },
-          "target": {
-            "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/scene",
-            "type": "Scene"
-          }
-        }
-      ]
-    }
-  ]
-}
-```
->>>>>>> prezi-4
 
 Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
 
@@ -330,31 +262,9 @@ Parts of resources on the Web can be identified using URIs with a fragment compo
 
 There are different types of fragment based on the format of the resource. The most commonly used type in IIIF is the W3C's Media Fragments specification, as it can define a temporal and 2D spatial region.
 
-<<<<<<< HEAD
 
 {% include code_example.html src="05_fragment.json" from=58 to=72 %}
 
-=======
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
-  "type": "Annotation",
-  "motivation": ["commenting"],
-  "body": 
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
-      "type": "TextualBody",
-      "value": "Koto with a cover being carried",
-      "language": "en",
-      "format": "text/plain"
-    },
-  "target": {
-    "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas#xywh=6050,3220,925,1250",
-    "type": "Canvas"
-  }
-}
-```
->>>>>>> prezi-4
 
 Here the Canvas [`id`][prezi-40-model-id] from the earlier example is still the [`target`][prezi-40-model-target] of an Annotation, but it has been qualified to a specific region of that Canvas by a URI fragment `#xywh=6050,3220,925,1250`. Note that the x, y, w, and h are in the Canvas coordinate space, not the image pixel dimensions space. This annotation has no knowledge of or dependency on the particular image we painted onto the Canvas; we could replace that image with one of a different, higher resolution without affecting this annotation or the region of the Canvas it targets.
 
@@ -369,39 +279,7 @@ The required properties of Specific Resources are [`id`][prezi-40-model-id], [`t
 
 The fragment example above can be expressed using a Specific Resource:
 
-<<<<<<< HEAD
 {% include code_example.html src="06_specific_resource.json" from=58 to=86 %}
-=======
-```json
-{
-  "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/comments/c1",
-  "type": "Annotation",
-  "motivation": ["commenting"],
-  "body": 
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/bodies/koto-body",
-      "type": "TextualBody",
-      "value": "Koto with a cover being carried",
-      "language": "en",
-      "format": "text/plain"
-    },
-  "target": 
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/resources/koto-sr",
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-        "type": "Canvas"
-      },
-      "selector": {
-        "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/selectors/koto-selector",
-        "type": "FragmentSelector",
-        "value": "xywh=6050,3220,925,1250"
-      }
-    }
-}
-```
->>>>>>> prezi-4
 
 ## Navigational Resources
 
@@ -431,121 +309,11 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
-<<<<<<< HEAD
 The unit integer coordinates of the Canvas (6000 x 3813) are not the same as the pixel dimensions of the JPEG image (2000 x 1271), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image.The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
 
 The example demonstrates the use of the common descriptive properties [`label`][prezi-40-model-label] for the title of the artwork, [`metadata`][prezi-40-model-metadata] for additional information to display to the user, [`summary`][prezi-40-model-summary] for a brief description of the artwork, [`rights`][prezi-40-model-rights] to assert a rights statement or license from a controlled vocabulary, [`homepage`][prezi-40-model-homepage] to link to the artwork's specific web page, [`thumbnail`][prezi-40-model-thumbnail] to provide a small image to stand for the Manifest, [`provider`][prezi-40-model-provider] to give information about the publisher of the Manifest, and finally, [`service`][prezi-40-model-service] to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
 
 {% include code_example.html src="uc01_artwork.json" %}
-=======
-The unit integer coordinates of the Canvas (12000 x 9000) are not the same as the pixel dimensions of the JPEG image (4000 x 3000), but they are proportional---the Canvas has a 4:3 landscape aspect ratio, and so does the JPEG image. The [`target`][prezi-40-model-target] property of the Annotation is the Canvas [`id`][prezi-40-model-id], unqualified by any particular region; this is taken to mean the content (the image) should fill the Canvas completely. As the Canvas and the image are the same aspect ratio, no distortion will occur. This approach allows the current image to be replaced by a higher resolution image in future, on the same Canvas. The Canvas dimensions establish a coordinate system for _painting annotations_ and other kinds of annotation that link content with the Canvas; they are not pixels of images.
-
-The example demonstrates the use of the common descriptive properties [`label`][prezi-40-model-label] for the title of the artwork, [`metadata`][prezi-40-model-metadata] for additional information to display to the user, [`summary`][prezi-40-model-summary] for a brief description of the artwork, [`rights`][prezi-40-model-rights] to assert a rights statement or license from a controlled vocabulary, [`homepage`][prezi-40-model-homepage] to link to the artwork's specific web page, [`thumbnail`][prezi-40-model-thumbnail] to provide a small image to stand for the Manifest, [`provider`][prezi-40-model-provider] to give information about the publisher of the Manifest, and finally, [`service`][prezi-40-model-service] to specify a IIIF Image API service that provides features such as deep zooming, derivative generation, image fragment referencing, rotation, and more.
-
-```jsonc
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://iiif.io/api/cookbook/recipe/0001-mvm-image/manifest.json",
-  "type": "Manifest",
-  "label": { "en": ["Use case 1: Artwork"] },
-  "metadata": [
-    {
-      "label": { "en": ["Artist"] },
-      "value": { "en": ["Anne Artist"] }
-    },
-    {
-      "label": { "en": ["Date"] },
-      "value": { "en": ["c. 1800"] }
-    }
-  ],
-  "summary": { "en": ["A longer piece of text to be shown when the metadata is not."] },
-  "rights": "http://rightsstatements.org/vocab/NoC-NC/1.0/",
-  "homepage": [
-    {
-      "id": "https://example.org/works/artwork37",
-      "type": "Text",
-      "format": "text/html",
-      "label": { "en": ["Homepage for artwork37"] }
-    }
-  ],
-  "thumbnail": [
-    {
-      "id": "https://example.org/works/artwork37/thumbnail.jpg",
-      "type": "Image",
-      "format": "image/jpeg",
-      "width": 100,
-      "height": 150
-    }
-  ],
-  "provider": [
-    {
-      "id": "https://example.org/about",
-      "type": "Agent",
-      "label": { "en": ["Example Organization"] },
-      "homepage": [
-        {
-          "id": "https://example.org/",
-          "type": "Text",
-          "label": { "en": ["Example Organization Homepage"] },
-          "format": "text/html"
-        }
-      ],
-      "logo": [
-        {
-          "id": "https://example.org/images/logo.png",
-          "type": "Image",
-          "format": "image/png",
-          "height": 100,
-          "width": 120
-        }
-      ]
-    }
-  ],
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-      "type": "Canvas",
-      "width": 12000,
-      "height": 9000,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/page/p2",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/annotation/c1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body":
-                {
-                  "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
-                  "type": "Image",
-                  "format": "image/jpeg",
-                  "width": 4000,
-                  "height": 3000,
-                  "service": [
-                    {
-                      "id": "https://iiif.io/api/presentation/example/image/painting",
-                      "profile": "level1",
-                      "type": "ImageService3"
-                      // etc
-                    }
-                  ]
-                },
-              "target": {
-                "id": "https://example.org/iiif/presentation/examples/manifest-with-containers/canvas",
-                "type": "Canvas"
-              }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
->>>>>>> prezi-4
 
 >
 **Key Points**
@@ -820,26 +588,7 @@ This example is a Manifest with a Canvas that represents two images displayed si
 
 A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only be painted into a Container that also has [`duration`][prezi-40-model-duration]. It is possible to associate a Container with [`duration`][prezi-40-model-duration] with a Container that does not have [`duration`][prezi-40-model-duration] as the content of a `commenting` annotation rather than painting it into the Container. If a Container with [`duration`][prezi-40-model-duration] has a shorter or longer [`duration`][prezi-40-model-duration] than the Container into which it is to be painted, the [`timeMode`][prezi-40-model-timeMode] property can be used to instruct clients how to resolve the mismatch.
 
-```jsonc
-{
-  "id": "https://example.org/iiif/presentation/examples/nesting/anno1",
-  "type": "Annotation",
-  "motivation": ["painting"],
-  "timeMode": "loop",
-  "body": 
-    {
-      "id": "https://example.org/iiif/presentation/examples/nesting/timeline/t1",
-      "type": "Timeline",
-      "label": { "en": ["Side A: 99 Luftballons"] },
-      "duration": 231
-    },
-  "target": {
-    "id": "https://example.org/iiif/presentation/examples/nesting/canvas-10minute-duration",
-    "type": "Canvas"
-  }
-}
-```
-
+{% include code_example.html src="uc07_duration_composite.json" from=19 to=58 %}
 
 ## Painting a Canvas or Timeline into a Scene
 
