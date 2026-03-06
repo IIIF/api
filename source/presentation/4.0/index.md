@@ -109,6 +109,11 @@ a:hover > code {
    line-height: 1.0;
    font-family: "Courier Prime", monospace;
  }
+
+  .callout {
+      background-color: rgb(244,252,239);
+  }
+
 </style>
 
 # Status of this Document
@@ -129,15 +134,13 @@ __Previous Version:__ [3.0][prezi30]
 
 # Introduction
 
-The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model.
-
-It provides a document format---the IIIF Manifest---for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable way. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
+The purpose of the IIIF Presentation API specification is to provide a [model](model) and JSON serialization format of that model for cultural heritage organizations (and anyone else) to present objects in a standardized, interoperable way. This allows compatible software such as viewers and annotation tools to load and present complex digital objects on the web from thousands of different providers.
 
 **If you have existing images, audio, video and models on the web, you can easily provide IIIF Manifests for them by publishing the appropriate JSON documents.**
 
 The IIIF Presentation API is concerned with enabling user experiences---providing enough information to present objects in compatible software, and leaving the meaning of the objects to external descriptive metadata standards.
 
-This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The [Presentation API 4.0 Properties](model) document provides the formal specification of the model and terms used in this introduction.
+This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The [Presentation API 4.0 Data Model](model) document provides the formal specification of the model and terms used in this introduction.
 
 ## IIIF Use cases
 
@@ -158,7 +161,7 @@ These use cases were chosen as a broad sample to introduce IIIF concepts. Many m
 This section is what you need to know to make sense of the examples that follow it.
 
 <p style="float: right">
-  <img src="{{ site.api_url | absolute_url }}/assets/images/data-model.png" alt="Data Model" width="400"><br/>
+  <img src="presentation_data_model.png" alt="Data Model" width="400"><br/>
 </p>
 
 
@@ -168,10 +171,7 @@ A Manifest is the primary unit of distribution of IIIF. Each Manifest usually de
 
 The Manifest's [`items`][prezi-40-model-items] property is an ordered list of _Containers_ of _Content Resources_ (images, 3D models, audio, etc). Client software loads the Manifest and presents each Container's Content Resources. The client software also presents user interface controls to navigate the list of Content Containers.
 
-Manifests have descriptive, technical and linking properties. The required properties of Manifests are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`rights`][prezi-40-model-rights], [`thumbnail`][prezi-40-model-thumbnail], [`homepage`][prezi-40-model-homepage] and [`provider`][prezi-40-model-provider].
-
-(👀) [Model Documentation](model/#Manifest)
-
+Manifests have descriptive, technical and linking properties. The required properties of Manifests are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`rights`][prezi-40-model-rights], [`thumbnail`][prezi-40-model-thumbnail], [`homepage`][prezi-40-model-homepage] and [`provider`][prezi-40-model-provider]. See the [Manifest Documentation](model/#Manifest) for more detail.
 
 ```jsonc
 {
@@ -191,9 +191,9 @@ Manifests have descriptive, technical and linking properties. The required prope
 
 ## Containers
 
-A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. This specification defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration).
+A Container is a frame of reference that allows the relative positioning of Content Resources, a concept borrowed from standards like PDF and HTML, or applications like Photoshop and PowerPoint, where an initially blank display surface has images, video, text and other content "painted" on to it. The frame is defined by a set of dimensions, with different types of Container having different dimensions. The IIIF Presentation API defines three sub-classes of Container: Timeline (which only has a duration), Canvas (which has bounded height and width, and may have a duration), and Scene (which has infinite height, width and depth, and may have a duration).
 
-The required properties of all Containers are [`id`][prezi-40-model-id], and [`type`][prezi-40-model-type]. Most Containers also have the [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label] properties. Further properties are required for the different types of Container.
+The required properties of all Containers are [`id`][prezi-40-model-id], and [`type`][prezi-40-model-type]. Most Containers also have the [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label] properties. Further properties are required for the different types of Container. See the [Container Documentation](model/#Containers) for more detail.
 
 The defined Container types are:
 
@@ -201,7 +201,7 @@ The defined Container types are:
 
 A Container that represents a bounded temporal range, without any spatial coordinates. It is typically used for audio-only content.
 
-Timelines have an additional required property of [`duration`][prezi-40-model-duration], which gives the extent of the Timeline as a floating point number of seconds.
+Timelines have an additional required property of [`duration`][prezi-40-model-duration], which gives the extent of the Timeline as a floating point number of seconds. 
 
 {% include code_example.html src="02_timeline.json" from=11 to=35 %}
 
@@ -281,15 +281,11 @@ Scenes may also have the [`duration`][prezi-40-model-duration] property in the s
 }
 ```
 
-Scenes can have time-based and image content in them as well as 3D content. See model for how to do this.
-
-[👀 Model Documentation](model/#Containers)
-
+Scenes can have time-based and image content in them as well as 3D content.
 
 ## Annotations
 
-
-IIIF uses the concept of _Annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
+IIIF uses the concept of _annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
 In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the [`body`][prezi-40-model-body] property is _painted_ into the Container by an Annotation whose [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container. In all three simple cases here the [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container with no further qualification.
 
@@ -299,16 +295,14 @@ The same linking mechanism is also used in IIIF with other motivations for trans
 
 Annotations are grouped within the [`items`][prezi-40-model-items] property of an Annotation Page, and the [`items`][prezi-40-model-items] property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required.
 
-(👀) [Model Documentation](model/#Annotations)
+The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body]. See the [Annotation Documentation](model/#Annotation) for more detail.
 
 
 ## Content Resources
 
 Content Resources are external web resources, including images, video, audio, 3D models, data, web pages or any other format. Typically these are the resources that will be painted into a Container using a Painting Annotation.
 
-In addition to the required properties [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type], other commonly used properties include [`format`][prezi-40-model-format], and [`width`][prezi-40-model-width], [`height`][prezi-40-model-height] and [`duration`][prezi-40-model-duration] as appropriate to the Content Resource format. The values of these properties are often the source of the equivalent Container properties.
-
-(👀) [Model Documentation](model/#ContentResources)
+In addition to the required properties [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type], other commonly used properties include [`format`][prezi-40-model-format], and [`width`][prezi-40-model-width], [`height`][prezi-40-model-height] and [`duration`][prezi-40-model-duration] as appropriate to the Content Resource format. The values of these properties are often the source of the equivalent Container properties. See the [Content Resource Documentation](model/#ContentResources) for more detail.
 
 ### Containers as Content Resources
 
@@ -351,7 +345,7 @@ URIs with fragments are insufficient for complex referencing, like circular regi
 
 Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called [`FragmentSelector`][prezi-40-model-FragmentSelector]. The fragment is given in the `value` property of the [`FragmentSelector`][prezi-40-model-FragmentSelector], and the resource it should be applied to is given in [`source`][prezi-40-model-source].
 
-The required properties of Specific Resources are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`source`][prezi-40-model-source]. Other commonly used properties include `selector`, [`transform`][prezi-40-model-transform], and `scope`.
+The required properties of Specific Resources are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`source`][prezi-40-model-source]. Other commonly used properties include [`selector`][prezi-40-model-selector], [`transform`][prezi-40-model-transform], and [`scope`][prezi-40-model-scope]. See the [Specific Resource Documentation](model/#SpecificResource) for more detail.
 
 The fragment example above can be expressed using a Specific Resource:
 
@@ -395,6 +389,9 @@ IIIF Collections are ordered lists of Manifests and Collections. Collections all
 
 Collections may include both other Collections and Manifests, forming a tree-structured hierarchy that expresses relationships among IIIF resources. This organization can represent archival or curatorial structures, logical groupings such as volumes or series, or dynamically generated sets of related items. As such, they enable clients to load predefined sets of resources at initialization, render dynamically generated sets such as search results, visualize lists or hierarchies of related content, and facilitate navigation through structured aggregations of Manifests and Collections.
 
+The required properties of Collections are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`label`][prezi-40-model-label]. Other commonly used properties include [`summary`][prezi-40-model-summary], [`metadata`][prezi-40-model-metadata], [`thumbnail`][prezi-40-model-thumbnail], and [`provider`][prezi-40-model-provider]. See the [Collection Documentation](model/#Collection) for more detail.
+
+
 ```json
 {
   "id": "https://iiif.example.org/collection/top",
@@ -423,9 +420,11 @@ Collections may include both other Collections and Manifests, forming a tree-str
 
 ### Range
 
-IIIF Ranges are used to represent structure _WITHIN_ a Manifest beyond the default order of the Containers in the [`items`][prezi-40-model-items] property. Ranges define meaningful divisions or sequences---such as chapters in a book, sections of a newspaper, or movements of a musical work---that allow clients to present hierarchical or linear navigation interfaces that enable the user to quickly move through the object's content.
+IIIF Ranges are used to represent structure _within_ a Manifest beyond the default order of the Containers in the [`items`][prezi-40-model-items] property. Ranges define meaningful divisions or sequences---such as chapters in a book, sections of a newspaper, or movements of a musical work---that allow clients to present hierarchical or linear navigation interfaces that enable the user to quickly move through the object's content.
 
 Ranges may include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating tree-like structures that reflect the logical or intellectual organization of the resource, such as a table of contents or an alternative ordering of items.
+
+The required properties of Collections are [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type]. Other commonly used properties include [`label`][prezi-40-model-label] and [`items`][prezi-40-model-items]. See the [Range Documentation](model/#Range) for more detail.
 
 ```json
 {
@@ -458,7 +457,6 @@ Ranges may include Containers, parts of Containers via Specific Resources or fra
   ]
 }
 ```
-
 
 
 
@@ -578,17 +576,15 @@ The example demonstrates the use of the common descriptive properties [`label`][
 
 >
 **Key Points**
-* All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. [👀 Model Documentation](model/#json-ld-contexts-and-extensions)
+* All IIIF documents begin with the `@context` key, which maps the JSON structure into a linked data representation. The value identifies the version of the specification in use. See [JSON-LD Documentation](model/#json-ld-contexts-and-extensions)
 * Every JSON object that has a [`type`][prezi-40-model-type] property also has an [`id`][prezi-40-model-id] property and vice versa.
-* Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  [👀 Model Documentation](model/#language-of-property-values)
+* Text elements intended for display to the user are conveyed by _Language Maps_, JSON objects in which the keys are language codes and the values are lists of one or more strings in that language.  See [Language Documentation](model/#language-of-property-values)
 * The Painting Annotation is a member of the [`items`][prezi-40-model-items] property of an Annotation Page. While in this case there is only one Annotation Page and one Annotation, the mechanism is needed for consistency when there are multiple Annotation Pages, and it allows for Annotation Pages in general to be separate resources on the web.
 * The [`metadata`][prezi-40-model-metadata] label and value pairs are for display to the user rather than for machines to interpret.
 * The [`rights`][prezi-40-model-rights] property is always a single string value which is a URI.
 * Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#Agent).
 * The [`service`][prezi-40-model-service] property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [AnnotationPage][prezi-40-model-AnnotationPage], [Annotation][prezi-40-model-Annotation], [Agent][prezi-40-model-Agent]<br/><br/>
@@ -729,9 +725,8 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 >
 **Key Points**
 * Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+* **TODO: Finish Me**{: .warning}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas]<br/><br/>
@@ -913,8 +908,8 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents:
 
 >
 **Key Points**
-*
-{: .note}
+* **TODO: Finish Me**{: .warning}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Collection][prezi-40-model-Collection], [Range][prezi-40-model-Range], [AnnotationCollection][prezi-40-model-AnnotationCollection]<br/><br/>
