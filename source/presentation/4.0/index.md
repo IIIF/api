@@ -608,48 +608,7 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
 
 A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. [Transforms](#transforms) can be used to modify Canvas rotation, scale, or translation, allowing in particular for an alternate method to control the size of a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
 
-```jsonc
-{
-  "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
-  "type": "Annotation",
-  "motivation": ["painting"],
-  "body": 
-    {
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/nesting/canvas/c1",
-        "type": "Canvas",
-        "width": 2,
-        "height": 2,
-        "items": [{ ... }]
-      },
-      "transform": [
-        {
-          "type": "ScaleTransform",
-          "x": 2.0,
-          "y": 2.0,
-          "z": -1.0
-        }
-      ]
-    },
-  "target": 
-    {
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
-        "type": "Scene"
-      },
-      "selector": [
-        {
-          "type": "PointSelector",
-          "x": 4.0,
-          "y": 4.0,
-          "z": 0.0
-        }
-      ]
-    }
-}
-```
+{% include code_example.html src="uc07_canvas_into_scene.json" from=16 to=83 %}
 
 >
 **Key Points**
