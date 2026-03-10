@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 4
 minor: 0
 patch: 0
-pre:
+pre: draft
 redirect_from:
   - /presentation/index.html
   - /presentation/4/index.html
@@ -462,7 +462,7 @@ The required properties of Collections are [`id`][prezi-40-model-id] and [`type`
 
 # Image Content
 
-## Use Case 1: Artwork with deep zoom
+## Use Case 1: Artwork
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
@@ -725,7 +725,8 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 >
 **Key Points**
 * Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
-* **TODO: Finish Me**{: .warning}
+* As the Presentation API is about displaying content, not describing it semantically, many of the properties are hints to the client as to how to render the resources, such as `behavior`, `viewingDirection` and `start`, or pointers to other resources that also render the content such as `rendering`.
+* The `requiredStatement` property is often used for a rights or legal statement, however can be used for any message that the client _MUST_ render. There can only be one `requiredStatement` to avoid overloading the UI with dozens of popups that need to be closed.
 {: .callout}
 
 __Definitions__<br/>
@@ -780,6 +781,7 @@ IIIF Collection with [`behavior`][prezi-40-model-behavior] "multi-part" that con
   ]
 }
 ```
+
 IIIF Collection with [`behavior`][prezi-40-model-behavior] "multi-part" for the second volume (1881), with individual Manifests for each issue:
 
 ```json
@@ -908,7 +910,9 @@ Manifest for the October 27, 1881 issue, with Ranges for table of contents:
 
 >
 **Key Points**
-* **TODO: Finish Me**{: .warning}
+* Navigation between Manifests is managed via Collections, potentially in a hierarchy, which are each separate documents.
+* Navigation within a single Manifest (beyond the default order of the Containers) is managed via Ranges in the `structures` property.
+* Further navigation, managed by the client, is possible via the `navPlace` and `navDate` properties. These are not semantic metadata, they are used by the client to generate navigation maps and timelines, respectively.
 {: .callout}
 
 __Definitions__<br/>
@@ -919,7 +923,7 @@ Properties: [behavior][prezi-40-model-behavior], [navPlace][prezi-40-model-navPl
 
 # Audio and Video
 
-## Use Case 4: A 45 single with 2 tracks
+## Use Case 4: A 45 Single with 2 Tracks
 
 This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline [`duration`][prezi-40-model-duration] is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of [`format`][prezi-40-model-format] for the audio files' content type, [`language`][prezi-40-model-language] (One song is in English and one is in German), [`behavior`][prezi-40-model-behavior] with value "auto-advance" that tells a client to automatically advance to the second Timeline after playing the first, [`annotations`][prezi-40-model-annotations] that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an [`accompanyingContainer`][prezi-40-model-accompanyingContainer] that carries a picture of the single's cover that is shown while the songs are playing.
 
@@ -1068,10 +1072,11 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 
 >
 **Key Points**
+* Timeline is a new Container type, introduced in version 4.0, specifically to manage audio content
+* Any Container, but especially Timelines, can have a `accompanyingContainer` with additional content to render to make the user experience more attractive. 
+* Information about external resources such as `format`, `language`, `duration` can be added to assist with rendering, especially when the user or client needs to make a choice between representations. See the next use case more for details about Choice.
 * In the external annotation for the song lyrics, we append `#t=3.5,6.8` to the target URI to define the temporal extent in the target timeline that corresponds to the song lyric.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Timeline][prezi-40-model-Timeline],[TextualBody][prezi-40-model-TextualBody]<br/><br/>
@@ -1079,7 +1084,7 @@ Properties: [duration][prezi-40-model-duration], [format][prezi-40-model-format]
 {: .note}
 
 
-## Use Case 5: Movie with subtitles
+## Use Case 5: Movie with Subtitles
 
 This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas [`duration`][prezi-40-model-duration]) and its aspect ratio (given by the [`width`][prezi-40-model-width] and [`height`][prezi-40-model-height] of the Canvas). The example demonstrates the use of a [`Choice`][prezi-40-model-Choice] annotation body to give two alternative versions of the movie, indicated by their [`label`][prezi-40-model-label] and `fileSize` properties as well as [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width]. Subtitles are provided by an annotation that links to a VTT file. The motivation of this annotation is `supplementing` and the [`provides`][prezi-40-model-provides] property of this annotation indicates what accessibility feature it provides, in this case the term `subtitles`. The [`timeMode`][prezi-40-model-timeMode] property in this case is redundant as `trim` is the default value. The Canvas has a [`placeholderContainer`][prezi-40-model-placeholderContainer] that provides a poster image to show in place of the video file before the user initiates playback.
 
@@ -1209,18 +1214,16 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 >
 **Key Points**
 * The decision about which item in the [`Choice`][prezi-40-model-Choice] to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the [`label`][prezi-40-model-label], or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of [`Choice`][prezi-40-model-Choice] for common image and AV use cases.
-* Slop - impl note - don't interpret **very** minor discrepancies between [`duration`][prezi-40-model-duration] on the different Choices and the Container [`duration`][prezi-40-model-duration] as an instruction to stretch or compress the audio/video stream to match the Container duration. No real way to quantify this, just _be sensible_.
-{: .note}
+* Clients should not interpret **very** minor discrepancies between [`duration`][prezi-40-model-duration] on the different Choices and the Container [`duration`][prezi-40-model-duration] as an instruction to stretch or compress the audio/video stream to match the Container duration. There is no real way to quantify exactly how big a difference would count as not "minor" and thus it is also client dependent.
+{: .callout}
 
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [Choice][prezi-40-model-Choice]<br/><br/>
 Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
-# 3D
+# 3D Foundations
 
 Scenes describe a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
 
@@ -1248,7 +1251,6 @@ There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveC
 There are five types of Light: AmbientLight, DirectionalLight, ImageBasedLight, PointLight, and SpotLight. They have an [`intensity`][prezi-40-model-intensity] property, and all Lights except ImageBasedLight have a [`color`][prezi-40-model-color] property. ImageBasedLight has an additional property of [`environmentMap`][prezi-40-model-environment-map] that specifies the environment map image used to simulate lighting. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone. PointLights and SpotLights can be painted at specific positions within the Scene. DirectionalLights, PointLights, and SpotLights have directional facing in the Scene that affects how light is cast.
 
 If the Scene has no Lights, then the client provides its own lighting as it sees fit.
-
 
 ### Audio Emitters
 
@@ -1446,7 +1448,7 @@ The Light is green and has a position, but has its default orientation of lookin
 * This example uses some of the Scene-Specific resources introduced in [3D Supporting Resources](#3d-supporting-resources).
 * A Point Selector explicitly places the model in the Scene via the Painting Annotation's [`target`][prezi-40-model-target] property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
 * The provided Light should replace any default lighting the client might have.
-{: .note}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [PerspectiveCamera][prezi-40-model-PerspectiveCamera], [SpotLight][prezi-40-model-SpotLight] <br/><br/>
