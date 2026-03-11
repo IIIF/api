@@ -1262,14 +1262,23 @@ Audio resources or Timelines should be referenced by an AudioEmitter and the Aud
 
 -->
 
+<!--
+
+### Chessboard is a Canvas with image (not a 3D chessboard)
+
+A Scene or a Canvas may be treated as a content resource, referenced or described within the [`body`][prezi-40-model-body] of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation [`target`][prezi-40-model-target]. The content resource Scene will be placed within the [`target`][prezi-40-model-target] Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use [`PointSelector`][prezi-40-model-PointSelector] to place the origin of the resource Scene at a specified coordinate within the [`target`][prezi-40-model-target] Scene.
+
+-->
 
 
+## Use Case 6: Rendering 3D content
 
-## Use Case 6: 3D content
 
-The 3D Use Case is built up in several steps to demonstrate different aspects of how Scenes are able to be used. The overall example is a Manifest with a single Scene, with a 3D model of a space suit.  In this first example, the model is painted at the center (or origin) of the Scene.
+### Basic Scene
 
-> PNG of Scene
+The 3D Use Case is built up in several steps to demonstrate different aspects of how Scenes are able to be used. This first example is a Manifest with a single Scene, with a 3D model of a space suit painted at the center (or origin) of the Scene.
+
+> TODO: PNG of Scene
 
 ```jsonc
 {
@@ -1324,7 +1333,7 @@ This example adds a Light and a Camera to the previous example, and places the m
 
 Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration. The final commenting annotation in the [Audio in 3D](#audio-in-3d) section has an example of this property.
 
-The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the [`lookAt`][prezi-40-model-lookAt] property. The Camera has a [`fieldOfView`][prezi-40-model-fieldOfView] of 50. The [`near`][prezi-40-model-near] and [`far`][prezi-40-model-far] properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
+The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the [`lookAt`][prezi-40-model-lookAt] property. The Camera has a [`fieldOfView`][prezi-40-model-fieldOfView] of 50. The [`near`][prezi-40-model-near] and [`far`][prezi-40-model-far] properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene also has a background color.
 
 <img src="{{ site.api_url | absolute_url }}/assets/images/p4/use-case-5a.png" alt="Use case 5a" >
 
@@ -1457,7 +1466,8 @@ Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Sp
 Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [fieldOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
 {: .note}
 
-### Multiple 3D Objects with Transforms
+
+### Multiple Objects
 
 This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content. This example also introduces an Image-Based Light Annotation to simulate real-world lighting of the chess game pieces.
 
@@ -1634,17 +1644,12 @@ Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Sp
 Properties: [exclude][prezi-40-model-exclude], [interactionMode][prezi-40-model-interactionMode]
 {: .note}
 
-<!--
 
-Is this still needed or wanted here?
-
-### Chessboard is a Canvas with image (not a 3D chessboard)
-
-A Scene or a Canvas may be treated as a content resource, referenced or described within the [`body`][prezi-40-model-body] of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation [`target`][prezi-40-model-target]. The content resource Scene will be placed within the [`target`][prezi-40-model-target] Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use [`PointSelector`][prezi-40-model-PointSelector] to place the origin of the resource Scene at a specified coordinate within the [`target`][prezi-40-model-target] Scene.
-
--->
 
 ### Audio in 3D
+
+
+TODO: Describe the scene first
 
 This example is a Manifest with a single Scene with a duration. Multiple Audio Emitter Annotations are painted into the Scene, with positional emitters used to create a 3D audio experience. Some of the Audio Emitter Annotations are only painted into the Scene for a limited period of time, producing dynamic change in the sounds heard within the Scene. A commenting Annotation is also provided to highlight the instant in time when a change in sound occurs.
 
@@ -1818,12 +1823,109 @@ Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Sp
 Properties: [duration][prezi-40-model-duration], [volume][prezi-40-model-volume], [angle][prezi-40-model-angle], [lookAt][prezi-40-model-lookAt], [timeMode][prezi-40-model-timeMode]
 {: .note}
 
+### Painting a Scene into a Scene
 
-# Nesting
+Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
+
+When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. Similarly, if both Scenes have ImageBasedLight Annotations, the ImageBasedLight Annotation of the Scene into which the Scene will be nested takes precedence. All other Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
+
+```jsonc
+{
+    "id": "https://example.org/iiif/presentation/examples/nesting/anno3",
+    "type": "Annotation",
+    "motivation": ["painting"],
+    "body":
+      {
+        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
+        "type": "Scene"
+      },
+    "target": {
+      "id": "https://example.org/iiif/presentation/examples/nesting/scene/s2",
+      "type": "Scene"
+    }
+}
+```
+
+
+### Painting a Canvas or Timeline into a Scene
+
+TODO: Can this be UC 6, part 4?
+
+Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`source`][prezi-40-model-source] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
+
+A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width] measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and width in coordinate units, and this has important consequences for painting Canvases into Scenes.
+
+When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (i.e., is collinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (i.e., is collinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
+
+The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 16 units wide and 9 units high will extend 16 coordinate units across the x axis and 9 coordinate units across the y axis. Because Canvas coordinate units and image content resource pixels are not equivalent, any image with a 16:9 aspect ratio painted on this Canvas would extend 16 coordinate units by 9 coordinate units in the 3D space of the Scene, whether it was 160 pixels wide and 90 pixels high or 16,000 pixels wide and 9,000 pixels high. This provides one way to control the size of a Canvas painted into a Scene.
+
+A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property [`backgroundColor`][prezi-40-model-backgroundColor] is used, this color should be used for the backward face of the Canvas. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
+
+<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
+  To Do: Add an image demonstrating default Canvas placement in Scene
+</div>
+
+A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. [Transforms](#transforms) can be used to modify Canvas rotation, scale, or translation, allowing in particular for an alternate method to control the size of a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
+
+```jsonc
+{
+  "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": 
+    {
+      "type": "SpecificResource",
+      "source": {
+        "id": "https://example.org/iiif/presentation/examples/nesting/canvas/c1",
+        "type": "Canvas",
+        "width": 2,
+        "height": 2,
+        "items": [{ ... }]
+      },
+      "transform": [
+        {
+          "type": "ScaleTransform",
+          "x": 2.0,
+          "y": 2.0,
+          "z": -1.0
+        }
+      ]
+    },
+  "target": 
+    {
+      "type": "SpecificResource",
+      "source": {
+        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
+        "type": "Scene"
+      },
+      "selector": [
+        {
+          "type": "PointSelector",
+          "x": 4.0,
+          "y": 4.0,
+          "z": 0.0
+        }
+      ]
+    }
+}
+```
+
+>
+**Key Points**
+* The 2D Canvas painted into the Scene has an initial height and width of 2 units by 2 units. Absent any transform or the use of a PointSelector, this Canvas would by default face toward the Scene's positive z axis, would stretch 2 units across the x axis and 2 units across the y axis, and its top-left corner would align with the coordinate origin of the Scene. Instead, transforms and a PointSelector will modify this placement significantly.
+* A ScaleTransform is used to double the Canvas height and width, so that after transformation the Canvas will extend 4 coordinate units across the Scene x axis and 4 coordinate units across the Scene y axis.
+* The same ScaleTransform also reflects the z axis by scaling it by -1.0, meaning the Canvas is mirrored (flipped) and now faces toward the negative z axis.
+* A PointSelector is used to align the top-left corner of the transformed Canvas with Scene coordinate (4,4,0). In combination with the ScaleTransform, the bottom-right corner of the Canvas is now aligned with the coordinate origin of the Scene.
+{: .callout}
+
+
+# Nesting Containers
 
 A Container can be painted into another Container as an Annotation with [`motivation`][prezi-40-model-motivation] "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene, and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
 
-## Use Case 7: Composite of two canvases
+## Use Case 7: What's the _Use Case_?
+
+TODO: Describe the actual use case
 
 This example is a Manifest with a Canvas that represents two images displayed side by side. However, instead of painting the images directly as Annotations, each image is painted on to a separate Canvas, and each Canvas is painted into the Manifest Canvas. A more likely practical application of this example would be where the image Canvases have been created previously and are hosted separately from the Manifest's composite-image Canvas.
 
@@ -1935,7 +2037,9 @@ This example is a Manifest with a Canvas that represents two images displayed si
 * Each painting annotation defines a Canvas with its own Annotation Page and a single image annotation. Alternately, each painting annotation could reference an external Canvas through a URI.
 * The two image Canvases are nested within the Manifest Canvas, causing the images to be displayed side by side.
 
-## Nesting Containers with Durations
+### Nesting Containers with Durations
+
+TODO: Describe the use case? Merge with previous use case?
 
 A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only be painted into a Container that also has [`duration`][prezi-40-model-duration]. It is possible to associate a Container with [`duration`][prezi-40-model-duration] with a Container that does not have [`duration`][prezi-40-model-duration] as the content of a `commenting` annotation rather than painting it into the Container. If a Container with [`duration`][prezi-40-model-duration] has a shorter or longer [`duration`][prezi-40-model-duration] than the Container into which it is to be painted, the [`timeMode`][prezi-40-model-timeMode] property can be used to instruct clients how to resolve the mismatch.
 
@@ -1959,116 +2063,12 @@ A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only
 }
 ```
 
-
-## Painting a Canvas or Timeline into a Scene
-
-Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`source`][prezi-40-model-source] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
-
-A Canvas can be painted into a Scene as an Annotation, though differences between the 2D space described by a Canvas and the 3D space described by a Scene must be considered. A Canvas describes a bounded 2D space with finite [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width] measured in 2D integer coordinates with a coordinate origin at the top-left corner of the Canvas, while Scenes describe a boundless 3D space with x, y, and z axes of 3D continuous coordinates and a coordinate origin at the center of the space. Further, although 2D images or videos with pixel height and width can be painted into a Canvas, Canvas 2D coordinates are not equivalent to pixels. An image of any height and width in pixels can be painted into a Canvas with different height and width in coordinate units, and this has important consequences for painting Canvases into Scenes.
-
-When a Canvas is painted as an Annotation targeting a Scene, the top-left corner of the Canvas (the 2D coordinate origin) is aligned with the 3D coordinate origin of the Scene. The top edge of the Canvas is aligned with (i.e., is collinear to) the positive x axis extending from the coordinate origin. The left edge of the Canvas is aligned with (i.e., is collinear to) the negative y axis extending from the coordinate origin. The direction terms "top", "bottom", "right", and "left" used in this section refer to the frame of reference of the Canvas itself, not the Scene into which the Canvas is painted.
-
-The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 16 units wide and 9 units high will extend 16 coordinate units across the x axis and 9 coordinate units across the y axis. Because Canvas coordinate units and image content resource pixels are not equivalent, any image with a 16:9 aspect ratio painted on this Canvas would extend 16 coordinate units by 9 coordinate units in the 3D space of the Scene, whether it was 160 pixels wide and 90 pixels high or 16,000 pixels wide and 9,000 pixels high. This provides one way to control the size of a Canvas painted into a Scene.
-
-A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property [`backgroundColor`][prezi-40-model-backgroundColor] is used, this color should be used for the backward face of the Canvas. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
-
-<div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
-  To Do: Add an image demonstrating default Canvas placement in Scene
-</div>
-
-A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. [Transforms](#transforms) can be used to modify Canvas rotation, scale, or translation, allowing in particular for an alternate method to control the size of a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
-
-```jsonc
-{
-  "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
-  "type": "Annotation",
-  "motivation": ["painting"],
-  "body": 
-    {
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/nesting/canvas/c1",
-        "type": "Canvas",
-        "width": 2,
-        "height": 2,
-        "items": [{ ... }]
-      },
-      "transform": [
-        {
-          "type": "ScaleTransform",
-          "x": 2.0,
-          "y": 2.0,
-          "z": -1.0
-        }
-      ]
-    },
-  "target": 
-    {
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
-        "type": "Scene"
-      },
-      "selector": [
-        {
-          "type": "PointSelector",
-          "x": 4.0,
-          "y": 4.0,
-          "z": 0.0
-        }
-      ]
-    }
-}
-```
-
->
-**Key Points**
-* The 2D Canvas painted into the Scene has an initial height and width of 2 units by 2 units. Absent any transform or the use of a PointSelector, this Canvas would by default face toward the Scene's positive z axis, would stretch 2 units across the x axis and 2 units across the y axis, and its top-left corner would align with the coordinate origin of the Scene. Instead, transforms and a PointSelector will modify this placement significantly.
-* A ScaleTransform is used to double the Canvas height and width, so that after transformation the Canvas will extend 4 coordinate units across the Scene x axis and 4 coordinate units across the Scene y axis.
-* The same ScaleTransform also reflects the z axis by scaling it by -1.0, meaning the Canvas is mirrored (flipped) and now faces toward the negative z axis.
-* A PointSelector is used to align the top-left corner of the transformed Canvas with Scene coordinate (4,4,0). In combination with the ScaleTransform, the bottom-right corner of the Canvas is now aligned with the coordinate origin of the Scene.
-{: .note}
-
-
-## Painting a Scene into a Scene
-
-Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
-
-When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. Similarly, if both Scenes have ImageBasedLight Annotations, the ImageBasedLight Annotation of the Scene into which the Scene will be nested takes precedence. All other Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
-
-```jsonc
-{
-    "id": "https://example.org/iiif/presentation/examples/nesting/anno3",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body":
-      {
-        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
-        "type": "Scene"
-      },
-    "target": {
-      "id": "https://example.org/iiif/presentation/examples/nesting/scene/s2",
-      "type": "Scene"
-    }
-}
-```
-
-
 # Annotations
 
-In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. Annotations can carry textual transcriptions or translations of the content, discussion about the content and any other linking between resources.
+In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. 
 
 Whereas annotations that associate content resources with Containers are included in the [`items`][prezi-40-model-items] property of the Container, all other types of Annotation are referenced from the [`annotations`][prezi-40-model-annotations] property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the [`items`][prezi-40-model-items] property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
 
-```
-Manifest
-  items
-    Canvas
-      annotations
-        AnnotationPage
-          items
-            Annotation
-```
 
 ## Annotation Page
 
@@ -2129,7 +2129,7 @@ https://github.com/IIIF/api/issues/2118
 
 Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
-### Use Case 8: Comment on feature of a painting
+### Use Case 8: Commenting
 
 This example is a Manifest with a Canvas that contains a single painting and an Annotation with the motivation `commenting` highlighting the face of the painting's subject. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses a [`SvgSelector`][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the painting.
 
@@ -2985,18 +2985,15 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
 **Key Points**
 * The `provides` property is placed on the annotation and not on the target of the annotation.
 * The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcript`.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+{: .callout}
 
 __Definitions__<br/>
 Properties: [provides](model/#provides)
 {: .note}
 
+# Appendices
 
-
-
-# Terminology
+## Terminology
 
 The principles of [Linked Data][org-linked-data] and the [Architecture of the Web][org-w3c-webarch] are adopted in order to provide a distributed and interoperable framework. The [Shared Canvas data model][shared-canvas] and [JSON-LD][org-w3c-json-ld] are leveraged to create an easy-to-implement, JSON-based format.
 
@@ -3010,9 +3007,6 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
-
-
-# Appendices
 
 ## Versioning
 
