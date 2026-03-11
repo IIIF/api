@@ -311,9 +311,73 @@ Different uses of Annotation are distinguished through their [`motivation`][prez
 
 The same linking mechanism is also used in IIIF with other motivations for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning content, and provides a standards-based framework for referencing parts of resources. As Annotations can be added later, it promotes a distributed system in which further content such as commentary can be aligned with the objects published on the web.
 
-Annotations are grouped within the [`items`][prezi-40-model-items] property of an Annotation Page, and the [`items`][prezi-40-model-items] property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required.
+Annotations are grouped within the [`items`][prezi-40-model-items] property of an Annotation Page, and the [`items`][prezi-40-model-items] property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required. Annotation Pages can be part of Annotation Collections, both described below.
 
 The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body]. See the [Annotation Documentation](model/#Annotation) for more detail.
+
+
+> TODO: JSON examples for Anno, Anno Page and Anno Coll'n ?
+{: .warning}
+
+<!--
+
+```json
+{
+  "id": "https://example.org/iiif/book1/annocoll/transcription",
+  "type": "AnnotationCollection",
+  "label": {"en": ["Diplomatic Transcription"]},
+  "total": 112,
+  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
+  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
+}
+```
+
+```jsonc
+{
+  "id": "https://example.org/iiif/book1/annopage/l2",
+  "type": "AnnotationPage",
+  "prev": "https://example.org/iiif/book1/annopage/l1",
+  "next": "https://example.org/iiif/book1/annopage/l3",
+  "items": [
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a1",
+      "type": "Annotation"
+      // ...
+    },
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a2",
+      "type": "Annotation"
+      // ...
+    }
+  ],
+  "partOf": [
+    {
+      "id": "https://example.org/iiif/book1/annocoll/transcription",
+      "type": "AnnotationCollection",
+    }
+  ]
+}
+```
+
+-->
+
+<!--
+use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
+https://github.com/IIIF/api/issues/2118
+-->
+
+
+### Annotation Page
+
+Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
+
+Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
+
+### Annotation Collection
+
+Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Container or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user’s preference.
+
+For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
 
 
 ## Content Resources
@@ -2067,69 +2131,13 @@ A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only
 
 In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. 
 
-Whereas annotations that associate content resources with Containers are included in the [`items`][prezi-40-model-items] property of the Container, all other types of Annotation are referenced from the [`annotations`][prezi-40-model-annotations] property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the [`items`][prezi-40-model-items] property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
 
-
-## Annotation Page
-
-Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
-
-Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
-
-## Annotation Collection
-
-Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Container or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user’s preference.
-
-For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
-
-```json
-{
-  "id": "https://example.org/iiif/book1/annocoll/transcription",
-  "type": "AnnotationCollection",
-  "label": {"en": ["Diplomatic Transcription"]},
-  "total": 112,
-  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
-  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
-}
-```
-
-```jsonc
-{
-  "id": "https://example.org/iiif/book1/annopage/l2",
-  "type": "AnnotationPage",
-  "prev": "https://example.org/iiif/book1/annopage/l1",
-  "next": "https://example.org/iiif/book1/annopage/l3",
-  "items": [
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a1",
-      "type": "Annotation"
-      // ...
-    },
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a2",
-      "type": "Annotation"
-      // ...
-    }
-  ],
-  "partOf": [
-    {
-      "id": "https://example.org/iiif/book1/annocoll/transcription",
-      "type": "AnnotationCollection",
-    }
-  ]
-}
-```
-
-<!--
-use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-https://github.com/IIIF/api/issues/2118
--->
-
-## Comment Annotations
+## Use Case 8: Commenting
 
 Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
-### Use Case 8: Commenting
+Whereas annotations that associate content resources with Containers are included in the [`items`][prezi-40-model-items] property of the Container, all other types of Annotation are referenced from the [`annotations`][prezi-40-model-annotations] property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the [`items`][prezi-40-model-items] property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
+
 
 This example is a Manifest with a Canvas that contains a single painting and an Annotation with the motivation `commenting` highlighting the face of the painting's subject. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses a [`SvgSelector`][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the painting.
 
@@ -2491,8 +2499,7 @@ The commenting annotation now looks like this:
 
 
 
-## Linking and Activating Annotations
-
+## Use Case 9: Linking and Activating
 
 
 An Annotation with the motivation `linking` is used to create links between resources, both within the Manifest or to external content on the web, including other IIIF resources. Examples include linking to the continuation of an article in a digitized newspaper in a different Canvas, or to an external web page that describes the diagram in the Canvas. A client typically renders the links as clickable "Hotspots" - but can offer whatever accessible affordance as appropriate. The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
@@ -2528,7 +2535,7 @@ The body of the activating annotation is always an ordered list of Specific Reso
 Activating annotations are provided in a Container's [`annotations`][prezi-40-model-annotations] property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate Annotation Page. The client should evaluate all of the enabled activating annotations it can find.
 
 
-### Use Case 9: Interactive 3D light switch
+### Interactive 3D light switch
 
 This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. As there are multiple annotations being enabled and disabled in order, the `body` of the activating Annotation is an instance of the [`List`][prezi-40-model-list] class. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
@@ -2826,7 +2833,7 @@ While all Annotation Page [`items`][prezi-40-model-items] are inherently ordered
 
 
 
-# FROM HERE TO MERGE WITH PREVIOUS?
+# FROM HERE TO MERGE WITH PREVIOUS OR NEW?
 
 
 ## Conveying Physical Dimensions
