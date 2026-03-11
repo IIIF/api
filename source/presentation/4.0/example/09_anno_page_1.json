@@ -1,0 +1,60 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_1.json",
+    "type": "AnnotationPage",
+    "next": {
+        "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_2.json",
+        "type": "AnnotationPage"
+    },    
+    "partOf": [{
+        "id": "https://iiif.io/api/presentation/4.0/example/09_anno_collection.json",
+        "type": "AnnotationCollection"
+    }],
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/959340ee-ab1a-44a6-a889-fa89f806101f",
+            "type": "Annotation",
+            "motivation": [
+                "supplementing"
+            ],
+            "body": {
+                "type": "TextualBody",
+                "value": "as fine as their dashing ancestors. I expected to see a brick Temple in some commanding height a brick minster with its unrivalled carving. All in vain. Twenty five centuries have not passed for naught. What had it would have escaped the touch of time fell before the attack of barbarian invaders. That a vestige to ... one of the ..."
+            },
+            "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/1#xywh=6,2473,2234,678",
+                "type": "Canvas"
+            }
+        },
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/d236588e-31df-4b6e-af4b-13f74a2ba002",
+            "type": "Annotation",
+            "motivation": [
+                "supplementing"
+            ],
+            "body": {
+                "type": "TextualBody",
+                "value": "in the gulf, the wild mountains, the lovely bays and promontories make a fascinating picture. The few extremely small villages perched high on the mountain side or lying in some pretty, retired bay, the absolute quiet which prevails cause one to imagine himself no longer in this world. He's transported back 2500 years to the balmy days of ancient Greece. The Greek expressions he hears from the few workmen whom he passes completes the spell. If only they looked as handsome, poetic, ..."
+            },
+            "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/1#xywh=0,1576,2251,907",
+                "type": "Canvas"
+            }
+        },
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/50d3bb57-966b-4c2c-b085-8638e7824fdf",
+            "type": "Annotation",
+            "motivation": [
+                "supplementing"
+            ],
+            "body": {
+                "type": "TextualBody",
+                "value": "In my last book I stopped in a description of the road between Patras and Athens. I had gone as far as Corinth. From there to Athens nothing could be better for cycling, the road was perfect, being hard, white and smooth. The scenery was equally so. It would be difficult to find a more pleasant combination of surroundings to make a bicycle tour or a better road. Taking the road as a whole from Patras some persons would consider it bad. In parts there is nothing but a mule path which becomes so uneven as to compel one to walk now and then. This is, however the exception and where ever there is a road it is a good one. A cyclist will easily overlook what small difficulties there may be in this way for the pleasure of seeing the charming panorama constantly unrolled before his delighted eyes. The lovely tint of the waters"
+            },
+            "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/1#xywh=4,213,2246,1345",
+                "type": "Canvas"
+            }
+        }
+    ]
+}

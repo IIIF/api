@@ -655,43 +655,10 @@ Annotation Collections represent groupings of Annotation Pages that should be ma
 
 For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
 
-```json
-{
-  "id": "https://example.org/iiif/book1/annocoll/transcription",
-  "type": "AnnotationCollection",
-  "label": {"en": ["Diplomatic Transcription"]},
-  "total": 112,
-  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
-  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
-}
-```
+{% include code_example.html src="09_anno_collection.json" %}
 
-```jsonc
-{
-  "id": "https://example.org/iiif/book1/annopage/l2",
-  "type": "AnnotationPage",
-  "prev": "https://example.org/iiif/book1/annopage/l1",
-  "next": "https://example.org/iiif/book1/annopage/l3",
-  "items": [
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a1",
-      "type": "Annotation"
-      // ...
-    },
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a2",
-      "type": "Annotation"
-      // ...
-    }
-  ],
-  "partOf": [
-    {
-      "id": "https://example.org/iiif/book1/annocoll/transcription",
-      "type": "AnnotationCollection",
-    }
-  ]
-}
-```
+
+{% include code_example.html src="09_anno_page_1.json" %}
 
 <!--
 use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
