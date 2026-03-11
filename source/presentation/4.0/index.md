@@ -1010,7 +1010,7 @@ Properties: [behavior][prezi-40-model-behavior], [navPlace][prezi-40-model-navPl
 {: .note}
 
 
-# Audio and Video
+# Audio and Video Content
 
 ## Use Case 4: A 45 Single with 2 Tracks
 
@@ -1312,8 +1312,7 @@ Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [
 Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
-# 3D
-
+# 3D Content
 
 <!--
 
@@ -1335,7 +1334,7 @@ A Scene or a Canvas may be treated as a content resource, referenced or describe
 -->
 
 
-## Use Case 6: Rendering 3D content
+## Use Case 6: 3D Chessboard
 
 
 ### Basic Scene
