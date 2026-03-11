@@ -247,9 +247,13 @@ Canvases have two additional required properties: [`height`][prezi-40-model-heig
 
 ### Scene
 
-A Container that represents a boundless three-dimensional space, optionally with a bounded temporal range. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
+A Scene is a Container that represents a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
-Scenes may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
+<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
+
+(Image: Wikipedia)
+
+Scenes may also have a bounded temporal range via the `duration` property, in the same way as Canvases and Timelines. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
 
 ```json
 {
@@ -1223,15 +1227,9 @@ Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [
 Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
-# 3D Foundations
+# 3D
 
-Scenes describe a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
 
-The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
-
-<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
-
-(Image: Wikipedia)
 
 3D Content Resources are painted into Scenes. This can include 3D models, which can be painted into Scenes as Annotations with [`motivation`][prezi-40-model-motivation] "painting". Due to particular considerations of 3D space and rendering content within that space, such as scaling or textures with forward and backward faces, non-3D Content Resources must first be wrapped within an appropriate Container or Resource before being painted into a Scene. Image and video resources should be painted on to a Canvas, where the Canvas can in turn be painted into a Scene. Audio resources or Timelines should be referenced by an AudioEmitter and the AudioEmitter can be painted into a Scene. For further detail about painting Containers within other Containers, see [Nesting](#nesting).
 

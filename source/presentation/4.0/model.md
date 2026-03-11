@@ -1278,7 +1278,7 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
 ### angle
 {: #angle}
 
-The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound. Note that the `fieldOfView` property is defined as the entire field of view, not half (as might be inferred from `angle` using radius).
+The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound from its direction. In other words, the angle extends from the center of the cone to the edge of the cone (the half-angle).
 
 The value _MUST_ be a floating point number greater than 0 and less than 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
