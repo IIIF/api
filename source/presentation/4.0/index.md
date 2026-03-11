@@ -2299,7 +2299,201 @@ It is important to be able to position the textual body of an annotation within 
  -->
 
 
-## Linking Annotations
+### 3D Comments with Cameras
+
+It is possible to associate a particular camera with a particular commenting annotation via activating annotations. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is shown, enabled, and selected. The selected Camera is now the active Camera, and the viewport into the Scene is moved to a chosen position suitable for looking at the point of interest.
+
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/whale_comment_scope_content_state.json",
+  "type": "Manifest",
+  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body":
+                {
+                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
+                  "type": "Model"
+                },
+              "target": 
+                {
+                  // SpecificResource with PointSelector
+                }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "behavior": ["hidden"],
+              "body":  
+                {
+                  "id": "https://example.org/iiif/3d/cameras/1",
+                  "type": "PerspectiveCamera",
+                  "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
+                  "fieldOfView": 50.0,
+                  "near": 0.10,
+                  "far": 2000.0
+                },
+              "target": 
+                {
+                  "type": "SpecificResource",
+                  "source": {
+                    "id": "https://example.org/iiif/scene1",
+                    "type": "Scene"
+                  },
+                  "selector": [
+                    {
+                      "type": "PointSelector",
+                      "x": 0.0, "y": 0.15, "z": 0.75
+                    }
+                  ]
+                }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": 
+                {
+                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
+                  "type": "Model"
+                },
+              "target": 
+                {
+                  // SpecificResource with PointSelector
+                }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/annotations/1",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "body": 
+            {
+              "type": "TextualBody",
+              "value": "Mandibular tooth"
+            },
+          "target":
+            {
+              // SpecificResource with PointSelector
+            }
+        },
+        {
+          "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "body": 
+            {
+              "type": "TextualBody",
+              "value": "Right pterygoid hamulus"
+            },
+          "target": 
+            {
+              // SpecificResource with PointSelector
+            }
+        },
+        {
+          "id": "https://example.org/iiif/3d/anno9",
+          "type": "Annotation",
+          "motivation": ["activating"],
+          "target": 
+            {
+              "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+              "type": "Annotation"
+            },
+          "body": 
+            {
+              "type": "SpecificResource",
+              "source": {
+                "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+                "type": "Annotation"
+              },
+              "action": ["show", "enable", "select"]
+            }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Key Points**
+* The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided. While there is a Camera in the Scene, it has [`behavior`][prezi-40-model-behavior] "hidden", and is inactive and not usable.
+* The commenting annotations are ordered. The client may either allow the user to navigate between annotations freely or mandate they must be explored in the given order.
+* The above example instructs the client to activate the Camera when the user interacts with the first comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. 
+{: .note}
+
+Default camera:
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-default-camera.png" alt="Camera for annotation" >
+
+Camera when annotation selected:
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-anno-camera.png" alt="Camera for annotation" >
+
+
+#### Using Scope to Select a Camera
+
+The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation. When `scope` is used in this way, it provides a short-hand way of specifying an Annotation with motivation `activating` that will show, enable, and select the resource(s) referenced by the `scope` property when a user interacts with the Annotation containing the `scope` property. 
+
+The commenting annotation now looks like this:
+
+```json
+{
+  "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+  "type": "Annotation",
+  "motivation": ["commenting"],
+  "body": {
+    "type": "TextualBody", 
+    "value": "Mandibular tooth"
+  },
+  "scope": [
+    {
+      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+      "type": "Annotation"
+    }
+  ],
+  "target":
+    {
+      // SpecificResource with PointSelector
+    }
+  
+},
+```
+
+**Key Points**
+* This example would not include an explicit activating annotation, but it has functionality equivalent to the longer example above that does include an explicit activating annotation. When the user interacts with the comment, the Camera is shown, enabled, and selected to be the active Camera, moving the client viewport to the Camera target position.
+* Compared to the example above, it is much shorter. This is the simplest and more direct approach for the common 3D use case of associating comments with Cameras.
+* Although these examples concern comments and Cameras, it is also possible to use `scope` in other situations where an activating annotation with `action` show, enable, and select is appropriate.
+{: .note}
+
+
+
+## Linking and Activating Annotations
+
+
 
 An Annotation with the motivation `linking` is used to create links between resources, both within the Manifest or to external content on the web, including other IIIF resources. Examples include linking to the continuation of an article in a digitized newspaper in a different Canvas, or to an external web page that describes the diagram in the Canvas. A client typically renders the links as clickable "Hotspots" - but can offer whatever accessible affordance as appropriate. The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
@@ -2322,8 +2516,6 @@ The resource the user should be taken to is the [`body`][prezi-40-model-body] of
 }
 ```
 
-
-## Activating Annotations
 
 Sometimes it is necessary to modify the state of resources. Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to change resources from their initial state defined in the Manifest or from their current state. They allow IIIF to be used for interactive exhibitions, storytelling, digital dioramas and other interactive applications beyond simply conveying a set of static resources in a Container.
 
@@ -2611,195 +2803,6 @@ The format of the `value` string is implementation-specific, and will depend on 
 ```
 
 
-### 3D Comments with Cameras
-
-It is possible to associate a particular camera with a particular commenting annotation via activating annotations. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is shown, enabled, and selected. The selected Camera is now the active Camera, and the viewport into the Scene is moved to a chosen position suitable for looking at the point of interest.
-
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/whale_comment_scope_content_state.json",
-  "type": "Manifest",
-  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/1",
-      "type": "Scene",
-      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body":
-                {
-                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
-                  "type": "Model"
-                },
-              "target": 
-                {
-                  // SpecificResource with PointSelector
-                }
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "behavior": ["hidden"],
-              "body":  
-                {
-                  "id": "https://example.org/iiif/3d/cameras/1",
-                  "type": "PerspectiveCamera",
-                  "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
-                  "fieldOfView": 50.0,
-                  "near": 0.10,
-                  "far": 2000.0
-                },
-              "target": 
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/scene1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": 0.0, "y": 0.15, "z": 0.75
-                    }
-                  ]
-                }
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": 
-                {
-                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
-                  "type": "Model"
-                },
-              "target": 
-                {
-                  // SpecificResource with PointSelector
-                }
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "annotations": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/annotations/1",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-          "type": "Annotation",
-          "motivation": ["commenting"],
-          "body": 
-            {
-              "type": "TextualBody",
-              "value": "Mandibular tooth"
-            },
-          "target":
-            {
-              // SpecificResource with PointSelector
-            }
-        },
-        {
-          "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
-          "type": "Annotation",
-          "motivation": ["commenting"],
-          "body": 
-            {
-              "type": "TextualBody",
-              "value": "Right pterygoid hamulus"
-            },
-          "target": 
-            {
-              // SpecificResource with PointSelector
-            }
-        },
-        {
-          "id": "https://example.org/iiif/3d/anno9",
-          "type": "Annotation",
-          "motivation": ["activating"],
-          "target": 
-            {
-              "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-              "type": "Annotation"
-            },
-          "body": 
-            {
-              "type": "SpecificResource",
-              "source": {
-                "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-                "type": "Annotation"
-              },
-              "action": ["show", "enable", "select"]
-            }
-        }
-      ]
-    }
-  ]
-}
-```
-
-**Key Points**
-* The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided. While there is a Camera in the Scene, it has [`behavior`][prezi-40-model-behavior] "hidden", and is inactive and not usable.
-* The commenting annotations are ordered. The client may either allow the user to navigate between annotations freely or mandate they must be explored in the given order.
-* The above example instructs the client to activate the Camera when the user interacts with the first comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. 
-{: .note}
-
-Default camera:
-
-<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-default-camera.png" alt="Camera for annotation" >
-
-Camera when annotation selected:
-
-<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-anno-camera.png" alt="Camera for annotation" >
-
-
-#### Using Scope to Select a Camera
-
-The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation. When `scope` is used in this way, it provides a short-hand way of specifying an Annotation with motivation `activating` that will show, enable, and select the resource(s) referenced by the `scope` property when a user interacts with the Annotation containing the `scope` property. 
-
-The commenting annotation now looks like this:
-
-```json
-{
-  "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-  "type": "Annotation",
-  "motivation": ["commenting"],
-  "body": {
-    "type": "TextualBody", 
-    "value": "Mandibular tooth"
-  },
-  "scope": [
-    {
-      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-      "type": "Annotation"
-    }
-  ],
-  "target":
-    {
-      // SpecificResource with PointSelector
-    }
-  
-},
-```
-
-**Key Points**
-* This example would not include an explicit activating annotation, but it has functionality equivalent to the longer example above that does include an explicit activating annotation. When the user interacts with the comment, the Camera is shown, enabled, and selected to be the active Camera, moving the client viewport to the Camera target position.
-* Compared to the example above, it is much shorter. This is the simplest and more direct approach for the common 3D use case of associating comments with Cameras.
-* Although these examples concern comments and Cameras, it is also possible to use `scope` in other situations where an activating annotation with `action` show, enable, and select is appropriate.
-{: .note}
 
 ### Interactivity, Guided Viewing and Storytelling
 
@@ -2823,7 +2826,10 @@ While all Annotation Page [`items`][prezi-40-model-items] are inherently ordered
 
 
 
-# Conveying Physical Dimensions
+# FROM HERE TO MERGE WITH PREVIOUS?
+
+
+## Conveying Physical Dimensions
 
 In many cases, the dimensions of a Canvas, or the pixel density of a photograph, are not necessarily related to a real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. But it can be important to know how big something is or if there is a relationship between pixel density and physical length, especially when comparing objects together. Each pixel in an image may correspond precisely to a physical area, allowing measurement of real world distances from the image. A scanned 3D model may be constructed such that each 3D coordinate unit corresponds to one meter of physical distance.
 
@@ -2837,11 +2843,11 @@ An extreme example of both physical dimension properties together is a Canvas sh
 
 
 
-# Integration
+## Integration
 
 While a IIIF Manifest carries the information required to present a resource on the web, it is unlikely to be the only resource of interest to either human or machine consumers. IIIF provides properties to link to other resources and services. The linked resources might be made directly available to the user by opening links or downloading files in a user interface, or they may be loaded by machines when reading IIIF Manifests to gather further information (for example, to build a search index).
 
-## Linked resources
+### Linked resources
 
 In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`][prezi-40-model-seeAlso] property, which is intended for machine-readable resources. The [`homepage`][prezi-40-model-homepage] property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
 
@@ -2892,7 +2898,7 @@ Another common use of [`rendering`][prezi-40-model-rendering] is at the Manifest
 
 This example also shows how the [`fileSize`][prezi-40-model-fileSize] property can give useful information to a user when deciding what they want to download.
 
-## Services
+### Services
 
 In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
 
@@ -2900,7 +2906,7 @@ Further IIIF Services are provided by the [IIIF Authorization Flow API][auth-sta
 
 Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
 
-## Content State
+### Content State
 
 Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API][contenstate-stable-version] defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
 
@@ -2908,8 +2914,6 @@ Links to resources and services build up a web of linked _*content*_ for human a
 (region of a Canvas that is partOf a Manifest)
 ```
 
-
-# Other stuff
 
 ## Style
 
@@ -2951,7 +2955,7 @@ An image might not be correctly aligned with the Canvas, and require rotation as
 ```
 
 
-# Accessibility
+## Accessibility
 
 Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](#use-case-5-movie-with-subtitles) above.
 
