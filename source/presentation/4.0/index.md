@@ -285,7 +285,21 @@ Scenes may also have a bounded temporal range via the `duration` property, in th
 }
 ```
 
-Scenes can have time-based and image content in them as well as 3D content.
+Scenes use several 3D specific constructions to manage rendering:
+
+#### Lights
+
+It is necessary for there to be a Light within a Scene that illuminates the objects, and if no Light is defined for the Scene, then the client will provide its own default lighting. There are five types of Light: `AmbientLight` (emits evenly throughout the Scene), `DirectionalLight` (emits in a given direction), `ImageBasedLight` (emits using an image), `PointLight` (emits from a point), and `SpotLight` (emits from a point, in a given direction). 
+
+
+#### Cameras
+
+A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. 
+
+#### Audio Emitters
+
+Audio is supported within Scenes through Audio Emitter classes, in the same way as light is added to a Scene using Light subclasses. There are three types of Audio Emitter: `AmbientAudio` (emits evenly throughout the Scene), `PointAudio` (emits from a point) and SpotAudio (emits from a point in a given direction). They have [`source`][prezi-40-model-source] (an audio Content Resource) and [`volume`][prezi-40-model-volume] properties.
+
 
 ## Annotations
 
@@ -382,6 +396,13 @@ The fragment example above can be expressed using a Specific Resource:
     }
 }
 ```
+
+#### Transforms
+
+When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which determine how the Transform affects that axis in the local coordinate space.
+
+Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
+
 
 ## Navigational Resources
 
@@ -1230,40 +1251,23 @@ Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provi
 # 3D
 
 
+<!--
 
-3D Content Resources are painted into Scenes. This can include 3D models, which can be painted into Scenes as Annotations with [`motivation`][prezi-40-model-motivation] "painting". Due to particular considerations of 3D space and rendering content within that space, such as scaling or textures with forward and backward faces, non-3D Content Resources must first be wrapped within an appropriate Container or Resource before being painted into a Scene. Image and video resources should be painted on to a Canvas, where the Canvas can in turn be painted into a Scene. Audio resources or Timelines should be referenced by an AudioEmitter and the AudioEmitter can be painted into a Scene. For further detail about painting Containers within other Containers, see [Nesting](#nesting).
+// Move to sections where we talk about these
 
-## 3D Supporting Resources
+Due to particular considerations of 3D space and rendering content within that space, such as scaling or textures with forward and backward faces, non-3D Content Resources must first be wrapped within an appropriate Container or Resource before being painted into a Scene. Image and video resources should be painted on to a Canvas, where the Canvas can in turn be painted into a Scene. 
+For further detail about painting Containers within other Containers, see [Nesting](#nesting).
 
-Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes.
+Audio resources or Timelines should be referenced by an AudioEmitter and the AudioEmitter can be painted into a Scene. 
 
-### Cameras
-
-A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
-
-There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model/#value-hidden) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
+-->
 
 
-### Lights
-
-There are five types of Light: AmbientLight, DirectionalLight, ImageBasedLight, PointLight, and SpotLight. They have an [`intensity`][prezi-40-model-intensity] property, and all Lights except ImageBasedLight have a [`color`][prezi-40-model-color] property. ImageBasedLight has an additional property of [`environmentMap`][prezi-40-model-environment-map] that specifies the environment map image used to simulate lighting. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone. PointLights and SpotLights can be painted at specific positions within the Scene. DirectionalLights, PointLights, and SpotLights have directional facing in the Scene that affects how light is cast.
-
-If the Scene has no Lights, then the client provides its own lighting as it sees fit.
-
-### Audio Emitters
-
-There are three types of Audio emitter: AmbientAudio, PointAudio and SpotAudio. They have a [`source`][prezi-40-model-source] (an audio Content Resource) and a [`volume`][prezi-40-model-volume].
-
-### Transforms
-
-When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which determine how the Transform affects that axis in the local coordinate space.
-
-Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
 
 
 ## Use Case 6: 3D content
 
-This example is a Manifest with a single Scene, with a single 3D model of a space suit painted at the Scene's origin.
+The 3D Use Case is built up in several steps to demonstrate different aspects of how Scenes are able to be used. The overall example is a Manifest with a single Scene, with a 3D model of a space suit.  In this first example, the model is painted at the center (or origin) of the Scene.
 
 > PNG of Scene
 
@@ -1311,7 +1315,7 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
 **Key Points**
 * As this Scene only has one resource in it (the model), the client must provide lighting and a default camera.
 * In this simplest use case, the Painting Annotation targets the whole Scene rather than a specific point. The client places the model's origin at the Scene's origin. This is in contrast to the _bounded_ Containers [`Canvas`][prezi-40-model-Canvas] and [`Timeline`][prezi-40-model-Timeline], where the painted resource fills the Container completely.
-{: .note}
+{: .callout}
 
 
 ### Configured Scene
