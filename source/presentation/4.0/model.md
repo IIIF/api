@@ -3325,8 +3325,56 @@ The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `
 
 ### Registries of Values
 
-FIXME: Describe the registries
+TODO: Describe and reference the registries
 
 
 * Provides
 * Unit
+
+
+# Protocol
+
+This section outlines recommendations and requirements related to URIs, HTTP requests, and authentication for IIIF resources.
+
+## URI Recommendations
+
+While any HTTP(S) URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
+
+* The URI _SHOULD_ use the HTTPS scheme, not HTTP.
+* The URI _SHOULD NOT_ include query parameters or fragments.
+* Once published, they _SHOULD_ be as persistent and unchanging as possible.
+* Special characters _MUST_ be encoded.
+
+## HTTP Requests and Responses
+
+This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification. It is _RECOMMENDED_ that implementations also support HTTP HEAD requests.
+
+### Requests
+
+Clients are only expected to follow links to Presentation API resources. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern.
+
+### Responses
+
+The format for all responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If a resource is [referenced][prezi30-terminology] within a response, rather than being [embedded][prezi30-terminology], then it _MUST_ be able to be dereferenced.
+
+If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example [`profile`][prezi-40-model-profile] or `charset`.
+
+If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the [`profile`][prezi-40-model-profile] parameter given as the context document: `http://iiif.io/api/presentation/4/context.json`.
+
+{% include api/code_header.html %}
+```
+Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/4/context.json"
+```
+{: .urltemplate}
+
+If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a [`profile`][prezi-40-model-profile] parameter.
+
+{% include api/code_header.html %}
+```
+Content-Type: application/json
+```
+{: .urltemplate}
+
+The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable browser-based clients to retrieve the descriptions. If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][notes-apache].
+
+Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
