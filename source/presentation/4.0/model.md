@@ -292,7 +292,7 @@ A Collection _MAY_ have the following properties: [requiredStatement](#requiredS
 
 > `"type": "CollectionPage"`
 
-A Collection Page is an arbitrary division of members within the Collection to make it easier to consume by clients. It is strictly a technical affordance, and individual Collection Pages do not represent any real world set of items. The Collection Page model follows the ActivityStreams OrderedCollection model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
+A Collection Page is an arbitrary division of members within the Collection to make it easier to consume by clients. It is strictly a technical affordance, and individual Collection Pages do not represent any real world set of items. The Collection Page model follows the Activity Streams Ordered Collection model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
 
 A Collection Page _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description. Collection Pages _MUST NOT_ be embedded within Collections.
 
@@ -3374,3 +3374,6 @@ Content-Type: application/json
 The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable browser-based clients to retrieve the descriptions. If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][notes-apache].
 
 Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
+
+
+{% include links.md %}
