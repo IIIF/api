@@ -423,7 +423,7 @@ Annotation Collections are always paged using `first` and `last`, rather than `i
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/><br/>
 An Annotation Collection _MUST_ have the [first](#first) and [last](#last) properties if it doesn't have the [items](#items) property.<br/><br/>
-An Annotation Collection _MUST NOT_ have the [first](#first) and [last](#last) properties if has the [items](#items) property.<br/><br/>
+An Annotation Collection _MUST NOT_ have the [first](#first) and [last](#last) properties if it has the [items](#items) property.<br/><br/>
 An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail).<br/><br/>
 An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
@@ -434,7 +434,7 @@ An Annotation Collection _MAY_ have the following properties: [requiredStatement
 
 > `"type": "AnnotationPage"`
 
-An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
+An Annotation Page is an ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced. The Annotations are listed in the `items` property of the Annotation Page.
 
@@ -1381,7 +1381,7 @@ The value _MUST_ be an array of strings.
 | `multi-part`{: #value-multi-part} | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together`{: #value-together} | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Navigation Behaviors** |
-| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
+| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: #value-thumbnail-nav style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav`{: #value-no-nav} | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
@@ -2739,7 +2739,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### startIndex
 {: #startIndex}
 
-A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Collection Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
+A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
 
 The value of `startIndex` _MUST_ be an integer greater than -1.
 
@@ -3257,7 +3257,7 @@ The value _MUST_ be a number (floating point or integer).
 
 ### Scope
 
-The IIIF Presentation API processing model is intended to inform and clarify the requirements of the features described in the classes and properties above for the purposes of interoperability between the publisher and the consuming application. It specifies how the content should be presented, but not how the application should look, in the same way that the HTML specification describes how to render the elements and does not describe the panes, menus and features of web browsers. This processing model attempts to be as unintrusive as possible, with only the rules needed to ensure that content isn't inadvertantly presented in an unusable fashion.
+The IIIF Presentation API processing model is intended to inform and clarify the requirements of the features described in the classes and properties above for the purposes of interoperability between the publisher and the consuming application. It specifies how the content should be presented, but not how the application should look, in the same way that the HTML specification describes how to render the elements and does not describe the panes, menus and features of web browsers. This processing model attempts to be as unintrusive as possible, with only the rules needed to ensure that content isn't inadvertently presented in an unusable fashion.
 
 ### Collections and Collection Pages
 
