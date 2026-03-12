@@ -2756,9 +2756,7 @@ The value of `startIndex` _MUST_ be an integer greater than -1.
 
 {% include api/code_header.html %}
 ``` json-doc
-{
-  "startIndex": 0
-}
+{ "startIndex": 0 }
 ```
 
 ### structures
