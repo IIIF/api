@@ -88,8 +88,8 @@
                             "type": "Annotation",
                             "motivation": [ "painting" ],
                             "exclude": [
-                                "Audio",
-                                "Lights"
+                                "audio",
+                                "lights"
                             ],
                             "body": {
                                 "type": "SpecificResource",
