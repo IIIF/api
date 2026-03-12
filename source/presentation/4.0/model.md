@@ -273,20 +273,20 @@ A Collection is an ordered list of Manifests, and/or Collections, called the mem
 
 A Collection _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description.
 
-The members of a Collection are typically listed in the `items` property or in a series of Collection Pages. The members _MUST_ be either Collections or Manifests, and _MUST NOT_ be other classes. They are listed in order within the `items` or across consecutive Collection Pages, thereby forming a hierarchy. Collections _MAY_ have no members, but this is discouraged.  For example, a Collection that had its last member removed might still be valuable to maintain as an empty Collection.
+The members of a Collection are typically listed in the `items` property or in a series of Collection Pages. The members _MUST_ be either Collections or Manifests, and _MUST NOT_ be other classes. They are listed in order within the `items` property or across consecutive Collection Pages, thereby forming a hierarchy. Collections _MAY_ have no members, but this is discouraged.  For example, a Collection that had its last member removed might still be valuable to maintain as an empty Collection.
 
 If there are too many members in the collection to fit within a single document then, at the Collection publisher's discretion, the members _MAY_ be listed in Collection Pages. A reference to the first Collection Page of members is given in the `first` property, and the last page in the `last` property. In this case, the Collection _MUST NOT_ use the `items` property. Collections with pages _MUST_ have at least two pages, otherwise the members _MUST_ be included in `items` on the Collection itself. Collection Pages _MUST NOT_ be embedded within the Collection for the same reason.
 
 Member Collections _MAY_ be embedded inline within other Collections, including in Collection Pages, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
-Manifests or Collections _MAY_ be [referenced][prezi40-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
+Manifests or Collections _MAY_ be [referenced][prezi40-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers, and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
 
 Collections or Manifests referenced in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
 
 __Properties__<br/>
-A Collection _MUST_ have the following properties: [id](#id), [type](#type), and [label](#label)<br/><br/>
-A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), and [items](#items)<br/><br/>
-A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+A Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label)<br/><br/>
+A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [items](#items)<br/><br/>
+A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -302,9 +302,9 @@ A Collection Page _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to
 All Collection Pages in a Collection, with the exception of the last page, _MUST_ have the `next` property, which provides a reference to the following Collection Page. All Collection Pages in a Collection, with the exception of the first page, _MUST_ have the `prev` property, which provides a reference to the preceding Collection Page. These properties allow the navigation backwards and forwards within the overall set of pages. There is no way to jump to arbitrary positions in the sequence of pages, and clients _MUST NOT_ attempt to infer such methods from the structure of the URI of the Collection Page. Collection Pages _MUST_ have the `partOf` property, referring to the Collection of which they are part.
 
 __Properties__<br/>
-A Collection Page _MUST_ have the following properties: [id](#id), [type](#type), [partOf](#partOf) and [items](#items)<br/><br/>
-A Collection Page _SHOULD_ have the following properties: [next](#next) and [prev](#prev)<br/><br/>
-A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+A Collection Page _MUST_ have the following properties: [id](#id), [type](#type), [partOf](#partOf), and [items](#items)<br/><br/>
+A Collection Page _SHOULD_ have the following properties: [next](#next), [prev](#prev)<br/><br/>
+A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -320,9 +320,9 @@ Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given i
 The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, which _MUST_ be embedded within the Manifest. The Containers in a single Manifest _MAY_ be of different classes. The Manifest _MAY_ have a `structures` property listing one or more [Ranges](#Range) which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
 __Properties__<br/>
-A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)<br/><br/>
-A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)<br/><br/>
-A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [canonical](#canonical), [via](#via), [structures](#structures), and [annotations](#annotations).
+A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), [items](#items)<br/><br/>
+A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail)<br/><br/>
+A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [canonical](#canonical), [via](#via), [structures](#structures), [annotations](#annotations).
 {: .note}
 
 ### Container Classes
@@ -337,9 +337,9 @@ Containers _SHOULD_ have an `items` property which is a list of Annotation Pages
 Containers specify extents in space and/or time with one or more space or time dimensions such as `height`, `width`, or `duration`. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Container's dimensions, such as at coordinates below 0,0 or greater than specified height or width for a Canvas, or before 0 seconds or after the duration for a Timeline. Content resources that have dimensions which are not defined for the Container _MUST NOT_ be associated with that Container by an Annotation that has the `motivation` value "painting". For example, it is valid to use an Annotation that has the `motivation` value "painting" to associate an Image (which has only height and width) with a Canvas that has `height`, `width`, and `duration` properties, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have a `duration`. Such a resource _MAY_ instead be referenced using the rendering property, or by Annotations that have a `motivation` value other than "painting" in the annotations property.
 
 __Properties__<br/>
-All Containers _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
-All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items).<br/><br/>
-All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+All Containers _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
+All Containers _SHOULD_ have the following properties: [label](#label), [items](#items).<br/><br/>
+All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -408,7 +408,7 @@ For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal po
 __Properties__<br/>
 An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/><br/>
 An Annotation _SHOULD_ have the following properties: [body](#body).<br/><br/>
-An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), and [via](#via).<br/><br/>
+An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via).<br/><br/>
 {: .note}
 
 
@@ -425,10 +425,10 @@ Annotation Collections are always paged using `first` and `last`, rather than `i
 
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/><br/>
-An Annotation Collection _MUST_ have the [first](#first) and [last](#last) properties if it doesn't have the [items](#items) property.<br/><br/>
-An Annotation Collection _MUST NOT_ have the [first](#first) and [last](#last) properties if it has the [items](#items) property.<br/><br/>
+An Annotation Collection that has the [items](#items) property _MUST NOT_ have the following propertioes: [first](#first), [last](#last).<br/><br/>
+An Annotation Collection that does not have the [items](#items) property _MUST_ have the following properties:  [first](#first), [last](#last).<br/><br/>
 An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail).<br/><br/>
-An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -442,9 +442,9 @@ An Annotation Page is an ordered list of Annotations, typically associated with 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced. The Annotations are listed in the `items` property of the Annotation Page.
 
 __Properties__<br/>
-An Annotation Page _MUST_ have the following properties: [id](#id), [type](#type), and [items](#items)<br/><br/>
-An Annotation Page _SHOULD_ have the following properties:  [next](#next), [prev](#prev), and [partOf](#partOf)<br/><br/>
-An Annotation Page _MAY_ have the following properties: [label](#label), [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+An Annotation Page _MUST_ have the following properties: [id](#id), [type](#type), [items](#items)<br/><br/>
+An Annotation Page _SHOULD_ have the following properties:  [next](#next), [prev](#prev), [partOf](#partOf)<br/><br/>
+An Annotation Page _MAY_ have the following properties: [label](#label), [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -460,7 +460,7 @@ A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows it to 
 __Properties__<br/>
 A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/><br/>
 A Specific Resource _SHOULD_ have the following properties: [selector](#selector)<br/><br/>
-A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/><br/>
 {: .note}
 
 #### Textual Body
@@ -472,7 +472,7 @@ A Textual Body is an embedded resource within an Annotation that carries, as the
 
 __Properties__<br/>
 A Textual Body _MUST_ have the following properties: [type](#type), [value](#value)<br/><br/>
-A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/><br/>
 {: .note}
 
 
@@ -489,7 +489,7 @@ A Choice _SHOULD_ have a `label` in order to present the choice to the user, alo
 __Properties__<br/>
 A Choice _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 A Choice _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 #### Composite
@@ -502,7 +502,7 @@ A Composite is a Web Annotation construction where all of the resources are requ
 __Properties__<br/>
 A Composite _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 A Composite _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Composite _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+A Composite _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 #### List
@@ -515,7 +515,7 @@ A List is a Web Annotation construction where all of the resources are required,
 __Properties__<br/>
 A List _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 A List _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 #### Independents
@@ -528,7 +528,7 @@ An Independents resource is a Web Annotation construction where each of the reso
 __Properties__<br/>
 An Independents _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 An Independents _SHOULD_ have the following properties: [label](#label)<br/><br/>
-An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 #### Css Stylesheet
@@ -540,7 +540,7 @@ A CSS Stylesheet is a resource class defined in the Web Annotation Data Model to
 
 __Properties__<br/>
 A CSS Stylesheet _MUST_ have the following properties: [type](#type)<br/><br/>
-A CSS Stylesheet _MAY_ have the following properties: [id](#id), and [value](#value)<br/><br/>
+A CSS Stylesheet _MAY_ have the following properties: [id](#id), [value](#value)<br/><br/>
 {: .note}
 
 
@@ -566,9 +566,9 @@ A Canvas painted into a Scene has special requirements. The top-left corner of t
 A Scene painted into a Scene has two special processing rules. The first is that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored. The second is that when both Scenes have Image-Based Light Annotations, clients _MAY_ ignore any Image-Based Light Annotation of the Scene to be painted.
 
 __Properties__<br/>
-A Content Resource _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
+A Content Resource _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
 A Content Resource _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [fileSize](#fileSize), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [fileSize](#fileSize), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/><br/>
 {: .note}
 
 
@@ -587,8 +587,8 @@ Fragment Selectors use the fragment part of the URI specification to define a se
 For more information about Fragment Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
 
 __Properties__<br/>
-A Fragment Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
-A Fragment Selector _MAY_ have the following properties: [id](#id) and [conformsTo](#conformsTo).<br/><br/>
+A Fragment Selector _MUST_ have the following properties: [type](#type), [value](#value).<br/><br/>
+A Fragment Selector _MAY_ have the following properties: [id](#id), [conformsTo](#conformsTo).<br/><br/>
 {: .note}
 
 
@@ -602,7 +602,7 @@ SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to defin
 For more information about SVG Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#svg-selector).
 
 __Properties__<br/>
-An SVG Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
+An SVG Selector _MUST_ have the following properties: [type](#type), [value](#value).<br/><br/>
 An SVG Selector _MAY_ have the following properties: [id](#id).<br/><br/>
 {: .note}
 
@@ -620,7 +620,7 @@ For 3D content resources painted into a Scene that have a local coordinate space
 
 __Properties__<br/>
 A Point Selector _MUST_ have the following properties: [type](#type)<br/><br/>
-A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y), [z](#z), and [instant](#instant).
+A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y), [z](#z), [instant](#instant).
 {: .note}
 
 ```json
@@ -645,7 +645,7 @@ Well-Known Text, or WKT, is an ISO standard method for describing 2 and 3 dimens
 The text representation is given in the `value` property of the selector.
 
 __Properties__<br/>
-A WKT Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
+A WKT Selector _MUST_ have the following properties: [type](#type), [value](#value).<br/><br/>
 A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
@@ -704,7 +704,7 @@ A Visual Content Selector _MAY_ have the following properties: [id](#id)
 More interactive content resources, such as 3D models, may have animations or similar features that can be _activated_ by user interaction. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector. The identity of the activatable aspect is given in the `value` property.
 
 __Properties__<br/>
-An Animation Selector _MUST_ have the following properties: [type](#type) and [value](#value).
+An Animation Selector _MUST_ have the following properties: [type](#type), [value](#value).
 An Animation Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
@@ -759,9 +759,9 @@ Ranges _MUST_ have an HTTP(S) URI given in `id`. Top level Ranges are embedded o
 The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
 __Properties__<br/>
-A Range _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
-A Range _SHOULD_ have the following properties: [label](#label) and [items](#items).<br/><br/>
-A Range _MAY_ have the following properties: [start](#start), [supplementary](#supplementary), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+A Range _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
+A Range _SHOULD_ have the following properties: [label](#label), [items](#items).<br/><br/>
+A Range _MAY_ have the following properties: [start](#start), [supplementary](#supplementary), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -844,7 +844,7 @@ The specification defines five types, or subclasses, of Light below.
 __Properties__<br/>
 All Lights _MUST_ have the following properties: [type](#type).<br/><br/>
 All Lights _SHOULD_ have the following properties: [intensity](#intensity).<br/><br/>
-All Lights _MAY_ have the following properties: [id](#id) and [label](#label).
+All Lights _MAY_ have the following properties: [id](#id), [label](#label).
 {: .note}
 
 
@@ -897,7 +897,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a Rotate Transform.
 
 __Properties__<br/>
-An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
+An Image-Based Light _MUST_ have the following additional properties: [environmentMap](#environmentMap).<br/><br/>
 {: .note}
 
 {% include api/code_header.html %}
@@ -950,7 +950,7 @@ A Spot Light emits in the negative Y direction by default, but the orientation o
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
 
 __Properties__<br/>
-Spot Lights _SHOULD_ have the following additional properties: [color](#color) and [angle](#angle).<br/><br/>
+Spot Lights _SHOULD_ have the following additional properties: [color](#color), [angle](#angle).<br/><br/>
 Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt).<br/><br/>
 {: .note}
 
@@ -979,9 +979,9 @@ As the audio content must come from an audio resource, the Audio Emitter classes
 Volume is given relative to the input audio content's volume, and thus a volume of 1.0 is the volume as provided, 0.5 is half the volume, and 2.0 is double the volume.
 
 __Properties__<br/>
-All Audio Emitters _MUST_ have the following properties: [type](#type) and [source](#source).<br/><br/>
+All Audio Emitters _MUST_ have the following properties: [type](#type), [source](#source).<br/><br/>
 All Audio Emitters _SHOULD_ have the following properties: [volume](#volume).<br/><br/>
-All Audio Emitters _MAY_ have the following properties: [id](#id) and [label](#label).
+All Audio Emitters _MAY_ have the following properties: [id](#id), [label](#label).
 {: .note}
 
 ##### Ambient Audio
@@ -1062,7 +1062,7 @@ An operation to apply a transformation to a resource to generate a Specific Reso
 
 __Properties__<br/>
 All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
-All Transforms _MAY_ have the following properties: [id](#id), [label](#label), [x](#x), [y](#y), and [z](#z).
+All Transforms _MAY_ have the following properties: [id](#id), [label](#label), [x](#x), [y](#y), [z](#z).
 {: .note}
 
 ##### Rotate Transform
@@ -1128,9 +1128,9 @@ An Agent represents a person or organization, typically referenced with the `pro
 The Agent is not intended to be used as a primary identifier for the person or organization, nor to provide structured metadata, but instead to ensure that the information to be rendered to the user can be kept together in the situation when there are multiple agents being referenced.
 
 __Properties__<br/>
-An Agent _MUST_ have the following properties: [type](#type) and [label](#label).<br/><br/>
-An Agent _SHOULD_ have the following properties: [homepage](#homepage) and [logo](#logo).<br/><br/>
-An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and [summary](#summary).
+An Agent _MUST_ have the following properties: [type](#type), [label](#label).<br/><br/>
+An Agent _SHOULD_ have the following properties: [homepage](#homepage), [logo](#logo).<br/><br/>
+An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso), [summary](#summary).
 {: .note}
 
 {% include api/code_header.html %}
@@ -1169,8 +1169,8 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and
 A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible unit values](#unit).
 
 __Properties__<br/>
-A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#quantityValue), and [unit](#unit).<br/><br/>
-A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
+A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#quantityValue), [unit](#unit).<br/><br/>
+A Quantity _MAY_ have the following properties: [id](#id), [label](#label).
 {: .note}
 
 {% include api/code_header.html %}
@@ -1206,9 +1206,9 @@ For cross-version consistency, this specification defines the following values f
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document.
 
 __Properties__<br/>
-A Service _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
+A Service _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
 A Service _SHOULD_ have the following properties: [label](#label), [profile](#profile).<br/><br/>
-A Service _MAY_ have the following properties: [service](#service), `@id` and `@type`.<br/><br/>
+A Service _MAY_ have the following properties: [service](#service), `@id`, `@type`.<br/><br/>
 Services will also have specific requirements as to additional properties based on the type of service.
 {: .note}
 
@@ -1408,7 +1408,7 @@ The value _MUST_ be an array of strings.
 
 The body of an Annotation. The resources listed in `body` can be instances of TextualBody, Specific Resource, core Structural Resources, Content Resources, or the Annotation aggregate constructions of Choice, Composite, List and Independents if there are multiple bodies.
 
-Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the TextualBody class _MUST_ be used instead.
+Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the Textual Body class _MUST_ be used instead.
 
 For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
