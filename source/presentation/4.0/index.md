@@ -481,7 +481,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 
 >
 **Key Points**
-* Timeline is a new Container type, introduced in version 4.0, specifically to manage audio content
+* Timeline is a type of Container intended to manage audio content, or other temporal information.
 * Any Container, but especially Timelines, can have a `accompanyingContainer` with additional content to render to make the user experience more attractive. 
 * Information about external resources such as `format`, `language`, `duration` can be added to assist with rendering, especially when the user or client needs to make a choice between representations. See the next use case more for details about Choice.
 * In the external annotation for the song lyrics, we append `#t=3.5,6.8` to the target URI to define the temporal extent in the target timeline that corresponds to the song lyric.
