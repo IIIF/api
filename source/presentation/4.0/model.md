@@ -405,7 +405,7 @@ For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal po
 __Properties__<br/>
 An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/><br/>
 An Annotation _SHOULD_ have the following properties: [body](#body).<br/><br/>
-An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), and [via](#via).<br/><br/>
+An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [scope](#scope), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), and [via](#via).<br/><br/>
 {: .note}
 
 
@@ -469,7 +469,7 @@ A Textual Body is an embedded resource within an Annotation that carries, as the
 
 __Properties__<br/>
 A Textual Body _MUST_ have the following properties: [type](#type), [value](#value)<br/><br/>
-A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
 {: .note}
 
 
@@ -2472,7 +2472,9 @@ The value _MUST_ be a string, not a number, in order to allow for the "!" charac
 ### scope
 {: #scope}
 
-The scope of a Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. In a Scene, this would typically be an instance of a Camera that should be activated and selected to set up the correct viewpoint. This specification does not establish specific expectations for references to other classes.
+The scope of an Annotation or Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. 
+
+Clients _MUST_ process `scope` as a short-hand expression of an Annotation with `motivation` "activating" with `action` "show," "enable," and "select," where the `source` of the activating Annotation `body` is the Resource referenced by `scope` and the `target` is the Annotation or Specific Resource for which `scope` is specified. In a Scene, `scope` would typically be applied to a Content Resource or commenting Annotation and would reference a Camera that should be activated and selected to set the correct viewpoint in response to user interaction with that resource. This specification does not establish specific expectations for references to other classes.
 
 The value _MUST_ be an array of JSON objects.
 
