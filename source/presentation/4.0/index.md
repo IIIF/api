@@ -664,76 +664,9 @@ Commentary can be associated with a Timeline, Canvas, or Scene via Annotations w
 
 ### Use Case 8: Comment on feature of a painting
 
-This example is a Manifest with a Canvas that contains a single painting and an Annotation with the motivation `commenting` highlighting the face of the painting's subject. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses a [`SvgSelector`][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the painting.
+This example is a Manifest with a Canvas that contains a single photograph and an Annotation with the motivation `commenting` highlighting a specific feature of the photograph. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses a [`SvgSelector`][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the photograph.
 
-```json
-{
-  "@context": "http://iiif.io/api/presentation/4/context.json",
-  "id": "https://example.org/iiif/presentation/examples/manifest-comment.json",
-  "type": "Manifest",
-  "label": {
-    "en": ["Use case 8: Comment on feature of a painting"]
-  },
-  "items": [
-    {
-      "id": "https://example.org/iiif/presentation/examples/manifest-comment/canvas",
-      "type": "Canvas",
-      "width": 1200,
-      "height": 1200,
-      "items": [
-        {
-          "id": "https://example.org/iiif/presentation/examples/manifest-comment/page/p1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-comment/annotation/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": {
-                "id": "https://example.org/iiif/presentation/examples/manifest-comment/images/image1.jpg",
-                "type": "Image",
-                "format": "image/jpeg"
-              },
-              "target": {
-                "id": "https://example.org/iiif/presentation/examples/manifest-comment/canvas",
-                "type": "Canvas"
-              }
-            },
-            {
-              "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2",
-              "type": "Annotation",
-              "motivation": ["commenting"],
-              "body": 
-                {
-                  "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno/2/person2",
-                  "type": "TextualBody",
-                  "language": "en",
-                  "format": "text/plain",
-                  "value": "Note the expressive eyes of the subject of this painting."
-                },
-              "target": 
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/presentation/examples/manifest-comment/canvas",
-                    "type": "Canvas"
-                  },
-                  "selector": [
-                    {
-                      "id": "https://example.org/iiif/presentation/examples/manifest-comment/anno2/selector2",
-                      "type": "SvgSelector",
-                      "value": "<svg:svg> ... </svg:svg>"
-                    }
-                  ]
-                }
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
+{% include code_example.html src="uc08_image_annotation.json" %}
 
 >
 **Key Points**
