@@ -29,7 +29,7 @@
                             }
                         ,
                         "target": {
-                           "id": "https://iiif.io/api/presentation/4.0/example/uc04_audio/accompany/ac1",
+                           "id": "https://iiif.io/api/presentation/4.0/example/uc04_audio/accompany/c1",
                            "type": "Canvas"
                         }
                     }
