@@ -423,7 +423,7 @@ Annotation Collections are always paged using `first` and `last`, rather than `i
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/><br/>
 An Annotation Collection _MUST_ have the [first](#first) and [last](#last) properties if it doesn't have the [items](#items) property.<br/><br/>
-An Annotation Collection _MUST NOT_ have the [first](#first) and [last](#last) properties if has the [items](#items) property.<br/><br/>
+An Annotation Collection _MUST NOT_ have the [first](#first) and [last](#last) properties if it has the [items](#items) property.<br/><br/>
 An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail).<br/><br/>
 An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
 {: .note}
@@ -434,7 +434,7 @@ An Annotation Collection _MAY_ have the following properties: [requiredStatement
 
 > `"type": "AnnotationPage"`
 
-An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
+An Annotation Page is an ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced. The Annotations are listed in the `items` property of the Annotation Page.
 
@@ -1381,7 +1381,7 @@ The value _MUST_ be an array of strings.
 | `multi-part`{: #value-multi-part} | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together`{: #value-together} | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Navigation Behaviors** |
-| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
+| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: #value-thumbnail-nav style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav`{: #value-no-nav} | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
@@ -1440,17 +1440,18 @@ This property sets the color of a Light.
 The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is "#FFFFFF".
 
  * An AmbientLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
+   Clients _SHOULD_ render `color` on an AmbientLight.
  * A DirectionalLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
+   Clients _SHOULD_ render `color` on a DirectionalLight.
  * A PointLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
+   Clients _SHOULD_ render `color` on a PointLight.
  * A SpotLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
+   Clients _SHOULD_ render `color` on a SpotLight.
  * Other resources _MUST NOT_ have the `color` property.
 
-```json
-"color": "#FFA0A0"
+{% include api/code_header.html %}
+``` json-doc
+{ "color": "#FFA0A0" }
 ```
 
 
@@ -1505,7 +1506,7 @@ The value _MUST_ be a JSON object representing an Image which _MUST_ have the `i
   Clients _SHOULD_ process `environmentMap` on an Image-Based Light.
 
 {% include api/code_header.html %}
-``` json-doc
+```json-doc
 "environmentMap": {
   "id": "https://example.org/iiif/light/3/environment.hdr",
   "type": "Image",
@@ -1527,13 +1528,13 @@ Just as a Scene may contain multiple Annotations with models, light, and cameras
 | `Cameras`{: #value-Cameras}    | Exclude all cameras from resources |
 | `Lights`{: #value-Lights}     | Exclude all lights from resources |
 
-The value of `exclude` is an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
+The value of `exclude` _MUST_ be an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
 
 * An Annotation _MAY_ have the `exclude` property.<br/>
   Clients _SHOULD_ process the `exclude` property.
 
-```json
-"exclude": [ "Audio", "Lights", "Cameras", "Animations" ]
+```json-doc
+{ "exclude": [ "Audio", "Lights", "Cameras", "Animations" ] }
 ```
 
 ### far
@@ -1541,7 +1542,7 @@ The value of `exclude` is an array of strings, each of which is one of the value
 
 This property gives the distance along the axis of the camera's orientation after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
-The value is a non-negative floating point number in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a non-negative floating point number in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `far` property.<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
@@ -1558,7 +1559,7 @@ The vertical projection angle from the top plane to the bottom plane of the came
 The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A PerspectiveCamera _SHOULD_ have the `fieldOfView` property.<br/>
-  Clients _SHOULD_ process the `fieldOfView` property on Cameras.
+  Clients _SHOULD_ process the `fieldOfView` property on a PerspectiveCamera.
 
 ```json-doc
 { "fieldOfView": 50.0 }
@@ -1572,7 +1573,7 @@ The size of a content resource in bytes. This will allow clients to determine wh
 The value _MUST_ be a positive integer.
 
 * Any Content Resource _MAY_ have the `fileSize` property.<br/>
-  Clients _SHOULD_ process the `fileSize` property on Resources.
+  Clients _SHOULD_ process the `fileSize` property on a Content Resource.
 
 ```json-doc
 { "fileSize": 132465987 }
@@ -1704,8 +1705,10 @@ If a publisher wishes for a resource to be able to be referenced, such as in an 
 
 A floating point number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of 4.5 means the exact point 4.5 seconds from the beginning of the resource.
 
+The value _MUST_ be a non-negative floating point number.
+
 * PointSelector _MAY_ have the `instant` property.<br/>
-  Clients _SHOULD_ process `instant`.
+  Clients _SHOULD_ process the `instant` property on a PointSelector.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1725,7 +1728,8 @@ The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 
 * A Light _SHOULD_ have the `intensity` property.<br/>
   Clients _SHOULD_ process the `intensity` property on a Light.
 
-```json
+{% include api/code_header.html %}
+```json-doc
 {
  "intensity": {
     "type": "Quantity",
@@ -2065,6 +2069,7 @@ The value is a non-negative floating point number, in the coordinate space of th
 * A Camera _MAY_ have the `near` property<br/>
   Clients _SHOULD_ process the `near` property on Cameras.
 
+{% include api/code_header.html %}
 ```json-doc
 { "near": 1.5 }
 ```
@@ -2150,9 +2155,10 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
   Clients _SHOULD_ process the `position` property on Textual Body instances.
 * A Specific Resource _MAY_ have the `position` property.<br/>
   Clients _SHOULD_ process the `position` property on Specific Resource instances.
-* Other classes _MUST NOT_ have the `position` property.<br/>
-  Clients _MUST_ ignore the `position` property on all other classes.
+* Other types of resource _MUST NOT_ have the `position` property.<br/>
+  Clients _MUST_ ignore the `position` property on other types of resource.
 
+{% include api/code_header.html %}
 ```json-doc
 { "position": {
     "type": "SpecificResource",
@@ -2739,7 +2745,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### startIndex
 {: #startIndex}
 
-A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Collection Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
+A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
 
 The value of `startIndex` _MUST_ be an integer greater than -1.
 
@@ -2748,6 +2754,10 @@ The value of `startIndex` _MUST_ be an integer greater than -1.
 * A Collection Page _MAY_ have the `startIndex` property.<br/>
   Clients _MAY_ process `startIndex` on a Collection Page.
 
+{% include api/code_header.html %}
+``` json-doc
+{ "startIndex": 0 }
+```
 
 ### structures
 {: #structures}
@@ -2985,8 +2995,8 @@ The value of this property _MUST_ be array of JSON objects, each of which _MUST_
 
 * A Specific Resource _MAY_ have the `transform` property.<br/>
   Clients _SHOULD_ process the `transform` property on Specific Resources.
-* Other classes _MUST NOT_ have the `transform` property.<br/>
-  Clients _MUST_ ignore the `transform` property on all other classes.
+* Other types of resource _MUST NOT_ have the `transform` property.<br/>
+  Clients _MUST_ ignore the `transform` property on other types of resource.
 
 {% include api/code_header.html %}
 ```json
@@ -3035,6 +3045,7 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 ```
 
 ### unit
+{: #unit}
 
 The unit of measurement of a quantity expressed by a Quantity. This unit is necessary to interpret the value, as the same number could result in very different processing for different units: consider a physical scale of 1 meter vs 1 inch, and how clients might misrepresent the intent of the content of the Manifest.
 
@@ -3056,6 +3067,7 @@ The value _MUST_ be a string value.  This specification defines the values in th
 
 
 ### value
+{: #value}
 
 The `value` property is used in several situations to convey a value of a resource. The value is always string-based, however the strings might be wrapped in the language map construction.
 
@@ -3077,6 +3089,7 @@ Embedded CssStylesheet, Selector or TextualBody `value`:
 ```
 
 ### version
+{: #version}
 
 The `version` property of a resource gives the version of a specification by which it should be understood as a string. The primary use within the Presentation API is as a property of the [IIIF Image API Selector](#ImageApiSelector) class, where it describes the version of the Image API by which the other properties of the selector should be interpreted.
 
@@ -3094,6 +3107,7 @@ The value of the `version` property _MUST_ be a string, and _SHOULD_ be of the f
 
 
 ### via
+{: #via}
 
 The `via` property of a resource _MAY_ be used to indicate one or more URIs which are the chain of sources from which the current resource was obtained. Each URI in the `via` list _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide the provenance chain of the resource, regardless of how many copy operations have occurred in the past.
 
@@ -3107,7 +3121,6 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 { "via": [ "https://example.com/manifests/6" ] }
 ```
 
-
 ### viewHeight
 {: #viewHeight}
 
@@ -3118,10 +3131,10 @@ The value _MUST_ be a positive floating point number in the coordinate space of 
 * An OrthographicCamera _SHOULD_ have the `viewHeight` property.<br/>
   Clients _SHOULD_ process the `viewHeight` property on OrthographicCameras.
 
+{% include api/code_header.html %}
 ```json-doc
 { "viewHeight": 40.0 }
 ```
-
 
 ### viewingDirection
 {: #viewingDirection}
@@ -3257,7 +3270,7 @@ The value _MUST_ be a number (floating point or integer).
 
 ### Scope
 
-The IIIF Presentation API processing model is intended to inform and clarify the requirements of the features described in the classes and properties above for the purposes of interoperability between the publisher and the consuming application. It specifies how the content should be presented, but not how the application should look, in the same way that the HTML specification describes how to render the elements and does not describe the panes, menus and features of web browsers. This processing model attempts to be as unintrusive as possible, with only the rules needed to ensure that content isn't inadvertantly presented in an unusable fashion.
+The IIIF Presentation API processing model is intended to inform and clarify the requirements of the features described in the classes and properties above for the purposes of interoperability between the publisher and the consuming application. It specifies how the content should be presented, but not how the application should look, in the same way that the HTML specification describes how to render the elements and does not describe the panes, menus and features of web browsers. This processing model attempts to be as unintrusive as possible, with only the rules needed to ensure that content isn't inadvertently presented in an unusable fashion.
 
 ### Collections and Collection Pages
 

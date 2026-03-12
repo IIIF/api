@@ -29,16 +29,12 @@ module Jekyll
       end
       indent = integer_option(options, 'indent')
 
-      unless from && to
+      no_range_given = from.nil? && to.nil?
+
+      # If no from/to (or start/end aliases) are given, include the whole file.
+      # If only one of from/to is given, keep raising (ambiguous).
+      if !no_range_given && !(from && to)
         raise ArgumentError, "include_lines: must specify from/to (1-indexed), e.g. {% include_lines path from:11 to:35 %}"
-      end
-
-      if from < 1 || to < 1
-        raise ArgumentError, "include_lines: from/to must be >= 1 (got from:#{from} to:#{to})"
-      end
-
-      if to < from
-        raise ArgumentError, "include_lines: to must be >= from (got from:#{from} to:#{to})"
       end
 
       absolute_path = File.expand_path(path, source)
@@ -52,6 +48,19 @@ module Jekyll
 
       lines = File.read(absolute_path, encoding: 'UTF-8').split("\n", -1)
       max_line = lines.length
+
+      if no_range_given
+        from = 1
+        to = max_line
+      end
+
+      if from < 1 || to < 1
+        raise ArgumentError, "include_lines: from/to must be >= 1 (got from:#{from} to:#{to})"
+      end
+
+      if to < from
+        raise ArgumentError, "include_lines: to must be >= from (got from:#{from} to:#{to})"
+      end
 
       if from > max_line
         raise ArgumentError, "include_lines: from (#{from}) is beyond end of file (#{max_line} lines): #{path}"
@@ -108,9 +117,16 @@ module Jekyll
 
     def integer_option(options, key)
       return nil unless options.key?(key)
-      Integer(options[key])
+
+      raw = options[key]
+      return nil if raw.nil?
+
+      s = raw.to_s.strip
+      return nil if s.empty?
+
+      Integer(s, 10)
     rescue ArgumentError
-      raise ArgumentError, "include_lines: #{key} must be an integer (got #{options[key].inspect})"
+      raise ArgumentError, "include_lines: #{key} must be an integer (got #{raw.inspect})"
     end
 
     def boolean_option(options, key)
