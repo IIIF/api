@@ -359,7 +359,7 @@ A Timeline _MUST_ have the following additional properties: [duration](#duration
 
 > `"type": "Canvas"`
 
-A Canvas is a Container that represents a particular rectangular 2 dimensional view and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as in the 2 dimensional space.
+A Canvas is a Container that represents a particular rectangular two-dimensional view and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as in the two-dimensional space.
 
 __Properties__<br/>
 A Canvas _MUST_ have the following additional properties: [height](#height) and [width](#width).<br/><br/>
@@ -553,7 +553,7 @@ Content Resources _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to
 
 If the Content Resource is an Image, and a IIIF Image service is available for it, then the `id` property of the Content Resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the Image Service. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
-If the Content Resource is a 3D Model, then regardless of the file format, it is treated as being within an infinitely large three dimensional space with an origin (0 on all three axes). This is described as its "local coordinate space". 3D Content Resources _MAY_ be painted into Scenes via a painting Annotation. When painted as an Annotation, the origin of the 3D Content Resource's local coordinate space _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used.
+If the Content Resource is a 3D Model, then regardless of the file format, it is treated as being within an infinitely large three-dimensional space with an origin (0 on all three axes). This is described as its "local coordinate space". 3D Content Resources _MAY_ be painted into Scenes via a painting Annotation. When painted as an Annotation, the origin of the 3D Content Resource's local coordinate space _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used.
 
 Non-3D Content Resources such as images, audio, and video _MUST NOT_ be painted into a Scene as Annotations. Instead, to include image and video resources in a Scene, the resource(s) _MUST_ be painted on to a Canvas that is painted into the Scene. To include audio resources in a Scene, the resource(s) or Timeline _MUST_ be referenced by an AudioEmitter that is painted into the Scene.
 
@@ -597,7 +597,7 @@ A Fragment Selector _MAY_ have the following properties: [id](#id), [conformsTo]
 
 > `"type": "SvgSelector"`
 
-SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to define a non-rectangular part of a resource. This allows for polygons, circles and multiple shapes to be used to highlight or otherwise select regions of images or other 2 dimensional resources.
+SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to define a non-rectangular part of a resource. This allows for polygons, circles and multiple shapes to be used to highlight or otherwise select regions of images or other two-dimensional resources.
 
 For more information about SVG Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#svg-selector).
 
@@ -640,7 +640,7 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 > `"type": "WktSelector"`
 
-Well-Known Text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SVG Selector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
+Well-Known Text, or WKT, is an ISO standard method for describing two- and three-dimensional geometries. This selector thus goes beyond what the Web Annotation's SVG Selector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
 
 The text representation is given in the `value` property of the selector.
 
@@ -684,18 +684,17 @@ An Audio Content Selector _MAY_ have the following properties: [id](#id)
 
 Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may also be further refined by subsequent selectors that select an area or temporal segment of it.
 
+__Properties__<br/>
+A Visual Content Selector _MUST_ have the following properties: [type](#type).<br/><br/>
+A Visual Content Selector _MAY_ have the following properties: [id](#id)
+{: .note}
+
 ```json
 {
   "id": "https://example.org/selectors/4",
   "type": "VisualContentSelector"
 }
 ```
-
-__Properties__<br/>
-A Visual Content Selector _MUST_ have the following properties: [type](#type).<br/><br/>
-A Visual Content Selector _MAY_ have the following properties: [id](#id)
-{: .note}
-
 
 #### Animation Selector
 {: #AnimationSelector}
@@ -1551,7 +1550,7 @@ The value of `exclude` _MUST_ be an array of strings, each of which is one of th
 
 This property gives the distance along the axis of the camera's orientation after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
-The value _MUST_ be a non-negative floating point number in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a non-negative floating point number in the units of the coordinate space of the Scene in which the Camera with the property is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `far` property.<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
@@ -2063,7 +2062,7 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection][link] contain
 
 This property gives the distance along the Camera's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
 
-The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a non-negative floating point number, in the units of the coordinate space of the Scene in which the Camera that has the property is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `near` property.<br/>
   Clients _SHOULD_ process the `near` property on Cameras.
@@ -2097,7 +2096,7 @@ The value _MUST_ be a JSON object, with the `id` and `type` properties. The valu
 ### partOf
 {: #partOf}
 
-A containing resource that includes the resource that has the `partOf` property. When a client encounters the `partOf` property, it might retrieve the [referenced][prezi40-terminology] containing resource, if it is not [embedded][prezi40-terminology] in the current representation, in order to contribute to the processing of the contained resource. For example, the `partOf` property on a Canvas can be used to reference an external Manifest in order to enable the discovery of further relevant information. Similarly, a Manifest can reference a containing Collection using `partOf` to aid in navigation.
+The `partOf` property references resources which the current resource is contained within, or is otherwise part of. When a client encounters the `partOf` property, it might retrieve the [referenced][prezi40-terminology] containing resource, if it is not [embedded][prezi40-terminology] in the current representation, in order to contribute to the processing of the contained resource. For example, the `partOf` property on a Canvas can be used to reference an external Manifest in order to enable the discovery of further relevant information. Similarly, a Manifest can reference a containing Collection using `partOf` to aid in navigation.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -2115,7 +2114,7 @@ The resources referred to by the `accompanyingContainer` and `placeholderContain
 ### placeholderContainer
 {: #placeholderContainer}
 
-A single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a Scene may have a Canvas as its placeholder Container.
+The value of the `placeholderContainer` property is a single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a Scene may have a Canvas as its placeholder Container.
 
 Clients _MAY_ display the content of a linked placeholder Container when presenting the resource. When more than one such Container is available, for example if `placeholderContainer` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the placeholder Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered placeholder Container and the content of the resource that has the `placeholderContainer` property.
 
@@ -2145,7 +2144,7 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
 ### position
 {: #position}
 
-It is important to be able to position the body of an Annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a Textual Body or a Specific Resource.
+The `position` property conveys to the client the position at which the body of an Annotation should be rendered within the Container's space. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three-dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a Textual Body or a Specific Resource.
 
 The value of this property _MUST_ be a JSON object conforming to the Specific Resource pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
@@ -2292,10 +2291,10 @@ A set of features or additional functionality that a linked resource enables rel
 
 The value _MUST_ be an array of strings, each string identifies a particular feature and _MUST_ be taken from the table below or the [provides registry][registry-accessibility].
 
-Note that the majority of the values have been selected from the [W3C accessibility features vocabulary][registry-accessibility] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
+Note that the majority of the values align with the [W3C accessibility features vocabulary][registry-accessibility] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
 
 * Annotations with the `supplementing` motivation _MAY_ have the `provides` property.<br/>
-  Clients _SHOULD_ ignore the `provides` property on all other resource.
+  Clients _SHOULD_ process the `provides` property on Annotations.
 
 | Value | Description |
 | ----- | ----------- |
@@ -2305,7 +2304,7 @@ Note that the majority of the values have been selected from the [W3C accessibil
 | `highContrastAudio`{: #value-highContrastAudio} | An alternative form of the audio where the contrast is high, making it easier to hear |
 | `highContrastDisplay`{: #value-highContrastDisplay} | An alternative form of visual content where the contrast is high, making it easier to see |
 | `transcript`{: #value-transcript} | A transcript of the audio content, as opposed to closed captions which might include other descriptions such as music or sound effects |
-| `translation`{: #value-translation} | A translation of the content into another language, defined on the content resource (IIIF Defined) |
+| `translation`{: #value-translation} | A translation of the content into another language, defined on the content resource |
 {: .api-table #table-provides}
 
 {% include api/code_header.html %}
@@ -2686,7 +2685,7 @@ To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be 
 
 A Container, or part of a Container, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Container is handled in the same way that Ranges reference parts of Containers by using either its URI, a URI with a fragment specifier, or a Specific Resource with a Selector. This property allows the client to begin with the first Container that contains interesting content rather than requiring the user to manually navigate to find it.
 
-If the resource with the `start` property is a Collection, then the Container (or SpecificResource) _MUST_ have the `partOf` property referring to the Manifest that it is part of, such that the client can retrieve it.
+If the resource with the `start` property is a Collection, then the Container (or Specific Resource) _MUST_ have the `partOf` property referring to the Manifest that it is part of, such that the client can retrieve it.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Container (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
 
@@ -2749,8 +2748,6 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 * A Manifest _MAY_ have the `structures` property.<br/>
   Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
-* Other types of resource _MUST NOT_ have the `structures` property.<br/>
-  Clients _SHOULD_ ignore `structures` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2849,7 +2846,7 @@ The target of an Annotation. The resources listed in `target` can be instances o
 
 For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
+The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=0,0,100,100`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _MUST_ have the `target` property.<br/>
   Clients _MUST_ process the `target` property on Annotations.
@@ -2956,7 +2953,7 @@ The `total` property indicates the total number of annotations contained in an A
 The value of this property _MUST_ be a non-negative integer.
 
 * An AnnotationCollection _SHOULD_ have the `total` property.<br/>
-  Clients _SHOULD_ process the `total` property on an AnnotationCollection.
+  Clients _SHOULD_ process the `total` property on an Annotation Collection.
 * A Collection with Collection Pages _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on a Collection.
 
@@ -2975,8 +2972,6 @@ The value of this property _MUST_ be array of JSON objects, each of which _MUST_
 
 * A Specific Resource _MAY_ have the `transform` property.<br/>
   Clients _SHOULD_ process the `transform` property on Specific Resources.
-* Other types of resource _MUST NOT_ have the `transform` property.<br/>
-  Clients _MUST_ ignore the `transform` property on other types of resource.
 
 {% include api/code_header.html %}
 ```json
@@ -3010,8 +3005,8 @@ The value _MUST_ be a string.
 | ------------- | -------------------------------- |
 | `Audio`{: #value-Audio}       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
 | `Dataset`{: #value-Dataset}     | Data not intended to be rendered to humans directly, such as a CSV, an RDF serialization or a zip file |
-| `Image`{: #value-Image}       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
-| `Model`{: #value-Model}       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3D javascript library |
+| `Image`{: #value-Image}       | Two-dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
+| `Model`{: #value-Model}       | A three-dimensional spatial model intended to be visualized, such as might be rendered with a 3D javascript library |
 | `Text`{: #value-Text}        | Resources primarily intended to be read |
 | `Video`{: #value-Video}       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
@@ -3053,7 +3048,7 @@ The `value` property is used in several situations to convey a value of a resour
 
 In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
 
-Many selector classes use `value` to convey a string representation of the selection definition, such as Fragment Selector and WKT Selector. Textual Body similarly uses `value` to convey the string of the body of an Annotation, and CssStylesheet uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
+Many selector classes use `value` to convey a string representation of the selection definition, such as Fragment Selector and WKT Selector. Textual Body similarly uses `value` to convey the string of the body of an Annotation, and CSS Stylesheet uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
 
 
 Language Map `value`:
@@ -3105,7 +3100,7 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 ### viewHeight
 {: #viewHeight}
 
-The height of the visible region for an OrthographicCamera, in the coordinate space of the Scene. Unlike a PerspectiveCamera which uses a field of view angle, an OrthographicCamera defines its visible region by a rectangular volume. The `viewHeight` gives the vertical extent of that region in Scene coordinate units; the corresponding horizontal extent is derived proportionally from the aspect ratio of the client's viewport.
+The height of the visible region for an Orthographic Camera, in the coordinate space of the Scene. Unlike a Perspective Camera which uses a field of view angle, an Orthographic Camera defines its visible region by a rectangular volume. The `viewHeight` gives the vertical extent of that region in Scene coordinate units; the corresponding horizontal extent is derived proportionally from the aspect ratio of the client's viewport.
 
 The value _MUST_ be a positive floating point number in the coordinate space of the Scene. If this property is not specified, then the default value is client-dependent.
 
@@ -3120,7 +3115,7 @@ The value _MUST_ be a positive floating point number in the coordinate space of 
 ### viewingDirection
 {: #viewingDirection}
 
-The visual direction in which navigating to the next or previous item in a resource with `items` _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left in the UI, and forwards in the list is to the right.
+The visual direction in which navigating to the next or previous item in a resource with `items` _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi40-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left in the UI, and forwards in the list is to the right.
 
 The value _MUST_ be a string.
 
@@ -3179,8 +3174,6 @@ The value _MUST_ be a positive integer.
   Clients _MUST_ process `width` on a Canvas.
 * Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
   Clients _SHOULD_ process `width` on content resources.
-* Other types of resource _MUST NOT_ have the `width` property.<br/>
-  Clients _SHOULD_ ignore `width` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3268,7 +3261,7 @@ There are no requirements as to the interaction with the user and the navigation
 
 The core paradigm of the Presentation API is the painting of resources into an abstract container (a Timeline, Canvas or Scene) as identified and specified in a painting Annotation. As the spatial dimensions of Canvases and Scenes are abstract rather than pixel or real-world distances, it is always necessary to scale content into the abstract area or volume and perform all calculations with those values. There is only one scale for time, which is seconds.
 
-For painting to Canvases, the main processing rule is that the painting annotations are to be processed in order. This means that, lacking an explicit z or depth axis, the first annotations to be painted into the 2 dimensional space are at the bottom of the z stack, and the last is at the top.
+For painting to Canvases, the main processing rule is that the painting annotations are to be processed in order. This means that, lacking an explicit z or depth axis, the first annotations to be painted into the two-dimensional space are at the bottom of the z stack, and the last is at the top.
 
 
 
@@ -3279,7 +3272,7 @@ Interactions are also associated with resources using annotations in the same wa
 
 If multiple actions are listed for a single Specific Resource, then they _MUST_ be processed in the order given. If multiple Specific Resources are given in a List, then they must be processed in order. 
 
-If a resource has a built in named Animation feature, then these can be activated (including starting, stopping and reseting) by adding an AnimationSelector to the Specific Resource with the `action` property.
+If a resource has a built in named Animation feature, then these can be activated (including starting, stopping and reseting) by adding an Animation Selector to the Specific Resource with the `action` property.
 
 
 ## JSON-LD and Extensions
