@@ -623,7 +623,8 @@ A Point Selector _MUST_ have the following properties: [type](#type)<br/><br/>
 A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y), [z](#z), [instant](#instant).
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/1",
   "type": "PointSelector",
@@ -649,7 +650,8 @@ A WKT Selector _MUST_ have the following properties: [type](#type), [value](#val
 A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/2",
   "type": "WktSelector",
@@ -669,7 +671,8 @@ An Audio Content Selector _MUST_ have the following properties: [type](#type).<b
 An Audio Content Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/3",
   "type": "AudioContentSelector"
@@ -689,7 +692,8 @@ A Visual Content Selector _MUST_ have the following properties: [type](#type).<b
 A Visual Content Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/4",
   "type": "VisualContentSelector"
@@ -707,7 +711,8 @@ An Animation Selector _MUST_ have the following properties: [type](#type), [valu
 An Animation Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/5",
   "type": "AnimationSelector",
@@ -737,7 +742,8 @@ A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<b
 A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/6",
   "type": "ImageApiSelector",
@@ -795,7 +801,8 @@ __Properties__<br/>
 An Orthographic Camera _SHOULD_ have the following additional properties: [viewHeight](#viewHeight).
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/iiif/camera/1",
   "type": "OrthographicCamera",
@@ -821,7 +828,7 @@ A Perspective Camera _SHOULD_ have the following additional properties: [fieldOf
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/camera/2",
   "type": "PerspectiveCamera",
@@ -858,7 +865,7 @@ An Ambient Light _SHOULD_ have the following additional properties: [color](#col
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/1",
   "type": "AmbientLight",
@@ -880,7 +887,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/2",
   "type": "DirectionalLight",
@@ -900,7 +907,7 @@ An Image-Based Light _MUST_ have the following additional properties: [environme
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/3",
   "type": "ImageBasedLight",
@@ -929,7 +936,7 @@ A Point Light _SHOULD_ have the following additional properties: [color](#color)
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/4",
   "type": "PointLight",
@@ -954,7 +961,7 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt).<b
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/5",
   "type": "SpotLight",
@@ -990,7 +997,7 @@ All Audio Emitters _MAY_ have the following properties: [id](#id), [label](#labe
 Ambient Audio emits equally throughout the Scene, and does not have a position or direction.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/audio/1",
   "type": "AmbientAudio",
@@ -1009,7 +1016,7 @@ Ambient Audio emits equally throughout the Scene, and does not have a position o
 Point Audio emits in all directions from a single point in the Scene.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/audio/2",
   "type": "PointAudio",
@@ -1036,7 +1043,7 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/audio/3",
   "type": "SpotAudio",
@@ -1071,7 +1078,7 @@ All Transforms _MAY_ have the following properties: [id](#id), [label](#label), 
 A Rotate Transform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise a Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/transform/1",
   "type": "RotateTransform",
@@ -1088,7 +1095,7 @@ A Rotate Transform rotates the resource around one or more axes. If present, the
 A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate reflection as well as scaling along that axis.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/transform/2",
   "type": "ScaleTransform",
@@ -1105,7 +1112,7 @@ A Scale Transform scales the resource along one or more axes. If present, the va
 A Translate Transform translates or moves the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 on the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur along that axis.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/transform/3",
   "type": "TranslateTransform",
@@ -1133,7 +1140,7 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso), [s
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/agent/1",
   "type": "Agent",
@@ -1348,7 +1355,7 @@ The value _MUST_ be a string which defines an RGB color. It _SHOULD_ be a hex va
   Clients _SHOULD_ render `backgroundColor` on a Scene.
 
 {% include api/code_header.html %}
-```json-doc
+``` json-doc
 { "backgroundColor": "#FFFFFF" }
 ```
 
@@ -1923,7 +1930,7 @@ The value _MUST_ be a JSON object, conforming to either a reference to an Annota
   Clients _SHOULD_ process the `lookAt` property on Spot Audio.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 "lookAt": {
     "type": "PointSelector",
     "x": 3,
@@ -2974,7 +2981,7 @@ The value of this property _MUST_ be array of JSON objects, each of which _MUST_
   Clients _SHOULD_ process the `transform` property on Specific Resources.
 
 {% include api/code_header.html %}
-```json
+```json-doc
 {
   "transform": [
     {
