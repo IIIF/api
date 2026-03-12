@@ -1,0 +1,89 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/uc07_canvas_into_scene.json",
+    "type": "Manifest",
+    "label": { "en": [ "Use Case 7: Canvas into Scene" ] },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/uc07/scene/1",
+            "type": "Scene",
+            "label": { "en": [ "Positioning a canvas into a scene" ] },
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc07/scene/1/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc07/anno1",
+                            "type": "Annotation",
+                            "motivation": [ "painting" ],
+                            "body": {
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc0/canvas/1",
+                                    "type": "Canvas",
+                                    "height": 3966,
+                                    "width": 8800,
+                                    "items": [
+                                        {
+                                            "id": "https://iiif.io/api/presentation/4.0/example/05/page/p1/1",
+                                            "type": "AnnotationPage",
+                                            "items": [
+                                                {
+                                                    "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/p0001-image",
+                                                    "type": "Annotation",
+                                                    "motivation": [ "painting" ],
+                                                    "body": {
+                                                        "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004/full/max/0/default.jpg",
+                                                        "type": "Image",
+                                                        "format": "image/jpeg",
+                                                        "height": 3966,
+                                                        "width": 8800,
+                                                        "service": [
+                                                            {
+                                                                "id": "https://iiif.io/api/image/3.0/example/reference/36ca0a3370db128ec984b33d71a1543d-100320001004",
+                                                                "profile": "level1",
+                                                                "type": "ImageService3"
+                                                            }
+                                                        ]
+                                                    },
+                                                    "target": {
+                                                        "id": "https://iiif.io/api/presentation/4.0/example/uc0/canvas/1",
+                                                        "type": "Canvas"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                "transform": [
+                                    {
+                                        "type": "ScaleTransform",
+                                        "x": 2.0,
+                                        "y": 2.0,
+                                        "z": -1.0
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc07/scene/1",
+                                    "type": "Scene"
+                                },
+                                "selector": [
+                                    {
+                                        "type": "PointSelector",
+                                        "x": 4.0,
+                                        "y": 4.0,
+                                        "z": 0.0
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

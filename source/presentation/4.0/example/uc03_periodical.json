@@ -1,0 +1,34 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/presentation/4.0/example/uc03_periodical.json",
+  "type": "Collection",
+  "label": { "en": ["Berliner Tageblatt"] },
+  "behavior": ["multi-part"],
+  "navPlace": {
+    "id": "https://iiif.io/api/presentation/4.0/example/uc03/place/1",
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "id": "https://iiif.io/api/presentation/4.0/example/uc03/feature/1",
+        "type": "Feature",
+        "properties": { "label": { "en": ["Berlin, Germany"] } },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [52.52, 13.405]
+        }
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/uc03_vol1.json",
+      "type": "Collection",
+      "label": { "en": ["Berliner Tageblatt - 1925"] }
+    },
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/uc03_vol2.json",
+      "type": "Collection",
+      "label": { "en": ["Berliner Tageblatt - 1926"] }
+    }
+  ]
+}

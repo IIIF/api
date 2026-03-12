@@ -1,0 +1,113 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/uc05_movie.json",
+    "type": "Manifest",
+    "label": { "en": [ "Use Case 4: Movie with Subtitles" ] },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/uc05/canvas",
+            "type": "Canvas",
+            "height": 360,
+            "width": 480,
+            "duration": 572.034,
+            "timeMode": "trim",
+            "placeholderContainer": {
+                "id": "https://iiif.io/api/presentation/4.0/example/uc05/placeholder",
+                "type": "Canvas",
+                "height": 728,
+                "width": 962,
+                "items": [
+                    {
+                        "id": "https://example.org/image/placeholder/annopage",
+                        "type": "AnnotationPage",
+                        "items": [
+                            {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc05/placeholder/image",
+                                "type": "Annotation",
+                                "motivation": ["painting"],
+                                "body": {
+                                    "id": "https://fixtures.iiif.io/video/indiana/lunchroom_manners/thumbnail.png",
+                                    "type": "Image",
+                                    "format": "image/png",
+                                    "height": 728,
+                                    "width": 962
+                                },
+                                "target": { 
+                                    "id": "https://iiif.io/api/cookbook/recipe/0013-placeholderCanvas/canvas/donizetti/placeholder",
+                                    "type": "Canvas"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc05/annopage1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc05/anno1",
+                            "type": "Annotation",
+                            "motivation": ["painting"],
+                            "body": {
+                                "type": "Choice",
+                                "items": [
+                                    {
+                                        "id": "https://fixtures.iiif.io/video/indiana/lunchroom_manners/low/lunchroom_manners_256kb.mp4",
+                                        "type": "Video",
+                                        "label": { "en": [ "Low resolution (75 MB)" ] },
+                                        "height": 360,
+                                        "width": 480,
+                                        "duration": 572.034,
+                                        "format": "video/mp4",
+                                        "fileSize": 78666676
+                                    },
+                                    {
+                                        "id": "https://fixtures.iiif.io/video/indiana/lunchroom_manners/high/lunchroom_manners_1024kb.mp4",
+                                        "type": "Video",
+                                        "label": { "en": [ "High resolution (75 MB)" ] },
+                                        "height": 360,
+                                        "width": 480,
+                                        "duration": 572.034,
+                                        "format": "video/mp4",
+                                        "fileSize": 78666676
+                                    }
+                                ]
+                            },
+                            "target": { 
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc05/canvas", 
+                                "type": "Canvas" 
+                            }
+                        }
+                    ]
+                }
+            ],
+            "annotations": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc05/subtitles",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc05/subtitles/anno",
+                            "type": "Annotation",
+                            "motivation": ["supplementing"],
+                            "provides": [ "subtitles" ],
+                            "body": {
+                                "id": "https://fixtures.iiif.io/video/indiana/lunchroom_manners/lunchroom_manners.vtt",
+                                "type": "Text",
+                                "format": "text/vtt",
+                                "label": { "en": [ "Subtitles in WebVTT format" ] },
+                                "language": ["en"]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc05/canvas", 
+                                "type": "Canvas" 
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
