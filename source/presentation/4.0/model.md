@@ -1779,7 +1779,7 @@ The value _MUST_ be an array of strings.
 ### items
 {: #items}
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Containers within a Manifest. All of these situations are covered with a single property, `items`.
+The `items` property is an ordered list of resources that are contained within a parent resource. Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur, such as Collections or Manifests within a parent Collection, or Containers within a Manifest.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties. The items will be resources of different types, as described below.
 
