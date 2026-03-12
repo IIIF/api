@@ -261,7 +261,7 @@ The following sub-sections define the classes used in the IIIF Presentation API 
 The name of each class is given at the top of its definition below. The exact string _MUST_ be used as the value of `type` in the JSON for the class.
 
 __Properties__<br>
-All resources _MUST_ have the following property: [type](#type).
+All resources _MUST_ have the following properties: [type](#type).
 {: .note}
 
 ### Collection
@@ -1174,7 +1174,7 @@ A Quantity _MAY_ have the following properties: [id](#id), [label](#label).
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "type": "Quantity",
   "quantityValue": 1.0,
@@ -1213,7 +1213,7 @@ Services will also have specific requirements as to additional properties based 
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/image3/image1",
   "type": "ImageService3",
@@ -1261,7 +1261,7 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 ### action
 {: #action}
 
-The `action` property is used on Specific Resources that are in the `body` array of activating annotations (Annotations with the  "activating" motivation). The values of the property are named actions which the client is being instructed to carry out upon the `source` of the Specific Resource. The list of possible values and their corresponding effects is given in the table below. Clients _MUST_ process the Specific Resources in the order given in the Annotation, and _MUST_ process the actions in the order given in the array. The client _MUST_ perform all of the actions on the respective resources, and if it cannot, then it _MUST NOT_ perform any of them. The set of actions within an Annotation is, thus, treated as an atomic transaction. If the activating annotation that is currently being processed is disabled as part of the processing, the client _MUST NOT_ stop processing the ordered list when this occurs but keep processing until the end of the current Annotation's set of actions. Each activating Annotation is processed completely before moving to another activating Annotation's actions, even if an action causes another activating Annotation's actions to be triggered. Instead, the activating Annotations are queued up in order that they are triggered, and when the client finishes one such annotation it can begin to process the next, and so on.
+The `action` property is used on Specific Resources that are in the `body` array of activating annotations (Annotations with the  `activating` motivation). The values of the property are named actions which the client is being instructed to carry out upon the `source` of the Specific Resource. The list of possible values and their corresponding effects is given in the table below. Clients _MUST_ process the Specific Resources in the order given in the Annotation, and _MUST_ process the actions in the order given in the array. The client _MUST_ perform all of the actions on the respective resources, and if it cannot, then it _MUST NOT_ perform any of them. The set of actions within an Annotation is, thus, treated as an atomic transaction. If the activating annotation that is currently being processed is disabled as part of the processing, the client _MUST NOT_ stop processing the ordered list when this occurs but keep processing until the end of the current Annotation's set of actions. Each activating Annotation is processed completely before moving to another activating Annotation's actions, even if an action causes another activating Annotation's actions to be triggered. Instead, the activating Annotations are queued up in order that they are triggered, and when the client finishes one such annotation it can begin to process the next, and so on.
 
 The possible values of `action` are:
 
@@ -1282,8 +1282,8 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
   Clients _SHOULD_ process the `action` property on Specific Resources.
 
 {% include api/code_header.html %}
-```json
-  "action": ["show", "enable"]
+``` json-doc
+  { "action": ["show", "enable"] }
 ```
 
 
@@ -1293,7 +1293,7 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
 
 The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound from its direction. In other words, the angle extends from the center of the cone to the edge of the cone (the half-angle).
 
-The value _MUST_ be a floating point number greater than 0 and less than or equal to 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0.0 and less than or equal to 90.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
@@ -1301,8 +1301,8 @@ The value _MUST_ be a floating point number greater than 0 and less than or equa
   Clients _SHOULD_ process the `angle` property on Spot Audio Emitters.
 
 {% include api/code_header.html %}
-```json
-  "angle": 15.0
+``` json-doc
+{ "angle": 15.0 }
 ```
 
 ### annotations
@@ -1406,13 +1406,13 @@ The value _MUST_ be an array of strings.
 ### body
 {: #body}
 
-The body of an Annotation. The resources listed in `body` can be instances of TextualBody, Specific Resource, core Structural Resources, Content Resources, or the Annotation aggregate constructions of Choice, Composite, List and Independents if there are multiple bodies.
+The body of an Annotation. The resources listed in `body` can be instances of Textual Body, Specific Resource, core Structural Resources, Content Resources, or the Annotation aggregate constructions of Choice, Composite, List and Independents if there are multiple bodies.
 
 Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the Textual Body class _MUST_ be used instead.
 
 For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be a JSON object. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
+The value _MUST_ be a JSON object. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=0,0,100,100`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _SHOULD_ have the `body` property.<br/>
   Clients _MUST_ process the `body` property on Annotations.
@@ -1447,7 +1447,7 @@ The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI.
 
 This property sets the color of a Light.
 
-The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is "#FFFFFF".
+The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is `#FFFFFF`.
 
 * An AmbientLight _SHOULD_ have the `color` property<br/>
   Clients _SHOULD_ render `color` on an AmbientLight.
@@ -1506,7 +1506,7 @@ The value _MUST_ be a positive floating point number.
 ### environmentMap
 {: #environmentMap}
 
-A content resource representing the environment map image used by an [ImageBasedLight](#ImageBasedLight). The image provides omnidirectional lighting information and may use high dynamic range (HDR) encoding. The projection type of the image, such as equirectangular or cubic, is specified via the `profile` property.
+A content resource representing the environment map image used by an [Image-Based Light](#ImageBasedLight). The image provides omnidirectional lighting information and may use high dynamic range (HDR) encoding. The projection type of the image, such as equirectangular or cubic, is specified via the `profile` property.
 
 The value _MUST_ be a JSON object representing an Image which _MUST_ have the `id`, `type`, and `profile` properties, and _SHOULD_ have the `format` property.
 
@@ -1541,6 +1541,7 @@ The value of `exclude` _MUST_ be an array of strings, each of which is one of th
 * An Annotation _MAY_ have the `exclude` property.<br/>
   Clients _SHOULD_ process the `exclude` property.
 
+{% include api/code_header.html %}
 ```json-doc
 { "exclude": [ "audio", "lights", "cameras", "animations" ] }
 ```
@@ -1555,6 +1556,7 @@ The value _MUST_ be a non-negative floating point number in the coordinate space
 * A Camera _MAY_ have the `far` property.<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
 
+{% include api/code_header.html %}
 ```json-doc
 { "far": 200.0 }
 ```
@@ -1564,11 +1566,12 @@ The value _MUST_ be a non-negative floating point number in the coordinate space
 
 The vertical projection angle from the top plane to the bottom plane of the camera's field of view, specified in degrees. The horizontal projection angle is dependent on the aspect ratio of the client's viewport.
 
-The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0.0 and less than 180.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A PerspectiveCamera _SHOULD_ have the `fieldOfView` property.<br/>
   Clients _SHOULD_ process the `fieldOfView` property on a PerspectiveCamera.
 
+{% include api/code_header.html %}
 ```json-doc
 { "fieldOfView": 50.0 }
 ```
@@ -1583,6 +1586,7 @@ The value _MUST_ be a positive integer.
 * Any Content Resource _MAY_ have the `fileSize` property.<br/>
   Clients _SHOULD_ process the `fileSize` property on a Content Resource.
 
+{% include api/code_header.html %}
 ```json-doc
 { "fileSize": 132465987 }
 ```
@@ -1706,7 +1710,7 @@ If a publisher wishes for a resource to be able to be referenced, such as in an 
 ### instant
 {: #instant}
 
-A floating point number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of 4.5 means the exact point 4.5 seconds from the beginning of the resource.
+A floating point number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of `4.5` means the exact point 4.5 seconds from the beginning of the resource.
 
 The value _MUST_ be a non-negative floating point number.
 
@@ -1750,8 +1754,7 @@ When `interactionMode` is specified on a Scene and no Cameras are supplied withi
 
 When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting.
 
-
-If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time.
+If `action` is used to disable a Camera, then it is the same as if the Camera had an `interactionMode` with the value `locked`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time.
 
 The value _MUST_ be an array of strings.
 
@@ -1859,8 +1862,8 @@ This property references the last Annotation Page within an Annotation Collectio
 
 The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
-* A non-empty AnnotationCollection _SHOULD_ have the `last` property.<br/>
-  Clients _SHOULD_ process the `last` property on an AnnotationCollection.
+* A non-empty Annotation Collection _SHOULD_ have the `last` property.<br/>
+  Clients _SHOULD_ process the `last` property on an Annotation Collection.
 * A non-empty Collection _MAY_ have the `last` property.<br/>
   Clients _MAY_ process the `last` property on a Collection.
 
@@ -1917,7 +1920,7 @@ The value _MUST_ be a JSON object, conforming to either a reference to an Annota
   Clients _SHOULD_ process the `lookAt` property on Cameras.
 * A Spot Light or a Directional Light _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Lights.
-* A Spot Audio _MAY_ have the `lookAt` property.
+* A Spot Audio _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Spot Audio.
 
 {% include api/code_header.html %}
@@ -1965,7 +1968,7 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 
 The `motivation` property records the reason that an Annotation was created. Motivations can also be thought of as a classification of the type of Annotation (a `commenting` motivation implies the annotation is somehow a Comment). The name of the motivation is often used as an adjective for the Annotation, and thus an Annotation with the `painting` motivation is a "painting Annotation", or an annotation with the `commenting` motivation is a "commenting Annotation".
 
-This specification defines three new values for `motivation`. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content *of* the Container ("painting" motivation) and content *from* the Container ("supplementing" motivation), from ones with externally defined motivations which are typically comments or additional information *about* the Container. The "activating" motivation determines interactions with the resource in the Container.
+This specification defines three new values for `motivation`. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content *of* the Container ("painting" motivation) and content *from* the Container (`supplementing` motivation), from ones with externally defined motivations which are typically comments or additional information *about* the Container. The "activating" motivation determines interactions with the resource in the Container.
 
 The value _MUST_ be an array. Each item in the array _MUST_ be a string, drawn from the table below, the values defined by the Web Annotation Data Model, the registry for motivations, or an included extension.
 
@@ -2656,7 +2659,7 @@ The value _MUST_ be a JSON Object with the `id` and `type` properties. The value
 ### spatialScale
 {: #spatialScale}
 
-A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `quantityValue` of 0.00008 and a `unit` of `m` represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
+A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of `5000` and a `spatialScale` with `quantityValue` of `0.00008` and a `unit` of `m` represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be painted into a Container and the `spatialScale` is asserted on that Container. For example, a 3D model would be painted into a Scene, and then `spatialScale` is asserted on the Scene.
 
@@ -2681,7 +2684,7 @@ To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be 
 ### start
 {: #start}
 
-A Container, or part of a Container, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Container is handled in the same way that Ranges reference parts of Containers by using either its URI, a URI with a fragment specifier, or a SpecificResource with a Selector. This property allows the client to begin with the first Container that contains interesting content rather than requiring the user to manually navigate to find it.
+A Container, or part of a Container, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Container is handled in the same way that Ranges reference parts of Containers by using either its URI, a URI with a fragment specifier, or a Specific Resource with a Selector. This property allows the client to begin with the first Container that contains interesting content rather than requiring the user to manually navigate to find it.
 
 If the resource with the `start` property is a Collection, then the Container (or SpecificResource) _MUST_ have the `partOf` property referring to the Manifest that it is part of, such that the client can retrieve it.
 
@@ -2862,7 +2865,7 @@ The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Reference
 ### temporalScale
 {: #temporalScale}
 
-A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantityValue` of 1000 and a `unit` of `s` represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
+A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of `450` and a `temporalScale` with `quantityValue` of `1000` and a `unit` of `s` represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
 
