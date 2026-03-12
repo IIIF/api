@@ -2145,7 +2145,7 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
 ### position
 {: #position}
 
-It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a Textual Body or a Specific Resource.
+It is important to be able to position the body of an Annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a Textual Body or a Specific Resource.
 
 The value of this property _MUST_ be a JSON object conforming to the Specific Resource pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
@@ -2726,7 +2726,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### startIndex
 {: #startIndex}
 
-A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
+A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is `100` (the first page contains entries 0 through 99 inclusive).
 
 The value of `startIndex` _MUST_ be an integer greater than -1.
 
@@ -3016,8 +3016,8 @@ The value _MUST_ be a string.
 | `Video`{: #value-Video}       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
 
-!!! note
-For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a synonym for `Audio`.
+> For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a synonym for `Audio`.
+{: .warning}
 
 {% include api/code_header.html %}
 ``` json-doc
