@@ -520,7 +520,7 @@ A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [s
 
 > `"type": "Independents"`
 
-An `Independents` resource is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
+An Independents resource is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
 
 __Properties__<br/>
 An Independents _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
@@ -858,7 +858,7 @@ An Ambient Light _SHOULD_ have the following additional properties: [color](#col
 
 Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel.
 
-The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotateTransform`.
+The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a RotateTransform.
 
 __Properties__<br/>
 A Directional Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
@@ -879,7 +879,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 {: #ImageBasedLight}
 > `"type": "ImageBasedLight"`
 
-Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a `RotateTransform`.
+Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a RotateTransform.
 
 __Properties__<br/>
 An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
@@ -1280,7 +1280,7 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
 
 The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound from its direction. In other words, the angle extends from the center of the cone to the edge of the cone (the half-angle).
 
-The value _MUST_ be a floating point number greater than 0 and less than 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0 and less than equal to 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
@@ -1396,9 +1396,9 @@ The value _MUST_ be an array of strings.
 ### body
 {: #body}
 
-The body of an Annotation. The resources listed in `body` can be instances of `TextualBody`, `SpecificResource`, core Structural Resources, Content Resources, or the Annotation aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple bodies.
+The body of an Annotation. The resources listed in `body` can be instances of TextualBody, Specific Resource, core Structural Resources, Content Resources, or the Annotation aggregate constructions of Choice, Composite, List and Independents if there are multiple bodies.
 
-Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the `TextualBody` class _MUST_ be used instead.
+Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the TextualBody class _MUST_ be used instead.
 
 For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
@@ -1458,7 +1458,7 @@ The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex v
 ### conformsTo
 {: #conformsTo}
 
-The specification that the fragment identifier in the `value` property of a `FragmentSelector` conforms to. The value allows clients to correctly interpret the fragment identifier syntax. For example, a `FragmentSelector` using the media fragments specification would have a `conformsTo` value of `http://www.w3.org/TR/media-frags/`.
+The specification that the fragment identifier in the `value` property of a Fragment Selector conforms to. The value allows clients to correctly interpret the fragment identifier syntax. For example, a Fragment Selector using the media fragments specification would have a `conformsTo` value of `http://www.w3.org/TR/media-frags/`.
 
 For more information about `conformsTo`, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
 
@@ -1523,10 +1523,10 @@ Just as a Scene may contain multiple Annotations with models, light, and cameras
 
 | Value      | Description |
 |------------|-------------|
-| `Audio`{: #value-Audio}      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
-| `Animations`{: #value-Animations} | Exclude all definitions of animations from resources |
-| `Cameras`{: #value-Cameras}    | Exclude all cameras from resources |
-| `Lights`{: #value-Lights}     | Exclude all lights from resources |
+| `audio`{: #value-audio}      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
+| `animations`{: #value-animations} | Exclude all definitions of animations from resources |
+| `cameras`{: #value-cameras}    | Exclude all cameras from resources |
+| `lights`{: #value-lights}     | Exclude all lights from resources |
 
 The value of `exclude` _MUST_ be an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
 
@@ -1534,7 +1534,7 @@ The value of `exclude` _MUST_ be an array of strings, each of which is one of th
   Clients _SHOULD_ process the `exclude` property.
 
 ```json-doc
-{ "exclude": [ "Audio", "Lights", "Cameras", "Animations" ] }
+{ "exclude": [ "audio", "lights", "cameras", "animations" ] }
 ```
 
 ### far
@@ -1584,7 +1584,7 @@ The value _MUST_ be a positive integer.
 
 This property references the first Annotation Page within an Annotation Collection, or the first Collection Page within a Collection. Note that Collections will only have the `first` property if there is a large number of items, more than could conveniently be included in a single page.
 
-The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
+The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be AnnotationPage or CollectionPage.
 
 * A non-empty Annotation Collection _MUST_ have the `first` property.<br/>
   Clients _MUST_ process the `first` property on an AnnotationCollection.
@@ -2079,7 +2079,7 @@ The value is a non-negative floating point number, in the coordinate space of th
 
 A reference from an Annotation Page to the following Annotation Page within an Annotation Collection, or from a Collection Page to the following Collection Page.
 
-The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Annotation or Collection Page. The value of the `type` property _MUST_ be the string `AnnotationPage` or `CollectionPage`.
+The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Annotation or Collection Page. The value of the `type` property _MUST_ be `AnnotationPage` or `CollectionPage`.
 
 * An AnnotationPage _MUST_ have the `next` property, unless it is the last page in the AnnotationCollection or Collection.<br/>
   Clients _MUST_ process the `next` property on an AnnotationPage or CollectionPage.
@@ -2116,7 +2116,7 @@ The resources referred to by the `accompanyingContainer` and `placeholderContain
 ### placeholderContainer
 {: #placeholderContainer}
 
-A single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a `Scene` may have a placeholder Container of type `Canvas`.
+A single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a Scene may have a placeholder Container of type Canvas.
 
 Clients _MAY_ display the content of a linked placeholder Container when presenting the resource. When more than one such Container is available, for example if `placeholderContainer` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the placeholder Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered placeholder Container and the content of the resource that has the `placeholderContainer` property.
 
@@ -2147,9 +2147,9 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
 ### position
 {: #position}
 
-It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a `TextualBody` or a `SpecificResource`.
+It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a Textual Body or a Specific Resource.
 
-The value of this property _MUST_ be a JSON object conforming to the `SpecificResource` pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
+The value of this property _MUST_ be a JSON object conforming to the Specific Resource pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
 * A Textual Body _MAY_ have the `position` property.<br/>
   Clients _SHOULD_ process the `position` property on Textual Body instances.
@@ -2184,7 +2184,7 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
 
 A reference from an Annotation Page to the preceding Annotation Page within an Annotation Collection, or from a Collection Page to the preceding Collection Page.
 
-The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the preceding Annotation or Collection Page. The value of the `type` property _MUST_ be the string `AnnotationPage` or `CollectionPage`.
+The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the preceding Annotation or Collection Page. The value of the `type` property _MUST_ be `AnnotationPage` or `CollectionPage`.
 
 * An AnnotationPage _SHOULD_ have the `prev` property, unless it is the first page in the AnnotationCollection.<br/>
   Clients _SHOULD_ process the `prev` property on an AnnotationPage.
@@ -2233,10 +2233,10 @@ The value _MUST_ be a string, either taken from the [profiles registry][registry
 
 An organization or person that contributed to providing the content of the resource. Clients can then display this information to the user to acknowledge the provider's contributions.  This differs from the `requiredStatement` property, in that the data is structured, allowing the client to do more than just present text but instead have richer information about the people and organizations to use in different interfaces.
 
-The organization or person is represented as an `Agent` resource.
+The organization or person is represented as an Agent resource.
 
 * Agents _MUST_ have the `id` property, and its value _MUST_ be a string. The string _MUST_ be a URI that identifies the agent.
-* Agents _MUST_ have the `type` property, and its value _MUST_ be the string `Agent`.
+* Agents _MUST_ have the `type` property, and its value _MUST_ be `Agent`.
 * Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi30-languages] section.
 * Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi30-homepage] section.
 * Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi30-logo] section.
@@ -2351,7 +2351,7 @@ The value of `quantityValue` _MUST_ be a floating point number.
 ### refinedBy
 {: #refinedBy}
 
-The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a `FragmentSelector` and then further refine that region with an `SvgSelector` or `WktSelector`.
+The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a Fragment Selector and then further refine that region with an Svg Selector or Wkt Selector.
 
 For more information about `refinedBy`, please see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
 
@@ -2865,7 +2865,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### target
 {: #target}
 
-The target of an Annotation. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, Content Resources, or one of the aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple targets.
+The target of an Annotation. The resources listed in `target` can be instances of Specific Resource, core Structural Resources, Content Resources, or one of the aggregate constructions of Choice, Composite, List and Independents if there are multiple targets.
 
 For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
@@ -3073,7 +3073,7 @@ The `value` property is used in several situations to convey a value of a resour
 
 In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
 
-Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation, and `CssStylesheet` uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
+Many selector classes use `value` to convey a string representation of the selection definition, such as Fragment Selector and Wkt Selector. Textual Body similarly uses `value` to convey the string of the body of an Annotation, and CssStylesheet uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
 
 
 Language Map `value`:
