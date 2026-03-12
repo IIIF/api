@@ -105,7 +105,9 @@ a:hover > code {
 
 The IIIF Presentation API is backed by a standards-based data model inspired by both earlier tree structured representations of cultural heritage objects, as well as linked data approaches with the same goal. It comprises four main types of resource: Structural (such as Collections, Manifests, and Ranges), Presentational Containers (Canvas, Scene and Timeline), Linking (Annotations), and Content (the images, texts, audio, video and models to be displayed). In addition to these, the model includes supporting classes such as Agents, and extensions to the standards for IIIF specific use cases, such as Transforms for manipulating 3D models within a Scene.
 
-The Presentation API data model intentionally does not include any semantic or descriptive relationships or properties, such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
+The Presentation API Data Model intentionally does not include any semantic or descriptive relationships or properties, such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
+
+This document is part of the [IIIF Presentation API 4.0 Specification][prezi40].
 
 
 ## Technical Considerations
@@ -155,7 +157,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _SHOULD_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects. This construction is called a Language Map in the [JSON-LD specification](https://www.w3.org/TR/json-ld11/#language-maps).
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The locale, script and other subtags _MAY_ be included. Clients _SHOULD_ process subtags when comparing the values with the user's provided preferences, however _MAY_ simply reduce all tags down to just the language, discarding everything after the first hyphen, and display all matching values. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The locale, script and other subtags _MAY_ be included. Clients _SHOULD_ process subtags when comparing the values with the user's provided preferences, however they _MAY_ simply reduce all tags down to just the language, discarding everything after the first hyphen, and display all matching values. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -183,7 +185,8 @@ In the case where multiple values are supplied, clients _MUST_ use the following
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
   * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
 
-Note that this does not apply to [embedded][prezi30-terminology] textual bodies in Annotations, which use the Web Annotation pattern of `value` and `language` as separate properties.
+> Note that this does NOT apply to [embedded][prezi40-terminology] textual bodies in Annotations,  which use the Web Annotation pattern of `value` and `language` as separate properties.
+{: .warning}
 
 ### HTML Markup in Property Values
 
@@ -226,7 +229,7 @@ JSON descriptions _SHOULD_ be embedded within the JSON of parent resources, and 
 ### JSON-LD Contexts and Extensions
 {: #json-ld-contexts-and-extensions}
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi30-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi40-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
 The value of the `@context` property _MUST_ be either the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` as the last item. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
 
@@ -253,7 +256,7 @@ The JSON representation _MUST NOT_ include the `@graph` key at the top level. Th
 
 ## Classes
 
-The following sub-sections define the classes used in the IIIF Presentation Data Model. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from. The descriptions do not define how the classes are used together, which is done in the Presentation API Overview.
+The following sub-sections define the classes used in the IIIF Presentation API Data Model. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from. 
 
 The name of each class is given at the top of its definition below. The exact string _MUST_ be used as the value of `type` in the JSON for the class.
 
@@ -276,7 +279,7 @@ If there are too many members in the collection to fit within a single document 
 
 Member Collections _MAY_ be embedded inline within other Collections, including in Collection Pages, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
-Manifests or Collections _MAY_ be [referenced][prezi30-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
+Manifests or Collections _MAY_ be [referenced][prezi40-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
 
 Collections or Manifests referenced in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
 
@@ -385,7 +388,7 @@ A Scene _MAY_ have the following additional properties: [duration](#duration).
 ### Annotation Classes
 {: #Annotations}
 
-The following set of classes are defined by the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary, and are heavily used within the IIIF Data Model. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
+The following set of classes are defined by the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary, and are heavily used within the IIIF Presentation API Data Model. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
 
 #### Annotation
 {: #Annotation}
@@ -418,7 +421,7 @@ Annotation Collections allow Annotations to be collected together into ordered g
 
 Annotation Collections _MUST_ have an HTTP(S) URI. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced.
 
-Annotation Collections are always paged using `first` and `last`, rather than `items` as is possible for IIIF Collections, following the regular ActivityStreams paging model.
+Annotation Collections are always paged using `first` and `last`, rather than `items` as is possible for IIIF Collections, following the regular Activity Streams paging model.
 
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/><br/>
@@ -556,11 +559,11 @@ Non-3D Content Resources such as images, audio, and video _MUST NOT_ be painted 
 
 If there is a need to distinguish between Content Resources, then all such resources _SHOULD_ have the `label` property.
 
-Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description. This is often described as "nesting".
+Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi40-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description. This is often described as "nesting".
 
 A Canvas painted into a Scene has special requirements. The top-left corner of the Canvas _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used. The Canvas _MUST_ be scaled to the Scene such that Canvas coordinate dimensions after any [Transforms](#transforms) are applied correspond to Scene coordinate dimensions with 1:1 scaling. A Canvas painted into a Scene as an Annotation has forward and backward faces, and by default the forward face is toward the positive z axis of the Scene, though this may be modified by Transforms. The content of the Canvas _SHOULD_ be displayed on the forward face, and the backward face _SHOULD_ display either any `backgroundColor` of the Canvas or a reverse view of the content.
 
-A Scene painted into a Scene has two special processing rules. The first is that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored. The second is that when both Scenes have ImageBasedLight Annotations, clients _MAY_ ignore any ImageBasedLight Annotation of the Scene to be painted.
+A Scene painted into a Scene has two special processing rules. The first is that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored. The second is that when both Scenes have Image-Based Light Annotations, clients _MAY_ ignore any Image-Based Light Annotation of the Scene to be painted.
 
 __Properties__<br/>
 A Content Resource _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
@@ -572,7 +575,7 @@ A Content Resource _MAY_ have the following properties: [height](#height), [widt
 ### Selectors
 {: #Selectors}
 
-The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of a Selector is dependent on the type of resource that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Data Model, including any not listed here. This specification defines several additional Selector classes for use.
+The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of a Selector is dependent on the type of resource that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Presentation API Data Model, including any not listed here. This specification defines several additional Selector classes for use.
 
 #### Fragment Selector
 {: #FragmentSelector}
@@ -637,7 +640,7 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 > `"type": "WktSelector"`
 
-Well-Known Text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
+Well-Known Text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SVG Selector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
 
 The text representation is given in the `value` property of the selector.
 
@@ -940,9 +943,9 @@ A Point Light _SHOULD_ have the following additional properties: [color](#color)
 {: #SpotLight}
 > `"type": "SpotLight"`
 
-Spot Light emits a cone of light in a given direction from a single point.  The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
+A Spot Light emits a cone of light in a given direction from a single point.  The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
 
-The Spot Light emits in the negative Y direction by default, but the orientation of the light can be altered by subsequent transforms, or by setting the `lookAt` property.
+A Spot Light emits in the negative Y direction by default, but the orientation of the light can be altered by subsequent transforms, or by setting the `lookAt` property.
 
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
 
@@ -969,9 +972,9 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt).<b
 #### Audio Emitters
 {: #AudioEmitters}
 
-Audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light. AudioEmitter is also an abstract class, and thus _MUST NOT_ be directly instantiated.
+Audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light. Audio Emitter is also an abstract class, and thus _MUST NOT_ be directly instantiated.
 
-As the audio content must come from an audio resource, the Audio Emitter classes are subclasses of SpecificResource. Note that the `source` of the Audio could be a Timeline, or could be further constrained with additional specifiers as to start point, end point or other transformations.
+As the audio content must come from an audio resource, the Audio Emitter classes are subclasses of Specific Resource. Note that the `source` of the Audio could be a Timeline, or could be further constrained with additional specifiers as to start point, end point or other transformations.
 
 Volume is given relative to the input audio content's volume, and thus a volume of 1.0 is the volume as provided, 0.5 is half the volume, and 2.0 is double the volume.
 
@@ -1388,7 +1391,7 @@ The value _MUST_ be an array of strings.
 | `multi-part`{: #value-multi-part} | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together`{: #value-together} | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Navigation Behaviors** |
-| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
+| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi40-terminology] in the `structures` property of a Manifest, and Annotation Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: #value-thumbnail-nav style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav`{: #value-no-nav} | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
@@ -1836,7 +1839,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ### language
 {: #language}
 
-The language or languages used in the content of this external resource. It _MAY_ be used for resources [referenced][prezi30-terminology] from `body`, `target`, `source`, `homepage`, `rendering`, and `partOf`, amongst others.
+The language or languages used in the content of this external resource. It _MAY_ be used for resources [referenced][prezi40-terminology] from `body`, `target`, `source`, `homepage`, `rendering`, and `partOf`, amongst others.
 
 The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi30-languages].
 
@@ -2091,7 +2094,7 @@ The value _MUST_ be a JSON object, with the `id` and `type` properties. The valu
 ### partOf
 {: #partOf}
 
-A containing resource that includes the resource that has the `partOf` property. When a client encounters the `partOf` property, it might retrieve the [referenced][prezi30-terminology] containing resource, if it is not [embedded][prezi30-terminology] in the current representation, in order to contribute to the processing of the contained resource. For example, the `partOf` property on a Canvas can be used to reference an external Manifest in order to enable the discovery of further relevant information. Similarly, a Manifest can reference a containing Collection using `partOf` to aid in navigation.
+A containing resource that includes the resource that has the `partOf` property. When a client encounters the `partOf` property, it might retrieve the [referenced][prezi40-terminology] containing resource, if it is not [embedded][prezi40-terminology] in the current representation, in order to contribute to the processing of the contained resource. For example, the `partOf` property on a Canvas can be used to reference an external Manifest in order to enable the discovery of further relevant information. Similarly, a Manifest can reference a containing Collection using `partOf` to aid in navigation.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
@@ -2197,13 +2200,13 @@ The value _MUST_ be a JSON object, with the `id` and `type` properties. The valu
 
 A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
-When `profile` is used in a resource [referenced][prezi30-terminology] by the `environmentMap` property, the specification defines values in the table below for environment map projection types. Other values for additional projection types may be taken from the [profiles registry][registry-profiles] or as a full URI.
+When `profile` is used in a resource [referenced][prezi40-terminology] by the `environmentMap` property, the specification defines values in the table below for environment map projection types. Other values for additional projection types may be taken from the [profiles registry][registry-profiles] or as a full URI.
 
 The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles], a full URI, or from the table below.
 
-* Resources [referenced][prezi30-terminology] by the `environmentMap` property _MUST_ have the `profile` property.<br/>
+* Resources [referenced][prezi40-terminology] by the `environmentMap` property _MUST_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of an environment map.
-* Resources [referenced][prezi30-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
+* Resources [referenced][prezi40-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
 * Other types of resource _MAY_ have the `profile` property.<br/>
   Clients _MAY_ process the `profile` of other types of resource.
@@ -2558,19 +2561,6 @@ The value _MUST_ be an array of JSON objects. Each object will have properties d
   ]
 }
 ```
-
-For cross-version consistency, this specification defines the following values for the `type` or `@type` property for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types. These `type` values are necessary extensions for compatibility of the older versions.
-
-| Value                | Specification |
-| -------------------- | ------------- |
-| `ImageService1`{: #value-ImageService1}        | [Image API version 1][image11]  |
-| `ImageService2 `{: #value-ImageService2}       | [Image API version 2][image21]  |
-| `SearchService1`{: #value-SearchService1}       | [Search API version 1][search1] |
-| `AutoCompleteService1`{: #value-AutoCompleteService1} | [Search API version 1][search1-autocomplete] |
-| `AuthCookieService1`{: #value-AuthCookieService1}   | [Authentication API version 1][auth1-cookie-service] |
-| `AuthTokenService1`{: #value-AuthTokenService1}    | [Authentication API version 1][auth1-token-service] |
-| `AuthLogoutService1`{: #value-AuthLogoutService1}   | [Authentication API version 1][auth1-logout-service] |
-{: .api-table #table-service-types}
 
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document. The example below includes both version 2 and version 3 IIIF Image API services.
 
@@ -3351,7 +3341,7 @@ Clients are only expected to follow links to Presentation API resources. Unlike 
 
 ### Responses
 
-The format for all responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If a resource is [referenced][prezi30-terminology] within a response, rather than being [embedded][prezi30-terminology], then it _MUST_ be able to be dereferenced.
+The format for all responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If a resource is [referenced][prezi40-terminology] within a response, rather than being [embedded][prezi40-terminology], then it _MUST_ be able to be dereferenced.
 
 If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example [`profile`][prezi-40-model-profile] or `charset`.
 
