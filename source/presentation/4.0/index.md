@@ -8,7 +8,7 @@ tags: [specifications, presentation-api]
 major: 4
 minor: 0
 patch: 0
-pre:
+pre: draft
 redirect_from:
   - /presentation/index.html
   - /presentation/4/index.html
@@ -215,13 +215,31 @@ Canvases have two additional required properties: [`height`][prezi-40-model-heig
 
 ### Scene
 
-A Container that represents a boundless three-dimensional space, optionally with a bounded temporal range. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
+A Scene is a Container that represents a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
 
-Scenes may also have the [`duration`][prezi-40-model-duration] property in the same manner as Timelines.
+<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
+
+(Image: Wikipedia)
+
+Scenes may also have a bounded temporal range via the `duration` property, in the same way as Canvases and Timelines. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
 
 {% include code_example.html src="04_scene.json" from=16 to=49 %}
 
-Scenes can have time-based and image content in them as well as 3D content.
+Scenes use several 3D specific constructions to manage rendering:
+
+#### Lights
+
+It is necessary for there to be a Light within a Scene that illuminates the objects, and if no Light is defined for the Scene, then the client will provide its own default lighting. There are five types of Light: `AmbientLight` (emits evenly throughout the Scene), `DirectionalLight` (emits in a given direction), `ImageBasedLight` (emits using an image), `PointLight` (emits from a point), and `SpotLight` (emits from a point, in a given direction). 
+
+
+#### Cameras
+
+A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. 
+
+#### Audio Emitters
+
+Audio is supported within Scenes through Audio Emitter classes, in the same way as light is added to a Scene using Light subclasses. There are three types of Audio Emitter: `AmbientAudio` (emits evenly throughout the Scene), `PointAudio` (emits from a point) and SpotAudio (emits from a point in a given direction). They have [`source`][prezi-40-model-source] (an audio Content Resource) and [`volume`][prezi-40-model-volume] properties.
+
 
 ## Annotations
 
@@ -233,9 +251,73 @@ Different uses of Annotation are distinguished through their [`motivation`][prez
 
 The same linking mechanism is also used in IIIF with other motivations for transcriptions, commentary, tags and other content. This provides a single, unified method for aligning content, and provides a standards-based framework for referencing parts of resources. As Annotations can be added later, it promotes a distributed system in which further content such as commentary can be aligned with the objects published on the web.
 
-Annotations are grouped within the [`items`][prezi-40-model-items] property of an Annotation Page, and the [`items`][prezi-40-model-items] property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required.
+Annotations are grouped within the [`items`][prezi-40-model-items] property of an Annotation Page, and the [`items`][prezi-40-model-items] property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required. Annotation Pages can be part of Annotation Collections, both described below.
 
 The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body]. See the [Annotation Documentation](model/#Annotation) for more detail.
+
+
+> TODO: JSON examples for Anno, Anno Page and Anno Coll'n ?
+{: .warning}
+
+<!--
+
+```json
+{
+  "id": "https://example.org/iiif/book1/annocoll/transcription",
+  "type": "AnnotationCollection",
+  "label": {"en": ["Diplomatic Transcription"]},
+  "total": 112,
+  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
+  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
+}
+```
+
+```jsonc
+{
+  "id": "https://example.org/iiif/book1/annopage/l2",
+  "type": "AnnotationPage",
+  "prev": "https://example.org/iiif/book1/annopage/l1",
+  "next": "https://example.org/iiif/book1/annopage/l3",
+  "items": [
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a1",
+      "type": "Annotation"
+      // ...
+    },
+    {
+      "id": "https://example.org/iiif/book1/annopage/l2/a2",
+      "type": "Annotation"
+      // ...
+    }
+  ],
+  "partOf": [
+    {
+      "id": "https://example.org/iiif/book1/annocoll/transcription",
+      "type": "AnnotationCollection",
+    }
+  ]
+}
+```
+
+-->
+
+<!--
+use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
+https://github.com/IIIF/api/issues/2118
+-->
+
+
+### Annotation Page
+
+Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
+
+Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
+
+### Annotation Collection
+
+Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Container or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user’s preference.
+
+For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
 
 
 ## Content Resources
@@ -275,6 +357,13 @@ The fragment example above can be expressed using a Specific Resource:
 
 {% include code_example.html src="06_specific_resource.json" from=58 to=86 %}
 
+#### Transforms
+
+When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which determine how the Transform affects that axis in the local coordinate space.
+
+Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
+
+
 ## Navigational Resources
 
 Navigational resources provide structure for IIIF resources that allow viewing clients to guide users through IIIF content and collections. They define how resources are organized for discovery and interaction across multiple resources, like Collections, or within a resource, like Ranges, that help clients construct meaningful navigational interfaces, such as hierarchies, groupings, lists, or tables of contents.
@@ -301,7 +390,7 @@ The required properties of Collections are [`id`][prezi-40-model-id] and [`type`
 
 # Image Content
 
-## Use Case 1: Artwork with deep zoom
+## Use Case 1: Artwork
 
 This example is a Manifest with one Canvas, representing an artwork. The content resource, a JPEG image of the artwork, is associated with the Canvas via a Painting Annotation.
 
@@ -338,7 +427,8 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 >
 **Key Points**
 * Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
-* **TODO: Finish Me**{: .warning}
+* As the Presentation API is about displaying content, not describing it semantically, many of the properties are hints to the client as to how to render the resources, such as `behavior`, `viewingDirection` and `start`, or pointers to other resources that also render the content such as `rendering`.
+* The `requiredStatement` property is often used for a rights or legal statement, however can be used for any message that the client _MUST_ render. There can only be one `requiredStatement` to avoid overloading the UI with dozens of popups that need to be closed.
 {: .callout}
 
 __Definitions__<br/>
@@ -368,7 +458,9 @@ Manifest for the February 16, 1925 issue, with Ranges for table of contents:
 
 >
 **Key Points**
-* **TODO: Finish Me**{: .warning}
+* Navigation between Manifests is managed via Collections, potentially in a hierarchy, which are each separate documents.
+* Navigation within a single Manifest (beyond the default order of the Containers) is managed via Ranges in the `structures` property.
+* Further navigation, managed by the client, is possible via the `navPlace` and `navDate` properties. These are not semantic metadata, they are used by the client to generate navigation maps and timelines, respectively.
 {: .callout}
 
 __Definitions__<br/>
@@ -377,9 +469,9 @@ Properties: [behavior][prezi-40-model-behavior], [navPlace][prezi-40-model-navPl
 {: .note}
 
 
-# Audio and Video
+# Audio and Video Content
 
-## Use Case 4: A 45 single with 2 tracks
+## Use Case 4: A 45 Single with 2 Tracks
 
 This example is a Manifest with two Timelines, each of which represent a temporal extent during which a song is played. As in most cases, the Timeline [`duration`][prezi-40-model-duration] is the same length as that of Content Resource painted into it. This example is a recording digitized from a 45 RPM 7 inch single. It demonstrates the use of [`format`][prezi-40-model-format] for the audio files' content type, [`language`][prezi-40-model-language] (One song is in English and one is in German), [`behavior`][prezi-40-model-behavior] with value "auto-advance" that tells a client to automatically advance to the second Timeline after playing the first, [`annotations`][prezi-40-model-annotations] that link to Annotation Pages of annotations with the motivation `supplementing` that provide the lyrics (one example is given afterwards) - and an [`accompanyingContainer`][prezi-40-model-accompanyingContainer] that carries a picture of the single's cover that is shown while the songs are playing.
 
@@ -389,10 +481,11 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 
 >
 **Key Points**
+* Timeline is a type of Container intended to manage audio content, or other temporal information.
+* Any Container, but especially Timelines, can have a `accompanyingContainer` with additional content to render to make the user experience more attractive. 
+* Information about external resources such as `format`, `language`, `duration` can be added to assist with rendering, especially when the user or client needs to make a choice between representations. See the next use case more for details about Choice.
 * In the external annotation for the song lyrics, we append `#t=3.5,6.8` to the target URI to define the temporal extent in the target timeline that corresponds to the song lyric.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Timeline][prezi-40-model-Timeline],[TextualBody][prezi-40-model-TextualBody]<br/><br/>
@@ -400,7 +493,7 @@ Properties: [duration][prezi-40-model-duration], [format][prezi-40-model-format]
 {: .note}
 
 
-## Use Case 5: Movie with subtitles
+## Use Case 5: Movie with Subtitles
 
 This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas [`duration`][prezi-40-model-duration]) and its aspect ratio (given by the [`width`][prezi-40-model-width] and [`height`][prezi-40-model-height] of the Canvas). The example demonstrates the use of a [`Choice`][prezi-40-model-Choice] annotation body to give two alternative versions of the movie, indicated by their [`label`][prezi-40-model-label] and `fileSize` properties as well as [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width]. Subtitles are provided by an annotation that links to a VTT file. The motivation of this annotation is `supplementing` and the [`provides`][prezi-40-model-provides] property of this annotation indicates what accessibility feature it provides, in this case the term `subtitles`. The [`timeMode`][prezi-40-model-timeMode] property in this case is redundant as `trim` is the default value. The Canvas has a [`placeholderContainer`][prezi-40-model-placeholderContainer] that provides a poster image to show in place of the video file before the user initiates playback.
 
@@ -409,63 +502,45 @@ This example is a Manifest with one Canvas that represents the temporal extent o
 >
 **Key Points**
 * The decision about which item in the [`Choice`][prezi-40-model-Choice] to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the [`label`][prezi-40-model-label], or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of [`Choice`][prezi-40-model-Choice] for common image and AV use cases.
-* Slop - impl note - don't interpret **very** minor discrepancies between [`duration`][prezi-40-model-duration] on the different Choices and the Container [`duration`][prezi-40-model-duration] as an instruction to stretch or compress the audio/video stream to match the Container duration. No real way to quantify this, just _be sensible_.
-{: .note}
+* Clients should not interpret **very** minor discrepancies between [`duration`][prezi-40-model-duration] on the different Choices and the Container [`duration`][prezi-40-model-duration] as an instruction to stretch or compress the audio/video stream to match the Container duration. There is no real way to quantify exactly how big a difference would count as not "minor" and thus it is also client dependent.
+{: .callout}
 
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [Choice][prezi-40-model-Choice]<br/><br/>
 Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
-# 3D
+# 3D Content
 
-Scenes describe a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space.
+<!--
 
-The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
+// Move to sections where we talk about these
 
-<img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
+Due to particular considerations of 3D space and rendering content within that space, such as scaling or textures with forward and backward faces, non-3D Content Resources must first be wrapped within an appropriate Container or Resource before being painted into a Scene. Image and video resources should be painted on to a Canvas, where the Canvas can in turn be painted into a Scene. 
+For further detail about painting Containers within other Containers, see [Nesting](#nesting).
 
-(Image: Wikipedia)
+Audio resources or Timelines should be referenced by an AudioEmitter and the AudioEmitter can be painted into a Scene. 
 
-3D Content Resources are painted into Scenes. This can include 3D models, which can be painted into Scenes as Annotations with [`motivation`][prezi-40-model-motivation] "painting". Due to particular considerations of 3D space and rendering content within that space, such as scaling or textures with forward and backward faces, non-3D Content Resources must first be wrapped within an appropriate Container or Resource before being painted into a Scene. Image and video resources should be painted on to a Canvas, where the Canvas can in turn be painted into a Scene. Audio resources or Timelines should be referenced by an AudioEmitter and the AudioEmitter can be painted into a Scene. For further detail about painting Containers within other Containers, see [Nesting](#nesting).
+-->
 
-## 3D Supporting Resources
+<!--
 
-Constructs from the domain of 3D graphics are expressed in IIIF as Resources. They are associated with Scenes via Painting Annotations in the same manner as Content Resources. They aid in or enhance the rendering of Content Resources, especially in Scenes.
+### Chessboard is a Canvas with image (not a 3D chessboard)
 
-### Cameras
+A Scene or a Canvas may be treated as a content resource, referenced or described within the [`body`][prezi-40-model-body] of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation [`target`][prezi-40-model-target]. The content resource Scene will be placed within the [`target`][prezi-40-model-target] Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use [`PointSelector`][prezi-40-model-PointSelector] to place the origin of the resource Scene at a specified coordinate within the [`target`][prezi-40-model-target] Scene.
 
-A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. The size and aspect ratio of the viewport is client and device dependent.
-
-There are two types of Camera, [`PerspectiveCamera`][prezi-40-model-PerspectiveCamera] and [`OrthographicCamera`][prezi-40-model-OrthographicCamera]. The first Camera defined and not [hidden](model/#value-hidden) in a Scene is the default Camera used to display Scene contents. If the Scene does not have any Cameras defined within it, then the client provides a default Camera. The type, properties and position of this default camera are client-dependent.
-
-
-### Lights
-
-There are five types of Light: AmbientLight, DirectionalLight, ImageBasedLight, PointLight, and SpotLight. They have an [`intensity`][prezi-40-model-intensity] property, and all Lights except ImageBasedLight have a [`color`][prezi-40-model-color] property. ImageBasedLight has an additional property of [`environmentMap`][prezi-40-model-environment-map] that specifies the environment map image used to simulate lighting. SpotLight has an additional property of [`angle`][prezi-40-model-angle] that determines the spread of its light cone. PointLights and SpotLights can be painted at specific positions within the Scene. DirectionalLights, PointLights, and SpotLights have directional facing in the Scene that affects how light is cast.
-
-If the Scene has no Lights, then the client provides its own lighting as it sees fit.
+-->
 
 
-### Audio Emitters
-
-There are three types of Audio emitter: AmbientAudio, PointAudio and SpotAudio. They have a [`source`][prezi-40-model-source] (an audio Content Resource) and a [`volume`][prezi-40-model-volume].
-
-### Transforms
-
-When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which determine how the Transform affects that axis in the local coordinate space.
-
-Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
+## Use Case 6: 3D Chessboard
 
 
-## Use Case 6: 3D content
+### Basic Scene
 
-This example is a Manifest with a single Scene, with a single 3D model of a space suit painted at the Scene's origin.
+The 3D Use Case is built up in several steps to demonstrate different aspects of how Scenes are able to be used. This first example is a Manifest with a single Scene, with a 3D model of a space suit painted at the center (or origin) of the Scene.
 
-> PNG of Scene
+> TODO: PNG of Scene
 
 {% include code_example.html src="uc06_3d.json" %}
 
@@ -473,7 +548,7 @@ This example is a Manifest with a single Scene, with a single 3D model of a spac
 **Key Points**
 * As this Scene only has one resource in it (the model), the client must provide lighting and a default camera.
 * In this simplest use case, the Painting Annotation targets the whole Scene rather than a specific point. The client places the model's origin at the Scene's origin. This is in contrast to the _bounded_ Containers [`Canvas`][prezi-40-model-Canvas] and [`Timeline`][prezi-40-model-Timeline], where the painted resource fills the Container completely.
-{: .note}
+{: .callout}
 
 
 ### Configured Scene
@@ -482,7 +557,7 @@ This example adds a Light and a Camera to the previous example, and places the m
 
 Annotations may use a type of Selector called a [`PointSelector`][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration. The final commenting annotation in the [Audio in 3D](#audio-in-3d) section has an example of this property.
 
-The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the [`lookAt`][prezi-40-model-lookAt] property. The Camera has a [`fieldOfView`][prezi-40-model-fieldOfView] of 50. The [`near`][prezi-40-model-near] and [`far`][prezi-40-model-far] properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene has a background color.
+The Light is green and has a position, but has its default orientation of looking along the negative-y axis as no rotation has been specified. The Camera has a position and is pointing at the model's origin via the [`lookAt`][prezi-40-model-lookAt] property. The Camera has a [`fieldOfView`][prezi-40-model-fieldOfView] of 50. The [`near`][prezi-40-model-near] and [`far`][prezi-40-model-far] properties are included to ensure the model falls within the camera's range (although unnecessary in a simple Scene like this). The Scene also has a background color.
 
 <img src="{{ site.api_url | absolute_url }}/assets/images/p4/use-case-5a.png" alt="Use case 5a" >
 
@@ -493,14 +568,15 @@ The Light is green and has a position, but has its default orientation of lookin
 * This example uses some of the Scene-Specific resources introduced in [3D Supporting Resources](#3d-supporting-resources).
 * A Point Selector explicitly places the model in the Scene via the Painting Annotation's [`target`][prezi-40-model-target] property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
 * The provided Light should replace any default lighting the client might have.
-{: .note}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [PerspectiveCamera][prezi-40-model-PerspectiveCamera], [SpotLight][prezi-40-model-SpotLight] <br/><br/>
 Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40-model-lookAt], [near][prezi-40-model-near], [far][prezi-40-model-far], [fieldOfView][prezi-40-model-fieldOfView], [angle][prezi-40-model-angle], [color][prezi-40-model-color]
 {: .note}
 
-### Multiple 3D Objects with Transforms
+
+### Multiple Objects
 
 This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content. This example also introduces an Image-Based Light Annotation to simulate real-world lighting of the chess game pieces.
 
@@ -521,17 +597,12 @@ Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Sp
 Properties: [exclude][prezi-40-model-exclude], [interactionMode][prezi-40-model-interactionMode]
 {: .note}
 
-<!--
 
-Is this still needed or wanted here?
-
-### Chessboard is a Canvas with image (not a 3D chessboard)
-
-A Scene or a Canvas may be treated as a content resource, referenced or described within the [`body`][prezi-40-model-body] of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation [`target`][prezi-40-model-target]. The content resource Scene will be placed within the [`target`][prezi-40-model-target] Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use [`PointSelector`][prezi-40-model-PointSelector] to place the origin of the resource Scene at a specified coordinate within the [`target`][prezi-40-model-target] Scene.
-
--->
 
 ### Audio in 3D
+
+
+TODO: Describe the scene first
 
 This example is a Manifest with a single Scene with a duration. Multiple Audio Emitter Annotations are painted into the Scene, with positional emitters used to create a 3D audio experience. Some of the Audio Emitter Annotations are only painted into the Scene for a limited period of time, producing dynamic change in the sounds heard within the Scene. A commenting Annotation is also provided to highlight the instant in time when a change in sound occurs.
 
@@ -560,30 +631,33 @@ Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Sp
 Properties: [duration][prezi-40-model-duration], [volume][prezi-40-model-volume], [angle][prezi-40-model-angle], [lookAt][prezi-40-model-lookAt], [timeMode][prezi-40-model-timeMode]
 {: .note}
 
+### Painting a Scene into a Scene
 
-# Nesting
+Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
 
-A Container can be painted into another Container as an Annotation with [`motivation`][prezi-40-model-motivation] "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene, and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
+When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. Similarly, if both Scenes have ImageBasedLight Annotations, the ImageBasedLight Annotation of the Scene into which the Scene will be nested takes precedence. All other Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
-## Use Case 7: Composite of two canvases
+```jsonc
+{
+    "id": "https://example.org/iiif/presentation/examples/nesting/anno3",
+    "type": "Annotation",
+    "motivation": ["painting"],
+    "body":
+      {
+        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
+        "type": "Scene"
+      },
+    "target": {
+      "id": "https://example.org/iiif/presentation/examples/nesting/scene/s2",
+      "type": "Scene"
+    }
+}
+```
 
-This example is a Manifest with a Canvas that represents two images displayed side by side. However, instead of painting the images directly as Annotations, each image is painted on to a separate Canvas, and each Canvas is painted into the Manifest Canvas. A more likely practical application of this example would be where the image Canvases have been created previously and are hosted separately from the Manifest's composite-image Canvas.
 
-{% include code_example.html src="uc07_image_composite.json" %}
+### Painting a Canvas or Timeline into a Scene
 
->
-**Key Points**
-* The Manifest contains a single Canvas, which has a single Annotation Page, and two painting annotations.
-* Each painting annotation defines a Canvas with its own Annotation Page and a single image annotation. Alternately, each painting annotation could reference an external Canvas through a URI.
-* The two image Canvases are nested within the Manifest Canvas, causing the images to be displayed side by side.
-
-## Nesting Containers with Durations
-
-A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only be painted into a Container that also has [`duration`][prezi-40-model-duration]. It is possible to associate a Container with [`duration`][prezi-40-model-duration] with a Container that does not have [`duration`][prezi-40-model-duration] as the content of a `commenting` annotation rather than painting it into the Container. If a Container with [`duration`][prezi-40-model-duration] has a shorter or longer [`duration`][prezi-40-model-duration] than the Container into which it is to be painted, the [`timeMode`][prezi-40-model-timeMode] property can be used to instruct clients how to resolve the mismatch.
-
-{% include code_example.html src="uc07_duration_composite.json" from=19 to=58 %}
-
-## Painting a Canvas or Timeline into a Scene
+TODO: Can this be UC 6, part 4?
 
 Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`source`][prezi-40-model-source] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
 
@@ -601,7 +675,48 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
 
 A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. [Transforms](#transforms) can be used to modify Canvas rotation, scale, or translation, allowing in particular for an alternate method to control the size of a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
 
-{% include code_example.html src="uc07_canvas_into_scene.json" from=16 to=83 %}
+```jsonc
+{
+  "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": 
+    {
+      "type": "SpecificResource",
+      "source": {
+        "id": "https://example.org/iiif/presentation/examples/nesting/canvas/c1",
+        "type": "Canvas",
+        "width": 2,
+        "height": 2,
+        "items": [{ ... }]
+      },
+      "transform": [
+        {
+          "type": "ScaleTransform",
+          "x": 2.0,
+          "y": 2.0,
+          "z": -1.0
+        }
+      ]
+    },
+  "target": 
+    {
+      "type": "SpecificResource",
+      "source": {
+        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
+        "type": "Scene"
+      },
+      "selector": [
+        {
+          "type": "PointSelector",
+          "x": 4.0,
+          "y": 4.0,
+          "z": 0.0
+        }
+      ]
+    }
+}
+```
 
 >
 **Key Points**
@@ -609,60 +724,46 @@ A [`PointSelector`][prezi-40-model-PointSelector] can be used to modify the poin
 * A ScaleTransform is used to double the Canvas height and width, so that after transformation the Canvas will extend 4 coordinate units across the Scene x axis and 4 coordinate units across the Scene y axis.
 * The same ScaleTransform also reflects the z axis by scaling it by -1.0, meaning the Canvas is mirrored (flipped) and now faces toward the negative z axis.
 * A PointSelector is used to align the top-left corner of the transformed Canvas with Scene coordinate (4,4,0). In combination with the ScaleTransform, the bottom-right corner of the Canvas is now aligned with the coordinate origin of the Scene.
-{: .note}
+{: .callout}
 
 
-## Painting a Scene into a Scene
+# Nesting Containers
 
-Like Timelines or Canvases, Scenes can be painted into Scenes. As with other resources, it may be appropriate to modify the initial scale, rotation, or translation of a content resource Scene prior to painting it within another Scene. Scenes associated with SpecificResources may be manipulated through [Transforms](#transforms).
+A Container can be painted into another Container as an Annotation with [`motivation`][prezi-40-model-motivation] "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene, and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
 
-When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. Similarly, if both Scenes have ImageBasedLight Annotations, the ImageBasedLight Annotation of the Scene into which the Scene will be nested takes precedence. All other Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
+## Use Case 7: What's the _Use Case_?
 
-{% include code_example.html src="uc07_scene_into_scene.json" from=46 to=98 %}
+TODO: Describe the actual use case
+
+This example is a Manifest with a Canvas that represents two images displayed side by side. However, instead of painting the images directly as Annotations, each image is painted on to a separate Canvas, and each Canvas is painted into the Manifest Canvas. A more likely practical application of this example would be where the image Canvases have been created previously and are hosted separately from the Manifest's composite-image Canvas.
+
+{% include code_example.html src="uc07_image_composite.json" %}
+
+>
+**Key Points**
+* The Manifest contains a single Canvas, which has a single Annotation Page, and two painting annotations.
+* Each painting annotation defines a Canvas with its own Annotation Page and a single image annotation. Alternately, each painting annotation could reference an external Canvas through a URI.
+* The two image Canvases are nested within the Manifest Canvas, causing the images to be displayed side by side.
+
+### Nesting Containers with Durations
+
+TODO: Describe the use case? Merge with previous use case?
+
+A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only be painted into a Container that also has [`duration`][prezi-40-model-duration]. It is possible to associate a Container with [`duration`][prezi-40-model-duration] with a Container that does not have [`duration`][prezi-40-model-duration] as the content of a `commenting` annotation rather than painting it into the Container. If a Container with [`duration`][prezi-40-model-duration] has a shorter or longer [`duration`][prezi-40-model-duration] than the Container into which it is to be painted, the [`timeMode`][prezi-40-model-timeMode] property can be used to instruct clients how to resolve the mismatch.
+
+{% include code_example.html src="uc07_duration_composite.json" from=19 to=58 %}
 
 # Annotations
 
-In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. Annotations can carry textual transcriptions or translations of the content, discussion about the content and any other linking between resources.
-
-Whereas annotations that associate content resources with Containers are included in the [`items`][prezi-40-model-items] property of the Container, all other types of Annotation are referenced from the [`annotations`][prezi-40-model-annotations] property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the [`items`][prezi-40-model-items] property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
-
-```
-Manifest
-  items
-    Canvas
-      annotations
-        AnnotationPage
-          items
-            Annotation
-```
-
-## Annotation Page
-
-Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
-
-Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
-
-## Annotation Collection
-
-Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Container or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user’s preference.
-
-For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
-
-{% include code_example.html src="09_anno_collection.json" %}
+In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. 
 
 
-{% include code_example.html src="09_anno_page_1.json" %}
-
-<!--
-use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-https://github.com/IIIF/api/issues/2118
--->
-
-## Comment Annotations
+## Use Case 8: Commenting
 
 Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
-### Use Case 8: Comment on feature of a painting
+Whereas annotations that associate content resources with Containers are included in the [`items`][prezi-40-model-items] property of the Container, all other types of Annotation are referenced from the [`annotations`][prezi-40-model-annotations] property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the [`items`][prezi-40-model-items] property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
+
 
 This example is a Manifest with a Canvas that contains a single photograph and an Annotation with the motivation `commenting` highlighting a specific feature of the photograph. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses a [`SvgSelector`][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the photograph.
 
@@ -765,7 +866,200 @@ It is important to be able to position the textual body of an annotation within 
  -->
 
 
-## Linking Annotations
+### 3D Comments with Cameras
+
+It is possible to associate a particular camera with a particular commenting annotation via activating annotations. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is shown, enabled, and selected. The selected Camera is now the active Camera, and the viewport into the Scene is moved to a chosen position suitable for looking at the point of interest.
+
+
+```jsonc
+{
+  "id": "https://example.org/iiif/3d/whale_comment_scope_content_state.json",
+  "type": "Manifest",
+  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
+  "items": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/1",
+      "type": "Scene",
+      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
+      "items": [
+        {
+          "id": "https://example.org/iiif/scene1/page/p1/1",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://example.org/iiif/3d/anno1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body":
+                {
+                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
+                  "type": "Model"
+                },
+              "target": 
+                {
+                  // SpecificResource with PointSelector
+                }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "behavior": ["hidden"],
+              "body":  
+                {
+                  "id": "https://example.org/iiif/3d/cameras/1",
+                  "type": "PerspectiveCamera",
+                  "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
+                  "fieldOfView": 50.0,
+                  "near": 0.10,
+                  "far": 2000.0
+                },
+              "target": 
+                {
+                  "type": "SpecificResource",
+                  "source": {
+                    "id": "https://example.org/iiif/scene1",
+                    "type": "Scene"
+                  },
+                  "selector": [
+                    {
+                      "type": "PointSelector",
+                      "x": 0.0, "y": 0.15, "z": 0.75
+                    }
+                  ]
+                }
+            },
+            {
+              "id": "https://example.org/iiif/3d/anno2",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": 
+                {
+                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
+                  "type": "Model"
+                },
+              "target": 
+                {
+                  // SpecificResource with PointSelector
+                }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "annotations": [
+    {
+      "id": "https://example.org/iiif/scene1/page/p1/annotations/1",
+      "type": "AnnotationPage",
+      "items": [
+        {
+          "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "body": 
+            {
+              "type": "TextualBody",
+              "value": "Mandibular tooth"
+            },
+          "target":
+            {
+              // SpecificResource with PointSelector
+            }
+        },
+        {
+          "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
+          "type": "Annotation",
+          "motivation": ["commenting"],
+          "body": 
+            {
+              "type": "TextualBody",
+              "value": "Right pterygoid hamulus"
+            },
+          "target": 
+            {
+              // SpecificResource with PointSelector
+            }
+        },
+        {
+          "id": "https://example.org/iiif/3d/anno9",
+          "type": "Annotation",
+          "motivation": ["activating"],
+          "target": 
+            {
+              "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+              "type": "Annotation"
+            },
+          "body": 
+            {
+              "type": "SpecificResource",
+              "source": {
+                "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+                "type": "Annotation"
+              },
+              "action": ["show", "enable", "select"]
+            }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Key Points**
+* The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided. While there is a Camera in the Scene, it has [`behavior`][prezi-40-model-behavior] "hidden", and is inactive and not usable.
+* The commenting annotations are ordered. The client may either allow the user to navigate between annotations freely or mandate they must be explored in the given order.
+* The above example instructs the client to activate the Camera when the user interacts with the first comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. 
+{: .note}
+
+Default camera:
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-default-camera.png" alt="Camera for annotation" >
+
+Camera when annotation selected:
+
+<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-anno-camera.png" alt="Camera for annotation" >
+
+
+#### Using Scope to Select a Camera
+
+The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation. When `scope` is used in this way, it provides a short-hand way of specifying an Annotation with motivation `activating` that will show, enable, and select the resource(s) referenced by the `scope` property when a user interacts with the Annotation containing the `scope` property. 
+
+The commenting annotation now looks like this:
+
+```json
+{
+  "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
+  "type": "Annotation",
+  "motivation": ["commenting"],
+  "body": {
+    "type": "TextualBody", 
+    "value": "Mandibular tooth"
+  },
+  "scope": [
+    {
+      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
+      "type": "Annotation"
+    }
+  ],
+  "target":
+    {
+      // SpecificResource with PointSelector
+    }
+  
+},
+```
+
+**Key Points**
+* This example would not include an explicit activating annotation, but it has functionality equivalent to the longer example above that does include an explicit activating annotation. When the user interacts with the comment, the Camera is shown, enabled, and selected to be the active Camera, moving the client viewport to the Camera target position.
+* Compared to the example above, it is much shorter. This is the simplest and more direct approach for the common 3D use case of associating comments with Cameras.
+* Although these examples concern comments and Cameras, it is also possible to use `scope` in other situations where an activating annotation with `action` show, enable, and select is appropriate.
+{: .note}
+
+
+
+## Use Case 9: Linking and Activating
+
 
 An Annotation with the motivation `linking` is used to create links between resources, both within the Manifest or to external content on the web, including other IIIF resources. Examples include linking to the continuation of an article in a digitized newspaper in a different Canvas, or to an external web page that describes the diagram in the Canvas. A client typically renders the links as clickable "Hotspots" - but can offer whatever accessible affordance as appropriate. The user experience of whether the linked resource is opened in a new tab, new window or by replacing the current view is up to the implementation.
 
@@ -789,8 +1083,6 @@ The resource the user should be taken to is the [`body`][prezi-40-model-body] of
 ```
 
 
-## Activating Annotations
-
 Sometimes it is necessary to modify the state of resources. Annotations with the motivation `activating` are referred to as _activating_ annotations, and are used to change resources from their initial state defined in the Manifest or from their current state. They allow IIIF to be used for interactive exhibitions, storytelling, digital dioramas and other interactive applications beyond simply conveying a set of static resources in a Container.
 
 The [`target`][prezi-40-model-target] of the activating annotation is the resource that triggers an action. This could be a commenting annotation, for which a user might click a corresponding UI element. In other scenarios the [`target`][prezi-40-model-target] could be the painting annotation of a 3D model, or an annotation that targets part of a model, or a region of a Canvas, or a point or segment of a Timeline, or any other annotation that a user could interact with (in whatever manner) to trigger an event. Even a volume of space in a Scene or an extent of time in a Container with [`duration`][prezi-40-model-duration] could be the [`target`][prezi-40-model-target]. When that volume or time extent is triggered - which might be the user entering that volume or the playhead reaching the extent independently of user interaction - something happens.
@@ -802,7 +1094,7 @@ The body of the activating annotation is always an ordered list of Specific Reso
 Activating annotations are provided in a Container's [`annotations`][prezi-40-model-annotations] property. They can be mixed in with the commenting (or other interactive annotations) they target, or they can be in a separate Annotation Page. The client should evaluate all of the enabled activating annotations it can find.
 
 
-### Use Case 9: Interactive 3D light switch
+### Interactive 3D light switch
 
 This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. As there are multiple annotations being enabled and disabled in order, the `body` of the activating Annotation is an instance of the [`List`][prezi-40-model-list] class. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
@@ -1077,195 +1369,6 @@ The format of the `value` string is implementation-specific, and will depend on 
 ```
 
 
-### 3D Comments with Cameras
-
-It is possible to associate a particular camera with a particular commenting annotation via activating annotations. In many complex 3D Scenes, it may not be clear from where to look at a particular point of interest. The view may be occluded by parts of the model, or other models in the Scene. In the following example, the user can explore the Scene freely, but when they select a particular comment, a specific Camera that was previously hidden (unavailable to the user) is shown, enabled, and selected. The selected Camera is now the active Camera, and the viewport into the Scene is moved to a chosen position suitable for looking at the point of interest.
-
-
-```jsonc
-{
-  "id": "https://example.org/iiif/3d/whale_comment_scope_content_state.json",
-  "type": "Manifest",
-  "label": { "en": ["Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"] },
-  "items": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/1",
-      "type": "Scene",
-      "label": { "en": ["A Scene Containing a Whale Cranium and Mandible"] },
-      "items": [
-        {
-          "id": "https://example.org/iiif/scene1/page/p1/1",
-          "type": "AnnotationPage",
-          "items": [
-            {
-              "id": "https://example.org/iiif/3d/anno1",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body":
-                {
-                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_mandible.glb",
-                  "type": "Model"
-                },
-              "target": 
-                {
-                  // SpecificResource with PointSelector
-                }
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "behavior": ["hidden"],
-              "body":  
-                {
-                  "id": "https://example.org/iiif/3d/cameras/1",
-                  "type": "PerspectiveCamera",
-                  "label": {"en": ["Perspective Camera Pointed At Front of Cranium and Mandible"]},
-                  "fieldOfView": 50.0,
-                  "near": 0.10,
-                  "far": 2000.0
-                },
-              "target": 
-                {
-                  "type": "SpecificResource",
-                  "source": {
-                    "id": "https://example.org/iiif/scene1",
-                    "type": "Scene"
-                  },
-                  "selector": [
-                    {
-                      "type": "PointSelector",
-                      "x": 0.0, "y": 0.15, "z": 0.75
-                    }
-                  ]
-                }
-            },
-            {
-              "id": "https://example.org/iiif/3d/anno2",
-              "type": "Annotation",
-              "motivation": ["painting"],
-              "body": 
-                {
-                  "id": "https://raw.githubusercontent.com/IIIF/3d/main/assets/whale/whale_cranium.glb",
-                  "type": "Model"
-                },
-              "target": 
-                {
-                  // SpecificResource with PointSelector
-                }
-            }
-          ]
-        }
-      ]
-    }
-  ],
-  "annotations": [
-    {
-      "id": "https://example.org/iiif/scene1/page/p1/annotations/1",
-      "type": "AnnotationPage",
-      "items": [
-        {
-          "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-          "type": "Annotation",
-          "motivation": ["commenting"],
-          "body": 
-            {
-              "type": "TextualBody",
-              "value": "Mandibular tooth"
-            },
-          "target":
-            {
-              // SpecificResource with PointSelector
-            }
-        },
-        {
-          "id": "https://example.org/iiif/3d/commenting-anno-for-right-pterygoid-hamulus",
-          "type": "Annotation",
-          "motivation": ["commenting"],
-          "body": 
-            {
-              "type": "TextualBody",
-              "value": "Right pterygoid hamulus"
-            },
-          "target": 
-            {
-              // SpecificResource with PointSelector
-            }
-        },
-        {
-          "id": "https://example.org/iiif/3d/anno9",
-          "type": "Annotation",
-          "motivation": ["activating"],
-          "target": 
-            {
-              "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-              "type": "Annotation"
-            },
-          "body": 
-            {
-              "type": "SpecificResource",
-              "source": {
-                "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-                "type": "Annotation"
-              },
-              "action": ["show", "enable", "select"]
-            }
-        }
-      ]
-    }
-  ]
-}
-```
-
-**Key Points**
-* The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided. While there is a Camera in the Scene, it has [`behavior`][prezi-40-model-behavior] "hidden", and is inactive and not usable.
-* The commenting annotations are ordered. The client may either allow the user to navigate between annotations freely or mandate they must be explored in the given order.
-* The above example instructs the client to activate the Camera when the user interacts with the first comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. 
-{: .note}
-
-Default camera:
-
-<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-default-camera.png" alt="Camera for annotation" >
-
-Camera when annotation selected:
-
-<img src="{{ site.api_url | absolute_url }}/assets/images/p4/whale-anno-camera.png" alt="Camera for annotation" >
-
-
-#### Using Scope to Select a Camera
-
-The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation. When `scope` is used in this way, it provides a short-hand way of specifying an Annotation with motivation `activating` that will show, enable, and select the resource(s) referenced by the `scope` property when a user interacts with the Annotation containing the `scope` property. 
-
-The commenting annotation now looks like this:
-
-```json
-{
-  "id": "https://example.org/iiif/3d/commenting-anno-for-mandibular-tooth",
-  "type": "Annotation",
-  "motivation": ["commenting"],
-  "body": {
-    "type": "TextualBody", 
-    "value": "Mandibular tooth"
-  },
-  "scope": [
-    {
-      "id": "https://example.org/iiif/3d/anno-that-paints-desired-camera-to-view-tooth",
-      "type": "Annotation"
-    }
-  ],
-  "target":
-    {
-      // SpecificResource with PointSelector
-    }
-  
-},
-```
-
-**Key Points**
-* This example would not include an explicit activating annotation, but it has functionality equivalent to the longer example above that does include an explicit activating annotation. When the user interacts with the comment, the Camera is shown, enabled, and selected to be the active Camera, moving the client viewport to the Camera target position.
-* Compared to the example above, it is much shorter. This is the simplest and more direct approach for the common 3D use case of associating comments with Cameras.
-* Although these examples concern comments and Cameras, it is also possible to use `scope` in other situations where an activating annotation with `action` show, enable, and select is appropriate.
-{: .note}
 
 ### Interactivity, Guided Viewing and Storytelling
 
@@ -1289,7 +1392,10 @@ While all Annotation Page [`items`][prezi-40-model-items] are inherently ordered
 
 
 
-# Conveying Physical Dimensions
+# FROM HERE TO MERGE WITH PREVIOUS OR NEW?
+
+
+## Conveying Physical Dimensions
 
 In many cases, the dimensions of a Canvas, or the pixel density of a photograph, are not necessarily related to a real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. But it can be important to know how big something is or if there is a relationship between pixel density and physical length, especially when comparing objects together. Each pixel in an image may correspond precisely to a physical area, allowing measurement of real world distances from the image. A scanned 3D model may be constructed such that each 3D coordinate unit corresponds to one meter of physical distance.
 
@@ -1303,11 +1409,11 @@ An extreme example of both physical dimension properties together is a Canvas sh
 
 
 
-# Integration
+## Integration
 
 While a IIIF Manifest carries the information required to present a resource on the web, it is unlikely to be the only resource of interest to either human or machine consumers. IIIF provides properties to link to other resources and services. The linked resources might be made directly available to the user by opening links or downloading files in a user interface, or they may be loaded by machines when reading IIIF Manifests to gather further information (for example, to build a search index).
 
-## Linked resources
+### Linked resources
 
 In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`][prezi-40-model-seeAlso] property, which is intended for machine-readable resources. The [`homepage`][prezi-40-model-homepage] property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
 
@@ -1358,7 +1464,7 @@ Another common use of [`rendering`][prezi-40-model-rendering] is at the Manifest
 
 This example also shows how the [`fileSize`][prezi-40-model-fileSize] property can give useful information to a user when deciding what they want to download.
 
-## Services
+### Services
 
 In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
 
@@ -1366,7 +1472,7 @@ Further IIIF Services are provided by the [IIIF Authorization Flow API][auth-sta
 
 Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
 
-## Content State
+### Content State
 
 Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API][contenstate-stable-version] defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
 
@@ -1374,8 +1480,6 @@ Links to resources and services build up a web of linked _*content*_ for human a
 (region of a Canvas that is partOf a Manifest)
 ```
 
-
-# Other stuff
 
 ## Style
 
@@ -1417,60 +1521,7 @@ An image might not be correctly aligned with the Canvas, and require rotation as
 ```
 
 
-
-
-
-
-# Protocol
-
-This section outlines recommendations and requirements related to URIs, HTTP requests, and authentication for IIIF resources.
-
-## URI Recommendations
-
-While any HTTP(S) URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
-
-* The URI _SHOULD_ use the HTTPS scheme, not HTTP.
-* The URI _SHOULD NOT_ include query parameters or fragments.
-* Once published, they _SHOULD_ be as persistent and unchanging as possible.
-* Special characters _MUST_ be encoded.
-
-## HTTP Requests and Responses
-
-This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification. It is _RECOMMENDED_ that implementations also support HTTP HEAD requests.
-
-### Requests
-
-Clients are only expected to follow links to Presentation API resources. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern.
-
-### Responses
-
-The format for all responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If a resource is [referenced][prezi30-terminology] within a response, rather than being [embedded][prezi30-terminology], then it _MUST_ be able to be dereferenced.
-
-If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example [`profile`][prezi-40-model-profile] or `charset`.
-
-If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the [`profile`][prezi-40-model-profile] parameter given as the context document: `http://iiif.io/api/presentation/4/context.json`.
-
-{% include api/code_header.html %}
-```
-Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/4/context.json"
-```
-{: .urltemplate}
-
-If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a [`profile`][prezi-40-model-profile] parameter.
-
-{% include api/code_header.html %}
-```
-Content-Type: application/json
-```
-{: .urltemplate}
-
-The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable browser-based clients to retrieve the descriptions. If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][notes-apache].
-
-Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
-
-
-
-# Accessibility
+## Accessibility
 
 Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](#use-case-5-movie-with-subtitles) above.
 
@@ -1504,18 +1555,15 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
 **Key Points**
 * The `provides` property is placed on the annotation and not on the target of the annotation.
 * The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcript`.
-{: .note}
-
-!!! warning TODO: The above should be a green class rgb(244,252,239) to distinguish from properties
+{: .callout}
 
 __Definitions__<br/>
 Properties: [provides](model/#provides)
 {: .note}
 
+# Appendices
 
-
-
-# Terminology
+## Terminology
 
 The principles of [Linked Data][org-linked-data] and the [Architecture of the Web][org-w3c-webarch] are adopted in order to provide a distributed and interoperable framework. The [Shared Canvas data model][shared-canvas] and [JSON-LD][org-w3c-json-ld] are leveraged to create an easy-to-implement, JSON-based format.
 
@@ -1529,9 +1577,6 @@ The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this docu
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
-
-
-# Appendices
 
 ## Versioning
 
