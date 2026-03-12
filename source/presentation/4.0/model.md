@@ -1,6 +1,6 @@
 ---
-title: "Presentation API 4.0 Properties"
-title_override: "IIIF Presentation API 4.0 Properties"
+title: "Presentation API 4.0 Data Model"
+title_override: "IIIF Presentation API 4.0 Data Model"
 id: presentation-api-model
 layout: spec
 cssversion: 3
@@ -548,7 +548,7 @@ Containers _MAY_ be treated as content resources for the purposes of annotating 
 
 A Canvas painted into a Scene has special requirements. The top-left corner of the Canvas _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used. The Canvas _MUST_ be scaled to the Scene such that Canvas coordinate dimensions after any [Transforms](#transforms) are applied correspond to Scene coordinate dimensions with 1:1 scaling. A Canvas painted into a Scene as an Annotation has forward and backward faces, and by default the forward face is toward the positive z axis of the Scene, though this may be modified by Transforms. The content of the Canvas _SHOULD_ be displayed on the forward face, and the backward face _SHOULD_ display either any `backgroundColor` of the Canvas or a reverse view of the content.
 
-A Scene painted into a Scene has one special requirement, that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored.
+A Scene painted into a Scene has two special processing rules. The first is that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored. The second is that when both Scenes have ImageBasedLight Annotations, clients _MAY_ ignore any ImageBasedLight Annotation of the Scene to be painted.
 
 __Properties__<br/>
 A Content Resource _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
@@ -837,7 +837,7 @@ All Lights _MAY_ have the following properties: [id](#id) and [label](#label).
 {: #AmbientLight}
 > `"type": "AmbientLight"`
 
-Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties. The Light itself _MUST_ be added into the Scene at a specific position, however this is only such that editing interfaces can render the object to the user.
+Ambient Light evenly illuminates all objects in the Scene, and does not have a direction or position. It does not have any new properties.
 
 __Properties__<br/>
 An Ambient Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
@@ -856,7 +856,7 @@ An Ambient Light _SHOULD_ have the following additional properties: [color](#col
 {: #DirectionalLight}
 > `"type": "DirectionalLight"`
 
-Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel. The Light itself _MUST_ be added into the Scene at a specific position, however this is only such that editing interfaces can render the object to the user.
+Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel.
 
 The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotateTransform`.
 
@@ -879,7 +879,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 {: #ImageBasedLight}
 > `"type": "ImageBasedLight"`
 
-Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific direction or position.
+Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a `RotateTransform`.
 
 __Properties__<br/>
 An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
@@ -973,7 +973,7 @@ All Audio Emitters _MAY_ have the following properties: [id](#id) and [label](#l
 {: #AmbientAudio}
 > `"type": "AmbientAudio"`
 
-Ambient Audio emits equally throughout the Scene, and does not have a position or direction. The Emitter _MUST_ be annotated somewhere within the Scene so that it can be rendered by editing interfaces, and exists within the Scene's hierarchy.
+Ambient Audio emits equally throughout the Scene, and does not have a position or direction.
 
 {% include api/code_header.html %}
 ```json
@@ -1439,7 +1439,13 @@ This property sets the color of a Light.
 
 The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is "#FFFFFF".
 
- * A Light _SHOULD_ have the `color` property<br/>
+ * An AmbientLight _SHOULD_ have the `color` property<br/>
+   Clients _SHOULD_ render `color` on any resource type.
+ * A DirectionalLight _SHOULD_ have the `color` property<br/>
+   Clients _SHOULD_ render `color` on any resource type.
+ * A PointLight _SHOULD_ have the `color` property<br/>
+   Clients _SHOULD_ render `color` on any resource type.
+ * A SpotLight _SHOULD_ have the `color` property<br/>
    Clients _SHOULD_ render `color` on any resource type.
  * Other resources _MUST NOT_ have the `color` property.
 
@@ -1737,7 +1743,6 @@ When `interactionMode` is specified on a Scene and no Cameras are supplied withi
 
 When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting.
 
-For interaction modes that involve a Camera orbiting around a target point, the target point _SHOULD_ be the same as the Camera's `lookAt` property.
 
 If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time.
 
@@ -1901,14 +1906,14 @@ It is useful to be able to rotate a light or camera or audio resource such that 
 
 If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
 
-This rotation happens after the resource has been added to the Scene, and thus after any transforms have taken place in the local coordinate space.
+This rotation happens after the resource has been added to the Scene and after any transforms have taken place in the local coordinate space. Therefore, the `lookAt` property takes precedence over any Rotate Transforms applied to the X or Y axes, though a Rotate Transform applied to the Z axis will continue to impact the painting of a Camera into a Scene.
 
 The value _MUST_ be a JSON object, conforming to either a reference to an Annotation, or an embedded PointSelector. If this property is not specified, then the default value for cameras is to look straight backwards (-Z) and for lights to point straight down (-Y).
 
 * A Camera _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Cameras.
-* A SpotLight or a DirectionalLight _SHOULD_ have the `lookAt` property.<br/>
-* A SpotAudio _SHOULD_ have the `lookAt` property.
+* A SpotLight or a DirectionalLight _MAY_ have the `lookAt` property.<br/>
+* A SpotAudio _MAY_ have the `lookAt` property.
 
 {% include api/code_header.html %}
 ```json
