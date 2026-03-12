@@ -520,12 +520,24 @@ A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [s
 
 > `"type": "Independents"`
 
-An Independents resource is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
+An Independents resource is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents resource is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
 
 __Properties__<br/>
 An Independents _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 An Independents _SHOULD_ have the following properties: [label](#label)<br/><br/>
 An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### Css Stylesheet
+{: #CssStylesheet}
+
+> `"type": "CssStylesheet"`
+
+A CSS Stylesheet is a resource class defined in the Web Annotation Data Model to represent external CSS Stylesheets, used to associate styles with resources used in the Annotation.
+
+__Properties__<br/>
+A CSS Stylesheet _MUST_ have the following properties: [type](#type)<br/><br/>
+A CSS Stylesheet _MAY_ have the following properties: [id](#id), and [value](#value)<br/><br/>
 {: .note}
 
 
@@ -562,7 +574,7 @@ A Content Resource _MAY_ have the following properties: [height](#height), [widt
 
 The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of a Selector is dependent on the type of resource that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Data Model, including any not listed here. This specification defines several additional Selector classes for use.
 
-#### FragmentSelector
+#### Fragment Selector
 {: #FragmentSelector}
 
 > `"type": "FragmentSelector"`
@@ -577,7 +589,7 @@ A Fragment Selector _MAY_ have the following properties: [id](#id) and [conforms
 {: .note}
 
 
-#### SvgSelector
+#### SVG Selector
 {: #SvgSelector}
 
 > `"type": "SvgSelector"`
@@ -1906,9 +1918,9 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
 ### lookAt
 {: #lookAt}
 
-It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary Container.
+It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on Directional Light, Spot Light, and all Cameras. The value of the property is either a Point Selector, a WKT Selector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary Container.
 
-If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
+If the value is a Point Selector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WKT Selector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a Point Selector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
 
 This rotation happens after the resource has been added to the Scene and after any transforms have taken place in the local coordinate space. Therefore, the `lookAt` property takes precedence over any Rotate Transforms applied to the X or Y axes, though a Rotate Transform applied to the Z axis will continue to impact the painting of a Camera into a Scene.
 
@@ -2351,7 +2363,7 @@ The value of `quantityValue` _MUST_ be a floating point number.
 ### refinedBy
 {: #refinedBy}
 
-The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a Fragment Selector and then further refine that region with an Svg Selector or Wkt Selector.
+The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a Fragment Selector and then further refine that region with an SVG Selector or a WKT Selector.
 
 For more information about `refinedBy`, please see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
 
@@ -3073,7 +3085,7 @@ The `value` property is used in several situations to convey a value of a resour
 
 In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
 
-Many selector classes use `value` to convey a string representation of the selection definition, such as Fragment Selector and Wkt Selector. Textual Body similarly uses `value` to convey the string of the body of an Annotation, and CssStylesheet uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
+Many selector classes use `value` to convey a string representation of the selection definition, such as Fragment Selector and WKT Selector. Textual Body similarly uses `value` to convey the string of the body of an Annotation, and CssStylesheet uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
 
 
 Language Map `value`:
@@ -3082,7 +3094,8 @@ Language Map `value`:
 {"value": { "en": [ "Example Description" ]}}
 ```
 
-Embedded CssStylesheet, Selector or TextualBody `value`:
+Embedded CSS Stylesheet, Selector or Textual Body `value`:
+
 {% include api/code_header.html %}
 ```json-doc
 { "value": "Example Textual Body" }

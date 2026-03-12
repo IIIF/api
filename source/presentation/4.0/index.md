@@ -234,7 +234,7 @@ It is necessary for there to be a Light within a Scene that illuminates the obje
 
 #### Cameras
 
-A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. There are two types of Camera, [Perspective Camera][prezi-40-model-PerspectiveCamera] and [Orthographic Camera`][prezi-40-model-OrthographicCamera]. 
+A Camera provides a view of a region of the Scene's space from a particular position within the Scene; the client constructs a viewport into the Scene and uses the view of one or more Cameras to render that region. There are two types of Camera, [Perspective Camera][prezi-40-model-PerspectiveCamera] and [Orthographic Camera][prezi-40-model-OrthographicCamera]. 
 
 #### Audio Emitters
 
@@ -349,7 +349,7 @@ Here the Canvas [`id`][prezi-40-model-id] from the earlier example is still the 
 
 URIs with fragments are insufficient for complex referencing, like circular regions or arbitrary text spans, and do not support other useful features such as describing styling or transformation. The Web Annotation Data Model introduces a class called [Specific Resource][prezi-40-model-SpecificResource] that represents the resource in a specific context or role, which IIIF uses to describe these more complex requirements.
 
-Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called [Fragment Selector`][prezi-40-model-FragmentSelector]. The fragment is given in the `value` property of the [Fragment Selector`][prezi-40-model-FragmentSelector], and the resource it should be applied to is given in [`source`][prezi-40-model-source].
+Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called [Fragment Selector][prezi-40-model-FragmentSelector]. The fragment is given in the `value` property of the [Fragment Selector][prezi-40-model-FragmentSelector], and the resource it should be applied to is given in [`source`][prezi-40-model-source].
 
 The required properties of Specific Resources are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`source`][prezi-40-model-source]. Other commonly used properties include [`selector`][prezi-40-model-selector], [`transform`][prezi-40-model-transform], and [`scope`][prezi-40-model-scope]. See the [Specific Resource Documentation](model/#SpecificResource) for more detail.
 
@@ -765,13 +765,13 @@ Commentary can be associated with a Timeline, Canvas, or Scene via Annotations w
 Whereas annotations that associate content resources with Containers are included in the [`items`][prezi-40-model-items] property of the Container, all other types of Annotation are referenced from the [`annotations`][prezi-40-model-annotations] property. Containers, Manifests, Collections and Ranges can all have this property, linking to relevant annotations. As with the [`items`][prezi-40-model-items] property, annotations are grouped into one or more AnnotationPage resources. These are usually external references.
 
 
-This example is a Manifest with a Canvas that contains a single photograph and an Annotation with the motivation `commenting` highlighting a specific feature of the photograph. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses an [Svg Selector][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the photograph.
+This example is a Manifest with a Canvas that contains a single photograph and an Annotation with the motivation `commenting` highlighting a specific feature of the photograph. It demonstrates the use of comments for contextualizing or describing specific elements of a resource. A comment on a Canvas can target a non-rectangular area. This example uses an [SVG Selector][prezi-40-model-SvgSelector] to comment on a non-rectangular region of the photograph.
 
 {% include code_example.html src="uc08_image_annotation.json" %}
 
 >
 **Key Points**
-* Annotations may alternately use a different type of Selector, called a [Wkt Selector][prezi-40-model-WktSelector], to align the Annotation to a target region within a Canvas or Scene.
+* Annotations may alternately use a different type of Selector, called a [WKT Selector][prezi-40-model-WktSelector], to align the Annotation to a target region within a Canvas or Scene.
 
 ### Commenting about 3D sculpture
 
