@@ -858,7 +858,7 @@ An Ambient Light _SHOULD_ have the following additional properties: [color](#col
 
 Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel.
 
-The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a RotateTransform.
+The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a Rotate Transform.
 
 __Properties__<br/>
 A Directional Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
@@ -879,7 +879,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 {: #ImageBasedLight}
 > `"type": "ImageBasedLight"`
 
-Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a RotateTransform.
+Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a Rotate Transform.
 
 __Properties__<br/>
 An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
@@ -1280,7 +1280,7 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
 
 The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound from its direction. In other words, the angle extends from the center of the cone to the edge of the cone (the half-angle).
 
-The value _MUST_ be a floating point number greater than 0 and less than equal to 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0 and less than or equal to 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
@@ -1584,7 +1584,7 @@ The value _MUST_ be a positive integer.
 
 This property references the first Annotation Page within an Annotation Collection, or the first Collection Page within a Collection. Note that Collections will only have the `first` property if there is a large number of items, more than could conveniently be included in a single page.
 
-The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be AnnotationPage or CollectionPage.
+The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
 * A non-empty Annotation Collection _MUST_ have the `first` property.<br/>
   Clients _MUST_ process the `first` property on an AnnotationCollection.
