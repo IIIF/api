@@ -2474,7 +2474,9 @@ The value _MUST_ be a string, not a number, in order to allow for the "!" charac
 
 The scope of an Annotation or Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. 
 
-In a Scene, `scope` would typically be applied to a Content Resource or commenting Annotation and would reference a Camera that should be activated and selected to set the correct viewpoint in response to user interaction with that resource. This specification does not establish specific expectations for references to other classes. Clients _MUST_ process `scope` as a short-hand expression of an Annotation where `motivation` is "activating"; where `action` values are `show`, `enable`, and `select`; where the `source` of the activating Annotation `body` is the Resource referenced by `scope`; and where the `target` is the Annotation or Specific Resource on which `scope` is specified. 
+In a Scene, `scope` would typically be applied to a Content Resource or commenting Annotation and would reference a Camera that should be activated and selected to set the correct viewpoint in response to user interaction with that resource. Clients _MUST_ process `scope` as a short-hand expression of an Annotation where `motivation` is "activating"; where `action` values are `show`, `enable`, and `select`; where the `source` of the activating Annotation `body` is the Resource referenced by `scope`; and where the `target` is the Annotation or Specific Resource on which `scope` is specified. 
+
+This specification does not establish specific expectations for references to other classes.
 
 The value _MUST_ be an array of JSON objects.
 
