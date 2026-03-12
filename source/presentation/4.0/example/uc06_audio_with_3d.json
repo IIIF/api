@@ -118,8 +118,11 @@
                                     "quantityValue": 0.3
                                 },
                                 "lookAt": {
-                                    "id":"https://iiif.io/api/presentation/4.0/example/uc06/scene1",
-                                    "type": "Scene"
+                                    "id":"https://iiif.io/api/presentation/4.0/example/uc06/origin",
+                                    "type": "PointSelector",
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
                                 }
                             },
                             "target": {
