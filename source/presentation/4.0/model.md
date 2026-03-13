@@ -311,8 +311,8 @@ Containers specify extents in space and/or time with one or more space or time d
 
 __Properties__<br/>
 All Containers _MUST_ have the following properties: [id](#id), [type](#type).<br/>
-All Containers _SHOULD_ have the following properties: [label](#label), [items](#items).<br/>
-All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [interactionMode](#interactionMode), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/>
+All Containers _SHOULD_ have the following properties: [label](#label), [thumbnail](#thumbnail), [items](#items).<br/>
+All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [interactionMode](#interactionMode), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/>
 All Containers that have the [`duration`](#duration) property _MAY_ have the following properties: [temporalScale](#temporalScale).
 {: .note}
 
@@ -399,10 +399,10 @@ Annotation Collections are always paged using `first` and `last`, rather than `i
 
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/>
-An Annotation Collection that has the [items](#items) property _MUST NOT_ have the following propertioes: [first](#first), [last](#last).<br/>
+An Annotation Collection that has the [items](#items) property _MUST NOT_ have the following properties: [first](#first), [last](#last).<br/>
 An Annotation Collection that does not have the [items](#items) property _MUST_ have the following properties:  [first](#first), [last](#last).<br/>
-An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [total](#total).<br/>
-An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [canonical](#canonical), [via](#via), [annotations](#annotations).
+An Annotation Collection _SHOULD_ have the following properties: [total](#total).<br/>
+An Annotation Collection _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -435,8 +435,7 @@ A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows it to 
 
 __Properties__<br/>
 A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/>
-A Specific Resource _SHOULD_ have the following properties: [selector](#selector)<br/>
-A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations), [action](#action).
+A Specific Resource _MAY_ have the following properties: [selector](#selector), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations), [action](#action).
 {: .note}
 
 #### Textual Body
@@ -1302,8 +1301,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the
   Clients _SHOULD_ process `annotations` on a Collection.
 * A Manifest _MAY_ have the `annotations` property with at least one item.<br/>
   Clients _SHOULD_ process `annotations` on a Manifest.
-* A Canvas _MAY_ have the `annotations` property with at least one item.<br/>
-  Clients _SHOULD_ process `annotations` on a Canvas.
+* A Container _MAY_ have the `annotations` property with at least one item.<br/>
+  Clients _SHOULD_ process `annotations` on a Container.
 * A Range _MAY_ have the `annotations` property with at least one item.<br/>
   Clients _SHOULD_ process `annotations` on a Range.
 * A content resource _MAY_ have the `annotations` property with at least one item.<br/>
@@ -1480,7 +1479,7 @@ The value _MUST_ be a positive floating point number.
   Clients _MUST_ process `duration` on a Timeline.
 * A Canvas or Scene _MAY_ have the `duration` property.<br/>
   Clients _MUST_ process `duration` on a Canvas or Scene, if present.
-* Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
+* Content resources _SHOULD_ have the `duration` property, if appropriate for the type of resource.<br/>
   Clients _SHOULD_ process `duration` on content resources.
 
 {% include api/code_header.html %}
@@ -1609,7 +1608,7 @@ For the IIIF Image API Selector class however, the value of `format` is the para
 
 The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image API.
 
-* A Content Resource _SHOULD_ have the `format` property.<br/>
+* A Content Resource _MAY_ have the `format` property.<br/>
   Clients _MAY_ process the `format` of any content resource.
 * A Textual Body _MAY_ have the `format` property.<br/>
   Clients _MAY_ process the `format` property on a Textual Body.
@@ -1652,7 +1651,9 @@ A web page that is about the entity represented by the resource that has the `ho
 
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type`, and `label` properties, _SHOULD_ have a `format` property, and _MAY_ have the `language` property.
 
-* Any resource type _MAY_ have the `homepage` property.<br/>
+* An Agent _SHOULD_ have the `homepage` property.<br/>
+  Clients _SHOULD_ render `homepage` on an Agent.
+* Other types of resource _MAY_ have the `homepage` property.<br/>
   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Container, and _MAY_ render `homepage` on other types of resource.
 
 __Model Alignment__<br/>
@@ -2095,6 +2096,10 @@ The `partOf` property references resources which the current resource is contain
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
+* A Collection Page _MUST_ have the `partOf` property with at least one item. The items _MUST_ be Collections.<br/>
+  Clients _SHOULD_ render `partOf` on a Collection Page.
+* An Annotation Page _SHOULD_ have the `partOf` property with at least one item. The items _MUST_ be Annotation Collections.<br/>
+  Clients _SHOULD_ render `partOf` on an Annotation Page.
 * Any resource type _MAY_ have the `partOf` property with at least one item.<br/>
   Clients _MAY_ render `partOf` on any resource type.
 
@@ -2940,7 +2945,7 @@ The value of this property _MUST_ be a non-negative integer.
 
 * An Annotation Collection _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on an Annotation Collection.
-* A Collection with Collection Pages _SHOULD_ have the `total` property.<br/>
+* A Collection _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on a Collection.
 
 {% include api/code_header.html %}
@@ -3135,8 +3140,8 @@ The value of this property _MUST_ be a Quantity.
 The `unit` property of the Quantity _MUST_ be `relative`.
 The `quantityValue` property of the Quantity _MUST_ be between 0.0 and 1.0.
 
-* Audio resource types _SHOULD_ have the `volume` property.<br/>
-  Clients _SHOULD_ process the `volume` property on an Audio resource.
+* An Audio Emitter _SHOULD_ have the `volume` property.<br/>
+  Clients _SHOULD_ process the `volume` property on an Audio Emitter.
 
 {% include api/code_header.html %}
 ``` json-doc
