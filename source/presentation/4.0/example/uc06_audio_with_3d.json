@@ -149,6 +149,7 @@
                                 "value": "This is the point when the percussion stops playing and the tuba begins playing."
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
