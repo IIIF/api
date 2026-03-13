@@ -12,7 +12,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "I. 54. Jahrgang"
       },
       "target": {
@@ -46,7 +46,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Nr. 29"
       },
       "target": {
@@ -80,7 +80,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Chef-Redakteur Theodor Wolfi in Berlin, 7"
       },
       "target": {
@@ -114,7 +114,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "DB T. W. Mit Bewunderung ſtehen wir vor dem erfreulichen"
       },
       "target": {
@@ -148,7 +148,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "men, Wifer einer Staat3anwaltſchaft, die jeht ſogar ihre Nachtruhe"
       },
       "target": {
@@ -182,7 +182,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "einnpiert, während ſie in einigen bekannten Fällen ſchon"
       },
       "target": {
@@ -216,7 +216,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "mi Tage zu ſchlummern ſchien. Aber nachdem man ge-"
       },
       "target": {
@@ -250,7 +250,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "d<hen MWigend bewundert hat, darf man ſich vielleicht für einen"
       },
       "target": {
@@ -284,7 +284,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Fen ugenblid einem anderen Lande zuwenden, in dem die Ge-"
       },
       "target": {
@@ -318,7 +318,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "\"282, Bhtigfeit blüht. Jn MoS3kau ſind, wie ſchon berichtet"
       },
       "target": {
@@ -352,7 +352,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "\"geneßurde, vor mehreren Monaten drei junge Männer"
       },
       "target": {
@@ -386,7 +386,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "rl rr haftet worden, von denen zwei, Dr. Kindermann"
       },
       "target": {
@@ -420,7 +420,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "AUM [nd der Student Wolſc<ht, aus Süddeutſchland gebürtig"
       },
       "target": {
@@ -454,7 +454,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "n Zeund, der dritte, ein Student v. Ditmakt, aus Gſthland"
       },
       "target": {
@@ -488,7 +488,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "3 ammt. Man iſt wohl nicht berechtigt, ganz über dieſe An-"
       },
       "target": {
@@ -522,7 +522,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Et Flegenheit zu ſchweigen, auch wenn ſie, neben den Affären"
       },
       "target": {
@@ -556,7 +556,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "r Barmat, Kutiſker, Bauer und Höfle, manchem ſehr un-"
       },
       "target": {
@@ -590,7 +590,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "trächtlich erſcheinen mag. Wer in dieſen Tagen von Moskau"
       },
       "target": {
@@ -624,7 +624,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "in. Bricht, tut es in dem tröſtlichen Bewußtſein, daß ſich vorläufig"
       },
       "target": {
@@ -658,7 +658,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "bera W Berlin ja doch nicht viel ändern wird. Die parlamentari-"
       },
       "target": {
@@ -692,7 +692,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Unfaren Unterſuchungsausſchüſſe werden noch lange mit ihren"
       },
       "target": {
@@ -726,7 +726,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Kinpchen in hündert Seitengaſſen herumſuchen, die deutſch-"
       },
       "target": {
@@ -760,7 +760,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "tionale Tugend wird ſich weiter über das republikaniſche"
       },
       "target": {
@@ -794,7 +794,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "\"6 ſter empören, und die journaliſtiſchen Schafhirten werden"
       },
       "target": {
@@ -828,7 +828,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "anner wieder dafür ſorgen, daß von den für ſie unangenehmen"
       },
       "target": {
@@ -862,7 +862,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Svart Ft ſchichten nichts bis in den Geſichtskreis der gehüteten Herde"
       },
       "target": {
@@ -896,7 +896,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "mar> Wingt. Auch draußen in der Welt wird noch eine Weile lang"
       },
       "target": {
@@ -930,7 +930,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": ") ohne Mos ſo weitergehen wie biöher. Es wird unermüdlich über"
       },
       "target": {
@@ -964,7 +964,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ee Schulden geſprochen werden, die Frankreich nicht bezahlen"
       },
       "target": {
@@ -998,7 +998,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ann, ill, und über den Sicherheitspakt, der wegen der öſtlichen An-"
       },
       "target": {
@@ -1032,7 +1032,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Mn 7 ingjel keine Liebe in England findet, und über den Kontroll-"
       },
       "target": {
@@ -1066,7 +1066,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "+ SausFricht, den man un3 immer noch vorenthält. Hat es viel"
       },
       "target": {
@@ -1100,7 +1100,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "jiliale Woc>, noch Worte in dieſe Diskuſſionen hineinzugießen, die"
       },
       "target": {
@@ -1134,7 +1134,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "on aus zahlloſen Quellen übereich gewäſſert werden und"
       },
       "target": {
@@ -1168,7 +1168,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "endlich weiterrinnen? ES iſt zum mindeſten ebenſo inter-"
       },
       "target": {
@@ -1202,7 +1202,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "einfach!"
       },
       "target": {
@@ -1236,7 +1236,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "m, fert"
       },
       "target": {
@@ -1270,7 +1270,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "iberiagant, ſich mit den drei jungen Männern, den zwei Reichs-"
       },
       "target": {
@@ -1304,7 +1304,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "mrn hen und dem Balten, zu beſchäftigen, die ſeit dem Monat"
       },
       "target": {
@@ -1338,7 +1338,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſtraße"
       },
       "target": {
@@ -1372,7 +1372,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "tober in den Händen der allgütigen ruſſiſchen Tſcheka ſind."
       },
       "target": {
@@ -1406,7 +1406,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Tiefe drei jungen Männex, der ſchon mit dem Doktortitel"
       },
       "target": {
@@ -1440,7 +1440,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "wuierte dreiundzwanzigjährige Geograph, und die beiden"
       },
       "target": {
@@ -1474,7 +1474,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "= arifudenten, ſind angeblich mit der Abſicht, die Hauptperſonen"
       },
       "target": {
@@ -1508,7 +1508,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": ", Sin Sowjetſtaates zu ermorden, nach Moskau gekommen. Sie"
       },
       "target": {
@@ -1542,7 +1542,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "en zwär nicht Paß und Einreiſeerlaubnis, deren Echtheit"
       },
       "target": {
@@ -1576,7 +1576,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ee ht beſtritten werden kann, aber Einladungsbriefe ruſſiſcher"
       },
       "target": {
@@ -1610,7 +1610,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "15. PWudentenſchaften, auf die ſie ſich beriefen, gefälſcht haben,"
       },
       "target": {
@@ -1644,7 +1644,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Tage Wd man hat, wie verſichert wird, auch Waffen und die un-"
       },
       "target": {
@@ -1678,7 +1678,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "6 Mbehrlichen Giftfläſchhen bei ihnen entde>t. Die drei ge-"
       },
       "target": {
@@ -1712,7 +1712,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "te en, ſagt die Tſcheka, recht3radikalen Geheimbünden in"
       },
       "target": {
@@ -1746,7 +1746,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": ", MaiWutſhland an. Bei ihren Mordplänen hatten ſie es be-"
       },
       "target": {
@@ -1780,7 +1780,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "“ „Mders auf Stalin und Troßki abgeſehen. Uns anderen er-"
       },
       "target": {
@@ -1814,7 +1814,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "men-,"
       },
       "target": {
@@ -1848,7 +1848,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ndau Wint es zunächſt ſeltſam, daß rechtsradikale Geheimgruppen,"
       },
       "target": {
@@ -1882,7 +1882,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "3 14531."
       },
       "target": {
@@ -1916,7 +1916,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "bisher nur politiſche Gegner in Deutſchland niederknallten"
       },
       "target": {
@@ -1950,7 +1950,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "inaſd den Bolſchewismus als beſten Bundesgenoſſen betrachten,"
       },
       "target": {
@@ -1984,7 +1984,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "4 Jdee gefaßt haben ſollten, den heute ziemlich einfluß-"
       },
       "target": {
@@ -2018,7 +2018,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Offeruſüſn Troßki umzubringen. Wa3 das Gift betrifft, fo iſt von"
       },
       "target": {
@@ -2052,7 +2052,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "1f VoſYk fſtudentiſhen Freunden der Verhafteten in der"
       },
       "target": {
@@ -2086,7 +2086,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "liner Apotheke, die es geliefert hat, feſtgeſtellt worden, daß"
       },
       "target": {
@@ -2120,7 +2120,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ehlt ftſein Mittel gegen Malaria iſt. Jndeſſen, die Tſcheka erklärt"
       },
       "target": {
@@ -2154,7 +2154,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "-harloi\" daß ſie imſtande ſei, all' unſere Zweifel zu zerſtreuen."
       },
       "target": {
@@ -2188,7 +2188,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "einf beſitt „Dokumente“, die ſie leider nicht zeigt. Nachdem"
       },
       "target": {
@@ -2222,7 +2222,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "* Bongſtvollen Eltern, die deutſchen Amtsſtellen, die ange-"
       },
       "target": {
@@ -2256,7 +2256,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "rus Zifwnſten deutſchen Univerſitätzlehrer und andere Perſonen"
       },
       "target": {
@@ -2290,7 +2290,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Mme | Monate hindurch vergeblich verſucht hatten, irgendeine"
       },
       "target": {
@@ -2324,7 +2324,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ße 485, Whricht über das Befinden der Eingekerkerten zu erlangen,"
       },
       "target": {
@@ -2358,7 +2358,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "man in der vorigen Woche dem Rektor der Berliner"
       },
       "target": {
@@ -2392,7 +2392,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ganteſte Wverſität, Profeſſor Holl, der ſich warmherzig für"
       },
       "target": {
@@ -2426,7 +2426,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ee Freilaſſung eingeſeßt hatte, einen Brief des"
       },
       "target": {
@@ -2460,7 +2460,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "-g 5140. WW. Kindermann überbracht. Kindermann ſagt in"
       },
       "target": {
@@ -2494,7 +2494,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "yer, Wem Briefe, „die durch G. P. U. unternommenen Nach-"
       },
       "target": {
@@ -2528,7 +2528,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "6 (Mh ungen“ hätten ergeben, daß ſeine beiden Reiſekameraden"
       },
       "target": {
@@ -2562,7 +2562,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "et, Miher in Deutſchland in faſciſtiſchen «Kreiſen ſich betätigt"
       },
       "target": {
@@ -2596,7 +2596,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "En en“, und „daß ihre Reiſeabſichten andre als wiſſenſchaft-"
       },
       "target": {
@@ -2630,7 +2630,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "| 1]"
       },
       "target": {
@@ -2664,7 +2664,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "raße M: geweſen ſeien. Er ſelbſt habe davon nichts gewußt und"
       },
       "target": {
@@ -2698,7 +2698,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "e fich „während der Unterſuchung von der Objektivität"
       },
       "target": {
@@ -2732,7 +2732,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "tklaffiz. MW Unterſuchungsorgane überzeugt“. Er habe zu dieſen Or-"
       },
       "target": {
@@ -2766,7 +2766,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "EEE en „vollkommenes Vertrauen“. Der Verhaftete bittet de8halb"
       },
       "target": {
@@ -2800,7 +2800,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "<tenbefohl den Rektor wie die deutſche Regierung, nicht3 weiter in"
       },
       "target": {
@@ -2834,7 +2834,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ausbeſſ/W Sache zu unternehmen, und er fügt beruhigend hinzu, die"
       },
       "target": {
@@ -2868,7 +2868,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "vſtraße 1! jandlung, die ihm zuteil werde, ſei „aufmerkſam, zuvor-"
       },
       "target": {
@@ -2902,7 +2902,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "eimufanend und korrekt\". . . „Von den Schre>en, über die man"
       },
       "target": {
@@ -2936,7 +2936,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ße 19 Weutſchland ſpricht, habe ich in der Zeit meiner Verhaftung"
       },
       "target": {
@@ -2970,7 +2970,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "trbeit. Wb. P. U. nichts bemerken können.\" Am Schluſſe verſichert"
       },
       "target": {
@@ -3004,7 +3004,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "33. Briefſchreiber, er gebe „dieſe Erklärungen aus freiem"
       },
       "target": {
@@ -3038,7 +3038,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Tag Wen und freier Jnitiative“ ab, und „ohne jeden Zwang“."
       },
       "target": {
@@ -3072,7 +3072,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "be M. zu ſich ja jeder das Seinige denken kann. ."
       },
       "target": {
@@ -3106,7 +3106,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "* wide Verwandten, die Lehrer und Freunde der jungen"
       },
       "target": {
@@ -3140,7 +3140,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "m Kine werden die Erzählungen, die nun von der „Jſtweſtia"
       },
       "target": {
@@ -3174,7 +3174,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Heider Wroitet und in die Welt hinausgeſchikt werden, mit"
       },
       "target": {
@@ -3208,7 +3208,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Ei ielleiht immer noh"
       },
       "target": {
@@ -3242,7 +3242,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "fer Ueberraſchung leſen und vielleich 3 )"
       },
       "target": {
@@ -3276,7 +3276,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "228 feln, obgleih natürlih au< ſie der bewährten"
       },
       "target": {
@@ -3310,7 +3310,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ante Wfa das allergrößte Bertrauen entgegenbringen."
       },
       "target": {
@@ -3344,7 +3344,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "reiſen. Mn biaher hatten ſie ſich von dem Weſen, den"
       },
       "target": {
@@ -3378,7 +3378,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "hrung \"Wen und Anſchauungen beſonders des Kindermann und des"
       },
       "target": {
@@ -3412,7 +3412,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "aſtr. %Wiſcht ein 208 anderes Bild gemacht. I< habe"
       },
       "target": {
@@ -3446,7 +3446,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "är; drei eines Tages kennen gelernt, als ſie, mit den Empfeh"
       },
       "target": {
@@ -3480,7 +3480,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "n. Hanſen hervorragender Profeſſoven, linksſtehender und rechts-"
       },
       "target": {
@@ -3514,7 +3514,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "fertig\" Wender, ausgerüſtet und ſchon mit allen Päſſen, Scheinen"
       },
       "target": {
@@ -3548,7 +3548,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "168 7388. d Einladungen verſehen, bei mir vorſprachen und, gleich"
       },
       "target": {
@@ -3582,7 +3582,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "“Str. Men anderen, fragten, 'ob Reiſeberichte willkommen ſeien."
       },
       "target": {
@@ -3616,7 +3616,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſuchten ſie, offenbar hier und dort anpochend -- auch bei"
       },
       "target": {
@@ -3650,7 +3650,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "duſtriefirmen, was man ihnen jeßt in Mozkau als „Handels"
       },
       "target": {
@@ -3684,7 +3684,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "reiswert."
       },
       "target": {
@@ -3718,7 +3718,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Berliner"
       },
       "target": {
@@ -3752,7 +3752,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "und Handels-Zeitung"
       },
       "target": {
@@ -3786,7 +3786,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Die Verhaftungen in Moskau,."
       },
       "target": {
@@ -3820,7 +3820,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "PEET Rg R RRgRRRgRgpRpPpPr ry yr rT NR"
       },
       "target": {
@@ -3854,7 +3854,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Abend-Ausgabe"
       },
       "target": {
@@ -3888,7 +3888,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Tageblatt"
       },
       "target": {
@@ -3922,7 +3922,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Einzel-Nummer 10 Pfennig."
       },
       "target": {
@@ -3956,7 +3956,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Prentice debbie"
       },
       "target": {
@@ -3990,7 +3990,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Montag. 16. Februar 19235"
       },
       "target": {
@@ -4024,7 +4024,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Druck und Verlaa von Ru doi Moſſe in Berlin.\""
       },
       "target": {
@@ -4058,7 +4058,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "die eingekerkerten jungen Deutſchen."
       },
       "target": {
@@ -4092,7 +4092,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Bas. die Tſcheka behauptet."
       },
       "target": {
@@ -4126,7 +4126,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Celegramm unſere8 Korretyrondenten.)"
       },
       "target": {
@@ -4160,7 +4160,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "dü.) Moskau, 15. Februar."
       },
       "target": {
@@ -4194,7 +4194,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Anknüpfend an eine bevorſtehende Interpellation der Sozial-"
       },
       "target": {
@@ -4228,7 +4228,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "demofkraten im Reichstag über die Gefangenhaltung der drei"
       },
       "target": {
@@ -4262,7 +4262,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "jungen Deutſchen in Moskau und andere deutſche Gefangene, die aus"
       },
       "target": {
@@ -4296,7 +4296,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "politiſchen Gründen in ruſſiſchen Gefängniſſen feſtgehalten würden,"
       },
       "target": {
@@ -4330,7 +4330,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſchreibt die „Jsweſtija“, dieſe Interpellation ſei durch die Or-"
       },
       "target": {
@@ -4364,7 +4364,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ganiſation Conſul vorbereitet (!!), die durch Finanz-"
       },
       "target": {
@@ -4398,7 +4398,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "und Handelsfreiſe auf die Sozialdemokraten eingewirkt habe. Die"
       },
       "target": {
@@ -4432,7 +4432,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "„Jsweſtija“ beklagt ſich weiter über die Kampagne der deutſchen"
       },
       "target": {
@@ -4466,7 +4466,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Blätter, welche die Beziehungen zu Sowjetrußland verſchlechtern"
       },
       "target": {
@@ -4500,7 +4500,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſolle, und fährt dann fort: „Wir ſind in der Lage, an Hand un-"
       },
       "target": {
@@ -4534,7 +4534,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "beſtreitbarer Dokumente, die der Sowjetregierung zur Verfügung"
       },
       "target": {
@@ -4568,7 +4568,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſtehen, nachzuweiſen, daß dieſe „jungen Gelehrten Fälſcher von"
       },
       "target": {
@@ -4602,7 +4602,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Dokumenten und Spione ſind, die eine deutſche"
       },
       "target": {
@@ -4636,7 +4636,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "faſciſtiſche Organiſation zu terroriſtiſchen"
       },
       "target": {
@@ -4670,7 +4670,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Zwecken nach Moskau abkommandierte . . . .“ „Die Or-"
       },
       "target": {
@@ -4704,7 +4704,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ganiſation „Conſul“ hat - bereits 1923 beſchloſſen,"
       },
       "target": {
@@ -4738,7 +4738,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ihre terroriſtiſche Tätigkeit auszudehnen und einen Plan"
       },
       "target": {
@@ -4772,7 +4772,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ausgearbeitet für Attentate auf hervorragende kommuniſtiſche"
       },
       "target": {
@@ -4806,7 +4806,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Staatsmänner in. Mos8kau. Im Dezember 1923 wurde eine"
       },
       "target": {
@@ -4840,7 +4840,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Gruppe Karl Kindermann8 mit der Ausführung"
       },
       "target": {
@@ -4874,7 +4874,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "des Planes auf ruſſiſchem Boden beauftragt. Im Juli 1924 hatte ſie"
       },
       "target": {
@@ -4908,7 +4908,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſchon ganz beſtimmte Anweiſungen erhalten, deren erſte Opfer"
       },
       "target": {
@@ -4942,7 +4942,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſowjetruſſiſche Staat8männer in MoSkau ſein"
       },
       "target": {
@@ -4976,7 +4976,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſollten. Die „Jsweſtija“ behauptet, daß zur Maxsfierung ihrer"
       },
       "target": {
@@ -5010,7 +5010,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Abſichten die jekt Verhafteten fich an die Kommuniſtiſche Partei"
       },
       "target": {
@@ -5044,7 +5044,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "heranmachten,“ uur in- die ton muniſtiſchen Kreiſe Moskaus einzu"
       },
       "target": {
@@ -5078,7 +5078,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "dringen. Sie fälſchten die Mitgliedskarten (Warum? Sie konnten"
       },
       "target": {
@@ -5112,7 +5112,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ja ec<hte haben. D. Red.) und Beglaubigungskarten, wandten ſich"
       },
       "target": {
@@ -5146,7 +5146,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "an liberale Gelehrte Deutſchlands, „deren Empfehlungsſchreiben"
       },
       "target": {
@@ -5180,7 +5180,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ihnen auch die Tür zum Arbeitszimmer Theodor Wolffs"
       },
       "target": {
@@ -5214,7 +5214,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "öffneten, der ſich einverſtanden erklärte, Korreſpondenzen aus Fern-"
       },
       "target": {
@@ -5248,7 +5248,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Sibirien entgegenzunehmen, und einen Vorſchuß von 2000 Mark"
       },
       "target": {
@@ -5282,7 +5282,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "bewilligte“, Weiter wandten fich die Reiſenden an den Michael-"
       },
       "target": {
@@ -5316,7 +5316,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Konzern und an das Modehaus Rudolf Herkog, die dafür Wirt-"
       },
       "target": {
@@ -5350,7 +5350,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "fſchafts8ſpionage (!) zu ihren Gunſten forderten. Veber die"
       },
       "target": {
@@ -5384,7 +5384,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Perſonalien ſagte der Artikel: Dr. Karl Kindermann ſtudierte"
       },
       "target": {
@@ -5418,7 +5418,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "1922/23 Kriminalrecht, vervollſtändigte ſeine theoretiſchen Kenntniſſe"
       },
       "target": {
@@ -5452,7 +5452,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "im Dienſte eine8 Detektivbureaus in Berlin. Einige Beamte des"
       },
       "target": {
@@ -5486,7 +5486,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Berliner Polizeipräſidiums können ausführlicher über ihn Auskunft"
       },
       "target": {
@@ -5520,7 +5520,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "geben. Max v. Ditmaringen, alias Ditmar, iſt Eſtländer und"
       },
       "target": {
@@ -5554,7 +5554,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "von der Organiſation „Conſul“ mit Terrorakten beauftragt. Der"
       },
       "target": {
@@ -5588,7 +5588,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Artikel ſchließt mit der Hoffnung, daß die öffentliche Meinung aller"
       },
       "target": {
@@ -5622,7 +5622,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Kreiſe in Deutſchland jeßt ihren Jrrtum einſehen, die Regierung die"
       },
       "target": {
@@ -5656,7 +5656,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "„Verleumder“ zum Schweigen bringen werde. Die im Reichstag"
       },
       "target": {
@@ -5690,7 +5690,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "geplante Interpellation verlange, wenigſtens nach ihrem Wortlaut,"
       },
       "target": {
@@ -5724,7 +5724,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "daß die deutſche Regierung die Befreiung der ge-"
       },
       "target": {
@@ -5758,7 +5758,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "fangengehaltenen Deutſc<en, ſofern es ſich nicht um"
       },
       "target": {
@@ -5792,7 +5792,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ganz gewöhnliche Verbrecher handle, „in entſprechender Weiſe durch-"
       },
       "target": {
@@ -5826,7 +5826,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "jehen“\" ſolle. Die Juterpellation ſei wohl kaum überlegt. Würde"
       },
       "target": {
@@ -5860,7 +5860,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "es in Deutſchland verſtanden werden, wenn die Sowjet-"
       },
       "target": {
@@ -5894,7 +5894,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "regierung von der deutſchen Regierung verlangte, daß ſie"
       },
       "target": {
@@ -5928,7 +5928,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Sowjetſtaat8angehörige in Deutſchland gleichfalls freiließe, ledigvich"
       },
       "target": {
@@ -5962,7 +5962,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "weil ſie „nicht gewöhnliche Verbrecher ſind“? Jv Deutſchland"
       },
       "target": {
@@ -5996,7 +5996,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſive eine Anzahl Sowjetſtaatsangehöriger wegen politiſcher Ver-"
       },
       "target": {
@@ -6030,7 +6030,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "brechen, ohne daß bi8her eine Intervention der Sowjetregierung er"
       },
       "target": {
@@ -6064,7 +6064,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "folgt wäre. Die deutſche juriſtiſche Poſition werde durch derartige"
       },
       "target": {
@@ -6098,7 +6098,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Forderungen gegenüber Sowjetrußland nur geſchwächt. Soweit"
       },
       "target": {
@@ -6132,7 +6132,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "die „I3weſtia“. WaZ3 die drei jungen Deutſ<en angeht, jo"
       },
       "target": {
@@ -6166,7 +6166,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "liegt eine amtliche öffentliche Mitteilung der Sowjetbehörden"
       },
       "target": {
@@ -6200,7 +6200,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "über ihren Fall immer noh nicht vor.“ Es iſt ſehr zu wünſchen,"
       },
       "target": {
@@ -6234,7 +6234,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "daß dis Unterſuchung möglichſt ſchnell beendigt wird und"
       },
       "target": {
@@ -6268,7 +6268,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "dann eine völlig öffentliche Gerichtsverhandlung"
       },
       "target": {
@@ -6302,7 +6302,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "folgt, falls das Endergebnis der gegenwärtigen Unterſuchung zur"
       },
       "target": {
@@ -6336,7 +6336,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Anklageerhebfwmig führt, v detechider etileheiigl"
       },
       "target": {
@@ -6370,7 +6370,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Auch die neue Darſtellung der „Jsweſtija\" hat, wie wir durch"
       },
       "target": {
@@ -6404,7 +6404,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Umfrage feſtgeſtellt haben, in dem Kreiſe derjenigen, die mit"
       },
       "target": {
@@ -6438,7 +6438,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Dr. Kindermann und Wolſcht bekannt oder befreundet ſind, die"
       },
       "target": {
@@ -6472,7 +6472,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Ueberzeugung von der Unſchuld der Verhafteten nicht erſchüttert,"
       },
       "target": {
@@ -6506,7 +6506,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Wir verweiſen auf den nebenſtehenden Leitartifel,"
       },
       "target": {
@@ -6540,7 +6540,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "GELN HTE REET VAE WETRIRK RE BEOREFUHRER SP WIS VERENA WTERGO 7 MORE EEREES CHF BREE HRRRSIN SDIRUN BETE HNESE EN SOGEN ÖIPEI E HRRGSNEING EISERNEN WEN“ GE EFRON REIE IE EEN EEE WR UET IREN NCE IUEIS ORE HRR HRN BEE"
       },
       "target": {
@@ -6574,7 +6574,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſpionage\" auslegt -- ihre magere Reiſekaſſe aufzufüllen. Jh"
       },
       "target": {
@@ -6608,7 +6608,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "machte ihnen klar, daß wir kundigere Mitarbeiter hätten und"
       },
       "target": {
@@ -6642,7 +6642,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "für eine Berichterſtattung über die verwickelten wirtſchaft-"
       },
       "target": {
@@ -6676,7 +6676,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "lichen und politiſchen Probleme Sowjetrußland8 unerfahrene"
       },
       "target": {
@@ -6710,7 +6710,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Forſchungsreiſende nicht brauchten, und hielt ihnen, wie gewiß"
       },
       "target": {
@@ -6744,7 +6744,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "jeder Befragte, die Schwierigkeiten des Unternehmen3 vor."
       },
       "target": {
@@ -6778,7 +6778,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Wir kamen überein, daß ſie einiges über das Leben der Stu-"
       },
       "target": {
@@ -6812,7 +6812,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "denten an ſibiriſchen Univerſitäten ſchreiben ſollten, von denen,"
       },
       "target": {
@@ -6846,7 +6846,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "wie ihre Papiere bewieſen, eine Einladung an ſie ergangen"
       },
       "target": {
@@ -6880,7 +6880,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "war. Nicht nur ihre von den ausgezeichneten Gelehrten ver-"
       },
       "target": {
@@ -6914,7 +6914,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "faßten Geleitbriefe, ſondern mehr noch ihre Friſche und ſogar"
       },
       "target": {
@@ -6948,7 +6948,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ihre mit junger Gelehrſamkeit vereinte etwas naive Aben-"
       },
       "target": {
@@ -6982,7 +6982,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "teuerluſt konnten ſympathiſch ſtimmen. Ein politiſches"
       },
       "target": {
@@ -7016,7 +7016,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Bekenntnis wurde ihnen nicht abverlangt, und es"
       },
       "target": {
@@ -7050,7 +7050,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "wurde nur geſagt, daß ſie vermeiden müßten, ſich"
       },
       "target": {
@@ -7084,7 +7084,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "auf das Gebiet der Politik zu verirren. Nicht zu"
       },
       "target": {
@@ -7118,7 +7118,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "verkennen war, daß Kindermann und Wolſcht als Freunde"
       },
       "target": {
@@ -7152,7 +7152,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "auftraten, während zwiſchen ihnen und dem Balten v. Ditmar"
       },
       "target": {
@@ -7186,7 +7186,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ein weniger intimes Verhältnis beſtand. Die beiden Deutſchen"
       },
       "target": {
@@ -7220,7 +7220,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "zeigten in der Unterhaltung, daß der Balte nur den Dolmetſch"
       },
       "target": {
@@ -7254,7 +7254,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſpielen ſolle, und hielten Diſtanz. Der Eindruck, den man bei"
       },
       "target": {
@@ -7288,7 +7288,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "flüchtiger Begegnung empfängt, kann folbſtverſtändlich trügen"
       },
       "target": {
@@ -7322,7 +7322,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "und darum habe ich verſucht, zuverläſſigere Auskünfte über"
       },
       "target": {
@@ -7356,7 +7356,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "die drei zu erlangen. Von dem Ditmar, der ein gutmütiges"
       },
       "target": {
@@ -7390,7 +7390,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "rundes Geſicht hatte, weiß man auch in den ſtudentiſchen Kreiſen"
       },
       "target": {
@@ -7424,7 +7424,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "nur zu ſagen, daß er ſich bald nach rechts, bald nach links, zu-"
       },
       "target": {
@@ -7458,7 +7458,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "leßt anſcheinend nach linf8, hat treiben laſſen und wahrſchein-"
       },
       "target": {
@@ -7492,7 +7492,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "lich mehr phantaſiert als gegeſſen hat. Für den Dr. Kinder-"
       },
       "target": {
@@ -7526,7 +7526,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "mann, der nach allen Zeugniſſen ſich mit den CE en"
       },
       "target": {
@@ -7560,7 +7560,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Theorien befreundet zu haben ſcheint hat ſein ſchwer leiden-"
       },
       "target": {
@@ -7594,7 +7594,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "der Vater, ein Kaufmann in Durlach, ſchon mit leidenſchaft-"
       },
       "target": {
@@ -7628,7 +7628,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "lichen Worten an die Oeffentlichkeit appelliert. Ein ausge-"
       },
       "target": {
@@ -7662,7 +7662,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "zeichneter Univerſitätslehrer, Profeſſor in Tübingen, hat mir"
       },
       "target": {
@@ -7696,7 +7696,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "geſchrieben: „Dr. Kindermann iſt zweifellos nicht als Gegner"
       },
       "target": {
@@ -7730,7 +7730,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "nach Moskau gefahren, ſondern hat ſicherlich die ruſſiſchen"
       },
       "target": {
@@ -7764,7 +7764,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Verhältniſſe weit eher in etwas illuſionärem Lichte geſehen.“"
       },
       "target": {
@@ -7798,7 +7798,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Der Student Wolſcht iſt, wie ſeine Freunde ausſagen, gleich-"
       },
       "target": {
@@ -7832,7 +7832,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "falls von der rechten Seite nach links hinübergegangen, und"
       },
       "target": {
@@ -7866,7 +7866,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "mit ſo großer Entſchiedenheit, daß er, troß drücender Be-"
       },
       "target": {
@@ -7900,7 +7900,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "dürftigkeit, freiwillig eine Unterſtüßung zurü>wies, die er bis"
       },
       "target": {
@@ -7934,7 +7934,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "dahin von einem ihn zu reaktionär dünkenden Gönner erhielt."
       },
       "target": {
@@ -7968,7 +7968,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Statt weiterer Bekundungen will ich, mit einigen Kürzungen,"
       },
       "target": {
@@ -8002,7 +8002,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "die Schilderung hierher ſeen, die mir ſein Vater, ein in Bop-"
       },
       "target": {
@@ -8036,7 +8036,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "pard lebender ehemaliger Gymnaſialprofeſſor, entwirft:"
       },
       "target": {
@@ -8070,7 +8070,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "„Herzlichen Dank für Jhr Freundliches Schreiben, das mir"
       },
       "target": {
@@ -8104,7 +8104,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "68jährigem Mann ungemein wohlgetan hat. Was nun die hFe-"
       },
       "target": {
@@ -8138,7 +8138,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "wünſchten Aufflärungen über Theo angeht, ſo hängen dieſe mit"
       },
       "target": {
@@ -8172,7 +8172,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "meiner eigenen Stellung zur Kirche und zum Staate eng zu-"
       },
       "target": {
@@ -8206,7 +8206,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſammen. JH bin Anhänger der darwiniſtiſchen Theorie. Jn"
       },
       "target": {
@@ -8240,7 +8240,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "politiſcher Hinſicht bin ih Staat3ſozialiſt, wenn ich auch"
       },
       "target": {
@@ -8274,7 +8274,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "weder der ſozialdemokratiſchen noch kommuniſtſhen Partei ange-"
       },
       "target": {
@@ -8308,7 +8308,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "höre; ich dürfte ungefähr der Richtung de? „Berliner Tageblattes“\""
       },
       "target": {
@@ -8342,7 +8342,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "anzugliedern ſein, obwohl ich mich von jeder aktiven politiſchen"
       },
       "target": {
@@ -8376,7 +8376,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Beteiligung biöher vollſtändig ferngehalten habe und ſeit meiner"
       },
       "target": {
@@ -8410,7 +8410,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "vor 17 Jahren nachgeſuchten und erhaltenen Penſionierung nur"
       },
       "target": {
@@ -8444,7 +8444,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "den Wiſſenſchaften gelebt habe. Jm übrigen tolerant"
       },
       "target": {
@@ -8478,7 +8478,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "laſſe ich jeden nach jeiner Manier ſelig werden. Sie werden es"
       },
       "target": {
@@ -8512,7 +8512,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "alfo verſtehen, daß ich meinem Sohn bei feinem im September"
       },
       "target": {
@@ -8546,7 +8546,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "vorigen Jahres erfolgten Beſuch keine Schwierigkeiten in den Weg"
       },
       "target": {
@@ -8580,7 +8580,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "gelegt habe, als er mir geſtand, daß er zur kommuni ſtiſchen"
       },
       "target": {
@@ -8614,7 +8614,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Partei übergegangen ſei. Wer nicht rechts gehen kann,"
       },
       "target": {
@@ -8648,7 +8648,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "mag links gehen. Der Verluſt ſeines Vermögens durch die IJnfla1-"
       },
       "target": {
@@ -8682,7 +8682,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "tion, die ihn nötigte, ſich ſelbſt durchzuſchlagen, mag wohl nebſt"
       },
       "target": {
@@ -8716,7 +8716,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "der Bekanntſchaft mit zahlreichen ruſſiſchen und deutſchen Kom-"
       },
       "target": {
@@ -8750,7 +8750,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "muniſten die Hauptveranlaſſung dazu geweſen ſein. Außerdem"
       },
       "target": {
@@ -8784,7 +8784,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "hat ihn eine Nede des früheren Rektors der Univerſität erbittert,"
       },
       "target": {
@@ -8818,7 +8818,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "der öffentlich erklärte, er wolle keine Werkſtudenten haben. Aus"
       },
       "target": {
@@ -8852,7 +8852,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "allen dieſen Gründen hat Theo mit ſeinen früheren Anſchauungen"
       },
       "target": {
@@ -8886,7 +8886,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "gebrochen und ſogar, wie er mir erzählte, in kommuniſti-"
       },
       "target": {
@@ -8920,7 +8920,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſchen Kreiſen in Berlin einen Vortrag über E ntwi>klu ng"
       },
       "target": {
@@ -8954,7 +8954,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "des Sozialismus gehalten. Wenn Theo ſeine offizielle An-"
       },
       "target": {
@@ -8988,7 +8988,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "meldung bei der kommuniſtiſchen Partei, Wm ſeine Einſchrei-"
       },
       "target": {
@@ -9022,7 +9022,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "bung als Mitglied verſäumt hat, ſo iſt dies wohl hauptſächlieh der"
       },
       "target": {
@@ -9056,7 +9056,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Bummelei zuzuſchreiben; daß er fich nicht angemeldet haben ſoll,"
       },
       "target": {
@@ -9090,7 +9090,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "wundert mich übrigens."
       },
       "target": {
@@ -9124,7 +9124,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "1922 war Theo mit meiner Zuſtimmung auf Veranlaſſung ſeines"
       },
       "target": {
@@ -9158,7 +9158,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ehemaligen Prinzipals (Theo hat vor dem <emiſchen Studium einen"
       },
       "target": {
@@ -9192,7 +9192,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "praktiſchen Kurſus auf einem Rittergut in einer Brennerei durch»"
       },
       "target": {
@@ -9226,7 +9226,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "gemacht, war auch ein Jahr als Tiſchlerlehrling bei einem"
       },
       "target": {
@@ -9260,7 +9260,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Meiſter in Heſſiſch-Oldendorf, da ich hn urſprünglich für das Vau-"
       },
       "target": {
@@ -9294,7 +9294,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "fach beſtimmt hatte. Schon dieſe Art der Vorbildung hat ſicher auf"
       },
       "target": {
@@ -9328,7 +9328,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "feine kommuniſtiſche Geſinnung und Arbeiterfreundlichkeit Ein-"
       },
       "target": {
@@ -9362,7 +9362,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "fluß gehabt) bei einer ſchlagenden Verbindung eingetreten, hat einige"
       },
       "target": {
@@ -9396,7 +9396,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Menſuren ausgefochten und hat ſich vollſtändig anderen Kreiſen zu-"
       },
       "target": {
@@ -9430,7 +9430,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "gewendet. Aus Mangel an Mitteln hat er wochenlang im Studenten-"
       },
       "target": {
@@ -9464,7 +9464,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "heim faſt nur von troFenem Brot gelebt in bitterſter Armut,"
       },
       "target": {
@@ -9498,7 +9498,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "da ich damals in der Inflation8periode nicht imſtande war, ihn zu"
       },
       "target": {
@@ -9532,7 +9532,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "unterſtüßen, weil ich z. B. in einem Monat (1923) ſage und ſchreibe"
       },
       "target": {
@@ -9566,7 +9566,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "10 Pf. Penſion erhielt, ſo ſehr war das Geld entwertet, als es in"
       },
       "target": {
@@ -9600,7 +9600,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "meine Hände kam. Theo hat mit ſeinen Kameraden ſein leßtes3"
       },
       "target": {
@@ -9634,7 +9634,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Stü> Brot geteilt; er war außerordentlich beliebt und eine"
       },
       "target": {
@@ -9668,7 +9668,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "biedere, allzu gutmütige Seele. Sein Hauptfehler iſt Mangel an"
       },
       "target": {
@@ -9702,7 +9702,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Vorſicht. Im übrigen iſt er eine praktiſche Natur. Mit ſeinem"
       },
       "target": {
@@ -9736,7 +9736,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "mehr wiſſenſchaftlich veranlagten Freunde Kindermann hat er ge-"
       },
       "target": {
@@ -9770,7 +9770,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "meinſchaftlich das Neiſeprojekt entworfen, von dem er ſich durch Film-"
       },
       "target": {
@@ -9804,7 +9804,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "aufnahmen günſtige pekuniäre Reſultate verſprach. Hauptgrund aber"
       },
       "target": {
@@ -9838,7 +9838,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "war bei beiden ein ungezügelter Reiſetrieb und Abenteuerluſt."
       },
       "target": {
@@ -9872,7 +9872,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Beiden fehlte die nötige Erfahrung und Kenntnis der Zuſtände"
       },
       "target": {
@@ -9906,7 +9906,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "in Rußland."
       },
       "target": {
@@ -9940,7 +9940,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Kap Tſcheljuſkin und das vulkaniſche Kamtſchatka hat ſie be-"
       },
       "target": {
@@ -9974,7 +9974,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "onders angeloc>t. Die Tſcheka hat dieſe Angaben zu der Anklage"
       },
       "target": {
@@ -10008,7 +10008,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "benußt, daß ſie Mitglieder der Orgeſch ſeien, die mit Weißgardiſten"
       },
       "target": {
@@ -10042,7 +10042,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "in Verbindung ſtänden. Bekanntlich haben vor einiger Zeit in"
       },
       "target": {
@@ -10076,7 +10076,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Kamtſchatka erbitterte Kämpfe zwiſchen Weißgardiſten und der"
       },
       "target": {
@@ -10110,7 +10110,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Roten Armee ſtatgefunden. Doch davon hatten die beiden harm-"
       },
       "target": {
@@ -10144,7 +10144,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "loſen Studenten gar keine Ahnung. Daß Theo größere Kenntnis"
       },
       "target": {
@@ -10178,7 +10178,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "von den Plänen Ditmars gehabt habe als Kindermann iſt Un-"
       },
       "target": {
@@ -10212,7 +10212,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſinn. Theo und Ditmar ſtanden, wie Vater Kindermann"
       },
       "target": {
@@ -10246,7 +10246,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ſchreibt, wie Hund und Kaß. An Ditmars Schuld glaube"
       },
       "target": {
@@ -10280,7 +10280,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "ich niht. Für die Wahrheit der von mir über Theo gemachten"
       },
       "target": {
@@ -10314,7 +10314,7 @@
       "body": {
         "type": "TextualBody",
         "format": "text/plain",
-        "language": "de",
+        "language": ["de"],
         "value": "Angaben ſtehe ich unbedingt ein."
       },
       "target": {
