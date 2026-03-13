@@ -285,8 +285,8 @@ Collections or Manifests referenced in the `items` property _MUST_ have the `id`
 
 __Properties__<br/>
 A Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label)<br/>
-A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [items](#items)<br/>
-A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), [annotations](#annotations).
+A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [total](#total), [items](#items)<br/>
+A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -339,7 +339,8 @@ Containers specify extents in space and/or time with one or more space or time d
 __Properties__<br/>
 All Containers _MUST_ have the following properties: [id](#id), [type](#type).<br/>
 All Containers _SHOULD_ have the following properties: [label](#label), [items](#items).<br/>
-All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
+All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [interactionMode](#interactionMode), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/>
+All Containers that have the [`duration`](#duration) property _MAY_ have the following properties: [temporalScale](#temporalScale).
 {: .note}
 
 
@@ -362,8 +363,8 @@ A Timeline _MUST_ have the following additional properties: [duration](#duration
 A Canvas is a Container that represents a particular rectangular two-dimensional view and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as in the two-dimensional space.
 
 __Properties__<br/>
-A Canvas _MUST_ have the following additional properties: [height](#height) and [width](#width).<br/>
-A Canvas _MAY_ have the following additional properties: [duration](#duration).
+A Canvas _MUST_ have the following additional properties: [height](#height), [width](#width).<br/>
+A Canvas _MAY_ have the following additional properties: [duration](#duration), [backgroundColor](#backgroundColor), [spatialScale](#spatialScale).
 {: .note}
 
 
@@ -381,7 +382,7 @@ The axes of the coordinate system are measured in arbitrary units. All axes use 
 All 3D resources that can be added to a Scene have an implicit (e.g. Lights, Cameras) or explicit (e.g. Models, Scenes) local coordinate space. Transforms may modify the local coordinate space of a resource relative to the Scene’s "global" space.
 
 __Properties__<br/>
-A Scene _MAY_ have the following additional properties: [duration](#duration).
+A Scene _MAY_ have the following additional properties: [duration](#duration), [backgroundColor](#backgroundColor), [spatialScale](#spatialScale).
 {: .note}
 
 
@@ -408,7 +409,7 @@ For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal po
 __Properties__<br/>
 An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/>
 An Annotation _SHOULD_ have the following properties: [body](#body).<br/>
-An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via).<br/>
+An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [exclude](#exclude).
 {: .note}
 
 
@@ -427,8 +428,8 @@ __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/>
 An Annotation Collection that has the [items](#items) property _MUST NOT_ have the following propertioes: [first](#first), [last](#last).<br/>
 An Annotation Collection that does not have the [items](#items) property _MUST_ have the following properties:  [first](#first), [last](#last).<br/>
-An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail).<br/>
-An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), [annotations](#annotations).
+An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [total](#total).<br/>
+An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -455,12 +456,14 @@ An Annotation Page _MAY_ have the following properties: [label](#label), [startI
 
 A Specific Resource is a resource in the context of an Annotation. They are used to record further properties or relationships needed to understand the particular contextual use, such as which part of the resource is used or how it should be rendered. In IIIF, the Specific Resource model from the Web Annotation Data Model has some additional properties beyond those defined by the W3C, such as `transform` and `position`.
 
+When the `source` resource of a Specific Resource is a Content Resource, such as an image, then the Specific Resource _SHOULD_ be treated as a Content Resource as well. In the case of an image, the Specific Resource might have the `height` and `width` properties.
+
 A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows it to be addressed by other parts of the model, such as an Activating Annotation.
 
 __Properties__<br/>
 A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/>
 A Specific Resource _SHOULD_ have the following properties: [selector](#selector)<br/>
-A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/>
+A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations), [action](#action).
 {: .note}
 
 #### Textual Body
@@ -468,11 +471,11 @@ A Specific Resource _MAY_ have the following properties: [position](#position), 
 
 > `"type": "TextualBody"`
 
-A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container for rendering.
+A Textual Body is an embedded resource within an Annotation that carries, as the name suggests, a text as the body of the Annotation. It is defined by the Web Annotation Data Model, and this specification defines a new property for `position` that allows it to be positioned within a Container for rendering. Textual Bodies can be considered as Content Resources.
 
 __Properties__<br/>
 A Textual Body _MUST_ have the following properties: [type](#type), [value](#value)<br/>
-A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/>
+A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [styleClass](#styleClass), [height](#height), [width](#width), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -576,6 +579,10 @@ A Content Resource _MAY_ have the following properties: [height](#height), [widt
 {: #Selectors}
 
 The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of a Selector is dependent on the type of resource that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Presentation API Data Model, including any not listed here. This specification defines several additional Selector classes for use.
+
+__Properties__<br/>
+All Selectors _MAY_ have the following properties: [refinedBy](#refinedBy).
+{: .note}
 
 #### Fragment Selector
 {: #FragmentSelector}
@@ -739,7 +746,7 @@ The Image API Selector has properties following the parameters from the API, and
 
 __Properties__<br/>
 A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<br/>
-A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
+A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format), [version](#version).
 {: .note}
 
 {% include api/code_header.html %}
@@ -786,7 +793,7 @@ If either the position or direction is not specified, then the position defaults
 
 __Properties__<br/>
 All Cameras _MUST_ have the following properties: [type](#type).<br/>
-All Cameras _MAY_ have the following properties: [id](#id), [label](#label), [lookAt](#lookAt), [near](#near), and [far](#far)
+All Cameras _MAY_ have the following properties: [id](#id), [label](#label), [lookAt](#lookAt), [near](#near), [far](#far), [interactionMode](#interactionMode).
 {: .note}
 
 
@@ -1630,7 +1637,9 @@ For the IIIF Image API Selector class however, the value of `format` is the para
 The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image API.
 
 * A Content Resource _SHOULD_ have the `format` property.<br/>
-  Clients _MAY_ render the `format` of any content resource.
+  Clients _MAY_ process the `format` of any content resource.
+* A Textual Body _MAY_ have the `format` property.<br/>
+  Clients _MAY_ process the `format` property on a Textual Body.
 * A IIIF Image API Selector class _SHOULD_ have the `format` property.<br/>
   Clients _MUST_ process the `format` property on a IIIF Image API Selector.
 
@@ -1791,8 +1800,12 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
 
 * A Collection _MUST_ either have the `items` property or the `first` and `last` properties. If present, each item _MUST_ be either a Collection or a Manifest.<br/>
   Clients _MUST_ process `items` on a Collection.
+* An Annotation Collection _MUST_ either have the `items` property or the `first` and `last` properties. If present, each item _MUST_ be an Annotation.<br/>
+  Clients _MUST_ process `items` on an Annotation Collection.
 * A Collection Page _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
   Clients _MUST_ process `items` on a Collection Page.
+* An Annotation Page _MUST_ have the `items` property. Each item _MUST_ be an Annotation.<br/>
+  Clients _MUST_ process `items` on an Annotation Page.
 * A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Container.<br/>
   Clients _MUST_ process `items` on a Manifest.
 * A Container _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
@@ -1801,6 +1814,8 @@ The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and
   Clients _MUST_ process `items` on an Annotation Page.
 * A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
   Clients _SHOULD_ process `items` on a Range.
+* A Choice, Composite, List or Independents _MUST_ have the `items` property with at least one item. There are no restrictions on the item type.<br/>
+  Clients _MUST_ process `items` on a Choice, Composite, List or Independents.
 
 
 {% include api/code_header.html %}
