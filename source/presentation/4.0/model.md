@@ -1301,8 +1301,8 @@ The `angle` property of Spot Lights and Spot Audio Emitters defines the disper
 
 The value _MUST_ be a floating point number greater than 0.0 and less than or equal to 90.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
-* A SpotLight _SHOULD_ have the `angle` property.<br/>
-  Clients _SHOULD_ process the `angle` property on SpotLights.
+* A Spot Light _SHOULD_ have the `angle` property.<br/>
+  Clients _SHOULD_ process the `angle` property on Spot Lights.
 * A Spot Audio Emitter _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on Spot Audio Emitters.
 
@@ -1362,7 +1362,7 @@ The value _MUST_ be a string which defines an RGB color. It _SHOULD_ be a hex va
 ### behavior
 {: #behavior}
 
-A set of user experience features that the publisher of the content would prefer the client to use when presenting the resource. This specification defines the values in the table below. Others may be defined externally as an [extension][prezi30-ldce].
+A set of user experience features that the publisher of the content would prefer the client to use when presenting the resource. This specification defines the values in the table below. Others may be defined externally as an [extension][prezi40-ldce].
 
 In order to determine the behaviors that are governing a particular resource, there are four inheritance rules from resources that reference the current resource:
 * Collections inherit behaviors from their referencing Collection.
@@ -1376,8 +1376,8 @@ The descriptions of the behavior values have a set of which other values they ar
 
 The value _MUST_ be an array of strings.
 
- * Any resource type _MAY_ have the `behavior` property with at least one item.<br/>
-   Clients _SHOULD_ process `behavior` on any resource type.
+* Any resource type _MAY_ have the `behavior` property with at least one item.<br/>
+  Clients _SHOULD_ process `behavior` on any resource type.
 
 | Value | Description |
 | ----- | ----------- |
@@ -1455,14 +1455,14 @@ This property sets the color of a Light.
 
 The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is `#FFFFFF`.
 
-* An AmbientLight _SHOULD_ have the `color` property<br/>
-  Clients _SHOULD_ render `color` on an AmbientLight.
-* A DirectionalLight _SHOULD_ have the `color` property<br/>
-  Clients _SHOULD_ render `color` on a DirectionalLight.
-* A PointLight _SHOULD_ have the `color` property<br/>
-  Clients _SHOULD_ render `color` on a PointLight.
-* A SpotLight _SHOULD_ have the `color` property<br/>
-  Clients _SHOULD_ render `color` on a SpotLight.
+* An Ambient Light _SHOULD_ have the `color` property.<br/>
+  Clients _SHOULD_ render `color` on an Ambient Light.
+* A Directional Light _SHOULD_ have the `color` property.<br/>
+  Clients _SHOULD_ render `color` on a Directional Light.
+* A Point Light _SHOULD_ have the `color` property.<br/>
+  Clients _SHOULD_ render `color` on a Point Light.
+* A Spot Light _SHOULD_ have the `color` property.<br/>
+  Clients _SHOULD_ render `color` on a Spot Light.
 
 
 {% include api/code_header.html %}
@@ -1480,8 +1480,8 @@ For more information about `conformsTo`, see the [Web Annotation Data Model](htt
 
 The value _MUST_ be a string, and _MUST_ be an absolute URI.
 
-* A FragmentSelector _MAY_ have the `conformsTo` property.<br/>
-  Clients _SHOULD_ process `conformsTo` on a FragmentSelector.
+* A Fragment Selector _MAY_ have the `conformsTo` property.<br/>
+  Clients _SHOULD_ process `conformsTo` on a Fragment Selector.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1574,8 +1574,8 @@ The vertical projection angle from the top plane to the bottom plane of the came
 
 The value _MUST_ be a floating point number greater than 0.0 and less than 180.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
-* A PerspectiveCamera _SHOULD_ have the `fieldOfView` property.<br/>
-  Clients _SHOULD_ process the `fieldOfView` property on a PerspectiveCamera.
+* A Perspective Camera _SHOULD_ have the `fieldOfView` property.<br/>
+  Clients _SHOULD_ process the `fieldOfView` property on a Perspective Camera.
 
 {% include api/code_header.html %}
 ```json-doc
@@ -1605,7 +1605,7 @@ This property references the first Annotation Page within an Annotation Collecti
 The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
 * A non-empty Annotation Collection _MUST_ have the `first` property.<br/>
-  Clients _MUST_ process the `first` property on an AnnotationCollection.
+  Clients _MUST_ process the `first` property on an Annotation Collection.
 * A non-empty Collection with pages _MUST_ have the `first` property.<br/>
   Clients _MUST_ process the `first` property on a paged Collection.
 
@@ -1674,7 +1674,7 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Container, and _MAY_ render `homepage` on other types of resource.
 
 __Model Alignment__<br/>
-Please note that this specification has stricter requirements about the JSON pattern used for the `homepage` property than the [Web Annotation Data Model][org-w3c-webanno]. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties. See the section on [collisions between contexts][prezi30-context-collisions] for more information.
+Please note that this specification has stricter requirements about the JSON pattern used for the `homepage` property than the [Web Annotation Data Model][org-w3c-webanno]. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties. See the section on [collisions between contexts][prezi40-context-collisions] for more information.
 {: .note}
 
 {% include api/code_header.html %}
@@ -1720,8 +1720,8 @@ A floating point number giving the time of the point in seconds from the beginni
 
 The value _MUST_ be a non-negative floating point number.
 
-* PointSelector _MAY_ have the `instant` property.<br/>
-  Clients _SHOULD_ process the `instant` property on a PointSelector.
+* Point Selector _MAY_ have the `instant` property.<br/>
+  Clients _SHOULD_ process the `instant` property on a Point Selector.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1754,7 +1754,7 @@ The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 
 ### interactionMode
 {: #interactionMode}
 
-A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi30-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective). If `interactionMode` is not set for a Camera, then the mode to be used is client-dependent.
+A set of features that guide or limit user interaction with content within a Container that the publisher of the content would prefer the client to use when presenting the resource. This specification defines values in the table below that guide interactions with Cameras within a Scene. Other values for other Container types or specifying other interaction modes for 3D content may be defined externally as an [extension][prezi40-ldce]. For interaction modes pertaining to Cameras within a Scene, the client _SHOULD_ use `interactionMode` to determine the user experience features and approaches whereby users are permitted to change or adjust Cameras when viewing content within a Scene (e.g., orbiting around the scene or locking the user to a first-person perspective). If `interactionMode` is not set for a Camera, then the mode to be used is client-dependent.
 
 When `interactionMode` is specified on a Scene and no Cameras are supplied within the Scene, then the default Camera created by the viewer _SHOULD_ have the given mode. Other specific Cameras within the Scene _MAY_ have different `interactionMode` values.
 
@@ -1850,7 +1850,7 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 
 The language or languages used in the content of this external resource. It _MAY_ be used for resources [referenced][prezi40-terminology] from `body`, `target`, `source`, `homepage`, `rendering`, and `partOf`, amongst others.
 
-The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi30-languages].
+The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi40-languages].
 
 * An external resource _SHOULD_ have the `language` property with at least one item.<br/>
   Clients _SHOULD_ process the `language` of external resources.
@@ -1888,7 +1888,7 @@ The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _M
 
 A small image resource that represents the Agent resource it is associated with. The logo _MUST_ be clearly rendered when the resource is displayed or used, without cropping, rotating or otherwise distorting the image. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for this image for other manipulations such as resizing.
 
-When more than one logo is present, the client _SHOULD_ pick only one of them, based on the information in the logo properties. For example, the client could select a logo of appropriate aspect ratio based on the `height` and `width` properties of the available logos. The client _MAY_ decide on the logo by inspecting properties defined as [extensions][prezi30-ldce].
+When more than one logo is present, the client _SHOULD_ pick only one of them, based on the information in the logo properties. For example, the client could select a logo of appropriate aspect ratio based on the `height` and `width` properties of the available logos. The client _MAY_ decide on the logo by inspecting properties defined as [extensions][prezi40-ldce].
 
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have `id` and `type` properties, and _SHOULD_ have `format`. The value of `type` _MUST_ be `Image`.
 
@@ -2240,10 +2240,10 @@ The organization or person is represented as an Agent resource.
 
 * Agents _MUST_ have the `id` property, and its value _MUST_ be a string. The string _MUST_ be a URI that identifies the agent.
 * Agents _MUST_ have the `type` property, and its value _MUST_ be `Agent`.
-* Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi30-languages] section.
-* Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi30-homepage] section.
-* Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi30-logo] section.
-* Agents _MAY_ have the `seeAlso` property, and its value _MUST_ be an array of JSON objects as described in the [seeAlso][prezi30-seealso] section.
+* Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi40-languages] section.
+* Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi40-homepage] section.
+* Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi40-logo] section.
+* Agents _MAY_ have the `seeAlso` property, and its value _MUST_ be an array of JSON objects as described in the [seeAlso][prezi40-seealso] section.
 
 The value _MUST_ be an array of JSON objects, where each item in the array conforms to the structure of an Agent, as described above.
 
@@ -2328,8 +2328,7 @@ The value of `quality` _MUST_ be a string, drawn from the list of acceptable qua
 
 * The IIIF Image API Selector _MAY_ have the `quality` property with exactly one value.<br/>
   Clients _MUST_ process the `quality` property on a IIIF Image API Selector.
-* Other types of resource _MUST NOT_ have the `quality` property.<br/>
-  Clients _MUST_ ignore the `quality` property on other types of resource.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2378,8 +2377,6 @@ The value of `region` _MUST_ be a string, and _MUST_ conform to the requirements
 
 * The IIIF Image API Selector _MAY_ have the `region` property with exactly one value.<br/>
   Clients _MUST_ process the `region` property on a IIIF Image API Selector.
-* Other types of resource _MUST NOT_ have the `region` property.<br/>
-  Clients _MUST_ ignore the `region` property on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2464,8 +2461,6 @@ The value _MUST_ be a string, not a number, in order to allow for the "!" charac
 
 * The IIIF Image API Selector _MAY_ have the `rotation` property with exactly one value.<br/>
   Clients _MUST_ process the `rotation` property on a IIIF Image API Selector.
-* Other types of resource _MUST NOT_ have the `rotation` property.<br/>
-  Clients _MUST_ ignore the `rotation` property on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2634,8 +2629,6 @@ The value of `size` _MUST_ be a string, and conform to the size parameter defini
 
 * A IIIF Image API Selector _MAY_ have the `size` property with exactly one value.<br/>
   Clients _MUST_ process the `size` property on a IIIF Image API Selector.
-* Other types of resource _MUST NOT_ have the `size` property.<br/>
-  Clients _MUST_ ignore the `size` property on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2653,8 +2646,6 @@ The value _MUST_ be a JSON Object with the `id` and `type` properties. The value
 
 * A Specific Resource _MUST_ have the `source` property with exactly one value.<br/>
   Clients _MUST_ process the `source` property on a Specific Resource.
-* Other types of resource _MUST NOT_ have the `source` property.<br/>
-  Clients _MUST_ ignore the `source` property on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2665,7 +2656,7 @@ The value _MUST_ be a JSON Object with the `id` and `type` properties. The value
 ### spatialScale
 {: #spatialScale}
 
-A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of `5000` and a `spatialScale` with `quantityValue` of `0.00008` and a `unit` of `m` represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
+A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of `5000` and a `spatialScale` with `quantityValue` of `0.00008` and a `unit` of `m` represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi40-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be painted into a Container and the `spatialScale` is asserted on that Container. For example, a 3D model would be painted into a Scene, and then `spatialScale` is asserted on the Scene.
 
@@ -2869,7 +2860,7 @@ The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Reference
 ### temporalScale
 {: #temporalScale}
 
-A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of `450` and a `temporalScale` with `quantityValue` of `1000` and a `unit` of `s` represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
+A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of `450` and a `temporalScale` with `quantityValue` of `1000` and a `unit` of `s` represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi40-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
 
@@ -2929,7 +2920,7 @@ The value _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`
 ### timeMode
 {: #timeMode}
 
-A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi30-ldce].
+A mode associated with an Annotation that is to be applied to the rendering of any time-based media, or otherwise could be considered to have a duration, used as a body resource of that Annotation. Note that the association of `timeMode` with the Annotation means that different resources in the body cannot have different values. This specification defines the values specified in the table below. Others may be defined externally as an [extension][prezi40-ldce].
 
 The value _MUST_ be a string.
 
@@ -2952,14 +2943,14 @@ The value _MUST_ be a string.
 ### total (totalItems)
 {: #total}
 
-For compatibility with ActivityStreams and the Change Discovery API, clients _SHOULD_ also accept `totalItems` as the name of this property.
+For compatibility with Activity Streams and the Change Discovery API, clients _SHOULD_ also accept `totalItems` as the name of this property.
 {: .note}
 
 The `total` property indicates the total number of annotations contained in an Annotation Collection, or the total number of Collections and Manifests within a Collection. A Collection _SHOULD_ have `total` if it uses pages, and _MAY_ have it if it does not, however the information is readily available by finding the length of the `items` array in the latter case.
 
 The value of this property _MUST_ be a non-negative integer.
 
-* An AnnotationCollection _SHOULD_ have the `total` property.<br/>
+* An Annotation Collection _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on an Annotation Collection.
 * A Collection with Collection Pages _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on a Collection.
@@ -3001,7 +2992,7 @@ The type or class of the resource. For classes defined for this specification, t
 
 For content resources, the value of `type` is drawn from other specifications. Recommendations for common content types such as image, text or audio are given in the table below.
 
-The JSON objects that appear in the value of the `service` property will have many different classes, and can be used to distinguish the sort of service, with specific properties defined in a [registered context document][prezi30-ldce].
+The JSON objects that appear in the value of the `service` property will have many different classes, and can be used to distinguish the sort of service, with specific properties defined in a [registered context document][prezi40-ldce].
 
 The value _MUST_ be a string.
 
@@ -3195,9 +3186,9 @@ A number giving the x coordinate of a point on the horizontal or width axis (e.g
 The value _MUST_ be a number (floating point or integer).
 
 * A Point Selector _MAY_ have the `x` property.<br/>
-  Clients _MUST_ process `x` on a PointSelector.
-* Transforms _MAY_ have the `x` property.<br/>
-  Clients _MUST_ process `x` on Transforms.
+  Clients _MUST_ process `x` on a Point Selector.
+* A Transform _MAY_ have the `x` property.<br/>
+  Clients _MUST_ process `x` on a Transform.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3212,7 +3203,7 @@ A number giving the y coordinate of a point on the vertical or height axis (e.g.
 The value _MUST_ be a number (floating point or integer).
 
 * A Point Selector _MAY_ have the `y` property.<br/>
-  Clients _MUST_ process `y` on a PointSelector.
+  Clients _MUST_ process `y` on a Point Selector.
 * A Transform _MAY_ have the `y` property.<br/>
   Clients _MUST_ process `y` on a Transform.
 
@@ -3231,9 +3222,9 @@ A number giving the z coordinate of a point on the "depth" axis (e.g. for Point 
 The value _MUST_ be a number (floating point or integer).
 
 * A Point Selector _MAY_ have the `z` property.<br/>
-  Clients _MUST_ process `z` on a PointSelector.
-* Transforms _MAY_ have the `z` property.<br/>
-  Clients _MUST_ process `z` on Transforms.
+  Clients _MUST_ process `z` on a Point Selector.
+* A Transform _MAY_ have the `z` property.<br/>
+  Clients _MUST_ process `z` on a Transform.
 
 
 {% include api/code_header.html %}
@@ -3292,7 +3283,7 @@ If a resource has a built in named Animation feature, then these can be activate
 
 There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the primary governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.
 
-There is one property that is in direct conflict - the `label` property is defined by both and is available for every resource. The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi30-languages], also allowing multiple languages to be used. The Web Annotation Data Model uses it only for [Annotation Collections][prezi30-annocoll], and mandates the format is a string. For this property, the API overrides the definition from the Annotation model to ensure that labels can consistently be represented in multiple languages.
+There is one property that is in direct conflict - the `label` property is defined by both and is available for every resource. The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi40-languages], also allowing multiple languages to be used. The Web Annotation Data Model uses it only for [Annotation Collections][prezi40-annocoll], and mandates the format is a string. For this property, the API overrides the definition from the Annotation model to ensure that labels can consistently be represented in multiple languages.
 
 __Incompatibility Warning__<br/>
 The definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification for languages. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation model classes does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.
@@ -3310,7 +3301,7 @@ The `rights`, `partOf`, and `items` properties are defined by both in the same w
 
 ### Keyword Mappings
 
-The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `none` by the Presentation API [linked data context][prezi30-ldce]. Thus in content conforming to this version of the Presentation API, the only JSON key beginning with `@` will be `@context`. However, the content may include data conforming to older specifications or external specifications that use keywords beginning with `@`. Clients should expect to encounter both syntaxes.
+The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `none` by the Presentation API [linked data context][prezi40-ldce]. Thus in content conforming to this version of the Presentation API, the only JSON key beginning with `@` will be `@context`. However, the content may include data conforming to older specifications or external specifications that use keywords beginning with `@`. Clients should expect to encounter both syntaxes.
 
 ### Registries of Values
 
