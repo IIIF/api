@@ -47,6 +47,7 @@
                                 "value": "This is the Goose Girl fountain in Göttingen, Germany."
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc08/canvas/1/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc08/canvas/1",
