@@ -534,7 +534,7 @@ An Independents _SHOULD_ have the following properties: [label](#label)<br/>
 An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/>
 {: .note}
 
-#### Css Stylesheet
+#### CSS Stylesheet
 {: #CssStylesheet}
 
 > `"type": "CssStylesheet"`
@@ -771,8 +771,8 @@ Ranges _MUST_ have an HTTP(S) URI given in `id`. Top level Ranges are embedded o
 The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
 __Properties__<br/>
-A Range _MUST_ have the following properties: [id](#id), [type](#type).<br/>
-A Range _SHOULD_ have the following properties: [label](#label), [items](#items).<br/>
+A Range _MUST_ have the following properties: [id](#id), [type](#type), [items](#items).<br/>
+A Range _SHOULD_ have the following properties: [label](#label).<br/>
 A Range _MAY_ have the following properties: [start](#start), [supplementary](#supplementary), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
