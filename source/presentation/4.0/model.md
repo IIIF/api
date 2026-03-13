@@ -226,33 +226,6 @@ JSON descriptions _SHOULD_ be embedded within the JSON of parent resources, and 
 }
 ```
 
-### JSON-LD Contexts and Extensions
-{: #json-ld-contexts-and-extensions}
-
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi40-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
-
-The value of the `@context` property _MUST_ be either the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` as the last item. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-}
-```
-
-Any additional properties beyond those defined in this specification or the Web Annotation Data Model _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above context. The JSON-LD 1.1 functionality of predicate-specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
-
-{% include api/code_header.html %}
-``` json-doc
-{
-  "@context": [
-    "http://example.org/extension/context.json",
-    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
-  ]
-}
-```
-
-The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
 
 ## Classes
 
@@ -3292,6 +3265,34 @@ If a resource has a built in named Animation feature, then these can be activate
 {: #json-ld-and-extensions}
 
 
+### JSON-LD Contexts
+{: #json-ld-contexts-and-extensions}
+
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi40-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas _MUST NOT_ have the `@context` property.
+
+The value of the `@context` property _MUST_ be either the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` as the last item. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "@context": "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+}
+```
+
+Any additional properties beyond those defined in this specification _SHOULD_ be mapped to RDF predicates using further context documents. These extensions _SHOULD_ be added to the top level `@context` property, and _MUST_ be added before the above context. The JSON-LD 1.1 functionality of predicate-specific context definitions, known as [scoped contexts][org-w3c-json-ld-scoped-contexts], _MUST_ be used to minimize cross-extension collisions. Extensions intended for community use _SHOULD_ be [registered in the extensions registry][registry], but registration is not mandatory.
+
+{% include api/code_header.html %}
+``` json-doc
+{
+  "@context": [
+    "http://example.org/extension/context.json",
+    "http://iiif.io/api/presentation/{{ page.major }}/context.json"
+  ]
+}
+```
+
+The JSON representation _MUST NOT_ include the `@graph` key at the top level. This key might be created when serializing directly from RDF data using the JSON-LD 1.0 compaction algorithm. Instead, JSON-LD framing and/or custom code should be used to ensure the structure of the document is as defined by this specification.
+
 
 ### Term Collisions between Contexts
 {: #term-collisions-between-contexts}
@@ -3321,7 +3322,7 @@ The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `
 ### Registries of Values
 
 TODO: Describe and reference the registries
-
+{: .warning}
 
 * Provides
 * Unit
