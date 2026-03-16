@@ -62,7 +62,7 @@
                 "id": "https://iiif.io/api/presentation/4.0/example/05/annotation/bodies/koto-body",
                 "type": "TextualBody",
                 "value": "Koto with a cover being carried",
-                "language": "en",
+                "language": ["en"],
                 "format": "text/plain"
               },
               "target": {

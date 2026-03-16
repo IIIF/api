@@ -62,14 +62,14 @@
                 "id": "https://iiif.io/api/presentation/4.0/example/06/annotation/bodies/koto-body",
                 "type": "TextualBody",
                 "value": "Koto with a cover being carried",
-                "language": "en",
+                "language": ["en"],
                 "format": "text/plain"
               },
               "target": {
                 "id": "https://iiif.io/api/presentation/4.0/example/06/resources/koto-sr",
                 "type": "SpecificResource",
                 "source": {
-                  "id": "https://iiif.io/api/presentation/4.0/example/06/page/p1/1",
+                  "id": "https://iiif.io/api/presentation/4.0/example/06/canvas/p1",
                   "type": "Canvas"
                 },
                 "selector": {

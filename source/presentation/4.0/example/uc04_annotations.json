@@ -10,12 +10,12 @@
             "body": {
                 "id": "https://iiif.io/api/presentation/4.0/example/uc04_annotations/text/1",
                 "type": "TextualBody",
-                "language": "de",
+                "language": [ "de" ],
                 "format": "text/plain",
                 "value": "Hast du etwas Zeit für mich?"
             },
             "target": {
-                "id":"https://iiif.io/api/presentation/4.0/example/uc04_audio/track/tr1#t=8,10",
+                "id":"https://iiif.io/api/presentation/4.0/example/uc04_audio/timeline/t1#t=8,10",
                 "type": "Timeline"
             }
         }
