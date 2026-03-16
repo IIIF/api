@@ -410,6 +410,10 @@ The example demonstrates the use of the common descriptive properties [`label`][
 * The [`rights`][prezi-40-model-rights] property is always a single string value which is a URI.
 * Any resource can have a [`provider`][prezi-40-model-provider] property which a client can display to the user. This typically tells the user who the publisher is and how they might be contacted. The value of this property is an [Agent](model/#Agent).
 * The [`service`][prezi-40-model-service] property specifies a software application that a client might interact with to gain additional information or functionality, in this case, the IIIF Image API. Images in IIIF do not require an Image Service---we have included one here as an example, but do not include a service in the following image examples for brevity.
+* The [`seeAlso`][prezi-40-model-seeAlso] property links this Manifest to the catalogue record for the item it represents. In general, [`seeAlso`][prezi-40-model-seeAlso] links to any related _machine readable_ data. Clients can choose to make use of it if they recognise it by [`type`][prezi-40-model-type], [`format`][prezi-40-model-format] and [`profile`][prezi-40-model-profile], but it is more likely to be consumed by machines, for example a process harvesting IIIF Manifests could index the linked descriptive metadata.
+* The [`partOf`][prezi-40-model-partOf] property links to a IIIF Collection that contains a reference to this Manifest in its `items` property. The [`partOf`][prezi-40-model-partOf] property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
+* The [`spatialScale`][prezi-40-model-spatialScale] property on the Canvas provides a corresponding real-world scale for a unit of the Canvas coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. If presenting more than one Canvas together, a client can use [`spatialScale`][prezi-40-model-spatialScale] to show the Canvases correctly sized relative to one another.
+
 {: .callout}
 
 __Definitions__<br/>
@@ -429,6 +433,7 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 * Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
 * As the Presentation API is about displaying content, not describing it semantically, many of the properties are hints to the client as to how to render the resources, such as `behavior`, `viewingDirection` and `start`, or pointers to other resources that also render the content such as `rendering`.
 * The `requiredStatement` property is often used for a rights or legal statement, however can be used for any message that the client _MUST_ render. There can only be one `requiredStatement` to avoid overloading the UI with dozens of popups that need to be closed.
+* The [`rendering`][prezi-40-model-rendering] property provides an alternative representation of the Manifest, in this case a PDF. Clients would typically show links to any `rendering` properties of resources such as Canvases or Manifests, making them available for download. 
 {: .callout}
 
 __Definitions__<br/>
@@ -1391,135 +1396,7 @@ Interactive examples are provided as recipes in the [IIIF Cookbook][annex-cookbo
 While all Annotation Page [`items`][prezi-40-model-items] are inherently ordered, an Annotation Page with the [`behavior`][prezi-40-model-behavior] "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an Annotation Page in a sidebar so they are all visible in the UI, but for an Annotation Page with [`behavior`][prezi-40-model-behavior] "sequence" only show the currently active annotation text, and next and previous UI.
 
 
-
-# FROM HERE TO MERGE WITH PREVIOUS OR NEW?
-
-
-## Conveying Physical Dimensions
-
-In many cases, the dimensions of a Canvas, or the pixel density of a photograph, are not necessarily related to a real-world size of the object they show. A large wall painting and a tiny miniature may both be conveyed by 20 megapixel source images on a 4000 by 3000 unit Canvas. But it can be important to know how big something is or if there is a relationship between pixel density and physical length, especially when comparing objects together. Each pixel in an image may correspond precisely to a physical area, allowing measurement of real world distances from the image. A scanned 3D model may be constructed such that each 3D coordinate unit corresponds to one meter of physical distance.
-
-The [`spatialScale`][prezi-40-model-spatialScale] property of a Canvas or Scene provides a corresponding real-world scale for a unit of the Canvas or Scene coordinate system, allowing clients to provide scale information to users, for example by an on-screen virtual ruler. In a 2-up viewer, a client could scale two views to convey the true relative sizes of two objects.
-
-The value of [`spatialScale`][prezi-40-model-spatialScale] is a [Quantity][prezi-40-model-Quantity] that has a unit of length for its `unit` property. This specification defines only one length unit, "m", i.e., meters, though others may be defined externally as an [extension][prezi30-ldce]. If source size metadata is machine readable (or parse-able) in other measurement systems (e.g., feet and inches) then it should be converted to meters for use in [`spatialScale`][prezi-40-model-spatialScale]. Publishers may wish to present the original given measure (e.g., from catalogue metadata) in a [`metadata`][prezi-40-model-metadata] field for context.
-
-The Presentation API also offers a corresponding [`temporalScale`][prezi-40-model-temporalScale] property for the [`duration`][prezi-40-model-duration] dimension of a Container, when 1 second in the Container does not correspond to 1 second of real time. This is useful for speeded-up or slowed-down audio or video.
-
-An extreme example of both physical dimension properties together is a Canvas showing an animation of continental drift over the course of Earth history, where the spatialScale could convey that each Canvas unit is several thousand meters, and each second of the Canvas [`duration`][prezi-40-model-duration] is several million years.
-
-
-
-## Integration
-
-While a IIIF Manifest carries the information required to present a resource on the web, it is unlikely to be the only resource of interest to either human or machine consumers. IIIF provides properties to link to other resources and services. The linked resources might be made directly available to the user by opening links or downloading files in a user interface, or they may be loaded by machines when reading IIIF Manifests to gather further information (for example, to build a search index).
-
-### Linked resources
-
-In the following example, the Manifest represents an artwork. The Manifest links to a catalogue record via the [`seeAlso`][prezi-40-model-seeAlso] property, which is intended for machine-readable resources. The [`homepage`][prezi-40-model-homepage] property links to the museum's web page about the painting, and is intended for humans. A viewer displays the latter link for the user to click on, but is unlikely to display the former (the user would just see the JSON at the other end).
-
-```
-artwork with seeAlso, rendering, partOf (link to ../c19-french-painting or something)
-
-(maybe the seeAlso is to a linked art description)
-```
-
-There is one Canvas, and it has a [`rendering`][prezi-40-model-rendering] property linking to a single high resolution tiff file. This link is for human consumers and would typically be displayed as a download option. 
-
-The Manifest also has a [`partOf`][prezi-40-model-partOf] property that links to several IIIF Collections that contain a reference to it in their `items` properties. The [`partOf`][prezi-40-model-partOf] property allows a Manifest to assert its place in any hierarchical relationship, such as an archival description, or a volume of a periodical, allowing the user (or machines) to navigate "up" the hierarchy and explore further.
-
-Another common use of [`rendering`][prezi-40-model-rendering] is at the Manifest level, to download a single resource that represents the entire Manifest. For example, the Manifest for a 100-page printed book has 100 canvases, which generate a paged user experience in a viewer. The publisher also links to a PDF representation, a plain text representation, and an ePub representation via the `rendering` property - all representations that a user could download and use offline. Each Canvas could also link to a single text file of the text of that page.
-
-```jsonc
-{
-  "id": "https://example.com/books/1",
-  "type": "Manifest",
-  "label": { "en": ["Book1"]},
-  "items": [ {} ], // Canvases omitted 
-  "rendering": [
-    {
-      "id": "https://example.com/books/1.pdf",
-      "label": { "en": ["PDF of Book1, with hi-res images and searchable and selectable text (large!)"]},
-      "type": "Text",
-      "format": "application/pdf",
-      "fileSize": 132465987
-    },
-    {
-      "id": "https://example.com/books/1.txt",
-      "label": { "en": ["Plain text of Book1"]},
-      "type": "Text",
-      "format": "text/plain",
-      "fileSize": 46004
-    },
-    {
-      "id": "https://example.com/books/1.epub",
-      "label": { "en": ["EPub of Book1"]},
-      "type": "Text",
-      "format": "application/epub+zip",
-      "profile": "https://www.w3.org/TR/epub-33/",
-      "fileSize": 7845277
-    }
-  ]
-}
-```
-
-This example also shows how the [`fileSize`][prezi-40-model-fileSize] property can give useful information to a user when deciding what they want to download.
-
-### Services
-
-In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
-
-Further IIIF Services are provided by the [IIIF Authorization Flow API][auth-stable-version], which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
-
-Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
-
-### Content State
-
-Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API][contenstate-stable-version] defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
-
-```
-(region of a Canvas that is partOf a Manifest)
-```
-
-
-## Style
-
-### Rotation
-
-An image might not be correctly aligned with the Canvas, and require rotation as it is painted. In the following example, the image is painted with a 90-degree rotation. This example uses the ImageApiSelector to convey the number of degrees of the rotation. As this particular image has an image service, the client can use the Image API to request an image that has already been rotated on the server, or it can use the information in the ImageApiSelector to rotate the image itself.
-
-```json
-{
-  "id": "http://example.org/iiif/book1/annotation/anno1",
-  "type": "Annotation",
-  "motivation": ["painting"],
-  "body": 
-    {
-      "type": "SpecificResource",
-      "source": {
-        "id": "http://example.org/iiif/book1-page1/my-image.jpg",
-        "type": "Image",
-        "service": {
-          "id": "http://example.org/iiif/book1-page1",
-          "type": "ImageService3",
-          "profile": "level2"
-        }
-      },
-      "selector": [
-        {
-          "type": "ImageApiSelector",
-          "rotation": "90"
-        }
-      ]
-    },
-  "target": 
-    {
-      "id": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240",
-      "type": "Canvas"
-    }
-}
-
-```
-
+# Additional Features
 
 ## Accessibility
 
@@ -1560,6 +1437,76 @@ The value of `provides` is an array of strings, taken from the [IIIF Registry of
 __Definitions__<br/>
 Properties: [provides](model/#provides)
 {: .note}
+
+
+## Services
+
+In many of the examples in this specification an image resource has an associated [IIIF Image API][image-api] Service. This is the most common use of [`service`][prezi-40-model-service] in IIIF, but other types of service are defined by IIIF specifications or available as extensions. Rather than just offer the link for download, the client is expected to interact with the service on the user's behalf. For the Image API, this usually means generating multiple requests for image tiles at the appropriate zoom level. For the [IIIF Search API][search-api], this means accepting user query terms, sending them to the search service endpoint, and rendering the results for further interaction (typically navigation to the result location within the Manifest).
+
+Further IIIF Services are provided by the [IIIF Authorization Flow API][auth-stable-version], which provides endpoints for a client to learn about a user's current access to a resource, and guide them through the publisher's access control arrangements if they do not have permission, so that they can (if authorised) acquire whatever credentials the publisher requires.
+
+Ad hoc third party services can be developed for specific needs (with no expectation that a general-purpose IIIF client would know what to do with them).
+
+
+## Content State
+
+Links to resources and services build up a web of linked _*content*_ for human and machine consumers to interact with. The [IIIF Content State API][contenstate-stable-version] defines mechanisms for IIIF software implementations to exchange references to this content, including arbitrarily fine-grained pointers into large IIIF resources. A Content State is simply a fragment of the IIIF Presentation API, wrapped in a _Content State Annotation_, with enough information for software receiving that fragment to load it and (typically) direct the user's attention to the referenced point. A bookmark or citation could be passed between users via save and load functionality in viewers that understand Content State.
+
+```json
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://example.org/import/1",
+  "type": "Annotation",
+  "motivation": ["contentState"],
+  "target": {
+     "id": "https://example.org/object1/canvas7#xywh=1000,2000,1000,2000",
+     "type": "Canvas",
+     "partOf": [{
+        "id": "https://example.org/object1/manifest",
+        "type": "Manifest"
+     }]
+   }
+}
+```
+
+## Rotation of Image Resources
+
+An image might not be correctly aligned with the Canvas, and require rotation as it is painted. In the following example, the image is painted with a 90-degree rotation. This example uses the [`ImageApiSelector`](model/#ImageApiSelector) to convey the number of degrees of the rotation. As this particular image has an image service, the client can use the Image API to request an image that has already been rotated on the server, or it can use the information in the ImageApiSelector to rotate the image itself. Use of the ImageApiSelector does not require the presence of an image service.
+
+```json
+{
+  "id": "http://example.org/iiif/book1/annotation/anno1",
+  "type": "Annotation",
+  "motivation": ["painting"],
+  "body": 
+    {
+      "type": "SpecificResource",
+      "source": {
+        "id": "http://example.org/iiif/book1-page1/my-image.jpg",
+        "type": "Image",
+        "service": {
+          "id": "http://example.org/iiif/book1-page1",
+          "type": "ImageService3",
+          "profile": "level2"
+        }
+      },
+      "selector": [
+        {
+          "type": "ImageApiSelector",
+          "rotation": "90"
+        }
+      ]
+    },
+  "target": 
+    {
+      "id": "http://example.org/iiif/book1/canvas/p1#xywh=50,50,320,240",
+      "type": "Canvas"
+    }
+}
+```
+
+
+
 
 # Appendices
 

@@ -92,14 +92,6 @@
             ]
         }
     ],
-    "rendering": [
-        {
-            "id": "https://iiif.wellcomecollection.org/pdf/b14658197",
-            "type": "Text",
-            "label": { "en":[ "View as PDF" ] },
-            "format": "application/pdf"
-        }
-    ],
     "seeAlso": [
         {
             "id": "https://api.wellcomecollection.org/catalogue/v2/works/nydjbrr7",
