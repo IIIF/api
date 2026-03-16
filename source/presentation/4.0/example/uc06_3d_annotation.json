@@ -29,6 +29,7 @@
                                 "format": "model/gltf-binary"
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/2/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
@@ -61,6 +62,7 @@
                                 "fieldOfView": 50
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/2/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
@@ -92,6 +94,7 @@
                                 "color": "#A0FFA0"
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/3/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",

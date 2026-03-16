@@ -1,4 +1,5 @@
 {
+    "@context": "http://iiif.io/api/presentation/4/context.json",
     "id": "https://iiif.io/api/presentation/4.0/example/07_sub_collection.json",
     "type": "Collection",
     "label": {
