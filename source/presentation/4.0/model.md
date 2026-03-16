@@ -105,7 +105,9 @@ a:hover > code {
 
 The IIIF Presentation API is backed by a standards-based data model inspired by both earlier tree structured representations of cultural heritage objects, as well as linked data approaches with the same goal. It comprises four main types of resource: Structural (such as Collections, Manifests, and Ranges), Presentational Containers (Canvas, Scene and Timeline), Linking (Annotations), and Content (the images, texts, audio, video and models to be displayed). In addition to these, the model includes supporting classes such as Agents, and extensions to the standards for IIIF specific use cases, such as Transforms for manipulating 3D models within a Scene.
 
-The Presentation API data model intentionally does not include any semantic or descriptive relationships or properties, such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
+The Presentation API Data Model intentionally does not include any semantic or descriptive relationships or properties, such as the author of a book or the place where a statue was sculpted; it is solely for presenting content in a structured fashion to human users.
+
+This document is part of the [IIIF Presentation API 4.0 Specification][prezi40].
 
 
 ## Technical Considerations
@@ -155,7 +157,7 @@ Any of the properties in the API that can have multiple values _MUST_ always be 
 
 Language _SHOULD_ be associated with strings that are intended to be displayed to the user for the `label` and `summary` properties, plus the `label` and `value` properties of the `metadata` and `requiredStatement` objects. This construction is called a Language Map in the [JSON-LD specification](https://www.w3.org/TR/json-ld11/#language-maps).
 
-The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The locale, script and other subtags _MAY_ be included. Clients _SHOULD_ process subtags when comparing the values with the user's provided preferences, however _MAY_ simply reduce all tags down to just the language, discarding everything after the first hyphen, and display all matching values. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
+The values of these properties _MUST_ be JSON objects, with the keys being the [BCP 47][org-bcp-47] language code for the language, or if the language is either not known or the string does not have a language, then the key _MUST_ be the string `none`. The locale, script and other subtags _MAY_ be included. Clients _SHOULD_ process subtags when comparing the values with the user's provided preferences, however they _MAY_ simply reduce all tags down to just the language, discarding everything after the first hyphen, and display all matching values. The associated values _MUST_ be arrays of strings, where each item is the content in the given language.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -183,7 +185,8 @@ In the case where multiple values are supplied, clients _MUST_ use the following
   * If all of the values have a language associated with them, and none match the language preference, the client _MUST_ select a language and display all of the values associated with that language.
   * If some of the values have a language associated with them, but none match the language preference, the client _MUST_ display all of the values that do not have a language associated with them.
 
-Note that this does not apply to [embedded][prezi30-terminology] textual bodies in Annotations, which use the Web Annotation pattern of `value` and `language` as separate properties.
+> Note that this does NOT apply to [embedded][prezi40-terminology] textual bodies in Annotations,  which use the Web Annotation pattern of `value` and `language` as separate properties.
+{: .warning}
 
 ### HTML Markup in Property Values
 
@@ -226,7 +229,7 @@ JSON descriptions _SHOULD_ be embedded within the JSON of parent resources, and 
 ### JSON-LD Contexts and Extensions
 {: #json-ld-contexts-and-extensions}
 
-The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi30-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
+The top level resource in the response _MUST_ have the `@context` property, and it _SHOULD_ appear as the very first key/value pair of the JSON representation. This tells Linked Data processors how to interpret the document. The IIIF Presentation API context, below, _MUST_ occur once per response in the top-most resource, and thus _MUST NOT_ appear within [embedded][prezi40-terminology] resources. For example, when embedding a Canvas within a Manifest, the Canvas will not have the `@context` property.
 
 The value of the `@context` property _MUST_ be either the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` or a JSON array with the URI `http://iiif.io/api/presentation/{{ page.major }}/context.json` as the last item. Further contexts, such as those for local or [registered extensions][registry], _MUST_ be added at the beginning of the array.
 
@@ -253,12 +256,12 @@ The JSON representation _MUST NOT_ include the `@graph` key at the top level. Th
 
 ## Classes
 
-The following sub-sections define the classes used in the IIIF Presentation Data Model. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from. The descriptions do not define how the classes are used together, which is done in the Presentation API Overview.
+The following sub-sections define the classes used in the IIIF Presentation API Data Model. Only the semantics and core structural requirements are defined within this section, along with any deviations from other specifications that the classes might be drawn from. 
 
 The name of each class is given at the top of its definition below. The exact string _MUST_ be used as the value of `type` in the JSON for the class.
 
 __Properties__<br>
-All resources _MUST_ have the following property: [type](#type).
+All resources _MUST_ have the following properties: [type](#type).
 {: .note}
 
 ### Collection
@@ -270,20 +273,20 @@ A Collection is an ordered list of Manifests, and/or Collections, called the mem
 
 A Collection _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description.
 
-The members of a Collection are typically listed in the `items` property or in a series of Collection Pages. The members _MUST_ be either Collections or Manifests, and _MUST NOT_ be other classes. They are listed in order within the `items` or across consecutive Collection Pages, thereby forming a hierarchy. Collections _MAY_ have no members, but this is discouraged.  For example, a Collection that had its last member removed might still be valuable to maintain as an empty Collection.
+The members of a Collection are typically listed in the `items` property or in a series of Collection Pages. The members _MUST_ be either Collections or Manifests, and _MUST NOT_ be other classes. They are listed in order within the `items` property or across consecutive Collection Pages, thereby forming a hierarchy. Collections _MAY_ have no members, but this is discouraged.  For example, a Collection that had its last member removed might still be valuable to maintain as an empty Collection.
 
 If there are too many members in the collection to fit within a single document then, at the Collection publisher's discretion, the members _MAY_ be listed in Collection Pages. A reference to the first Collection Page of members is given in the `first` property, and the last page in the `last` property. In this case, the Collection _MUST NOT_ use the `items` property. Collections with pages _MUST_ have at least two pages, otherwise the members _MUST_ be included in `items` on the Collection itself. Collection Pages _MUST NOT_ be embedded within the Collection for the same reason.
 
 Member Collections _MAY_ be embedded inline within other Collections, including in Collection Pages, however Manifests _MUST NOT_ be embedded within Collections. An embedded Collection _SHOULD_ also have its own URI from which the JSON description is available.
 
-Manifests or Collections _MAY_ be [referenced][prezi30-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
+Manifests or Collections _MAY_ be [referenced][prezi40-terminology] from more than one Collection. For example, an institution might define four Collections: one for modern works, one for historical works, one for newspapers, and one for books. The Manifest for a modern newspaper would then appear in both the modern Collection and the newspaper Collection. Alternatively, the institution may choose to have two separate newspaper Collections, and reference each as a sub-Collection of modern and historical.
 
 Collections or Manifests referenced in the `items` property _MUST_ have the `id`, `type` and `label` properties. They _SHOULD_ have the `thumbnail` property.
 
 __Properties__<br/>
-A Collection _MUST_ have the following properties: [id](#id), [type](#type), and [label](#label)<br/><br/>
-A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), and [items](#items)<br/><br/>
-A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+A Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label)<br/><br/>
+A Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [items](#items)<br/><br/>
+A Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [first](#first), [last](#last), [total](#total), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -292,16 +295,16 @@ A Collection _MAY_ have the following properties: [requiredStatement](#requiredS
 
 > `"type": "CollectionPage"`
 
-A Collection Page is an arbitrary division of members within the Collection to make it easier to consume by clients. It is strictly a technical affordance, and individual Collection Pages do not represent any real world set of items. The Collection Page model follows the ActivityStreams OrderedCollection model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
+A Collection Page is an arbitrary division of members within the Collection to make it easier to consume by clients. It is strictly a technical affordance, and individual Collection Pages do not represent any real world set of items. The Collection Page model follows the Activity Streams Ordered Collection model, as also used in Annotation Collections, the IIIF Change Discovery API, and the IIIF Search API.
 
 A Collection Page _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to be dereferenced to retrieve the JSON description. Collection Pages _MUST NOT_ be embedded within Collections.
 
 All Collection Pages in a Collection, with the exception of the last page, _MUST_ have the `next` property, which provides a reference to the following Collection Page. All Collection Pages in a Collection, with the exception of the first page, _MUST_ have the `prev` property, which provides a reference to the preceding Collection Page. These properties allow the navigation backwards and forwards within the overall set of pages. There is no way to jump to arbitrary positions in the sequence of pages, and clients _MUST NOT_ attempt to infer such methods from the structure of the URI of the Collection Page. Collection Pages _MUST_ have the `partOf` property, referring to the Collection of which they are part.
 
 __Properties__<br/>
-A Collection Page _MUST_ have the following properties: [id](#id), [type](#type), [partOf](#partOf) and [items](#items)<br/><br/>
-A Collection Page _SHOULD_ have the following properties: [next](#next) and [prev](#prev)<br/><br/>
-A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+A Collection Page _MUST_ have the following properties: [id](#id), [type](#type), [partOf](#partOf), and [items](#items)<br/><br/>
+A Collection Page _SHOULD_ have the following properties: [next](#next), [prev](#prev)<br/><br/>
+A Collection Page _MAY_ have the following properties: [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -317,9 +320,9 @@ Manifests _MUST_ be identified by a URI and it _MUST_ be an HTTP(S) URI, given i
 The members of a Manifest are listed in the `items` property. The members of Manifests _MUST_ be Containers, defined below, which _MUST_ be embedded within the Manifest. The Containers in a single Manifest _MAY_ be of different classes. The Manifest _MAY_ have a `structures` property listing one or more [Ranges](#Range) which describe additional structure of the content, such as might be rendered as a table of contents. The Manifest _MAY_ have an `annotations` property, which includes Annotation Page resources where the Annotations have the Manifest as their `target`. These Annotations _MUST NOT_ have `painting` as their `motivation`.
 
 __Properties__<br/>
-A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), and [items](#items)<br/><br/>
-A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), and [thumbnail](#thumbnail)<br/><br/>
-A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [canonical](#canonical), [via](#via), [structures](#structures), and [annotations](#annotations).
+A Manifest _MUST_ have the following properties: [id](#id), [type](#type), [label](#label), [items](#items)<br/><br/>
+A Manifest _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail)<br/><br/>
+A Manifest _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [canonical](#canonical), [via](#via), [structures](#structures), [annotations](#annotations).
 {: .note}
 
 ### Container Classes
@@ -334,9 +337,9 @@ Containers _SHOULD_ have an `items` property which is a list of Annotation Pages
 Containers specify extents in space and/or time with one or more space or time dimensions such as `height`, `width`, or `duration`. These dimensions allow resources to be associated with specific regions of the Canvas, within the space and/or time extents provided. Content _MUST NOT_ be associated with space or time outside of the Container's dimensions, such as at coordinates below 0,0 or greater than specified height or width for a Canvas, or before 0 seconds or after the duration for a Timeline. Content resources that have dimensions which are not defined for the Container _MUST NOT_ be associated with that Container by an Annotation that has the `motivation` value "painting". For example, it is valid to use an Annotation that has the `motivation` value "painting" to associate an Image (which has only height and width) with a Canvas that has `height`, `width`, and `duration` properties, but it is an error to associate a Video resource (which has height, width and duration) with a Canvas that does not have a `duration`. Such a resource _MAY_ instead be referenced using the rendering property, or by Annotations that have a `motivation` value other than "painting" in the annotations property.
 
 __Properties__<br/>
-All Containers _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
-All Containers _SHOULD_ have the following properties: [label](#label), and [items](#items).<br/><br/>
-All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+All Containers _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
+All Containers _SHOULD_ have the following properties: [label](#label), [items](#items).<br/><br/>
+All Containers _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -356,7 +359,7 @@ A Timeline _MUST_ have the following additional properties: [duration](#duration
 
 > `"type": "Canvas"`
 
-A Canvas is a Container that represents a particular rectangular 2 dimensional view and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as in the 2 dimensional space.
+A Canvas is a Container that represents a particular rectangular two-dimensional view and has content resources associated with it or with parts of it. This aspect ratio is defined by the `height` and `width` properties. The values of these properties are not pixels, but arbitrary square units into which pixel-based resources can be scaled. A Canvas _MAY_ also have a duration, given in the `duration` property, allowing audio and video to be correctly positioned in time as well as in the two-dimensional space.
 
 __Properties__<br/>
 A Canvas _MUST_ have the following additional properties: [height](#height) and [width](#width).<br/><br/>
@@ -385,7 +388,7 @@ A Scene _MAY_ have the following additional properties: [duration](#duration).
 ### Annotation Classes
 {: #Annotations}
 
-The following set of classes are defined by the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary, and are heavily used within the IIIF Data Model. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
+The following set of classes are defined by the W3C's [Web Annotation Data Model][org-w3c-webanno] and Vocabulary, and are heavily used within the IIIF Presentation API Data Model. Any necessary deviations from those specifications are explicitly noted and explained, such as the need for internationalization of labels.
 
 #### Annotation
 {: #Annotation}
@@ -405,7 +408,7 @@ For Timelines and Canvases, Annotations _MUST NOT_ target spatial or temporal po
 __Properties__<br/>
 An Annotation _MUST_ have the following properties: [id](#id), [type](#type), [target](#target), [motivation](#motivation).<br/><br/>
 An Annotation _SHOULD_ have the following properties: [body](#body).<br/><br/>
-An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), and [via](#via).<br/><br/>
+An Annotation _MAY_ have the following properties: [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [provides](#provides), [behavior](#behavior), [scope](#scope), [timeMode](#timeMode), [stylesheet](#stylesheet), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [exclude](#exclude).
 {: .note}
 
 
@@ -418,14 +421,14 @@ Annotation Collections allow Annotations to be collected together into ordered g
 
 Annotation Collections _MUST_ have an HTTP(S) URI. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced.
 
-Annotation Collections are always paged using `first` and `last`, rather than `items` as is possible for IIIF Collections, following the regular ActivityStreams paging model.
+Annotation Collections are always paged using `first` and `last`, rather than `items` as is possible for IIIF Collections, following the regular Activity Streams paging model.
 
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/><br/>
-An Annotation Collection _MUST_ have the [first](#first) and [last](#last) properties if it doesn't have the [items](#items) property.<br/><br/>
-An Annotation Collection _MUST NOT_ have the [first](#first) and [last](#last) properties if has the [items](#items) property.<br/><br/>
+An Annotation Collection that has the [items](#items) property _MUST NOT_ have the following propertioes: [first](#first), [last](#last).<br/><br/>
+An Annotation Collection that does not have the [items](#items) property _MUST_ have the following properties:  [first](#first), [last](#last).<br/><br/>
 An Annotation Collection _SHOULD_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail).<br/><br/>
-An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+An Annotation Collection _MAY_ have the following properties: [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [services](#services), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [start](#start), [total](#total), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -434,14 +437,14 @@ An Annotation Collection _MAY_ have the following properties: [requiredStatement
 
 > `"type": "AnnotationPage"`
 
-An ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
+An Annotation Page is an ordered list of Annotations, typically associated with a Container, but may be referenced from other types of resource as well. Annotation Pages enumerate and order lists of Annotations, in the same way that Collection Pages order lists of Manifests and Collections within the containing Collection.
 
 An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD description _SHOULD_ be returned if the URI is dereferenced. The Annotations are listed in the `items` property of the Annotation Page.
 
 __Properties__<br/>
-An Annotation Page _MUST_ have the following properties: [id](#id), [type](#type), and [items](#items)<br/><br/>
-An Annotation Page _SHOULD_ have the following properties:  [next](#next), [prev](#prev), and [partOf](#partOf)<br/><br/>
-An Annotation Page _MAY_ have the following properties: [label](#label), [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+An Annotation Page _MUST_ have the following properties: [id](#id), [type](#type), [items](#items)<br/><br/>
+An Annotation Page _SHOULD_ have the following properties:  [next](#next), [prev](#prev), [partOf](#partOf)<br/><br/>
+An Annotation Page _MAY_ have the following properties: [label](#label), [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -457,7 +460,7 @@ A Specific Resource _MUST_ have an HTTP(S) URI given in `id`. This allows it to 
 __Properties__<br/>
 A Specific Resource _MUST_ have the following properties: [id](#id), [type](#type), [source](#source)<br/><br/>
 A Specific Resource _SHOULD_ have the following properties: [selector](#selector)<br/><br/>
-A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Specific Resource _MAY_ have the following properties: [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/><br/>
 {: .note}
 
 #### Textual Body
@@ -469,7 +472,7 @@ A Textual Body is an embedded resource within an Annotation that carries, as the
 
 __Properties__<br/>
 A Textual Body _MUST_ have the following properties: [type](#type), [value](#value)<br/><br/>
-A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [transform](#transform), [scope](#scope), [styleClass](#styleClass), [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Textual Body _MAY_ have the following properties: [id](#id), [position](#position), [styleClass](#styleClass), [height](#height), [width](#width), [language](#language), [format](#format), [label](#label), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -486,7 +489,7 @@ A Choice _SHOULD_ have a `label` in order to present the choice to the user, alo
 __Properties__<br/>
 A Choice _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 A Choice _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+A Choice _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 #### Composite
@@ -499,7 +502,7 @@ A Composite is a Web Annotation construction where all of the resources are requ
 __Properties__<br/>
 A Composite _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 A Composite _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Composite _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+A Composite _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 #### List
@@ -512,7 +515,7 @@ A List is a Web Annotation construction where all of the resources are required,
 __Properties__<br/>
 A List _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 A List _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
 {: .note}
 
 #### Independents
@@ -520,12 +523,24 @@ A List _MAY_ have the following properties: [id](#id), [metadata](#metadata), [s
 
 > `"type": "Independents"`
 
-An `Independents` resource is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
+An Independents resource is a Web Annotation construction where each of the resources independently participates in the annotation, rather than as a set. For example, if an Independents resource is used as the `target` of a commenting Annotation, then the body resource is about each of the entries in `items` separately, rather than the collection as a single entity. In the Web Annotation Data Model this is equivalent to having multiple independent bodies or targets listed directly in the Annotation, however this specification requires a single resource for both body and target.
 
 __Properties__<br/>
 An Independents _MUST_ have the following properties: [type](#type), [items](#items)<br/><br/>
 An Independents _SHOULD_ have the following properties: [label](#label)<br/><br/>
-An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), and [seeAlso](#seeAlso).<br/><br/>
+An Independents _MAY_ have the following properties: [id](#id), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [behavior](#behavior), [seeAlso](#seeAlso).<br/><br/>
+{: .note}
+
+#### Css Stylesheet
+{: #CssStylesheet}
+
+> `"type": "CssStylesheet"`
+
+A CSS Stylesheet is a resource class defined in the Web Annotation Data Model to represent external CSS Stylesheets, used to associate styles with resources used in the Annotation.
+
+__Properties__<br/>
+A CSS Stylesheet _MUST_ have the following properties: [type](#type)<br/><br/>
+A CSS Stylesheet _MAY_ have the following properties: [id](#id), [value](#value)<br/><br/>
 {: .note}
 
 
@@ -538,31 +553,31 @@ Content Resources _MUST_ have an HTTP(S) URI given in `id`. It _MUST_ be able to
 
 If the Content Resource is an Image, and a IIIF Image service is available for it, then the `id` property of the Content Resource _MAY_ be a complete URI to any particular representation supported by the Image Service, such as `https://example.org/image1/full/1000,/0/default.jpg`, but _MUST NOT_ be just the URI of the Image Service. The Image _SHOULD_ have the service referenced from it using the `service` property.
 
-If the Content Resource is a 3D Model, then regardless of the file format, it is treated as being within an infinitely large three dimensional space with an origin (0 on all three axes). This is described as its "local coordinate space". 3D Content Resources _MAY_ be painted into Scenes via a painting Annotation. When painted as an Annotation, the origin of the 3D Content Resource's local coordinate space _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used.
+If the Content Resource is a 3D Model, then regardless of the file format, it is treated as being within an infinitely large three-dimensional space with an origin (0 on all three axes). This is described as its "local coordinate space". 3D Content Resources _MAY_ be painted into Scenes via a painting Annotation. When painted as an Annotation, the origin of the 3D Content Resource's local coordinate space _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used.
 
 Non-3D Content Resources such as images, audio, and video _MUST NOT_ be painted into a Scene as Annotations. Instead, to include image and video resources in a Scene, the resource(s) _MUST_ be painted on to a Canvas that is painted into the Scene. To include audio resources in a Scene, the resource(s) or Timeline _MUST_ be referenced by an AudioEmitter that is painted into the Scene.
 
 If there is a need to distinguish between Content Resources, then all such resources _SHOULD_ have the `label` property.
 
-Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi30-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description. This is often described as "nesting".
+Containers _MAY_ be treated as content resources for the purposes of annotating on to other Containers. In this situation, the Container _MAY_ be [embedded][prezi40-terminology] within the Annotation, be a reference within the same Manifest, or require dereferencing to obtain its description. This is often described as "nesting".
 
 A Canvas painted into a Scene has special requirements. The top-left corner of the Canvas _MUST_ be aligned with either the Scene coordinate origin by default or with a specific 3D point in the Scene if a [Point Selector](#point-selector) is used. The Canvas _MUST_ be scaled to the Scene such that Canvas coordinate dimensions after any [Transforms](#transforms) are applied correspond to Scene coordinate dimensions with 1:1 scaling. A Canvas painted into a Scene as an Annotation has forward and backward faces, and by default the forward face is toward the positive z axis of the Scene, though this may be modified by Transforms. The content of the Canvas _SHOULD_ be displayed on the forward face, and the backward face _SHOULD_ display either any `backgroundColor` of the Canvas or a reverse view of the content.
 
-A Scene painted into a Scene has two special processing rules. The first is that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored. The second is that when both Scenes have ImageBasedLight Annotations, clients _MAY_ ignore any ImageBasedLight Annotation of the Scene to be painted.
+A Scene painted into a Scene has two special processing rules. The first is that any `backgroundColor` of the Scene to be painted _SHOULD_ be ignored. The second is that when both Scenes have Image-Based Light Annotations, clients _MAY_ ignore any Image-Based Light Annotation of the Scene to be painted.
 
 __Properties__<br/>
-A Content Resource _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
+A Content Resource _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
 A Content Resource _SHOULD_ have the following properties: [label](#label)<br/><br/>
-A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [fileSize](#fileSize), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), and [annotations](#annotations).<br/><br/>
+A Content Resource _MAY_ have the following properties: [height](#height), [width](#width), [duration](#duration), [language](#language), [format](#format), [fileSize](#fileSize), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [profile](#profile), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).<br/><br/>
 {: .note}
 
 
 ### Selectors
 {: #Selectors}
 
-The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of a Selector is dependent on the type of resource that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Data Model, including any not listed here. This specification defines several additional Selector classes for use.
+The Web Annotation Data Model defines several Selectors, which describe how to find a specific segment of that resource to be used. As noted, the nature of a Selector is dependent on the type of resource that they select out of, and the methods needed for those descriptions will vary. The Selectors from the Web Annotation Data Model and other sources _MAY_ be used within the IIIF Presentation API Data Model, including any not listed here. This specification defines several additional Selector classes for use.
 
-#### FragmentSelector
+#### Fragment Selector
 {: #FragmentSelector}
 
 > `"type": "FragmentSelector"`
@@ -572,22 +587,22 @@ Fragment Selectors use the fragment part of the URI specification to define a se
 For more information about Fragment Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
 
 __Properties__<br/>
-A Fragment Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
-A Fragment Selector _MAY_ have the following properties: [id](#id) and [conformsTo](#conformsTo).<br/><br/>
+A Fragment Selector _MUST_ have the following properties: [type](#type), [value](#value).<br/><br/>
+A Fragment Selector _MAY_ have the following properties: [id](#id), [conformsTo](#conformsTo).<br/><br/>
 {: .note}
 
 
-#### SvgSelector
+#### SVG Selector
 {: #SvgSelector}
 
 > `"type": "SvgSelector"`
 
-SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to define a non-rectangular part of a resource. This allows for polygons, circles and multiple shapes to be used to highlight or otherwise select regions of images or other 2 dimensional resources.
+SVG Selectors use the [SVG specification](https://www.w3.org/TR/SVG11/) to define a non-rectangular part of a resource. This allows for polygons, circles and multiple shapes to be used to highlight or otherwise select regions of images or other two-dimensional resources.
 
 For more information about SVG Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#svg-selector).
 
 __Properties__<br/>
-An SVG Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
+An SVG Selector _MUST_ have the following properties: [type](#type), [value](#value).<br/><br/>
 An SVG Selector _MAY_ have the following properties: [id](#id).<br/><br/>
 {: .note}
 
@@ -605,10 +620,11 @@ For 3D content resources painted into a Scene that have a local coordinate space
 
 __Properties__<br/>
 A Point Selector _MUST_ have the following properties: [type](#type)<br/><br/>
-A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y), [z](#z), and [instant](#instant).
+A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y), [z](#z), [instant](#instant).
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/1",
   "type": "PointSelector",
@@ -625,16 +641,17 @@ A Point Selector _MAY_ have the following properties: [id](#id), [x](#x), [y](#y
 
 > `"type": "WktSelector"`
 
-Well-Known Text, or WKT, is an ISO standard method for describing 2 and 3 dimensional geometries. This selector thus goes beyond what the Web Annotation's SvgSelector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
+Well-Known Text, or WKT, is an ISO standard method for describing two- and three-dimensional geometries. This selector thus goes beyond what the Web Annotation's SVG Selector enables by incorporating the z axis, as well as additional types of selection such as MULTIPOLYGON.
 
 The text representation is given in the `value` property of the selector.
 
 __Properties__<br/>
-A WKT Selector _MUST_ have the following properties: [type](#type) and [value](#value).<br/><br/>
+A WKT Selector _MUST_ have the following properties: [type](#type), [value](#value).<br/><br/>
 A WKT Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/2",
   "type": "WktSelector",
@@ -654,7 +671,8 @@ An Audio Content Selector _MUST_ have the following properties: [type](#type).<b
 An Audio Content Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/3",
   "type": "AudioContentSelector"
@@ -669,18 +687,18 @@ An Audio Content Selector _MAY_ have the following properties: [id](#id)
 
 Similar to Audio Content Selectors, Visual Content Selectors select the visual aspects of the content of an A/V content resource. They may also be further refined by subsequent selectors that select an area or temporal segment of it.
 
-```json
-{
-  "id": "https://example.org/selectors/4",
-  "type": "VisualContentSelector"
-}
-```
-
 __Properties__<br/>
 A Visual Content Selector _MUST_ have the following properties: [type](#type).<br/><br/>
 A Visual Content Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
+{% include api/code_header.html %}
+``` json-doc
+{
+  "id": "https://example.org/selectors/4",
+  "type": "VisualContentSelector"
+}
+```
 
 #### Animation Selector
 {: #AnimationSelector}
@@ -689,11 +707,12 @@ A Visual Content Selector _MAY_ have the following properties: [id](#id)
 More interactive content resources, such as 3D models, may have animations or similar features that can be _activated_ by user interaction. For example, a model of a box might have an animation that opens the lid and a second animation that closes the lid. In order to activate those animations, they need to be selectable, and thus the specification defines an Animation Selector. The identity of the activatable aspect is given in the `value` property.
 
 __Properties__<br/>
-An Animation Selector _MUST_ have the following properties: [type](#type) and [value](#value).
+An Animation Selector _MUST_ have the following properties: [type](#type), [value](#value).
 An Animation Selector _MAY_ have the following properties: [id](#id)
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/5",
   "type": "AnimationSelector",
@@ -723,7 +742,8 @@ A IIIF Image API Selector _MUST_ have the following properties: [type](#type).<b
 A IIIF Image API Selector _MAY_ have the following properties: [id](#id), [region](#region), [size](#size), [rotation](#rotation), [quality](#quality), [format](#format).
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/selectors/6",
   "type": "ImageApiSelector",
@@ -744,9 +764,9 @@ Ranges _MUST_ have an HTTP(S) URI given in `id`. Top level Ranges are embedded o
 The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
 
 __Properties__<br/>
-A Range _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
-A Range _SHOULD_ have the following properties: [label](#label) and [items](#items).<br/><br/>
-A Range _MAY_ have the following properties: [start](#start), [supplementary](#supplementary), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), and [annotations](#annotations).
+A Range _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
+A Range _SHOULD_ have the following properties: [label](#label), [items](#items).<br/><br/>
+A Range _MAY_ have the following properties: [start](#start), [supplementary](#supplementary), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [placeholderContainer](#placeholderContainer), [accompanyingContainer](#accompanyingContainer), [viewingDirection](#viewingDirection), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
 
@@ -781,7 +801,8 @@ __Properties__<br/>
 An Orthographic Camera _SHOULD_ have the following additional properties: [viewHeight](#viewHeight).
 {: .note}
 
-```json
+{% include api/code_header.html %}
+``` json-doc
 {
   "id": "https://example.org/iiif/camera/1",
   "type": "OrthographicCamera",
@@ -807,7 +828,7 @@ A Perspective Camera _SHOULD_ have the following additional properties: [fieldOf
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/camera/2",
   "type": "PerspectiveCamera",
@@ -829,7 +850,7 @@ The specification defines five types, or subclasses, of Light below.
 __Properties__<br/>
 All Lights _MUST_ have the following properties: [type](#type).<br/><br/>
 All Lights _SHOULD_ have the following properties: [intensity](#intensity).<br/><br/>
-All Lights _MAY_ have the following properties: [id](#id) and [label](#label).
+All Lights _MAY_ have the following properties: [id](#id), [label](#label).
 {: .note}
 
 
@@ -844,7 +865,7 @@ An Ambient Light _SHOULD_ have the following additional properties: [color](#col
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/1",
   "type": "AmbientLight",
@@ -858,7 +879,7 @@ An Ambient Light _SHOULD_ have the following additional properties: [color](#col
 
 Directional Lights emit their light in a specific direction as if infinitely far away, and as such the light does not come from a specific position. The rays produced are all parallel.
 
-The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a `RotateTransform`.
+The light is emitted in the negative Y direction by default, thus straight down, but the orientation of the light can be altered with `lookAt` or with a Rotate Transform.
 
 __Properties__<br/>
 A Directional Light _SHOULD_ have the following additional properties: [color](#color).<br/><br/>
@@ -866,7 +887,7 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/2",
   "type": "DirectionalLight",
@@ -879,14 +900,14 @@ A Directional Light _MAY_ have the following additional properties: [lookAt](#lo
 {: #ImageBasedLight}
 > `"type": "ImageBasedLight"`
 
-Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a `RotateTransform`.
+Image-Based Lights illuminate objects in a Scene using lighting information derived from an image, typically a panoramic environment map. They simulate complex, realistic lighting without a specific position. Light cast is omnidirectional, but the orientation of the light can be altered with a Rotate Transform.
 
 __Properties__<br/>
-An Image-Based Light _MUST_ have the following properties: [environmentMap](#environmentMap).<br/><br/>
+An Image-Based Light _MUST_ have the following additional properties: [environmentMap](#environmentMap).<br/><br/>
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/3",
   "type": "ImageBasedLight",
@@ -915,7 +936,7 @@ A Point Light _SHOULD_ have the following additional properties: [color](#color)
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/4",
   "type": "PointLight",
@@ -928,19 +949,19 @@ A Point Light _SHOULD_ have the following additional properties: [color](#color)
 {: #SpotLight}
 > `"type": "SpotLight"`
 
-Spot Light emits a cone of light in a given direction from a single point.  The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
+A Spot Light emits a cone of light in a given direction from a single point.  The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
 
-The Spot Light emits in the negative Y direction by default, but the orientation of the light can be altered by subsequent transforms, or by setting the `lookAt` property.
+A Spot Light emits in the negative Y direction by default, but the orientation of the light can be altered by subsequent transforms, or by setting the `lookAt` property.
 
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/angle-of-cone.png" title="Angle of cone" alt="diagram of cone geometry showing how the angle of the cone is defined" width="250"/>
 
 __Properties__<br/>
-Spot Lights _SHOULD_ have the following additional properties: [color](#color) and [angle](#angle).<br/><br/>
+Spot Lights _SHOULD_ have the following additional properties: [color](#color), [angle](#angle).<br/><br/>
 Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt).<br/><br/>
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/light/5",
   "type": "SpotLight",
@@ -957,16 +978,16 @@ Spot Lights _MAY_ have the following additional properties: [lookAt](#lookAt).<b
 #### Audio Emitters
 {: #AudioEmitters}
 
-Audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light. AudioEmitter is also an abstract class, and thus _MUST NOT_ be directly instantiated.
+Audio is supported through the use of Audio Emitter resources annotated into Scenes, in the same way that light is emitted from the various subclasses of Light. Audio Emitter is also an abstract class, and thus _MUST NOT_ be directly instantiated.
 
-As the audio content must come from an audio resource, the Audio Emitter classes are subclasses of SpecificResource. Note that the `source` of the Audio could be a Timeline, or could be further constrained with additional specifiers as to start point, end point or other transformations.
+As the audio content must come from an audio resource, the Audio Emitter classes are subclasses of Specific Resource. Note that the `source` of the Audio could be a Timeline, or could be further constrained with additional specifiers as to start point, end point or other transformations.
 
 Volume is given relative to the input audio content's volume, and thus a volume of 1.0 is the volume as provided, 0.5 is half the volume, and 2.0 is double the volume.
 
 __Properties__<br/>
-All Audio Emitters _MUST_ have the following properties: [type](#type) and [source](#source).<br/><br/>
+All Audio Emitters _MUST_ have the following properties: [type](#type), [source](#source).<br/><br/>
 All Audio Emitters _SHOULD_ have the following properties: [volume](#volume).<br/><br/>
-All Audio Emitters _MAY_ have the following properties: [id](#id) and [label](#label).
+All Audio Emitters _MAY_ have the following properties: [id](#id), [label](#label).
 {: .note}
 
 ##### Ambient Audio
@@ -976,7 +997,7 @@ All Audio Emitters _MAY_ have the following properties: [id](#id) and [label](#l
 Ambient Audio emits equally throughout the Scene, and does not have a position or direction.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/audio/1",
   "type": "AmbientAudio",
@@ -995,7 +1016,7 @@ Ambient Audio emits equally throughout the Scene, and does not have a position o
 Point Audio emits in all directions from a single point in the Scene.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/audio/2",
   "type": "PointAudio",
@@ -1022,7 +1043,7 @@ Spot Audio Emitters _MAY_ have the following additional properties: [lookAt](#lo
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/audio/3",
   "type": "SpotAudio",
@@ -1047,7 +1068,7 @@ An operation to apply a transformation to a resource to generate a Specific Reso
 
 __Properties__<br/>
 All Transforms _MUST_ have the following properties: [type](#type).<br/><br/>
-All Transforms _MAY_ have the following properties: [id](#id), [label](#label), [x](#x), [y](#y), and [z](#z).
+All Transforms _MAY_ have the following properties: [id](#id), [label](#label), [x](#x), [y](#y), [z](#z).
 {: .note}
 
 ##### Rotate Transform
@@ -1057,7 +1078,7 @@ All Transforms _MAY_ have the following properties: [id](#id), [label](#label), 
 A Rotate Transform rotates the resource around one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be angular values in degrees that specify the extent of rotation around each axis. Positive angular values indicate counter-clockwise rotation around the axis due to coordinate right-handedness. Axis rotation is performed with a pivot point at the origin of the local coordinate space. As an example, for a point at (1, 1, 0) in local coordinate space, rotating 90 degrees around the x axis would transform the point to be at (1, 0, 1). If any property `x`, `y`, or `z` is not specified or is specified to be 0.0, rotation around that axis does not occur. When more than one axis rotation is specified through multiple non-zero values for `x`, `y`, and `z`, rotations comprise a Euler angle with ordering x-y-z, and rotation _MUST_ be carried out first around the x axis, second around the y axis, and third around the z axis.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/transform/1",
   "type": "RotateTransform",
@@ -1074,7 +1095,7 @@ A Rotate Transform rotates the resource around one or more axes. If present, the
 A Scale Transform scales the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be multiplicative scale factors that specify the extent of scaling along each axis. As an example, for a point at 3.5 along the x axis in local coordinate space, scaling along the x axis by 2.0 would result in the point being at 7.0. If any property `x`, `y`, or `z` is not specified or is specified to be 1.0, scaling does not occur along that axis. Negative scale factor values indicate reflection as well as scaling along that axis.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/transform/2",
   "type": "ScaleTransform",
@@ -1091,7 +1112,7 @@ A Scale Transform scales the resource along one or more axes. If present, the va
 A Translate Transform translates or moves the resource along one or more axes. If present, the values of properties `x`, `y`, and `z` _MUST_ be coordinate unit distances that specify the distance across each axis to translate the resource. As an example, for a point at 1.0 on the x axis, translating across the x axis by 3.0 would result in the point being at 4.0. If any property `x`, `y`, or `z` is not present or is specified to be 0.0, translation does not occur along that axis.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/transform/3",
   "type": "TranslateTransform",
@@ -1113,13 +1134,13 @@ An Agent represents a person or organization, typically referenced with the `pro
 The Agent is not intended to be used as a primary identifier for the person or organization, nor to provide structured metadata, but instead to ensure that the information to be rendered to the user can be kept together in the situation when there are multiple agents being referenced.
 
 __Properties__<br/>
-An Agent _MUST_ have the following properties: [type](#type) and [label](#label).<br/><br/>
-An Agent _SHOULD_ have the following properties: [homepage](#homepage) and [logo](#logo).<br/><br/>
-An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and [summary](#summary).
+An Agent _MUST_ have the following properties: [type](#type), [label](#label).<br/><br/>
+An Agent _SHOULD_ have the following properties: [homepage](#homepage), [logo](#logo).<br/><br/>
+An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso), [summary](#summary).
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/agent/1",
   "type": "Agent",
@@ -1154,12 +1175,12 @@ An Agent _MAY_ have the following properties: [id](#id), [seeAlso](#seeAlso) and
 A Quantity expresses a quantity through a numerical value and associated unit of measurement. The value of `unit` _MUST_ be drawn from the list of possible units, or a registered extension. The definition of `unit` defines the [list of possible unit values](#unit).
 
 __Properties__<br/>
-A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#quantityValue), and [unit](#unit).<br/><br/>
-A Quantity _MAY_ have the following properties: [id](#id) and [label](#label).
+A Quantity _MUST_ have the following properties: [type](#type), [quantityValue](#quantityValue), [unit](#unit).<br/><br/>
+A Quantity _MAY_ have the following properties: [id](#id), [label](#label).
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "type": "Quantity",
   "quantityValue": 1.0,
@@ -1191,14 +1212,14 @@ For cross-version consistency, this specification defines the following values f
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document.
 
 __Properties__<br/>
-A Service _MUST_ have the following properties: [id](#id) and [type](#type).<br/><br/>
+A Service _MUST_ have the following properties: [id](#id), [type](#type).<br/><br/>
 A Service _SHOULD_ have the following properties: [label](#label), [profile](#profile).<br/><br/>
-A Service _MAY_ have the following properties: [service](#service), `@id` and `@type`.<br/><br/>
+A Service _MAY_ have the following properties: [service](#service), `@id`, `@type`.<br/><br/>
 Services will also have specific requirements as to additional properties based on the type of service.
 {: .note}
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 {
   "id": "https://example.org/iiif/image3/image1",
   "type": "ImageService3",
@@ -1223,16 +1244,14 @@ Clients _MAY_ display the content of an accompanying Container when presenting t
 
 The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a subclass of Container.  The JSON object _MAY_ have other properties valid for that Container type.
 
- * A Collection _MAY_ have the `accompanyingContainer` property.<br/>
-   Clients _MAY_ render `accompanyingContainer` on a Collection.
- * A Manifest _MAY_ have the `accompanyingContainer` property.<br/>
-   Clients _MAY_ render `accompanyingContainer` on a Manifest.
- * All Container types _MAY_ have the `accompanyingContainer` property.<br/>
-   Clients _MAY_ render `accompanyingContainer` on Containers.
- * A Range _MAY_ have the `accompanyingContainer` property.<br/>
-   Clients _MAY_ render `accompanyingContainer` on a Range.
- * Other types of resource _MUST NOT_ have the `accompanyingContainer` property.<br/>
-   Clients _SHOULD_ ignore `accompanyingContainer` on other types of resource.
+* A Collection _MAY_ have the `accompanyingContainer` property.<br/>
+  Clients _MAY_ render `accompanyingContainer` on a Collection.
+* A Manifest _MAY_ have the `accompanyingContainer` property.<br/>
+  Clients _MAY_ render `accompanyingContainer` on a Manifest.
+* All Container types _MAY_ have the `accompanyingContainer` property.<br/>
+  Clients _MAY_ render `accompanyingContainer` on Containers.
+* A Range _MAY_ have the `accompanyingContainer` property.<br/>
+  Clients _MAY_ render `accompanyingContainer` on a Range.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1248,7 +1267,7 @@ The value of `accompanyingContainer` _MUST_ be a JSON object with the `id` and `
 ### action
 {: #action}
 
-The `action` property is used on Specific Resources that are in the `body` array of activating annotations (Annotations with the  "activating" motivation). The values of the property are named actions which the client is being instructed to carry out upon the `source` of the Specific Resource. The list of possible values and their corresponding effects is given in the table below. Clients _MUST_ process the Specific Resources in the order given in the Annotation, and _MUST_ process the actions in the order given in the array. The client _MUST_ perform all of the actions on the respective resources, and if it cannot, then it _MUST NOT_ perform any of them. The set of actions within an Annotation is, thus, treated as an atomic transaction. If the activating annotation that is currently being processed is disabled as part of the processing, the client _MUST NOT_ stop processing the ordered list when this occurs but keep processing until the end of the current Annotation's set of actions. Each activating Annotation is processed completely before moving to another activating Annotation's actions, even if an action causes another activating Annotation's actions to be triggered. Instead, the activating Annotations are queued up in order that they are triggered, and when the client finishes one such annotation it can begin to process the next, and so on.
+The `action` property is used on Specific Resources that are in the `body` array of activating annotations (Annotations with the  `activating` motivation). The values of the property are named actions which the client is being instructed to carry out upon the `source` of the Specific Resource. The list of possible values and their corresponding effects is given in the table below. Clients _MUST_ process the Specific Resources in the order given in the Annotation, and _MUST_ process the actions in the order given in the array. The client _MUST_ perform all of the actions on the respective resources, and if it cannot, then it _MUST NOT_ perform any of them. The set of actions within an Annotation is, thus, treated as an atomic transaction. If the activating annotation that is currently being processed is disabled as part of the processing, the client _MUST NOT_ stop processing the ordered list when this occurs but keep processing until the end of the current Annotation's set of actions. Each activating Annotation is processed completely before moving to another activating Annotation's actions, even if an action causes another activating Annotation's actions to be triggered. Instead, the activating Annotations are queued up in order that they are triggered, and when the client finishes one such annotation it can begin to process the next, and so on.
 
 The possible values of `action` are:
 
@@ -1267,20 +1286,20 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
 
 * A Specific Resource _MAY_ have the `action` property.<br/>
   Clients _SHOULD_ process the `action` property on Specific Resources.
-* Other types of resource _MUST NOT_ have the `action` property.<br/>
-  Clients _SHOULD_ ignore `action` on other types of resource.
 
 {% include api/code_header.html %}
-```json
-  "action": ["show", "enable"]
+``` json-doc
+  { "action": ["show", "enable"] }
 ```
+
+
 
 ### angle
 {: #angle}
 
-The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound. Note that the `fieldOfView` property is defined as the entire field of view, not half (as might be inferred from `angle` using radius).
+The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound from its direction. In other words, the angle extends from the center of the cone to the edge of the cone (the half-angle).
 
-The value _MUST_ be a floating point number greater than 0 and less than 90, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0.0 and less than or equal to 90.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A SpotLight _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on SpotLights.
@@ -1288,8 +1307,8 @@ The value _MUST_ be a floating point number greater than 0 and less than 90, and
   Clients _SHOULD_ process the `angle` property on Spot Audio Emitters.
 
 {% include api/code_header.html %}
-```json
-  "angle": 15.0
+``` json-doc
+{ "angle": 15.0 }
 ```
 
 ### annotations
@@ -1299,18 +1318,16 @@ An ordered list of Annotation Pages that contain commentary or other Annotations
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have at least the `id` and `type` properties.
 
- * A Collection _MAY_ have the `annotations` property with at least one item.<br/>
-   Clients _SHOULD_ process `annotations` on a Collection.
- * A Manifest _MAY_ have the `annotations` property with at least one item.<br/>
-   Clients _SHOULD_ process `annotations` on a Manifest.
- * A Canvas _MAY_ have the `annotations` property with at least one item.<br/>
-   Clients _SHOULD_ process `annotations` on a Canvas.
- * A Range _MAY_ have the `annotations` property with at least one item.<br/>
-   Clients _SHOULD_ process `annotations` on a Range.
- * A content resource _MAY_ have the `annotations` property with at least one item.<br/>
-   Clients _SHOULD_ process `annotations` on a content resource.
- * Other types of resource _MUST NOT_ have the `annotations` property.<br/>
-   Clients _SHOULD_ ignore `annotations` on other types of resource.
+* A Collection _MAY_ have the `annotations` property with at least one item.<br/>
+  Clients _SHOULD_ process `annotations` on a Collection.
+* A Manifest _MAY_ have the `annotations` property with at least one item.<br/>
+  Clients _SHOULD_ process `annotations` on a Manifest.
+* A Canvas _MAY_ have the `annotations` property with at least one item.<br/>
+  Clients _SHOULD_ process `annotations` on a Canvas.
+* A Range _MAY_ have the `annotations` property with at least one item.<br/>
+  Clients _SHOULD_ process `annotations` on a Range.
+* A content resource _MAY_ have the `annotations` property with at least one item.<br/>
+  Clients _SHOULD_ process `annotations` on a content resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1332,14 +1349,13 @@ This property sets the background color behind any painted resources on a spatia
 
 The value _MUST_ be a string which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is client-dependent.
 
- * A Canvas _MAY_ have the `backgroundColor` property<br/>
-   Clients _SHOULD_ render `backgroundColor` on a Canvas.
- * A Scene _MAY_ have the `backgroundColor` property<br/>
-   Clients _SHOULD_ render `backgroundColor` on a Scene.
- * Other resources _MUST NOT_ have the `backgroundColor` property.
+* A Canvas _MAY_ have the `backgroundColor` property.<br/>
+  Clients _SHOULD_ render `backgroundColor` on a Canvas.
+* A Scene _MAY_ have the `backgroundColor` property.<br/>
+  Clients _SHOULD_ render `backgroundColor` on a Scene.
 
 {% include api/code_header.html %}
-```json-doc
+``` json-doc
 { "backgroundColor": "#FFFFFF" }
 ```
 
@@ -1381,7 +1397,7 @@ The value _MUST_ be an array of strings.
 | `multi-part`{: #value-multi-part} | Valid only on Collections. Collections that have this behavior consist of multiple Manifests or Collections which together form part of a logical whole or a contiguous set, such as multi-volume books or a set of journal issues. Clients might render these Collections as a table of contents rather than with thumbnails, or provide viewing interfaces that can easily advance from one member to the next. Disjoint with `together`.|
 | `together`{: #value-together} | Valid only on Collections. A client _SHOULD_ present all of the child Manifests to the user at once in a separate viewing area with its own controls. Clients _SHOULD_ catch attempts to create too many viewing areas. This behavior _SHOULD NOT_ be interpreted as applying to the members of any child resources. Disjoint with `multi-part`.|
 | | **Navigation Behaviors** |
-| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi30-terminology] in the `structures` property of a Manifest, and Annotation Collection Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Collection Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
+| `sequence`{: #value-sequence} | Valid on Ranges, where the Range is [referenced][prezi40-terminology] in the `structures` property of a Manifest, and Annotation Pages. Ranges that have this behavior represent different orderings of the Containers listed in the `items` property of the Manifest, and user interfaces that interact with this order _SHOULD_ use the order within the selected Range, rather than the default order of `items`. On an Annotation Page, this behavior indicates that the Annotations within the Page are intended to be shown in order, and the user discouraged from navigating arbitrarily amongst them. Disjoint with `thumbnail-nav` and `no-nav`.|
 | `thumbnail-nav`{: #value-thumbnail-nav style="white-space:nowrap;"} | Valid only on Ranges. Ranges that have this behavior _MAY_ be used by the client to present an alternative navigation or overview based on thumbnails, such as regular keyframes along a timeline for a video, or sections of a long scroll. Clients _SHOULD NOT_ use them to generate a conventional table of contents. Child Ranges of a Range with this behavior _MUST_ have a suitable `thumbnail` property. Disjoint with `sequence` and `no-nav`.|
 | `no-nav`{: #value-no-nav} | Valid only on Ranges. Ranges that have this behavior _MUST NOT_ be displayed to the user in a navigation hierarchy. This allows for Ranges to be present that capture unnamed regions with no interesting content, such as the set of blank pages at the beginning of a book, or dead air between parts of a performance, that are still part of the Manifest but do not need to be navigated to directly. Disjoint with `sequence` and `thumbnail-nav`.|
 | | **Miscellaneous Behaviors** |
@@ -1396,13 +1412,13 @@ The value _MUST_ be an array of strings.
 ### body
 {: #body}
 
-The body of an Annotation. The resources listed in `body` can be instances of `TextualBody`, `SpecificResource`, core Structural Resources, Content Resources, or the Annotation aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple bodies.
+The body of an Annotation. The resources listed in `body` can be instances of Textual Body, Specific Resource, core Structural Resources, Content Resources, or the Annotation aggregate constructions of Choice, Composite, List and Independents if there are multiple bodies.
 
-Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the `TextualBody` class _MUST_ be used instead.
+Some Annotations do not have bodies at all. For example a highlighting annotation only needs to visually highlight the region targeted. Note that use of the W3C `bodyValue` property is prohibited in IIIF, and the Textual Body class _MUST_ be used instead.
 
 For more information about Annotation bodies, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be a JSON object. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
+The value _MUST_ be a JSON object. Each item _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=0,0,100,100`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _SHOULD_ have the `body` property.<br/>
   Clients _MUST_ process the `body` property on Annotations.
@@ -1437,27 +1453,28 @@ The value _MUST_ be a string, and the value _MUST_ be an absolute HTTP(S) URI.
 
 This property sets the color of a Light.
 
-The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is "#FFFFFF".
+The value _MUST_ be a string, which defines an RGB color. It _SHOULD_ be a hex value starting with "#" and is treated in a case-insensitive fashion. If this property is not specified, then the default value is `#FFFFFF`.
 
- * An AmbientLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
- * A DirectionalLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
- * A PointLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
- * A SpotLight _SHOULD_ have the `color` property<br/>
-   Clients _SHOULD_ render `color` on any resource type.
- * Other resources _MUST NOT_ have the `color` property.
+* An AmbientLight _SHOULD_ have the `color` property<br/>
+  Clients _SHOULD_ render `color` on an AmbientLight.
+* A DirectionalLight _SHOULD_ have the `color` property<br/>
+  Clients _SHOULD_ render `color` on a DirectionalLight.
+* A PointLight _SHOULD_ have the `color` property<br/>
+  Clients _SHOULD_ render `color` on a PointLight.
+* A SpotLight _SHOULD_ have the `color` property<br/>
+  Clients _SHOULD_ render `color` on a SpotLight.
 
-```json
-"color": "#FFA0A0"
+
+{% include api/code_header.html %}
+``` json-doc
+{ "color": "#FFA0A0" }
 ```
 
 
 ### conformsTo
 {: #conformsTo}
 
-The specification that the fragment identifier in the `value` property of a `FragmentSelector` conforms to. The value allows clients to correctly interpret the fragment identifier syntax. For example, a `FragmentSelector` using the media fragments specification would have a `conformsTo` value of `http://www.w3.org/TR/media-frags/`.
+The specification that the fragment identifier in the `value` property of a Fragment Selector conforms to. The value allows clients to correctly interpret the fragment identifier syntax. For example, a Fragment Selector using the media fragments specification would have a `conformsTo` value of `http://www.w3.org/TR/media-frags/`.
 
 For more information about `conformsTo`, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
 
@@ -1479,14 +1496,12 @@ The duration of a container or external content resource, given in seconds.
 
 The value _MUST_ be a positive floating point number.
 
- * A Timeline _MUST_ have the `duration` property.<br/>
-   Clients _MUST_ process `duration` on a Timeline.
- * A Canvas or Scene _MAY_ have the `duration` property.<br/>
-   Clients _MUST_ process `duration` on a Canvas or Scene, if present.
- * Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
-   Clients _SHOULD_ process `duration` on content resources.
- * Other types of resource _MUST NOT_ have a `duration`.<br/>
-   Clients _SHOULD_ ignore `duration` on other types of resource.
+* A Timeline _MUST_ have the `duration` property.<br/>
+  Clients _MUST_ process `duration` on a Timeline.
+* A Canvas or Scene _MAY_ have the `duration` property.<br/>
+  Clients _MUST_ process `duration` on a Canvas or Scene, if present.
+* Content resources _SHOULD_ have the `duration` property, if appropriate to the resource type.<br/>
+  Clients _SHOULD_ process `duration` on content resources.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1497,7 +1512,7 @@ The value _MUST_ be a positive floating point number.
 ### environmentMap
 {: #environmentMap}
 
-A content resource representing the environment map image used by an [ImageBasedLight](#ImageBasedLight). The image provides omnidirectional lighting information and may use high dynamic range (HDR) encoding. The projection type of the image, such as equirectangular or cubic, is specified via the `profile` property.
+A content resource representing the environment map image used by an [Image-Based Light](#ImageBasedLight). The image provides omnidirectional lighting information and may use high dynamic range (HDR) encoding. The projection type of the image, such as equirectangular or cubic, is specified via the `profile` property.
 
 The value _MUST_ be a JSON object representing an Image which _MUST_ have the `id`, `type`, and `profile` properties, and _SHOULD_ have the `format` property.
 
@@ -1505,7 +1520,7 @@ The value _MUST_ be a JSON object representing an Image which _MUST_ have the `i
   Clients _SHOULD_ process `environmentMap` on an Image-Based Light.
 
 {% include api/code_header.html %}
-``` json-doc
+```json-doc
 "environmentMap": {
   "id": "https://example.org/iiif/light/3/environment.hdr",
   "type": "Image",
@@ -1522,18 +1537,19 @@ Just as a Scene may contain multiple Annotations with models, light, and cameras
 
 | Value      | Description |
 |------------|-------------|
-| `Audio`{: #value-Audio}      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
-| `Animations`{: #value-Animations} | Exclude all definitions of animations from resources |
-| `Cameras`{: #value-Cameras}    | Exclude all cameras from resources |
-| `Lights`{: #value-Lights}     | Exclude all lights from resources |
+| `audio`{: #value-audio}      | Exclude all sound from resources, including audio tracks, audio emitters, and audio from video |
+| `animations`{: #value-animations} | Exclude all definitions of animations from resources |
+| `cameras`{: #value-cameras}    | Exclude all cameras from resources |
+| `lights`{: #value-lights}     | Exclude all lights from resources |
 
-The value of `exclude` is an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
+The value of `exclude` _MUST_ be an array of strings, each of which is one of the values listed above. If the `exclude` property is not specified, then no resources are excluded.
 
 * An Annotation _MAY_ have the `exclude` property.<br/>
   Clients _SHOULD_ process the `exclude` property.
 
-```json
-"exclude": [ "Audio", "Lights", "Cameras", "Animations" ]
+{% include api/code_header.html %}
+```json-doc
+{ "exclude": [ "audio", "lights", "cameras", "animations" ] }
 ```
 
 ### far
@@ -1541,11 +1557,12 @@ The value of `exclude` is an array of strings, each of which is one of the value
 
 This property gives the distance along the axis of the camera's orientation after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
-The value is a non-negative floating point number in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a non-negative floating point number in the units of the coordinate space of the Scene in which the Camera with the property is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `far` property.<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
 
+{% include api/code_header.html %}
 ```json-doc
 { "far": 200.0 }
 ```
@@ -1555,11 +1572,12 @@ The value is a non-negative floating point number in the coordinate space of the
 
 The vertical projection angle from the top plane to the bottom plane of the camera's field of view, specified in degrees. The horizontal projection angle is dependent on the aspect ratio of the client's viewport.
 
-The value _MUST_ be a floating point number greater than 0 and less than 180, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a floating point number greater than 0.0 and less than 180.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A PerspectiveCamera _SHOULD_ have the `fieldOfView` property.<br/>
-  Clients _SHOULD_ process the `fieldOfView` property on Cameras.
+  Clients _SHOULD_ process the `fieldOfView` property on a PerspectiveCamera.
 
+{% include api/code_header.html %}
 ```json-doc
 { "fieldOfView": 50.0 }
 ```
@@ -1572,8 +1590,9 @@ The size of a content resource in bytes. This will allow clients to determine wh
 The value _MUST_ be a positive integer.
 
 * Any Content Resource _MAY_ have the `fileSize` property.<br/>
-  Clients _SHOULD_ process the `fileSize` property on Resources.
+  Clients _SHOULD_ process the `fileSize` property on a Content Resource.
 
+{% include api/code_header.html %}
 ```json-doc
 { "fileSize": 132465987 }
 ```
@@ -1610,13 +1629,10 @@ For the IIIF Image API Selector class however, the value of `format` is the para
 
 The value _MUST_ be a string, and _SHOULD_ either be a valid media type or an image extension format valid for the IIIF Image API.
 
- * A Content Resource _SHOULD_ have the `format` property.<br/>
-   Clients _MAY_ render the `format` of any content resource.
- * A IIIF Image API Selector class _SHOULD_ have the `format` property.<br/>
-   Clients _MUST_ process the `format` property on a IIIF Image API Selector.
- * Other types of resource _MUST NOT_ have the `format` property.<br/>
-   Clients _SHOULD_ ignore `format` on other types of resource.
-
+* A Content Resource _SHOULD_ have the `format` property.<br/>
+  Clients _MAY_ render the `format` of any content resource.
+* A IIIF Image API Selector class _SHOULD_ have the `format` property.<br/>
+  Clients _MUST_ process the `format` property on a IIIF Image API Selector.
 
 For a Content Resource:
 {% include api/code_header.html %}
@@ -1638,12 +1654,10 @@ The height of the Canvas or external Content Resource. For Content Resources, th
 
 The value _MUST_ be a positive integer.
 
- * A Canvas _MUST_ have the `height` property.<br/>
-   Clients _MUST_ process `height` on a Canvas.
- * Content Resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
-   Clients _SHOULD_ process `height` on content resources.
- * Other types of resource _MUST NOT_ have the `height` property.<br/>
-   Clients _SHOULD_ ignore `height` on other types of resource.
+* A Canvas _MUST_ have the `height` property.<br/>
+  Clients _MUST_ process `height` on a Canvas.
+* Content Resources _SHOULD_ have the `height` property, with the value given in pixels, if appropriate to the resource type.<br/>
+  Clients _SHOULD_ process `height` on content resources.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1656,8 +1670,8 @@ A web page that is about the entity represented by the resource that has the `ho
 
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have the `id`, `type`, and `label` properties, _SHOULD_ have a `format` property, and _MAY_ have the `language` property.
 
- * Any resource type _MAY_ have the `homepage` property.<br/>
-   Clients _SHOULD_ render `homepage` on a Collection, Manifest or Container, and _MAY_ render `homepage` on other types of resource.
+* Any resource type _MAY_ have the `homepage` property.<br/>
+  Clients _SHOULD_ render `homepage` on a Collection, Manifest or Container, and _MAY_ render `homepage` on other types of resource.
 
 __Model Alignment__<br/>
 Please note that this specification has stricter requirements about the JSON pattern used for the `homepage` property than the [Web Annotation Data Model][org-w3c-webanno]. The IIIF requirements are compatible, but the home page of an Agent found might have only a URI, or might be a JSON object with other properties. See the section on [collisions between contexts][prezi30-context-collisions] for more information.
@@ -1689,10 +1703,10 @@ The existence of an HTTP(S) URI in the `id` property does not mean that the URI 
 
 If a publisher wishes for a resource to be able to be referenced, such as in an Annotation, then the resource _MUST_ have an `id` property.
 
- * Collections, Collection Pages, Manifests, Timelines, Canvases, Scenes, Annotations, Annotation Pages, Annotation Collections, Ranges, Content Resources, and Services _MUST_ have the `id` property.<br/>
-   Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Containers.
- * All other resources _MAY_ have the `id` property.<br/>
-   Clients _MAY_ render `id` on any resource type.
+* Collections, Collection Pages, Manifests, Timelines, Canvases, Scenes, Annotations, Annotation Pages, Annotation Collections, Ranges, Content Resources, and Services _MUST_ have the `id` property.<br/>
+  Clients _MAY_ render `id` on any resource type, and _SHOULD_ render `id` on Collections, Manifests and Containers.
+* All other resources _MAY_ have the `id` property.<br/>
+  Clients _MAY_ render `id` on any resource type.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1702,10 +1716,12 @@ If a publisher wishes for a resource to be able to be referenced, such as in an 
 ### instant
 {: #instant}
 
-A floating point number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of 4.5 means the exact point 4.5 seconds from the beginning of the resource.
+A floating point number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of `4.5` means the exact point 4.5 seconds from the beginning of the resource.
+
+The value _MUST_ be a non-negative floating point number.
 
 * PointSelector _MAY_ have the `instant` property.<br/>
-  Clients _SHOULD_ process `instant`.
+  Clients _SHOULD_ process the `instant` property on a PointSelector.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1725,7 +1741,8 @@ The value of the `quantityValue` property of the Quantity _MUST_ be between 0.0 
 * A Light _SHOULD_ have the `intensity` property.<br/>
   Clients _SHOULD_ process the `intensity` property on a Light.
 
-```json
+{% include api/code_header.html %}
+```json-doc
 {
  "intensity": {
     "type": "Quantity",
@@ -1743,8 +1760,7 @@ When `interactionMode` is specified on a Scene and no Cameras are supplied withi
 
 When more than one interaction mode is present, the client _SHOULD_ pick the first interaction mode that the client is capable of supporting.
 
-
-If `action` is used to "disable" a Camera, then it is the same as if it were in the "locked" `interactionMode`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time.
+If `action` is used to disable a Camera, then it is the same as if the Camera had an `interactionMode` with the value `locked`. Thus a Camera can meaningfully be not hidden, selected, and disabled at the same time.
 
 The value _MUST_ be an array of strings.
 
@@ -1752,8 +1768,6 @@ The value _MUST_ be an array of strings.
   Clients _SHOULD_ process `interactionMode` on a Camera.
 * A Container _MAY_ have the `interactionMode` property.<br/>
   Clients _SHOULD_ process `interactionMode` on a Container.
-* Other types of resource _MUST NOT_ have the `interactionMode` property.<br/>
-  Clients _SHOULD_ ignore `interactionMode` on other types of resource.
 
 | Value | Description |
 | ----- | ----------- |
@@ -1771,24 +1785,23 @@ The value _MUST_ be an array of strings.
 ### items
 {: #items}
 
-Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur within a parent resource, such as Collections or Manifests within a parent Collection, or Containers within a Manifest. All of these situations are covered with a single property, `items`.
+The `items` property is an ordered list of resources that are contained within a parent resource. Much of the functionality of the IIIF Presentation API is simply recording the order in which child resources occur, such as Collections or Manifests within a parent Collection, or Containers within a Manifest.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties. The items will be resources of different types, as described below.
 
- * A Collection _MUST_ either have the `items` property or the `first` and `last` properties. If present, each item _MUST_ be either a Collection or a Manifest.<br/>
-   Clients _MUST_ process `items` on a Collection.
- * A Collection Page _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
-   Clients _MUST_ process `items` on a Collection Page.
- * A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Container.<br/>
-   Clients _MUST_ process `items` on a Manifest.
- * A Container _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
-   Clients _MUST_ process `items` on a Container.
- * An Annotation Page _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation.<br/>
-   Clients _MUST_ process `items` on an Annotation Page.
- * A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
-   Clients _SHOULD_ process `items` on a Range.
- * Other types of resource _MUST NOT_ have the `items` property.<br/>
-   Clients _SHOULD_ ignore `items` on other types of resource.
+* A Collection _MUST_ either have the `items` property or the `first` and `last` properties. If present, each item _MUST_ be either a Collection or a Manifest.<br/>
+  Clients _MUST_ process `items` on a Collection.
+* A Collection Page _MUST_ have the `items` property. Each item _MUST_ be either a Collection or a Manifest.<br/>
+  Clients _MUST_ process `items` on a Collection Page.
+* A Manifest _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Container.<br/>
+  Clients _MUST_ process `items` on a Manifest.
+* A Container _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation Page.<br/>
+  Clients _MUST_ process `items` on a Container.
+* An Annotation Page _SHOULD_ have the `items` property with at least one item. Each item _MUST_ be an Annotation.<br/>
+  Clients _MUST_ process `items` on an Annotation Page.
+* A Range _MUST_ have the `items` property with at least one item. Each item _MUST_ be a Range, a Canvas or a Specific Resource where the source is a Canvas.<br/>
+  Clients _SHOULD_ process `items` on a Range.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1813,20 +1826,20 @@ A human readable label, name or title. The `label` property is intended to be di
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][prezi40-languages] section.
 
- * A Collection _MUST_ have the `label` property with at least one entry.<br/>
-   Clients _MUST_ render `label` on a Collection.
- * A Manifest _MUST_ have the `label` property with at least one entry.<br/>
-   Clients _MUST_ render `label` on a Manifest.
- * All Container types _SHOULD_ have the `label` property with at least one entry.<br/>
-   Clients _MUST_ render `label` on Container types, and _SHOULD_ generate a `label` for Containers that do not have them.
- * All Content Resource types _MAY_ have the `label` property with at least one entry. If there is a Choice of Content Resource for the same Container, then they _SHOULD_ each have the `label` property with at least one entry.<br/>
-   Clients _MAY_ render `label` on Content Resources, and _SHOULD_ render them when part of a Choice.
- * A Range _SHOULD_ have the `label` property with at least one entry. <br/>
-   Clients _MUST_ render `label` on a Range.
- * An Annotation Collection _SHOULD_ have the `label` property with at least one entry.<br/>
-   Clients _SHOULD_ render `label` on an Annotation Collection.
- * Other types of resource _MAY_ have the `label` property with at least one entry.<br/>
-   Clients _MAY_ render `label` on other types of resource.
+* A Collection _MUST_ have the `label` property with at least one entry.<br/>
+  Clients _MUST_ render `label` on a Collection.
+* A Manifest _MUST_ have the `label` property with at least one entry.<br/>
+  Clients _MUST_ render `label` on a Manifest.
+* All Container types _SHOULD_ have the `label` property with at least one entry.<br/>
+  Clients _MUST_ render `label` on Container types, and _SHOULD_ generate a `label` for Containers that do not have them.
+* All Content Resource types _MAY_ have the `label` property with at least one entry. If there is a Choice of Content Resource for the same Container, then they _SHOULD_ each have the `label` property with at least one entry.<br/>
+  Clients _MAY_ render `label` on Content Resources, and _SHOULD_ render them when part of a Choice.
+* A Range _SHOULD_ have the `label` property with at least one entry. <br/>
+  Clients _MUST_ render `label` on a Range.
+* An Annotation Collection _SHOULD_ have the `label` property with at least one entry.<br/>
+  Clients _SHOULD_ render `label` on an Annotation Collection.
+* Other types of resource _MAY_ have the `label` property with at least one entry.<br/>
+  Clients _MAY_ render `label` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1835,14 +1848,13 @@ The value of the property _MUST_ be a JSON object, as described in the [language
 ### language
 {: #language}
 
-The language or languages used in the content of this external resource. It _MAY_ be used for resources [referenced][prezi30-terminology] from `body`, `target`, `source`, `homepage`, `rendering`, and `partOf`, amongst others.
+The language or languages used in the content of this external resource. It _MAY_ be used for resources [referenced][prezi40-terminology] from `body`, `target`, `source`, `homepage`, `rendering`, and `partOf`, amongst others.
 
 The value _MUST_ be an array of strings. Each item in the array _MUST_ be a valid language code, as described in the [languages section][prezi30-languages].
 
- * An external resource _SHOULD_ have the `language` property with at least one item.<br/>
-   Clients _SHOULD_ process the `language` of external resources.
- * Other types of resource _MUST NOT_ have the `language` property.<br/>
-   Clients _SHOULD_ ignore `language` on other types of resource.
+* An external resource _SHOULD_ have the `language` property with at least one item.<br/>
+  Clients _SHOULD_ process the `language` of external resources.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1856,8 +1868,8 @@ This property references the last Annotation Page within an Annotation Collectio
 
 The value _MUST_ be a JSON object with `id` and `type` properties.   The `id` _MUST_ be the HTTP(S) URI of the referenced Annotation or Collection Page.  The value of `type` _MUST_ be `AnnotationPage` or `CollectionPage`.
 
-* A non-empty AnnotationCollection _SHOULD_ have the `last` property.<br/>
-  Clients _SHOULD_ process the `last` property on an AnnotationCollection.
+* A non-empty Annotation Collection _SHOULD_ have the `last` property.<br/>
+  Clients _SHOULD_ process the `last` property on an Annotation Collection.
 * A non-empty Collection _MAY_ have the `last` property.<br/>
   Clients _MAY_ process the `last` property on a Collection.
 
@@ -1880,8 +1892,8 @@ When more than one logo is present, the client _SHOULD_ pick only one of them, b
 
 The value of this property _MUST_ be an array of JSON objects, each of which _MUST_ have `id` and `type` properties, and _SHOULD_ have `format`. The value of `type` _MUST_ be `Image`.
 
- * Agent resources _SHOULD_ have the `logo` property.<br/>
-   Clients _MUST_ render `logo` on Agent resources.
+* Agent resources _SHOULD_ have the `logo` property.<br/>
+  Clients _MUST_ render `logo` on Agent resources.
 
 
 {% include api/code_header.html %}
@@ -1902,21 +1914,23 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
 ### lookAt
 {: #lookAt}
 
-It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on DirectionalLight, SpotLight, and all Cameras. The value of the property is either a PointSelector, a WktSelector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary Container.
+It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on Directional Light, Spot Light, and all Cameras. The value of the property is either a Point Selector, a WKT Selector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary Container.
 
-If the value is a PointSelector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WktSelector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a PointSelector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
+If the value is a Point Selector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WKT Selector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a Point Selector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
 
 This rotation happens after the resource has been added to the Scene and after any transforms have taken place in the local coordinate space. Therefore, the `lookAt` property takes precedence over any Rotate Transforms applied to the X or Y axes, though a Rotate Transform applied to the Z axis will continue to impact the painting of a Camera into a Scene.
 
-The value _MUST_ be a JSON object, conforming to either a reference to an Annotation, or an embedded PointSelector. If this property is not specified, then the default value for cameras is to look straight backwards (-Z) and for lights to point straight down (-Y).
+The value _MUST_ be a JSON object, conforming to either a reference to an Annotation, or an embedded Point Selector. If this property is not specified, then the default value for cameras is to look straight backwards (-Z) and for lights to point straight down (-Y).
 
 * A Camera _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Cameras.
-* A SpotLight or a DirectionalLight _MAY_ have the `lookAt` property.<br/>
-* A SpotAudio _MAY_ have the `lookAt` property.
+* A Spot Light or a Directional Light _MAY_ have the `lookAt` property.<br/>
+  Clients _SHOULD_ process the `lookAt` property on Lights.
+* A Spot Audio _MAY_ have the `lookAt` property.<br/>
+  Clients _SHOULD_ process the `lookAt` property on Spot Audio.
 
 {% include api/code_header.html %}
-```json
+``` json-doc
 "lookAt": {
     "type": "PointSelector",
     "x": 3,
@@ -1932,14 +1946,14 @@ An ordered list of descriptions to be displayed to the user when they interact w
 
 The value of the `metadata` property _MUST_ be an array of JSON objects, where each item in the array has both `label` and `value` properties. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi40-languages] section.
 
- * A Collection _SHOULD_ have the `metadata` property with at least one item. <br/>
-   Clients _MUST_ render `metadata` on a Collection.
- * A Manifest _SHOULD_ have the `metadata` property with at least one item.<br/>
-   Clients _MUST_ render `metadata` on a Manifest.
- * All Container types _MAY_ have the `metadata` property with at least one item.<br/>
-   Clients _SHOULD_ render `metadata` on Containers.
- * Other types of resource _MAY_ have the `metadata` property with at least one item.<br/>
-   Clients _MAY_ render `metadata` on other types of resource.
+* A Collection _SHOULD_ have the `metadata` property with at least one item. <br/>
+  Clients _MUST_ render `metadata` on a Collection.
+* A Manifest _SHOULD_ have the `metadata` property with at least one item.<br/>
+  Clients _MUST_ render `metadata` on a Manifest.
+* All Container types _MAY_ have the `metadata` property with at least one item.<br/>
+  Clients _SHOULD_ render `metadata` on Containers.
+* Other types of resource _MAY_ have the `metadata` property with at least one item.<br/>
+  Clients _MAY_ render `metadata` on other types of resource.
 
 Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ expect to encounter long texts in the `value` property, and render them appropriately, such as with an expand button, or in a tabbed interface.
 
@@ -1960,14 +1974,13 @@ Clients _SHOULD_ display the entries in the order provided. Clients _SHOULD_ exp
 
 The `motivation` property records the reason that an Annotation was created. Motivations can also be thought of as a classification of the type of Annotation (a `commenting` motivation implies the annotation is somehow a Comment). The name of the motivation is often used as an adjective for the Annotation, and thus an Annotation with the `painting` motivation is a "painting Annotation", or an annotation with the `commenting` motivation is a "commenting Annotation".
 
-This specification defines three new values for `motivation`. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content *of* the Container ("painting" motivation) and content *from* the Container ("supplementing" motivation), from ones with externally defined motivations which are typically comments or additional information *about* the Container. The "activating" motivation determines interactions with the resource in the Container.
+This specification defines three new values for `motivation`. These motivations allow clients to determine how the Annotation should be rendered, by distinguishing between Annotations that provide the content *of* the Container ("painting" motivation) and content *from* the Container (`supplementing` motivation), from ones with externally defined motivations which are typically comments or additional information *about* the Container. The "activating" motivation determines interactions with the resource in the Container.
 
 The value _MUST_ be an array. Each item in the array _MUST_ be a string, drawn from the table below, the values defined by the Web Annotation Data Model, the registry for motivations, or an included extension.
 
 * An Annotation _MUST_ have the `motivation` property with at least one item.<br/>
   Clients _MUST_ process the `motivation` property on Annotations.
-* Other types of resource _MUST NOT_ have the `motivation` property.<br/>
-  Clients _MUST_ ignore `motivation` on other types of resource.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -1992,18 +2005,16 @@ A date that clients may use for navigation purposes when presenting the resource
 
 The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _MUST_ have a timezone, and _SHOULD_ be given in UTC with the `Z` timezone indicator, but _MAY_ instead be given as an offset of the form `+hh:mm`.
 
- * A Collection _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on a Collection.
- * A Manifest _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on a Manifest.
- * A Range _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on a Range.
- * All Container types _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on Containers.
+* A Collection _MAY_ have the `navDate` property.<br/>
+  Clients _MAY_ render `navDate` on a Collection.
+* A Manifest _MAY_ have the `navDate` property.<br/>
+  Clients _MAY_ render `navDate` on a Manifest.
+* A Range _MAY_ have the `navDate` property.<br/>
+  Clients _MAY_ render `navDate` on a Range.
+* All Container types _MAY_ have the `navDate` property.<br/>
+  Clients _MAY_ render `navDate` on Containers.
 * Annotations _MAY_ have the `navDate` property.<br/>
-   Clients _MAY_ render `navDate` on Annotations.
- * Other types of resource _MUST NOT_ have the `navDate` property.<br/>
-   Clients _SHOULD_ ignore `navDate` on other types of resource.
+  Clients _MAY_ render `navDate` on Annotations.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2017,18 +2028,16 @@ A geographic location that clients may use for navigation purposes when presenti
 
 The value of the property _MUST_ be a [GeoJSON Feature Collection][link] containing one or more [Features][link].  The value _SHOULD_ be embedded and _MAY_ be a reference. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties and _MUST NOT_ have the `features` property.
 
-*   A Collection _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on a Collection.
-*   A Manifest _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on a Manifest.
-*   A Range _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on a Range.
+* A Collection _MAY_ have the `navPlace` property.<br/>
+  Clients _MAY_ render `navPlace` on a Collection.
+* A Manifest _MAY_ have the `navPlace` property.<br/>
+  Clients _MAY_ render `navPlace` on a Manifest.
+* A Range _MAY_ have the `navPlace` property.<br/>
+  Clients _MAY_ render `navPlace` on a Range.
 * All Container types _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on Containers.
+  Clients _MAY_ render `navPlace` on Containers.
 * Annotations _MAY_ have the `navPlace` property.<br/>
-   Clients _MAY_ render `navPlace` on Annotations.
-*   Other types of resource _MUST NOT_ have the `navPlace` property.<br/>
-   Clients _SHOULD_ ignore `navPlace` on other types of resource.
+  Clients _MAY_ render `navPlace` on Annotations.
 
 
 {% include api/code_header.html %}
@@ -2060,11 +2069,12 @@ The value of the property _MUST_ be a [GeoJSON Feature Collection][link] contain
 
 This property gives the distance along the Camera's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
 
-The value is a non-negative floating point number, in the coordinate space of the Scene in which the Camera is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a non-negative floating point number, in the units of the coordinate space of the Scene in which the Camera that has the property is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
 
-* A Camera _MAY_ have the `near` property<br/>
+* A Camera _MAY_ have the `near` property.<br/>
   Clients _SHOULD_ process the `near` property on Cameras.
 
+{% include api/code_header.html %}
 ```json-doc
 { "near": 1.5 }
 ```
@@ -2074,10 +2084,10 @@ The value is a non-negative floating point number, in the coordinate space of th
 
 A reference from an Annotation Page to the following Annotation Page within an Annotation Collection, or from a Collection Page to the following Collection Page.
 
-The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Annotation or Collection Page. The value of the `type` property _MUST_ be the string `AnnotationPage` or `CollectionPage`.
+The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the following Annotation or Collection Page. The value of the `type` property _MUST_ be `AnnotationPage` or `CollectionPage`.
 
-* An AnnotationPage _MUST_ have the `next` property, unless it is the last page in the AnnotationCollection or Collection.<br/>
-  Clients _MUST_ process the `next` property on an AnnotationPage or CollectionPage.
+* An Annotation Page _MUST_ have the `next` property, unless it is the last page in the Annotation Collection or Collection.<br/>
+  Clients _MUST_ process the `next` property on an Annotation Page or Collection Page.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2093,12 +2103,12 @@ The value _MUST_ be a JSON object, with the `id` and `type` properties. The valu
 ### partOf
 {: #partOf}
 
-A containing resource that includes the resource that has the `partOf` property. When a client encounters the `partOf` property, it might retrieve the [referenced][prezi30-terminology] containing resource, if it is not [embedded][prezi30-terminology] in the current representation, in order to contribute to the processing of the contained resource. For example, the `partOf` property on a Canvas can be used to reference an external Manifest in order to enable the discovery of further relevant information. Similarly, a Manifest can reference a containing Collection using `partOf` to aid in navigation.
+The `partOf` property references resources which the current resource is contained within, or is otherwise part of. When a client encounters the `partOf` property, it might retrieve the [referenced][prezi40-terminology] containing resource, if it is not [embedded][prezi40-terminology] in the current representation, in order to contribute to the processing of the contained resource. For example, the `partOf` property on a Canvas can be used to reference an external Manifest in order to enable the discovery of further relevant information. Similarly, a Manifest can reference a containing Collection using `partOf` to aid in navigation.
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label` property.
 
- * Any resource type _MAY_ have the `partOf` property with at least one item<br/>
-   Clients _MAY_ render `partOf` on any resource type.
+* Any resource type _MAY_ have the `partOf` property with at least one item.<br/>
+  Clients _MAY_ render `partOf` on any resource type.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2111,22 +2121,21 @@ The resources referred to by the `accompanyingContainer` and `placeholderContain
 ### placeholderContainer
 {: #placeholderContainer}
 
-A single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a `Scene` may have a placeholder Container of type `Canvas`.
+The value of the `placeholderContainer` property is a single Container that provides additional content for use before the main content of the resource that has the `placeholderContainer` property is rendered, or as an advertisement or stand-in for that content. Examples include images, text and sound standing in for video content before the user initiates playback; or a film poster to attract user attention. The content provided by `placeholderContainer` differs from a thumbnail: a client might use `thumbnail` to summarize and navigate multiple resources, then show content from `placeholderContainer` as part of the initial presentation of a single resource. A placeholder Container is likely to have different dimensions to those of the Container(s) of the resource that has the `placeholderContainer` property. A placeholder Container may be of a different type from the resource that has the `placeholderContainer` property. For example, a Scene may have a Canvas as its placeholder Container.
 
 Clients _MAY_ display the content of a linked placeholder Container when presenting the resource. When more than one such Container is available, for example if `placeholderContainer` is provided for the currently selected Range and the current Manifest, the client _SHOULD_ pick the one most specific to the content. Publishers _SHOULD NOT_ assume that the placeholder Container will be processed by all clients. Clients _SHOULD_ take care to avoid conflicts between time-based media in the rendered placeholder Container and the content of the resource that has the `placeholderContainer` property.
 
 The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `type` properties.  The value of `type` _MUST_ be a Container type.  The JSON object _MAY_ have other properties valid for that Container type.
 
-  * A Collection _MAY_ have the `placeholderContainer` property.<br/>
-    Clients _MAY_ render `placeholderContainer` on a Collection.
-  * A Manifest _MAY_ have the `placeholderContainer` property.<br/>
-    Clients _MAY_ render `placeholderContainer` on a Manifest.
-  * All Container types _MAY_ have the `placeholderContainer` property.<br/>
-    Clients _MAY_ render `placeholderContainer` on Containers.
-  * A Range _MAY_ have the `placeholderContainer` property.<br/>
-    Clients _MAY_ render `placeholderContainer` on a Range.
-  * Other types of resource _MUST NOT_ have the `placeholderContainer` property.<br/>
-    Clients _SHOULD_ ignore `placeholderContainer` on other types of resource.
+* A Collection _MAY_ have the `placeholderContainer` property.<br/>
+  Clients _MAY_ render `placeholderContainer` on a Collection.
+* A Manifest _MAY_ have the `placeholderContainer` property.<br/>
+  Clients _MAY_ render `placeholderContainer` on a Manifest.
+* All Container types _MAY_ have the `placeholderContainer` property.<br/>
+  Clients _MAY_ render `placeholderContainer` on Containers.
+* A Range _MAY_ have the `placeholderContainer` property.<br/>
+  Clients _MAY_ render `placeholderContainer` on a Range.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2142,17 +2151,17 @@ The value of `placeholderContainer` _MUST_ be a JSON object with the `id` and `t
 ### position
 {: #position}
 
-It is important to be able to position the body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a `TextualBody` or a `SpecificResource`.
+The `position` property conveys to the client the position at which the body of an Annotation should be rendered within the Container's space. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three-dimensional geometry of the model. If this property is not supplied, then the client should do its best to ensure the content is visible to the user. The body resource _MUST_ be either a Textual Body or a Specific Resource.
 
-The value of this property _MUST_ be a JSON object conforming to the `SpecificResource` pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
+The value of this property _MUST_ be a JSON object conforming to the Specific Resource pattern of the Web Annotation Model. The Specific Resource _MUST_ have a `source` property that refers to a Container, and a `selector` that describes a point or region within the Container.
 
 * A Textual Body _MAY_ have the `position` property.<br/>
   Clients _SHOULD_ process the `position` property on Textual Body instances.
 * A Specific Resource _MAY_ have the `position` property.<br/>
   Clients _SHOULD_ process the `position` property on Specific Resource instances.
-* Other classes _MUST NOT_ have the `position` property.<br/>
-  Clients _MUST_ ignore the `position` property on all other classes.
 
+
+{% include api/code_header.html %}
 ```json-doc
 { "position": {
     "type": "SpecificResource",
@@ -2178,12 +2187,12 @@ The value of this property _MUST_ be a JSON object conforming to the `SpecificRe
 
 A reference from an Annotation Page to the preceding Annotation Page within an Annotation Collection, or from a Collection Page to the preceding Collection Page.
 
-The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the preceding Annotation or Collection Page. The value of the `type` property _MUST_ be the string `AnnotationPage` or `CollectionPage`.
+The value _MUST_ be a JSON object, with the `id` and `type` properties. The value of the `id` property _MUST_ be a string, and _MUST_ be the HTTP(S) URI of the preceding Annotation or Collection Page. The value of the `type` property _MUST_ be `AnnotationPage` or `CollectionPage`.
 
-* An AnnotationPage _SHOULD_ have the `prev` property, unless it is the first page in the AnnotationCollection.<br/>
-  Clients _SHOULD_ process the `prev` property on an AnnotationPage.
-* A CollectionPage _SHOULD_ have the `prev` property, unless it is the first page in the Collection.<br/>
-  Clients _SHOULD_ process the `prev` property on a CollectionPage.
+* An Annotation Page _SHOULD_ have the `prev` property, unless it is the first page in the Annotation Collection.<br/>
+  Clients _SHOULD_ process the `prev` property on an Annotation Page.
+* A Collection Page _SHOULD_ have the `prev` property, unless it is the first page in the Collection.<br/>
+  Clients _SHOULD_ process the `prev` property on a Collection Page.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2200,13 +2209,13 @@ The value _MUST_ be a JSON object, with the `id` and `type` properties. The valu
 
 A schema or named set of functionality available from the resource. The profile can further clarify the `type` and/or `format` of an external resource or service, allowing clients to customize their handling of the resource that has the `profile` property.
 
-When `profile` is used in a resource [referenced][prezi30-terminology] by the `environmentMap` property, the specification defines values in the table below for environment map projection types. Other values for additional projection types may be taken from the [profiles registry][registry-profiles] or as a full URI.
+When `profile` is used in a resource [referenced][prezi40-terminology] by the `environmentMap` property, the specification defines values in the table below for environment map projection types. Other values for additional projection types may be taken from the [profiles registry][registry-profiles] or as a full URI.
 
 The value _MUST_ be a string, either taken from the [profiles registry][registry-profiles], a full URI, or from the table below.
 
-* Resources [referenced][prezi30-terminology] by the `environmentMap` property _MUST_ have the `profile` property.<br/>
+* Resources [referenced][prezi40-terminology] by the `environmentMap` property _MUST_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of an environment map.
-* Resources [referenced][prezi30-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
+* Resources [referenced][prezi40-terminology] by the `seeAlso` or `service` properties _SHOULD_ have the `profile` property.<br/>
   Clients _SHOULD_ process the `profile` of a service or external resource.
 * Other types of resource _MAY_ have the `profile` property.<br/>
   Clients _MAY_ process the `profile` of other types of resource.
@@ -2227,10 +2236,10 @@ The value _MUST_ be a string, either taken from the [profiles registry][registry
 
 An organization or person that contributed to providing the content of the resource. Clients can then display this information to the user to acknowledge the provider's contributions.  This differs from the `requiredStatement` property, in that the data is structured, allowing the client to do more than just present text but instead have richer information about the people and organizations to use in different interfaces.
 
-The organization or person is represented as an `Agent` resource.
+The organization or person is represented as an Agent resource.
 
 * Agents _MUST_ have the `id` property, and its value _MUST_ be a string. The string _MUST_ be a URI that identifies the agent.
-* Agents _MUST_ have the `type` property, and its value _MUST_ be the string `Agent`.
+* Agents _MUST_ have the `type` property, and its value _MUST_ be `Agent`.
 * Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi30-languages] section.
 * Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi30-homepage] section.
 * Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi30-logo] section.
@@ -2238,12 +2247,12 @@ The organization or person is represented as an `Agent` resource.
 
 The value _MUST_ be an array of JSON objects, where each item in the array conforms to the structure of an Agent, as described above.
 
- * A Collection _SHOULD_ have the `provider` property with at least one item. <br/>
-   Clients _MUST_ render `provider` on a Collection.
- * A Manifest _SHOULD_ have the `provider` property with at least one item. <br/>
-   Clients _MUST_ render `provider` on a Manifest.
- * Other types of resource _MAY_ have the `provider` property with at least one item. <br/>
-   Clients _SHOULD_ render `provider` on other types of resource.
+* A Collection _SHOULD_ have the `provider` property with at least one item. <br/>
+  Clients _MUST_ render `provider` on a Collection.
+* A Manifest _SHOULD_ have the `provider` property with at least one item. <br/>
+  Clients _MUST_ render `provider` on a Manifest.
+* Other types of resource _MAY_ have the `provider` property with at least one item. <br/>
+  Clients _SHOULD_ render `provider` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2289,10 +2298,10 @@ A set of features or additional functionality that a linked resource enables rel
 
 The value _MUST_ be an array of strings, each string identifies a particular feature and _MUST_ be taken from the table below or the [provides registry][registry-accessibility].
 
-Note that the majority of the values have been selected from the [W3C accessibility features vocabulary][registry-accessibility] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
+Note that the majority of the values align with the [W3C accessibility features vocabulary][registry-accessibility] and thus use the original form rather than being consistent with the hyphen-based form of the values of `behavior` and `viewingDirection`.
 
 * Annotations with the `supplementing` motivation _MAY_ have the `provides` property.<br/>
-  Clients _SHOULD_ ignore the `provides` property on all other resource.
+  Clients _SHOULD_ process the `provides` property on Annotations.
 
 | Value | Description |
 | ----- | ----------- |
@@ -2302,7 +2311,7 @@ Note that the majority of the values have been selected from the [W3C accessibil
 | `highContrastAudio`{: #value-highContrastAudio} | An alternative form of the audio where the contrast is high, making it easier to hear |
 | `highContrastDisplay`{: #value-highContrastDisplay} | An alternative form of visual content where the contrast is high, making it easier to see |
 | `transcript`{: #value-transcript} | A transcript of the audio content, as opposed to closed captions which might include other descriptions such as music or sound effects |
-| `translation`{: #value-translation} | A translation of the content into another language, defined on the content resource (IIIF Defined) |
+| `translation`{: #value-translation} | A translation of the content into another language, defined on the content resource |
 {: .api-table #table-provides}
 
 {% include api/code_header.html %}
@@ -2334,8 +2343,8 @@ The `quantityValue` property of a Quantity conveys its numerical component, used
 
 The value of `quantityValue` _MUST_ be a floating point number.
 
-*  A Quantity _MUST_ have the `quantityValue` property.<br/>
-   Clients _MUST_ process the `quantityValue` property on a Quantity.
+* A Quantity _MUST_ have the `quantityValue` property.<br/>
+  Clients _MUST_ process the `quantityValue` property on a Quantity.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2345,7 +2354,7 @@ The value of `quantityValue` _MUST_ be a floating point number.
 ### refinedBy
 {: #refinedBy}
 
-The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a `FragmentSelector` and then further refine that region with an `SvgSelector` or `WktSelector`.
+The `refinedBy` property allows Selectors to be chained together to incrementally select more specific aspects of the resource given in `source` on the Specific Resource. The first selector on a Specific Resource describes how to select part of the main resource, and a subsequent selector in `refinedBy` then describes how to further select part of that part. This can be used, for example, to extract a rectangular region with a Fragment Selector and then further refine that region with an SVG Selector or a WKT Selector.
 
 For more information about `refinedBy`, please see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection).
 
@@ -2385,8 +2394,8 @@ A resource that is an alternative, non-IIIF representation of the resource that 
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id`, `type` and `label` properties, and _SHOULD_ have the `format` and `language` properties.
 
- * Any resource type _MAY_ have the `rendering` property with at least one item.<br/>
-   Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other types of resource.
+* Any resource type _MAY_ have the `rendering` property with at least one item.<br/>
+  Clients _SHOULD_ render `rendering` on a Collection, Manifest or Canvas, and _MAY_ render `rendering` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2410,8 +2419,8 @@ Text that _MUST_ be displayed when the resource is displayed or used. For exampl
 
 The value of the property _MUST_ be a JSON object, that has the `label` and `value` properties, in the same way as a `metadata` property entry. The values of both `label` and `value` _MUST_ be JSON objects, as described in the [languages][prezi40-languages] section.
 
- * Any resource type _MAY_ have the `requiredStatement` property.<br/>
-   Clients _MUST_ render `requiredStatement` on every resource type.
+* Any resource type _MAY_ have the `requiredStatement` property.<br/>
+  Clients _MUST_ render `requiredStatement` on every resource type.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2433,8 +2442,8 @@ If displaying rights information directly to the user is the desired interaction
 
 The value _MUST_ be a string. If the value is drawn from Creative Commons or RightsStatements.org, then the string _MUST_ be a URI defined by that specification.
 
- * Any resource type _MAY_ have the `rights` property.<br/>
-   Clients _MAY_ render `rights` on any resource type.
+* Any resource type _MAY_ have the `rights` property.<br/>
+  Clients _MAY_ render `rights` on any resource type.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2466,7 +2475,11 @@ The value _MUST_ be a string, not a number, in order to allow for the "!" charac
 ### scope
 {: #scope}
 
-The scope of a Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. In a Scene, this would typically be an instance of a Camera that should be activated and selected to set up the correct viewpoint. This specification does not establish specific expectations for references to other classes.
+The scope of an Annotation or Specific Resource is the context in which it should be interpreted, viewed, or used. For the purposes of IIIF, it is a pointer to one or more resources that are intended to be used by the client for the user to view or interact with the resource. 
+
+In a Scene, `scope` would typically be applied to a Content Resource or commenting Annotation and would reference a Camera that should be activated and selected to set the correct viewpoint in response to user interaction with that resource. Clients _MUST_ process `scope` as a short-hand expression of an Annotation where `motivation` is "activating"; where `action` values are `show`, `enable`, and `select`; where the `source` of the activating Annotation `body` is the Resource referenced by `scope`; and where the `target` is the Annotation or Specific Resource on which `scope` is specified. 
+
+This specification does not establish specific expectations for references to other classes.
 
 The value _MUST_ be an array of JSON objects.
 
@@ -2496,8 +2509,8 @@ A machine-readable resource such as an XML or RDF description that is related to
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `label`, `format` and `profile` properties.
 
- * Any resource type _MAY_ have the `seeAlso` property with at least one item.<br/>
-   Clients _MAY_ process `seeAlso` on any resource type.
+* Any resource type _MAY_ have the `seeAlso` property with at least one item.<br/>
+  Clients _MAY_ process `seeAlso` on any resource type.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2525,8 +2538,7 @@ The value of `selector` _MUST_ be an array of JSON objects. Each item _MUST_ hav
 
 * A Specific Resource _MAY_ have the `selector` property with at least one item.<br/>
   Clients _SHOULD_ process `selector` on a Specific Resource.
-* Other resource types _MUST NOT_ have the `selector` property.<br/>
-  Clients _MUST_ ignore `selector` on other resource types.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2547,8 +2559,8 @@ A service that the client might interact with directly and gain additional infor
 
 The value _MUST_ be an array of JSON objects. Each object will have properties depending on the service's definition, but _MUST_ have either the `id` or `@id` and `type` or `@type` properties. Each object _SHOULD_ have a `profile` property.
 
- * Any resource type _MAY_ have the `service` property with at least one item.<br/>
-   Clients _MAY_ process `service` on any resource type, and _SHOULD_ process the IIIF Image API service.
+* Any resource type _MAY_ have the `service` property with at least one item.<br/>
+  Clients _MAY_ process `service` on any resource type, and _SHOULD_ process the IIIF Image API service.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2562,19 +2574,6 @@ The value _MUST_ be an array of JSON objects. Each object will have properties d
   ]
 }
 ```
-
-For cross-version consistency, this specification defines the following values for the `type` or `@type` property for backwards compatibility with other IIIF APIs. Future versions of these APIs will define their own types. These `type` values are necessary extensions for compatibility of the older versions.
-
-| Value                | Specification |
-| -------------------- | ------------- |
-| `ImageService1`{: #value-ImageService1}        | [Image API version 1][image11]  |
-| `ImageService2 `{: #value-ImageService2}       | [Image API version 2][image21]  |
-| `SearchService1`{: #value-SearchService1}       | [Search API version 1][search1] |
-| `AutoCompleteService1`{: #value-AutoCompleteService1} | [Search API version 1][search1-autocomplete] |
-| `AuthCookieService1`{: #value-AuthCookieService1}   | [Authentication API version 1][auth1-cookie-service] |
-| `AuthTokenService1`{: #value-AuthTokenService1}    | [Authentication API version 1][auth1-token-service] |
-| `AuthLogoutService1`{: #value-AuthLogoutService1}   | [Authentication API version 1][auth1-logout-service] |
-{: .api-table #table-service-types}
 
 Implementations _SHOULD_ be prepared to recognize the `@id` and `@type` property names used by older specifications, as well as `id` and `type`. Note that the `@context` key _SHOULD NOT_ be present within the `service`, but instead included at the beginning of the document. The example below includes both version 2 and version 3 IIIF Image API services.
 
@@ -2656,9 +2655,8 @@ For more information about source and Specific Resources, see the [W3C Annotatio
 
 The value _MUST_ be a JSON Object with the `id` and `type` properties. The value of `id` _MUST NOT_ include a media fragment. 
 
-
-* A SpecificResource _MUST_ have the `source` property with exactly one value.<br/>
-  Clients _MUST_ process the `source` property on a SpecificResource.
+* A Specific Resource _MUST_ have the `source` property with exactly one value.<br/>
+  Clients _MUST_ process the `source` property on a Specific Resource.
 * Other types of resource _MUST NOT_ have the `source` property.<br/>
   Clients _MUST_ ignore the `source` property on other types of resource.
 
@@ -2671,14 +2669,14 @@ The value _MUST_ be a JSON Object with the `id` and `type` properties. The value
 ### spatialScale
 {: #spatialScale}
 
-A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of 5000 and a `spatialScale` with `quantityValue` of 0.00008 and a `unit` of `m` represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
+A single Quantity that defines a real-world scale factor for the coordinate units of a Canvas or Scene. For a Canvas, this defines the physical distance corresponding to the length of a single Canvas coordinate unit. A Canvas with a `width` of `5000` and a `spatialScale` with `quantityValue` of `0.00008` and a `unit` of `m` represents a physical space 0.4 meters wide. For a Scene, this defines the physical distance corresponding to the XYZ coordinate units, or in other words, the physical distance length of a unit vector in the 3D coordinate space. The value of `unit` _MUST_ be a length unit. In this specification, the only length unit defined is `m`, i.e., meters. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `m`.
 
 To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be painted into a Container and the `spatialScale` is asserted on that Container. For example, a 3D model would be painted into a Scene, and then `spatialScale` is asserted on the Scene.
 
- * A Canvas _MAY_ have the `spatialScale` property.<br/>
-   Clients _SHOULD_ process `spatialScale` on a Canvas.
- * A Scene _MAY_ have the `spatialScale` property.<br/>
-   Clients _SHOULD_ process `spatialScale` on a Scene.
+* A Canvas _MAY_ have the `spatialScale` property.<br/>
+  Clients _SHOULD_ process `spatialScale` on a Canvas.
+* A Scene _MAY_ have the `spatialScale` property.<br/>
+  Clients _SHOULD_ process `spatialScale` on a Scene.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2696,20 +2694,19 @@ To assert a `spatialScale` for a Content Resource, the resource _MUST_ first be 
 ### start
 {: #start}
 
-A Container, or part of a Container, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Container is handled in the same way that Ranges reference parts of Containers by using either its URI, a URI with a fragment specifier, or a SpecificResource with a Selector. This property allows the client to begin with the first Container that contains interesting content rather than requiring the user to manually navigate to find it.
+A Container, or part of a Container, which the client _SHOULD_ show on initialization for the resource that has the `start` property. The reference to part of a Container is handled in the same way that Ranges reference parts of Containers by using either its URI, a URI with a fragment specifier, or a Specific Resource with a Selector. This property allows the client to begin with the first Container that contains interesting content rather than requiring the user to manually navigate to find it.
 
-If the resource with the `start` property is a Collection, then the Container (or SpecificResource) _MUST_ have the `partOf` property referring to the Manifest that it is part of, such that the client can retrieve it.
+If the resource with the `start` property is a Collection, then the Container (or Specific Resource) _MUST_ have the `partOf` property referring to the Manifest that it is part of, such that the client can retrieve it.
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties.  The object _MUST_ be either a Container (as in the first example below), or a Specific Resource with a Selector and a `source` property where the value is a Canvas (as in the second example below).
 
- * A Collection _MAY_ have the `start` property.<br/>
-   Clients _SHOULD_ process `start` on a Collection.
- * A Manifest _MAY_ have the `start` property.<br/>
-   Clients _SHOULD_ process `start` on a Manifest.
- * A Range _MAY_ have the `start` property.<br/>
-   Clients _SHOULD_ process `start` on a Range.
- * Other types of resource _MUST NOT_ have the `start` property.<br/>
-   Clients _SHOULD_ ignore `start` on other types of resource.
+* A Collection _MAY_ have the `start` property.<br/>
+  Clients _SHOULD_ process `start` on a Collection.
+* A Manifest _MAY_ have the `start` property.<br/>
+  Clients _SHOULD_ process `start` on a Manifest.
+* A Range _MAY_ have the `start` property.<br/>
+  Clients _SHOULD_ process `start` on a Range.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2739,7 +2736,7 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### startIndex
 {: #startIndex}
 
-A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Collection Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is 100 (the first page contains entries 0 through 99 inclusive).
+A non-negative, 0-based integer value identifying the relative position of the first entry in the `items` list of a Collection Page or Annotation Page within the overall logical order of its parent Collection or Annotation Collection. If this is the second page, and there are 100 entries on the first page, then the value is `100` (the first page contains entries 0 through 99 inclusive).
 
 The value of `startIndex` _MUST_ be an integer greater than -1.
 
@@ -2748,6 +2745,10 @@ The value of `startIndex` _MUST_ be an integer greater than -1.
 * A Collection Page _MAY_ have the `startIndex` property.<br/>
   Clients _MAY_ process `startIndex` on a Collection Page.
 
+{% include api/code_header.html %}
+``` json-doc
+{ "startIndex": 0 }
+```
 
 ### structures
 {: #structures}
@@ -2756,10 +2757,8 @@ The structure of an object represented as a Manifest can be described using a hi
 
 The value _MUST_ be an array of JSON objects. Each item _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `Range`.
 
- * A Manifest _MAY_ have the `structures` property.<br/>
-   Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
- * Other types of resource _MUST NOT_ have the `structures` property.<br/>
-   Clients _SHOULD_ ignore `structures` on other types of resource.
+* A Manifest _MAY_ have the `structures` property.<br/>
+  Clients _SHOULD_ process `structures` on a Manifest. The first hierarchy _SHOULD_ be presented to the user by default, and further hierarchies _SHOULD_ be able to be selected as alternative structures by the user.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2821,14 +2820,14 @@ A short textual summary intended to be conveyed to the user when the `metadata` 
 
 The value of the property _MUST_ be a JSON object, as described in the [languages][prezi40-languages] section.
 
- * A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Collection.
- * A Manifest _SHOULD_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on a Manifest.
- * All Container types _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _SHOULD_ render `summary` on Containers.
- * Other types of resource _MAY_ have the `summary` property with at least one entry.<br/>
-   Clients _MAY_ render `summary` on other types of resource.
+* A Collection _SHOULD_ have the `summary` property with at least one entry.<br/>
+  Clients _SHOULD_ render `summary` on a Collection.
+* A Manifest _SHOULD_ have the `summary` property with at least one entry.<br/>
+  Clients _SHOULD_ render `summary` on a Manifest.
+* All Container types _MAY_ have the `summary` property with at least one entry.<br/>
+  Clients _SHOULD_ render `summary` on Containers.
+* Other types of resource _MAY_ have the `summary` property with at least one entry.<br/>
+  Clients _MAY_ render `summary` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2842,10 +2841,9 @@ A link from this Range to an Annotation Collection that includes the `supplement
 
 The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` properties, and the `type` _MUST_ be `AnnotationCollection`.
 
- * A Range _MAY_ have the `supplementary` property.<br/>
-   Clients _MAY_ process `supplementary` on a Range.
- * Other types of resource _MUST NOT_ have the `supplementary` property.<br/>
-   Clients _SHOULD_ ignore `supplementary` on other types of resource.
+* A Range _MAY_ have the `supplementary` property.<br/>
+  Clients _MAY_ process `supplementary` on a Range.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2855,11 +2853,11 @@ The value _MUST_ be a JSON object, which _MUST_ have the `id` and `type` propert
 ### target
 {: #target}
 
-The target of an Annotation. The resources listed in `target` can be instances of `SpecificResource`, core Structural Resources, Content Resources, or one of the aggregate constructions of `Choice`, `Composite`, `List` and `Independents` if there are multiple targets.
+The target of an Annotation. The resources listed in `target` can be instances of Specific Resource, core Structural Resources, Content Resources, or one of the aggregate constructions of Choice, Composite, List and Independents if there are multiple targets.
 
 For more information about Annotation targets, see the [W3C Annotation Model](https://www.w3.org/TR/annotation-model/#bodies-and-targets).
 
-The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=`. Aggregate constructions _MUST_ have the `items` property.
+The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Referenced resources _MUST_ have the `id` property, which _MAY_ have a fragment component such as `#xywh=0,0,100,100`. Aggregate constructions _MUST_ have the `items` property.
 
 * An Annotation _MUST_ have the `target` property.<br/>
   Clients _MUST_ process the `target` property on Annotations.
@@ -2875,16 +2873,16 @@ The value _MUST_ be a JSON Object. It _MUST_ have the `type` property. Reference
 ### temporalScale
 {: #temporalScale}
 
-A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of 450 seconds and a `temporalScale` with `quantityValue` of 1000 and a `unit` of `s` represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
+A single Quantity that defines a multiplier or scale factor for the `duration` property of a Container, indicating that one second in "Container time" represents some other real world duration. A Canvas with a `duration` of `450` and a `temporalScale` with `quantityValue` of `1000` and a `unit` of `s` represents a real-world duration of 450,000 seconds (5.2 days), for example a time-lapse video of a growing plant. The value of `unit` _MUST_ be a time unit. In this specification, the only time unit defined is `s`, i.e., seconds. Unless other values are defined externally as an [extension][prezi30-ldce], the value of `unit` _SHOULD_ always be `s`.
 
 To assert a `temporalScale` for a Content Resource, the resource _MUST_ first be painted into a Container with a `duration` and the `temporalScale` is asserted on that Container. For example, an Audio file is painted into a Timeline, and then `temporalScale` is asserted on the Timeline.
 
- * A Timeline _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Timeline.
- * A Canvas _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Canvas.
- * A Scene _MAY_ have the `temporalScale` property.<br/>
-   Clients _MAY_ process `temporalScale` on a Scene.
+* A Timeline _MAY_ have the `temporalScale` property.<br/>
+  Clients _MAY_ process `temporalScale` on a Timeline.
+* A Canvas _MAY_ have the `temporalScale` property.<br/>
+  Clients _MAY_ process `temporalScale` on a Canvas.
+* A Scene _MAY_ have the `temporalScale` property.<br/>
+  Clients _MAY_ process `temporalScale` on a Scene.
 
 
 {% include api/code_header.html %}
@@ -2906,16 +2904,16 @@ A content resource, such as a small image or short audio clip, that represents t
 
 The value _MUST_ be an array of JSON objects, each of which _MUST_ have the `id` and `type` properties, and _SHOULD_ have the `format` property. Images and videos _SHOULD_ have the `width` and `height` properties, and time-based media _SHOULD_ have the `duration` property. It is _RECOMMENDED_ that a [IIIF Image API][image-api] service be available for images to enable manipulations such as resizing.
 
- * A Collection _SHOULD_ have the `thumbnail` property with at least one item.<br/>
-   Clients _SHOULD_ render `thumbnail` on a Collection.
- * A Manifest _SHOULD_ have the `thumbnail` property with at least one item.<br/>
-   Clients _SHOULD_ render `thumbnail` on a Manifest.
- * All Container types _SHOULD_ have the `thumbnail` property with at least one item.<br/>
-   Clients _SHOULD_ render `thumbnail` on Containers.
- * Content Resource types _MAY_ have the `thumbnail` property with at least one item. Content Resources _SHOULD_ have the `thumbnail` property with at least one item if it is an option in a Choice of resources.<br/>
-   Clients _SHOULD_ render `thumbnail` on a content resource.
- * Other types of resource _MAY_ have the `thumbnail` property with at least one item.<br/>
-   Clients _MAY_ render `thumbnail` on other types of resource.
+* A Collection _SHOULD_ have the `thumbnail` property with at least one item.<br/>
+  Clients _SHOULD_ render `thumbnail` on a Collection.
+* A Manifest _SHOULD_ have the `thumbnail` property with at least one item.<br/>
+  Clients _SHOULD_ render `thumbnail` on a Manifest.
+* All Container types _SHOULD_ have the `thumbnail` property with at least one item.<br/>
+  Clients _SHOULD_ render `thumbnail` on Containers.
+* Content Resource types _MAY_ have the `thumbnail` property with at least one item. Content Resources _SHOULD_ have the `thumbnail` property with at least one item if it is an option in a Choice of resources.<br/>
+  Clients _SHOULD_ render `thumbnail` on a content resource.
+* Other types of resource _MAY_ have the `thumbnail` property with at least one item.<br/>
+  Clients _MAY_ render `thumbnail` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -2939,8 +2937,8 @@ A mode associated with an Annotation that is to be applied to the rendering of a
 
 The value _MUST_ be a string.
 
- * An Annotation _MAY_ have the `timeMode` property.<br/>
-   Clients _SHOULD_ process `timeMode` on an Annotation.
+* An Annotation _MAY_ have the `timeMode` property.<br/>
+  Clients _SHOULD_ process `timeMode` on an Annotation.
 
 | Value | Description |
 | ----- | ----------- |
@@ -2966,7 +2964,7 @@ The `total` property indicates the total number of annotations contained in an A
 The value of this property _MUST_ be a non-negative integer.
 
 * An AnnotationCollection _SHOULD_ have the `total` property.<br/>
-  Clients _SHOULD_ process the `total` property on an AnnotationCollection.
+  Clients _SHOULD_ process the `total` property on an Annotation Collection.
 * A Collection with Collection Pages _SHOULD_ have the `total` property.<br/>
   Clients _SHOULD_ process the `total` property on a Collection.
 
@@ -2985,11 +2983,9 @@ The value of this property _MUST_ be array of JSON objects, each of which _MUST_
 
 * A Specific Resource _MAY_ have the `transform` property.<br/>
   Clients _SHOULD_ process the `transform` property on Specific Resources.
-* Other classes _MUST NOT_ have the `transform` property.<br/>
-  Clients _MUST_ ignore the `transform` property on all other classes.
 
 {% include api/code_header.html %}
-```json
+```json-doc
 {
   "transform": [
     {
@@ -3013,21 +3009,21 @@ The JSON objects that appear in the value of the `service` property will have ma
 
 The value _MUST_ be a string.
 
- * All resource types _MUST_ have the `type` property.<br/>
-   Clients _MUST_ process, and _MAY_ render, `type` on any resource type.
+* All resource types _MUST_ have the `type` property.<br/>
+  Clients _MUST_ process, and _MAY_ render, `type` on any resource type.
 
 | Class         | Description                      |
 | ------------- | -------------------------------- |
 | `Audio`{: #value-Audio}       | Auditory resources primarily intended to be heard, such as might be rendered with an &lt;audio> HTML tag |
 | `Dataset`{: #value-Dataset}     | Data not intended to be rendered to humans directly, such as a CSV, an RDF serialization or a zip file |
-| `Image`{: #value-Image}       | Two dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
-| `Model`{: #value-Model}       | A three dimensional spatial model intended to be visualized, such as might be rendered with a 3D javascript library |
+| `Image`{: #value-Image}       | Two-dimensional visual resources primarily intended to be seen, such as might be rendered with an &lt;img> HTML tag |
+| `Model`{: #value-Model}       | A three-dimensional spatial model intended to be visualized, such as might be rendered with a 3D javascript library |
 | `Text`{: #value-Text}        | Resources primarily intended to be read |
 | `Video`{: #value-Video}       | Moving images, with or without accompanying audio, such as might be rendered with a &lt;video> HTML tag |
 {: .api-table #table-type}
 
-!!! note
-For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a synonym for `Audio`.
+> For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a synonym for `Audio`.
+{: .warning}
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3035,6 +3031,7 @@ For compatibility with previous versions, clients _SHOULD_ accept `Sound` as a s
 ```
 
 ### unit
+{: #unit}
 
 The unit of measurement of a quantity expressed by a Quantity. This unit is necessary to interpret the value, as the same number could result in very different processing for different units: consider a physical scale of 1 meter vs 1 inch, and how clients might misrepresent the intent of the content of the Manifest.
 
@@ -3056,12 +3053,13 @@ The value _MUST_ be a string value.  This specification defines the values in th
 
 
 ### value
+{: #value}
 
 The `value` property is used in several situations to convey a value of a resource. The value is always string-based, however the strings might be wrapped in the language map construction.
 
 In the `metadata` and `requiredStatement` properties, the `value` property is used to record the text of the metadata field or statement. The value of the property in this case is a [language map](#language-of-property-values) represented as a JSON object, as previously described.
 
-Many selector classes use `value` to convey a string representation of the selection definition, such as `FragmentSelector` and `WktSelector`. The `TextualBody` similarly uses `value` to convey the string of the body of an Annotation, and `CssStylesheet` uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
+Many selector classes use `value` to convey a string representation of the selection definition, such as Fragment Selector and WKT Selector. Textual Body similarly uses `value` to convey the string of the body of an Annotation, and CSS Stylesheet uses it to embed a short snippet of CSS. In these cases the value of `value` _MUST_ be a string.
 
 
 Language Map `value`:
@@ -3070,13 +3068,15 @@ Language Map `value`:
 {"value": { "en": [ "Example Description" ]}}
 ```
 
-Embedded CssStylesheet, Selector or TextualBody `value`:
+Embedded CSS Stylesheet, Selector or Textual Body `value`:
+
 {% include api/code_header.html %}
 ```json-doc
 { "value": "Example Textual Body" }
 ```
 
 ### version
+{: #version}
 
 The `version` property of a resource gives the version of a specification by which it should be understood as a string. The primary use within the Presentation API is as a property of the [IIIF Image API Selector](#ImageApiSelector) class, where it describes the version of the Image API by which the other properties of the selector should be interpreted.
 
@@ -3094,6 +3094,7 @@ The value of the `version` property _MUST_ be a string, and _SHOULD_ be of the f
 
 
 ### via
+{: #via}
 
 The `via` property of a resource _MAY_ be used to indicate one or more URIs which are the chain of sources from which the current resource was obtained. Each URI in the `via` list _MUST_ be different from the URI in `id`, but _MAY_ be the same as the URI in `canonical` if it is present. Recording `via` allows servers to provide the provenance chain of the resource, regardless of how many copy operations have occurred in the past.
 
@@ -3107,37 +3108,35 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 { "via": [ "https://example.com/manifests/6" ] }
 ```
 
-
 ### viewHeight
 {: #viewHeight}
 
-The height of the visible region for an OrthographicCamera, in the coordinate space of the Scene. Unlike a PerspectiveCamera which uses a field of view angle, an OrthographicCamera defines its visible region by a rectangular volume. The `viewHeight` gives the vertical extent of that region in Scene coordinate units; the corresponding horizontal extent is derived proportionally from the aspect ratio of the client's viewport.
+The height of the visible region for an Orthographic Camera, in the coordinate space of the Scene. Unlike a Perspective Camera which uses a field of view angle, an Orthographic Camera defines its visible region by a rectangular volume. The `viewHeight` gives the vertical extent of that region in Scene coordinate units; the corresponding horizontal extent is derived proportionally from the aspect ratio of the client's viewport.
 
 The value _MUST_ be a positive floating point number in the coordinate space of the Scene. If this property is not specified, then the default value is client-dependent.
 
-* An OrthographicCamera _SHOULD_ have the `viewHeight` property.<br/>
-  Clients _SHOULD_ process the `viewHeight` property on OrthographicCameras.
+* An Orthographic Camera _SHOULD_ have the `viewHeight` property.<br/>
+  Clients _SHOULD_ process the `viewHeight` property on Orthographic Cameras.
 
+{% include api/code_header.html %}
 ```json-doc
 { "viewHeight": 40.0 }
 ```
 
-
 ### viewingDirection
 {: #viewingDirection}
 
-The visual direction in which navigating to the next or previous item in a resource with `items` _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi30-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left in the UI, and forwards in the list is to the right.
+The visual direction in which navigating to the next or previous item in a resource with `items` _SHOULD_ be displayed to the user. This specification defines four direction values in the table below. Others may be defined externally [as an extension][prezi40-ldce]. For example, if the `viewingDirection` value is `left-to-right`, then backwards in the list is to the left in the UI, and forwards in the list is to the right.
 
 The value _MUST_ be a string.
 
- * A Collection _MAY_ have the `viewingDirection` property.<br/>
-   Clients _SHOULD_ process `viewingDirection` on a Collection.
- * A Manifest _MAY_ have the `viewingDirection` property.<br/>
-   Clients _SHOULD_ process `viewingDirection` on a Manifest.
- * A Range _MAY_ have the `viewingDirection` property.<br/>
-   Clients _MAY_ process `viewingDirection` on a Range.
- * Other types of resource _MUST NOT_ have the `viewingDirection` property.<br/>
-   Clients _SHOULD_ ignore `viewingDirection` on other types of resource.
+* A Collection _MAY_ have the `viewingDirection` property.<br/>
+  Clients _SHOULD_ process `viewingDirection` on a Collection.
+* A Manifest _MAY_ have the `viewingDirection` property.<br/>
+  Clients _SHOULD_ process `viewingDirection` on a Manifest.
+* A Range _MAY_ have the `viewingDirection` property.<br/>
+  Clients _MAY_ process `viewingDirection` on a Range.
+
 
 | Value | Description |
 | ----- | ----------- |
@@ -3182,12 +3181,10 @@ The width of the Canvas or external content resource. For content resources, the
 
 The value _MUST_ be a positive integer.
 
- * A Canvas _MUST_ have the `width` property.<br/>
-   Clients _MUST_ process `width` on a Canvas.
- * Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
-   Clients _SHOULD_ process `width` on content resources.
- * Other types of resource _MUST NOT_ have the `width` property.<br/>
-   Clients _SHOULD_ ignore `width` on other types of resource.
+* A Canvas _MUST_ have the `width` property.<br/>
+  Clients _MUST_ process `width` on a Canvas.
+* Content resources _SHOULD_ have the `width` property, with the value given in pixels, if appropriate to the resource type.<br/>
+  Clients _SHOULD_ process `width` on content resources.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3201,12 +3198,10 @@ A number giving the x coordinate of a point on the horizontal or width axis (e.g
 
 The value _MUST_ be a number (floating point or integer).
 
-* A PointSelector _MAY_ have the `x` property.<br/>
+* A Point Selector _MAY_ have the `x` property.<br/>
   Clients _MUST_ process `x` on a PointSelector.
 * Transforms _MAY_ have the `x` property.<br/>
   Clients _MUST_ process `x` on Transforms.
-* Other types of resource _MUST NOT_ have the `x` property.<br/>
-  Clients _SHOULD_ ignore `x` on other types of resource.
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3220,12 +3215,11 @@ A number giving the y coordinate of a point on the vertical or height axis (e.g.
 
 The value _MUST_ be a number (floating point or integer).
 
-* A PointSelector _MAY_ have the `y` property.<br/>
+* A Point Selector _MAY_ have the `y` property.<br/>
   Clients _MUST_ process `y` on a PointSelector.
-* Transforms _MAY_ have the `y` property.<br/>
-  Clients _MUST_ process `y` on Transforms.
-* Other types of resource _MUST NOT_ have the `y` property.<br/>
-  Clients _SHOULD_ ignore `y` on other types of resource.
+* A Transform _MAY_ have the `y` property.<br/>
+  Clients _MUST_ process `y` on a Transform.
+
 
 
 {% include api/code_header.html %}
@@ -3240,12 +3234,11 @@ A number giving the z coordinate of a point on the "depth" axis (e.g. for Point 
 
 The value _MUST_ be a number (floating point or integer).
 
-* A PointSelector _MAY_ have the `z` property.<br/>
+* A Point Selector _MAY_ have the `z` property.<br/>
   Clients _MUST_ process `z` on a PointSelector.
 * Transforms _MAY_ have the `z` property.<br/>
   Clients _MUST_ process `z` on Transforms.
-* Other types of resource _MUST NOT_ have the `z` property.<br/>
-  Clients _SHOULD_ ignore `z` on other types of resource.
+
 
 {% include api/code_header.html %}
 ``` json-doc
@@ -3257,7 +3250,7 @@ The value _MUST_ be a number (floating point or integer).
 
 ### Scope
 
-The IIIF Presentation API processing model is intended to inform and clarify the requirements of the features described in the classes and properties above for the purposes of interoperability between the publisher and the consuming application. It specifies how the content should be presented, but not how the application should look, in the same way that the HTML specification describes how to render the elements and does not describe the panes, menus and features of web browsers. This processing model attempts to be as unintrusive as possible, with only the rules needed to ensure that content isn't inadvertantly presented in an unusable fashion.
+The IIIF Presentation API processing model is intended to inform and clarify the requirements of the features described in the classes and properties above for the purposes of interoperability between the publisher and the consuming application. It specifies how the content should be presented, but not how the application should look, in the same way that the HTML specification describes how to render the elements and does not describe the panes, menus and features of web browsers. This processing model attempts to be as unintrusive as possible, with only the rules needed to ensure that content isn't inadvertently presented in an unusable fashion.
 
 ### Collections and Collection Pages
 
@@ -3279,7 +3272,7 @@ There are no requirements as to the interaction with the user and the navigation
 
 The core paradigm of the Presentation API is the painting of resources into an abstract container (a Timeline, Canvas or Scene) as identified and specified in a painting Annotation. As the spatial dimensions of Canvases and Scenes are abstract rather than pixel or real-world distances, it is always necessary to scale content into the abstract area or volume and perform all calculations with those values. There is only one scale for time, which is seconds.
 
-For painting to Canvases, the main processing rule is that the painting annotations are to be processed in order. This means that, lacking an explicit z or depth axis, the first annotations to be painted into the 2 dimensional space are at the bottom of the z stack, and the last is at the top.
+For painting to Canvases, the main processing rule is that the painting annotations are to be processed in order. This means that, lacking an explicit z or depth axis, the first annotations to be painted into the two-dimensional space are at the bottom of the z stack, and the last is at the top.
 
 
 
@@ -3290,7 +3283,7 @@ Interactions are also associated with resources using annotations in the same wa
 
 If multiple actions are listed for a single Specific Resource, then they _MUST_ be processed in the order given. If multiple Specific Resources are given in a List, then they must be processed in order. 
 
-If a resource has a built in named Animation feature, then these can be activated (including starting, stopping and reseting) by adding an AnimationSelector to the Specific Resource with the `action` property.
+If a resource has a built in named Animation feature, then these can be activated (including starting, stopping and reseting) by adding an Animation Selector to the Specific Resource with the `action` property.
 
 
 ## JSON-LD and Extensions
@@ -3325,8 +3318,59 @@ The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `
 
 ### Registries of Values
 
-FIXME: Describe the registries
+TODO: Describe and reference the registries
 
 
 * Provides
 * Unit
+
+
+# Protocol
+
+This section outlines recommendations and requirements related to URIs, HTTP requests, and authentication for IIIF resources.
+
+## URI Recommendations
+
+While any HTTP(S) URI is technically acceptable for any of the resources in the API, there are several best practices for designing the URIs for the resources.
+
+* The URI _SHOULD_ use the HTTPS scheme, not HTTP.
+* The URI _SHOULD NOT_ include query parameters or fragments.
+* Once published, they _SHOULD_ be as persistent and unchanging as possible.
+* Special characters _MUST_ be encoded.
+
+## HTTP Requests and Responses
+
+This section describes the _RECOMMENDED_ request and response interactions for the API. The REST and simple HATEOAS approach is followed where an interaction will retrieve a description of the resource, and additional calls may be made by following links obtained from within the description. All of the requests use the HTTP GET method; creation and update of resources is not covered by this specification. It is _RECOMMENDED_ that implementations also support HTTP HEAD requests.
+
+### Requests
+
+Clients are only expected to follow links to Presentation API resources. Unlike [IIIF Image API][image-api] requests, or other parameterized services, the URIs for Presentation API resources cannot be assumed to follow any particular pattern.
+
+### Responses
+
+The format for all responses is JSON, as described above. It is good practice for all resources with an HTTP(S) URI to provide their description when the URI is dereferenced. If a resource is [referenced][prezi40-terminology] within a response, rather than being [embedded][prezi40-terminology], then it _MUST_ be able to be dereferenced.
+
+If the server receives a request with an `Accept` header, it _SHOULD_ respond following the rules of [content negotiation][org-rfc-7231-conneg]. Note that content types provided in the `Accept` header of the request _MAY_ include parameters, for example [`profile`][prezi-40-model-profile] or `charset`.
+
+If the request does not include an `Accept` header, the HTTP `Content-Type` header of the response _SHOULD_ have the value `application/ld+json` (JSON-LD) with the [`profile`][prezi-40-model-profile] parameter given as the context document: `http://iiif.io/api/presentation/4/context.json`.
+
+{% include api/code_header.html %}
+```
+Content-Type: application/ld+json;profile="http://iiif.io/api/presentation/4/context.json"
+```
+{: .urltemplate}
+
+If the `Content-Type` header `application/ld+json` cannot be generated due to server configuration details, then the `Content-Type` header _SHOULD_ instead be `application/json` (regular JSON), without a [`profile`][prezi-40-model-profile] parameter.
+
+{% include api/code_header.html %}
+```
+Content-Type: application/json
+```
+{: .urltemplate}
+
+The HTTP server _MUST_ follow the [CORS requirements][org-w3c-cors] to enable browser-based clients to retrieve the descriptions. If the server receives a request with one of the content types above in the Accept header, it _SHOULD_ respond with that content type following the rules of [content negotiation][org-rfc-7231-conneg]. Recipes for enabling CORS and conditional Content-Type headers are provided in the [Apache HTTP Server Implementation Notes][notes-apache].
+
+Responses _SHOULD_ be compressed by the server as there are significant performance gains to be made for very repetitive data structures.
+
+
+{% include links.md %}

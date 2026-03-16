@@ -18,6 +18,7 @@
                             "type": "Annotation",
                             "motivation": [ "painting" ],
                             "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc07/scene/1/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc0/canvas/1",
@@ -66,6 +67,7 @@
                                 ]
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc07/scene/1/specificResource/2",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc07/scene/1",

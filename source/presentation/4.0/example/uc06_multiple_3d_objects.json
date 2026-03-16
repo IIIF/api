@@ -25,6 +25,7 @@
                                 "format": "model/gltf-binary"
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/1/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
@@ -45,6 +46,7 @@
                             "type": "Annotation",
                             "motivation": [ "painting" ],
                             "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno2/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://fixtures.iiif.io/3d/thomas_flynn/chess/Pawn_black.glb",
@@ -69,6 +71,7 @@
                             },
                             "target": {
                                 "type": "SpecificResource",
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno2/specificResource/2",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
                                     "type": "Scene"
@@ -88,10 +91,11 @@
                             "type": "Annotation",
                             "motivation": [ "painting" ],
                             "exclude": [
-                                "Audio",
-                                "Lights"
+                                "audio",
+                                "lights"
                             ],
                             "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno3/specificResource/1",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://fixtures.iiif.io/3d/thomas_flynn/chess/Queen_black.glb",
@@ -109,6 +113,7 @@
                                 ]
                             },
                             "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/3d/anno3/specificResource/2",
                                 "type": "SpecificResource",
                                 "source": {
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
