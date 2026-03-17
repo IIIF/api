@@ -62,22 +62,34 @@
                                 },
                                 "transform": [
                                     {
+                                        "type": "ScaleTransform",
+                                        "x": 0.5,
+                                        "y": 0.5,
+                                        "z": 1.0
+                                    },
+                                    {
                                         "type": "RotateTransform",
                                         "x": 90.0,
                                         "y": 0.0,
                                         "z": 0.0
-                                    },
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/canvas-scene/anno/2/specificResource/2",
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/canvas-scene",
+                                    "type": "Scene"
+                                },
+                                "selector": [
                                     {
-                                        "type": "ScaleTransform",
+                                        "type": "PointSelector",
                                         "x": -4.0,
                                         "y": 0.0,
                                         "z": -4.0
                                     }
                                 ]
-                            },
-                            "target": {
-                                "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/canvas-scene",
-                                "type": "Scene"
                             }
                         }
                     ]
