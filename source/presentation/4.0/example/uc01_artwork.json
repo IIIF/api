@@ -92,6 +92,22 @@
             ]
         }
     ],
+    "seeAlso": [
+        {
+            "id": "https://api.wellcomecollection.org/catalogue/v2/works/nydjbrr7",
+            "type": "Dataset",
+            "profile": "https://api.wellcomecollection.org/catalogue/v2/context.json",
+            "label": {"en":[ "Wellcome Collection Catalogue API" ]},
+            "format": "application/json"
+        }
+    ],
+    "partOf": [
+        {
+            "id": "https://iiif.wellcomecollection.org/presentation/collections/genres/Oil_paintings",
+            "type": "Collection",
+            "label": {"en":[ "Genre: Oil paintings" ]}
+        }
+    ],
     "items": [
         {
             "id": "https://iiif.io/api/presentation/4.0/example/09/canvas",
@@ -130,7 +146,12 @@
                         }
                     ]
                 }
-            ]
+            ],
+            "spatialScale": {
+                "type": "Quantity",
+                "quantityValue": 0.0004,
+                "unit": "m"
+            }
         }
     ]
 }
