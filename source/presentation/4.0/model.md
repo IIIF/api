@@ -399,7 +399,7 @@ Annotation Collections are always paged using `first` and `last`, rather than `i
 __Properties__<br/>
 An Annotation Collection _MUST_ have the following properties: [id](#id), [type](#type), [label](#label).<br/>
 An Annotation Collection that has the [items](#items) property _MUST NOT_ have the following properties: [first](#first), [last](#last).<br/>
-An Annotation Collection that does not have the [items](#items) property _MUST_ have the following properties:  [first](#first), [last](#last).<br/>
+An Annotation Collection that does not have the [items](#items) property _MUST_ have the following properties: [first](#first), [last](#last).<br/>
 An Annotation Collection _SHOULD_ have the following properties: [total](#total).<br/>
 An Annotation Collection _MAY_ have the following properties: [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [navDate](#navDate), [navPlace](#navPlace), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [partOf](#partOf), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
@@ -416,7 +416,7 @@ An Annotation Page _MUST_ have an HTTP(S) URI given in `id`. The JSON-LD descrip
 
 __Properties__<br/>
 An Annotation Page _MUST_ have the following properties: [id](#id), [type](#type), [items](#items)<br/>
-An Annotation Page _SHOULD_ have the following properties:  [next](#next), [prev](#prev), [partOf](#partOf)<br/>
+An Annotation Page _SHOULD_ have the following properties: [next](#next), [prev](#prev), [partOf](#partOf)<br/>
 An Annotation Page _MAY_ have the following properties: [label](#label), [startIndex](#startIndex), [metadata](#metadata), [summary](#summary), [provider](#provider), [thumbnail](#thumbnail), [requiredStatement](#requiredStatement), [rights](#rights), [behavior](#behavior), [seeAlso](#seeAlso), [service](#service), [homepage](#homepage), [rendering](#rendering), [canonical](#canonical), [via](#via), [annotations](#annotations).
 {: .note}
 
@@ -559,7 +559,7 @@ All Selectors _MAY_ have the following properties: [refinedBy](#refinedBy).
 
 > `"type": "FragmentSelector"`
 
-Fragment Selectors use the fragment part of the URI specification to define a selection mechanism for parts of resources. The definition of the representation's media type specifies the structure of the value of the fragment. This is commonly used in IIIF to include the media fragment syntax of `xywh=<x>,<y>,<width>,<height>` to define a 2 dimension region.
+Fragment Selectors use the fragment part of the URI specification to define a selection mechanism for parts of resources. The definition of the representation's media type specifies the structure of the value of the fragment. This is commonly used in IIIF to include the media fragment syntax of `xywh=<x>,<y>,<width>,<height>` to define a 2 dimensional region.
 
 For more information about Fragment Selectors, see the [Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#fragment-selector).
 
@@ -926,7 +926,7 @@ A Point Light _SHOULD_ have the following additional properties: [color](#color)
 {: #SpotLight}
 > `"type": "SpotLight"`
 
-A Spot Light emits a cone of light in a given direction from a single point.  The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
+A Spot Light emits a cone of light in a given direction from a single point. The Spot Light's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
 
 A Spot Light emits in the negative Y direction by default, but the orientation of the light can be altered by subsequent transforms, or by setting the `lookAt` property.
 
@@ -1010,7 +1010,7 @@ Point Audio emits in all directions from a single point in the Scene.
 
 > `"type": "SpotAudio"`
 
-Spot Audio emits a cone of sound in a given direction from a single point.  The Spot Audio's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
+Spot Audio emits a cone of sound in a given direction from a single point. The Spot Audio's `angle` property defines the radius of the cone. The default angle is client dependent if not specified.
 
 The Spot Audio emits in the negative Y direction by default, but the orientation of the sound can be altered by subsequent transforms, or by setting the `lookAt` property.
 
@@ -1713,7 +1713,7 @@ The value _MUST_ be a non-negative floating point number.
 ### intensity
 {: #intensity}
 
-This property sets the strength or brightness of a Light.  The `quantityValue` of the referenced Quantity indicates the desired intensity on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).  If this property is not specified, then the default intensity value is client-dependent.
+This property sets the strength or brightness of a Light. The `quantityValue` of the referenced Quantity indicates the desired intensity on a linear scale between 0.0 (no brightness) and 1.0 (as bright as the client will render).  If this property is not specified, then the default intensity value is client-dependent.
 
 The value of this property _MUST_ be a Quantity.
 The value of the `unit` property of the Quantity _MUST_ be `relative`.
@@ -3265,7 +3265,7 @@ Interactions are also associated with resources using annotations in the same wa
 
 If multiple actions are listed for a single Specific Resource, then they _MUST_ be processed in the order given. If multiple Specific Resources are given in a List, then they must be processed in order. 
 
-If a resource has a built in named Animation feature, then these can be activated (including starting, stopping and reseting) by adding an Animation Selector to the Specific Resource with the `action` property.
+If a resource has a built in named Animation feature, then these can be activated (including starting, stopping and resetting) by adding an Animation Selector to the Specific Resource with the `action` property.
 
 
 ## JSON-LD and Extensions
