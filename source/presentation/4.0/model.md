@@ -738,7 +738,7 @@ Ranges are used to represent structure within a Manifest beyond the default orde
 
 Ranges _MUST_ have an HTTP(S) URI given in `id`. Top level Ranges are embedded or externally referenced within the Manifest in the `structures` property. These top level Ranges then embed or reference other Ranges, Containers or parts of Containers in their `items` property. Each entry in the `items` property _MUST_ be a JSON object, and it _MUST_ have the `id` and `type` properties. If a top level Range needs to be dereferenced by the client, then it _MUST NOT_ have the `items` property, such that clients are able to recognize that it should be retrieved.
 
-The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single canvas that represent different sections of a piece of music.
+The included Containers and parts of Containers need not be contiguous or in the same order as in the Manifest's `items` property or any other Range. Examples include newspaper articles that are continued in different sections, a chapter that starts half way through a page, or time segments of a single Canvas that represent different sections of a piece of music.
 
 __Properties__<br/>
 A Range _MUST_ have the following properties: [id](#id), [type](#type), [items](#items).<br/>
