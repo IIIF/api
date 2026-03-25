@@ -543,7 +543,7 @@ A Scene or a Canvas may be treated as a content resource, referenced or describe
 
 ### Basic Scene
 
-The 3D Use Case is built up in several steps to demonstrate different aspects of how Scenes are able to be used. This first example is a Manifest with a single Scene, with a 3D model of a space suit painted at the center (or origin) of the Scene.
+The 3D Use Case is built up in several steps to demonstrate different aspects of how Scenes are able to be used. This first example is a Manifest with a single Scene, with a 3D model of a chess pawn painted at the center (or origin) of the Scene.
 
 > TODO: PNG of Scene
 
@@ -558,7 +558,7 @@ The 3D Use Case is built up in several steps to demonstrate different aspects of
 
 ### Configured Scene
 
-This example adds a Light and a Camera to the previous example, and places the model at a specific point rather than at the default origin position.
+This example adds a Light and a Camera to the previous example, and places the chess pawn at a specific point rather than at the default origin position.
 
 Annotations may use a type of Selector called a [Point Selector][prezi-40-model-PointSelector] to align the Annotation to a point within the Scene that is not the Scene's origin. PointSelectors have three spatial properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which give the value on that axis. They also have a temporal property [`instant`][prezi-40-model-instant] which can be used if the Scene has a duration. The final commenting annotation in the [Audio in 3D](#audio-in-3d) section has an example of this property.
 
@@ -583,7 +583,7 @@ Properties: [backgroundColor][prezi-40-model-backgroundColor], [lookAt][prezi-40
 
 ### Multiple Objects
 
-This example is a Manifest with a single Scene with multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content. This example also introduces an Image-Based Light Annotation to simulate real-world lighting of the chess game pieces.
+Building on the previous example, this example extends the configured chess Scene to include multiple models painted into the Scene at specific positions with transforms applied. It represents a collection of chess game pieces with multiple pawns and a single queen. The example demonstrates painting multiple models into a Scene, including one Content Resource being painted into a Scene multiple times. Transforms and Point Selectors are used to establish position and scale for Annotations. Some external web resources referenced as Content Resources may include elements such as lights or audio that are undesirable within a Manifest, and the [`exclude`][prezi-40-model-exclude] property is used to prevent these from being rendered. The property [`interactionMode`][prezi-40-model-interactionMode] is used to guide clients in how to best guide or limit user interaction with rendered content. This example also introduces an Image-Based Light Annotation to simulate real-world lighting of the chess game pieces.
 
 {% include code_example.html src="uc06_multiple_3d_objects.json" %}
 
@@ -595,6 +595,7 @@ This example is a Manifest with a single Scene with multiple models painted into
 * The fourth Annotation represents an Image-Based Light where an environment map texture image is used to simulate omnidirectional real-world light on the chess game pieces.
 * The [`exclude`][prezi-40-model-exclude] property instructs clients not to import or render any external audio or light content present in the Content Resource for the queen game piece.
 * The [`interactionMode`][prezi-40-model-interactionMode] property instructs clients that, if possible, user interactions relating to orbiting the scene should be restricted to a hemisphere.
+* The PerspectiveCamera and SpotLight from the previous example are retained to establish the viewing and lighting configuration for the expanded scene.
 {: .note}
 
 __Definitions__<br/>
@@ -607,9 +608,9 @@ Properties: [exclude][prezi-40-model-exclude], [interactionMode][prezi-40-model-
 ### Audio in 3D
 
 
-TODO: Describe the scene first
+Building on the previous example, this Scene adds spatial audio to the chess game piece arrangement. Three Audio Emitter Annotations are painted into the Scene alongside the chess models, creating a dynamic 3D audio experience timed to the Scene's duration.
 
-This example is a Manifest with a single Scene with a duration. Multiple Audio Emitter Annotations are painted into the Scene, with positional emitters used to create a 3D audio experience. Some of the Audio Emitter Annotations are only painted into the Scene for a limited period of time, producing dynamic change in the sounds heard within the Scene. A commenting Annotation is also provided to highlight the instant in time when a change in sound occurs.
+This example is a Manifest with a single Scene with a duration. The chess game pieces from the previous example are retained, and multiple Audio Emitter Annotations are additionally painted into the Scene, with positional emitters used to create a 3D audio experience. Some of the Audio Emitter Annotations are only painted into the Scene for a limited period of time, producing dynamic change in the sounds heard within the Scene. A commenting Annotation is also provided to highlight the instant in time when a change in sound occurs.
 
 A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector). The FragmentSelector has a `value` property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the [`refinedBy`][prezi-40-model-refinedBy] property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection). When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region. Both patterns are used in this example.
 
@@ -627,7 +628,7 @@ In this example, the audio content resources have durations that do not match th
 * PointAudio targets the Scene with a PointSelector to paint the Audio Emitter at a specific point in 3D space, and that PointSelector is temporally scoped by a FragmentSelector to target the first 30 seconds of the Scene duration.
 * SpotAudio targets the Scene via a URL fragment to demonstrate an alternate approach to target a point and range of time in the Scene. It uses the [`lookAt`][prezi-40-model-lookAt] property to point the Audio Emitter cone toward the Scene origin.
 * The content resources for PointAudio and SpotAudio use the property [`timeMode`][prezi-40-model-timeMode] to specify different ways of handling mismatches between content resource audio length and Scene duration.
-* A commenting Annotation targets the Scene at the instant corresponding to 30 seconds of the Scene duration to highlight the point at which PointAudio stops playing and SpotAudio begins playing.
+* A commenting Annotation targets the Scene at the instant corresponding to 30 seconds of the Scene duration to highlight the point at which the percussion PointAudio stops playing and the tuba SpotAudio begins.
 * It is an error to select a temporal region of a Scene that does not have a [`duration`][prezi-40-model-duration], or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a [`duration`][prezi-40-model-duration] may not be annotated as a content resource into a Scene that does not itself have a [`duration`][prezi-40-model-duration].
 {: .note}
 
@@ -642,27 +643,24 @@ Like Timelines or Canvases, Scenes can be painted into Scenes. As with other res
 
 When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. Similarly, if both Scenes have ImageBasedLight Annotations, the ImageBasedLight Annotation of the Scene into which the Scene will be nested takes precedence. All other Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
-```jsonc
-{
-    "id": "https://example.org/iiif/presentation/examples/nesting/anno3",
-    "type": "Annotation",
-    "motivation": ["painting"],
-    "body":
-      {
-        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
-        "type": "Scene"
-      },
-    "target": {
-      "id": "https://example.org/iiif/presentation/examples/nesting/scene/s2",
-      "type": "Scene"
-    }
-}
-```
+This example paints the chess piece Scene from the previous examples into a parent Scene twice, placing the two groups of chess pieces side by side.
+
+{% include code_example.html src="uc06_scene_in_scene.json" %}
+
+>
+**Key Points**
+* Each Annotation's body references the chess pieces Scene by its URI.
+* A PointSelector on each Annotation's target places one instance to the left and one to the right of the parent Scene's origin, resulting in two groups of chess pieces side by side.
+* The [`backgroundColor`][prezi-40-model-backgroundColor] of the nested chess Scene is ignored in the parent Scene.
+* Because the parent Scene has no Camera or ImageBasedLight of its own, the Camera and ImageBasedLight Annotations from the nested chess Scene are imported into the parent Scene.
+{: .note}
+
+__Definitions__<br/>
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector]
+{: .note}
 
 
 ### Painting a Canvas or Timeline into a Scene
-
-TODO: Can this be UC 6, part 4?
 
 Painting nested content into a Scene has some special requirements that must be observed due to important distinctions relating to the infinite boundless 3D space described by a Scene. 2D image or video content resources can be painted into a Scene by first painting the image or video content resource on a Canvas and then painting the Canvas into the Scene. In the case of painting a Timeline into a Scene, an Audio Emitter can be painted into the scene where Timeline is the [`source`][prezi-40-model-source] of the Audio Emitter. This provides greater control over the intended presentation of the Timeline's audio content within the 3D space of the Scene.
 
@@ -680,56 +678,22 @@ A Canvas in a Scene has a specific forward face and a backward face. By default,
 
 A [Point Selector][prezi-40-model-PointSelector] can be used to modify the point at which the Canvas will be painted, by establishing a new point to align with the top-left corner of the Canvas instead of the Scene coordinate origin. [Transforms](#transforms) can be used to modify Canvas rotation, scale, or translation, allowing in particular for an alternate method to control the size of a Canvas to be scaled appropriately to other contents within a Scene. The forward face and backward face of a Canvas can be interchanged with a Scale Transform scaling the z axis by -1.0, though this reflection will also produce mirroring.
 
-```jsonc
-{
-  "id": "https://example.org/iiif/presentation/examples/nesting/anno2",
-  "type": "Annotation",
-  "motivation": ["painting"],
-  "body": 
-    {
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/nesting/canvas/c1",
-        "type": "Canvas",
-        "width": 2,
-        "height": 2,
-        "items": [{ ... }]
-      },
-      "transform": [
-        {
-          "type": "ScaleTransform",
-          "x": 2.0,
-          "y": 2.0,
-          "z": -1.0
-        }
-      ]
-    },
-  "target": 
-    {
-      "type": "SpecificResource",
-      "source": {
-        "id": "https://example.org/iiif/presentation/examples/nesting/scene/s1",
-        "type": "Scene"
-      },
-      "selector": [
-        {
-          "type": "PointSelector",
-          "x": 4.0,
-          "y": 4.0,
-          "z": 0.0
-        }
-      ]
-    }
-}
-```
+This example paints both the chess piece Scene and a Canvas containing a chessboard image into the same parent Scene. The chess pieces from the previous examples are painted at the Scene origin, and a 2D chessboard Canvas is rotated and scaled to lie flat beneath them, so the chess pieces appear to be standing on the board.
+
+{% include code_example.html src="uc06_canvas_in_scene.json" %}
 
 >
 **Key Points**
-* The 2D Canvas painted into the Scene has an initial height and width of 2 units by 2 units. Absent any transform or the use of a PointSelector, this Canvas would by default face toward the Scene's positive z axis, would stretch 2 units across the x axis and 2 units across the y axis, and its top-left corner would align with the coordinate origin of the Scene. Instead, transforms and a PointSelector will modify this placement significantly.
-* A ScaleTransform is used to double the Canvas height and width, so that after transformation the Canvas will extend 4 coordinate units across the Scene x axis and 4 coordinate units across the Scene y axis.
-* The same ScaleTransform also reflects the z axis by scaling it by -1.0, meaning the Canvas is mirrored (flipped) and now faces toward the negative z axis.
-* A PointSelector is used to align the top-left corner of the transformed Canvas with Scene coordinate (4,4,0). In combination with the ScaleTransform, the bottom-right corner of the Canvas is now aligned with the coordinate origin of the Scene.
-{: .callout}
+* The first Annotation paints the chess pieces Scene into the parent Scene by URI reference at the Scene origin.
+* The second Annotation paints a Canvas containing a 2D chessboard image into the Scene. The Canvas is wrapped in a SpecificResource so that Transforms can be applied to it.
+* A RotateTransform rotates the Canvas 90 degrees around the x-axis, so it lies flat in the XZ plane of the Scene rather than facing toward the positive z axis.
+* A ScaleTransform adjusts the size of the Canvas relative to the other Scene contents.
+* A PointSelector on the Annotation's target positions the top-left corner of the Canvas at a specific point in the Scene.
+{: .note}
+
+__Definitions__<br/>
+Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Canvas][prezi-40-model-Canvas], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]
+{: .note}
 
 
 # Nesting Containers
