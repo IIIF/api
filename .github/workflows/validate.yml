@@ -1,0 +1,23 @@
+name: validate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      BUNDLE_WITH: test jekyll_plugins
+      SITE_ID:  'cookbook' # which iiif site this is
+      URL: 'https://preview.iiif.io'
+
+    steps:
+      - name: Check out this repository
+        uses: actions/checkout@v5
+
+      - name: Run IIIF validator
+        uses: IIIF/presentation-validator@main
+        with:
+          directory: source/presentation/4.0/example/
+          version: "4.0"

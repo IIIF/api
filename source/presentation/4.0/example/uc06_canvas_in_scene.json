@@ -54,7 +54,10 @@
                                                         "width": 800,
                                                         "height": 800
                                                     },
-                                                    "target": "https://iiif.io/api/presentation/4.0/example/uc06/canvas/chessboard"
+                                                    "target": {
+                                                        "id": "https://iiif.io/api/presentation/4.0/example/uc06/canvas/chessboard",
+                                                        "type": "Canvas"
+                                                    }
                                                 }
                                             ]
                                         }
