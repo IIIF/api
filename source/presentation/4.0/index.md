@@ -1360,9 +1360,7 @@ Interactive examples are provided as recipes in the [IIIF Cookbook][annex-cookbo
 While all Annotation Page [`items`][prezi-40-model-items] are inherently ordered, an Annotation Page with the [`behavior`][prezi-40-model-behavior] "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an Annotation Page in a sidebar so they are all visible in the UI, but for an Annotation Page with [`behavior`][prezi-40-model-behavior] "sequence" only show the currently active annotation text, and next and previous UI.
 
 
-# Additional Features
-
-## Accessibility
+# Accessibility
 
 Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](#use-case-5-movie-with-subtitles) above.
 
@@ -1402,6 +1400,8 @@ __Definitions__<br/>
 Properties: [provides](model/#provides)
 {: .note}
 
+
+# Additional Features
 
 ## Services
 
