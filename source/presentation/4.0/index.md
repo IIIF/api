@@ -255,57 +255,7 @@ Annotations are grouped within the [`items`][prezi-40-model-items] property of a
 
 The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body]. See the [Annotation Documentation](model/#Annotation) for more detail.
 
-
-> TODO: JSON examples for Anno, Anno Page and Anno Coll'n ?
-{: .warning}
-
-<!--
-
-```json
-{
-  "id": "https://example.org/iiif/book1/annocoll/transcription",
-  "type": "AnnotationCollection",
-  "label": {"en": ["Diplomatic Transcription"]},
-  "total": 112,
-  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
-  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
-}
-```
-
-```jsonc
-{
-  "id": "https://example.org/iiif/book1/annopage/l2",
-  "type": "AnnotationPage",
-  "prev": "https://example.org/iiif/book1/annopage/l1",
-  "next": "https://example.org/iiif/book1/annopage/l3",
-  "items": [
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a1",
-      "type": "Annotation"
-      // ...
-    },
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a2",
-      "type": "Annotation"
-      // ...
-    }
-  ],
-  "partOf": [
-    {
-      "id": "https://example.org/iiif/book1/annocoll/transcription",
-      "type": "AnnotationCollection",
-    }
-  ]
-}
-```
-
--->
-
-<!--
-use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-https://github.com/IIIF/api/issues/2118
--->
-
+{% include code_example.html src="09_anno_page_1.json" from=14 to=28  %}
 
 ### Annotation Page
 
@@ -313,12 +263,15 @@ Annotation Pages are used to group Annotations.  In cases where many annotations
 
 Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
 
+{% include code_example.html src="09_anno_page_1.json" %}
+
 ### Annotation Collection
 
 Annotation Collections represent groupings of Annotation Pages that should be managed as a single whole, regardless of which Container or resource they target. This allows, for example, all of the Annotations that make up a particular translation of the text of a book to be collected together. A client might then present a user interface that allows all of the Annotations in an Annotation Collection to be displayed or hidden according to the user’s preference.
 
 For Annotation Collections with many Annotations, there will be many pages. The Annotation Collection refers to the first and last page, and then the pages refer to the previous and next pages in the ordered list. Each page is part of the Annotation Collection.
 
+{% include code_example.html src="09_anno_collection.json" %}
 
 ## Content Resources
 
