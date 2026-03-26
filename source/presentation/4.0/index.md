@@ -255,57 +255,7 @@ Annotations are grouped within the [`items`][prezi-40-model-items] property of a
 
 The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body]. See the [Annotation Documentation](model/#Annotation) for more detail.
 
-
-> TODO: JSON examples for Anno, Anno Page and Anno Coll'n ?
-{: .warning}
-
-<!--
-
-```json
-{
-  "id": "https://example.org/iiif/book1/annocoll/transcription",
-  "type": "AnnotationCollection",
-  "label": {"en": ["Diplomatic Transcription"]},
-  "total": 112,
-  "first": { "id": "https://example.org/iiif/book1/annopage/l1", "type": "AnnotationPage" },
-  "last": { "id": "https://example.org/iiif/book1/annopage/l112", "type": "AnnotationPage" }
-}
-```
-
-```jsonc
-{
-  "id": "https://example.org/iiif/book1/annopage/l2",
-  "type": "AnnotationPage",
-  "prev": "https://example.org/iiif/book1/annopage/l1",
-  "next": "https://example.org/iiif/book1/annopage/l3",
-  "items": [
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a1",
-      "type": "Annotation"
-      // ...
-    },
-    {
-      "id": "https://example.org/iiif/book1/annopage/l2/a2",
-      "type": "Annotation"
-      // ...
-    }
-  ],
-  "partOf": [
-    {
-      "id": "https://example.org/iiif/book1/annocoll/transcription",
-      "type": "AnnotationCollection",
-    }
-  ]
-}
-```
-
--->
-
-<!--
-use totalItems? https://iiif.io/api/discovery/1.0/#totalitems
-https://github.com/IIIF/api/issues/2118
--->
-
+{% include code_example.html src="09_anno_page_1.json" from=14 to=28  %}
 
 ### Annotation Page
 
