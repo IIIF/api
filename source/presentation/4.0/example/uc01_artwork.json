@@ -1,0 +1,157 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/uc01_artwork.json",
+    "type": "Manifest",
+    "label": {
+        "en": [
+            "Use case 1: Artwork"
+        ]
+    },
+    "metadata": [
+        {
+            "label": {
+                "en": [
+                    "Artist"
+                ]
+            },
+            "value": {
+                "en": [
+                    "Henry Gillard Glindoni"
+                ]
+            }
+        },
+        {
+            "label": {
+                "en": [
+                    "Date"
+                ]
+            },
+            "value": {
+                "en": [
+                    "1800-1899"
+                ]
+            }
+        }
+    ],
+    "summary": {
+        "en": [
+            "A longer piece of text to be shown when the metadata is not."
+        ]
+    },
+    "rights": "http://creativecommons.org/licenses/by-nc/4.0/",
+    "homepage": [
+        {
+            "id": "https://wellcomecollection.org/works/nydjbrr7",
+            "type": "Text",
+            "format": "text/html",
+            "label": {
+                "en": [
+                    "Homepage for artwork"
+                ]
+            }
+        }
+    ],
+    "thumbnail": [
+        {
+            "id": "https://fixtures.iiif.io/images/Wellcome/thumbnail.jpg",
+            "type": "Image",
+            "format": "image/jpeg",
+            "width": 200,
+            "height": 123
+        }
+    ],
+    "provider": [
+        {
+            "id": "https://example.org/about",
+            "type": "Agent",
+            "label": {
+                "en": [
+                    "Example Organization"
+                ]
+            },
+            "homepage": [
+                {
+                    "id": "https://wellcomecollection.org",
+                    "type": "Text",
+                    "label": {
+                        "en": [
+                            "Example Organization Homepage"
+                        ]
+                    },
+                    "format": "text/html"
+                }
+            ],
+            "logo": [
+                {
+                    "id": "https://example.org/images/logo.png",
+                    "type": "Image",
+                    "format": "image/png",
+                    "height": 100,
+                    "width": 120
+                }
+            ]
+        }
+    ],
+    "seeAlso": [
+        {
+            "id": "https://api.wellcomecollection.org/catalogue/v2/works/nydjbrr7",
+            "type": "Dataset",
+            "profile": "https://api.wellcomecollection.org/catalogue/v2/context.json",
+            "label": {"en":[ "Wellcome Collection Catalogue API" ]},
+            "format": "application/json"
+        }
+    ],
+    "partOf": [
+        {
+            "id": "https://iiif.wellcomecollection.org/presentation/collections/genres/Oil_paintings",
+            "type": "Collection",
+            "label": {"en":[ "Genre: Oil paintings" ]}
+        }
+    ],
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/09/canvas",
+            "type": "Canvas",
+            "width": 6000,
+            "height": 3813,
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/09/page/p2",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/09/annotation/c1",
+                            "type": "Annotation",
+                            "motivation": [
+                                "painting"
+                            ],
+                            "body": {
+                                "id": "https://iiif.io/api/presentation/example/image/painting/full/max/0/default.jpg",
+                                "type": "Image",
+                                "format": "image/jpeg",
+                                "width": 2000,
+                                "height": 1271,
+                                "service": [
+                                    {
+                                        "id": "https://iiif.io/api/image/3.0/example/reference/421e65be2ce95439b3ad6ef1f2ab87a9-dee-natural",
+                                        "type": "ImageService3",
+                                        "profile": "level1"
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas",
+                                "type":"Canvas"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "spatialScale": {
+                "type": "Quantity",
+                "quantityValue": 0.0004,
+                "unit": "m"
+            }
+        }
+    ]
+}

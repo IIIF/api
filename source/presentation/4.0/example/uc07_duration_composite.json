@@ -1,0 +1,64 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/uc07_duration_composite.json",
+    "type": "Manifest",
+    "label": { "en": [ "Use case 7: Audio demonstrating timeMode" ] },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/canvas/1",
+            "type": "Canvas",
+            "label": { "en": [ "Side A: 99 Luftballons - 10min duration" ] },
+            "width": 100,
+            "height": 100,
+            "duration": 36000,
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/canvas/1/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/annotation/1",
+                            "type": "Annotation",
+                            "motivation": [ "painting" ],
+                            "timeMode": "loop",
+                            "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/timeline/1",
+                                "type": "Timeline",
+                                "label": { "en": [ "Side A: 99 Luftballons" ] },
+                                "duration": 98.25,
+                                "items": [
+                                    {
+                                        "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/track/tr1",
+                                        "type": "AnnotationPage",
+                                        "items": [
+                                            {
+                                                "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/annotation/2",
+                                                "type": "Annotation",
+                                                "motivation": [ "painting" ],
+                                                "body": {
+                                                    "id": "https://fixtures.iiif.io/audio/mock/99_luftbaloons/99_luftballons.mp4",
+                                                    "type": "Audio",
+                                                    "duration": 98.25,
+                                                    "format": "audio/mp4",
+                                                    "language": [ "de" ]
+                                                },
+                                                "target": {
+                                                    "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/timeline/1",
+                                                    "type": "Timeline"
+                                                }
+                                            }
+                                        ]
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/canvas/1",
+                                "type": "Canvas"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
