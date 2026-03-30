@@ -149,10 +149,10 @@ This document acts as an introduction to the specification through a set of typi
 3. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
 4. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
 5. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
-6. **3D Content** - a Manifest that represents a 3D model of a born-digital object within a Scene.
-7. **Composite of Two Canvases** - a Manifest that combines two Canvases, each representing a single image, displayed jointly in a single Canvas through Container nesting.
-8. **Comment on Feature of a Painting** - a Manifest that represents a painting and a comment highlighting a particular region of the painting.
-9. **Interactive 3D Light Switch** - a Manifest that represents a Scene containing a light and a 3D model of a light switch, where a user can click or otherwise interact with the switch to turn the light on and off.
+6. **3D Chessboard** - a Manifest that represents the 3D modeling of a chessboard with increasing complexity and richness
+7. **Composite of Two Canvases** - TODO REDESCRIBE?: a Manifest that combines two Canvases, each representing a single image, displayed jointly in a single Canvas through Container nesting.{: .warning}
+8. **Commenting on Specific Features** - a Manifest that represents a painting, similar to Use Case 1, with a comment that discusses part of it.
+9. **Interactive Light Switch** - a Manifest that represents a Scene containing a light and a 3D model of a light switch, where a user can click or otherwise interact with the switch to turn the light on and off.
 
 These use cases were chosen as a broad sample to introduce IIIF concepts. Many more use cases are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
@@ -195,7 +195,7 @@ A Container is a frame of reference that allows the relative positioning of Cont
 
 The required properties of all Containers are [`id`][prezi-40-model-id], and [`type`][prezi-40-model-type]. Most Containers also have the [`items`][prezi-40-model-items] and [`label`][prezi-40-model-label] properties. Further properties are required for the different types of Container. See the [Container Documentation](model/#Containers) for more detail.
 
-The defined Container types are:
+The Container sub-classes are discussed below.
 
 ### Timeline
 
@@ -215,17 +215,16 @@ Canvases have two additional required properties: [`height`][prezi-40-model-heig
 
 ### Scene
 
-A Scene is a Container that represents a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Right-hand_rule)).
+A Scene is a Container that represents a 3D boundless space with infinite height (y axis), width (x axis) and depth (z axis), where 0 on each axis (the origin of the coordinate system) is treated as the center of the scene's space. The positive y axis points upwards, the positive x axis points to the right, and the positive z axis points forwards (a [right-handed cartesian coordinate system](https://en.wikipedia.org/wiki/Cartesian_coordinate_system#In_three_dimensions)).
 
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 />
-
-(Image: Wikipedia)
+(Image: [Wikipedia](https://en.wikipedia.org/wiki/Right-hand_rule))
 
 Scenes may also have a bounded temporal range via the `duration` property, in the same way as Canvases and Timelines. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
 
 {% include code_example.html src="04_scene.json" from=16 to=49 %}
 
-Scenes use several 3D specific constructions to manage rendering:
+Scenes use several 3D specific constructions to manage rendering, discussed below.
 
 #### Lights
 
@@ -261,7 +260,7 @@ The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-mod
 
 Annotation Pages are used to group Annotations. In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
 
-Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
+Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order within the Annotation Page can be significant, as Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered when displayed on a Canvas. Annotations with a higher z-index will render in front of those with a lower z-index, thus the last Annotation in the Annotation Page will display on top of any others that come before it. This does not hold true for Scenes, which have an explicit z axis.
 
 {% include code_example.html src="09_anno_page_1.json" %}
 
@@ -281,7 +280,7 @@ In addition to the required properties [`id`][prezi-40-model-id] and [`type`][pr
 
 ### Containers as Content Resources
 
-Containers may also be treated as Content Resources and painted into other Containers. This allows composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene. This capability is described further in [nesting](#nesting).
+Containers may also be treated as Content Resources and painted into other Containers. This allows composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene. This capability is described further in the [Nesting Containers section](#nesting-containeras).
 
 ### Referencing Parts of Resources
 
@@ -312,7 +311,7 @@ The fragment example above can be expressed using a Specific Resource:
 
 #### Transforms
 
-When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: ScaleTransform, RotateTransform and TranslateTransform. Each Transform has three properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which determine how the Transform affects that axis in the local coordinate space.
+When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: [ScaleTransform][prezi-40-model-ScaleTransform], [RotateTransform][prezi-40-model-RotateTransform] and [TranslateTransform][prezi-40-model-TranslateTransform]. Each Transform has three properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which determine how the Transform affects that axis in the local coordinate space.
 
 Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
 
@@ -549,7 +548,7 @@ Building on the previous example, this example extends the configured chess Scen
 * The [`exclude`][prezi-40-model-exclude] property instructs clients not to import or render any external audio or light content present in the Content Resource for the queen game piece.
 * The [`interactionMode`][prezi-40-model-interactionMode] property instructs clients that, if possible, user interactions relating to orbiting the scene should be restricted to a hemisphere.
 * The PerspectiveCamera and SpotLight from the previous example are retained to establish the viewing and lighting configuration for the expanded scene.
-{: .note}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [TranslateTransform][prezi-40-model-TranslateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]<br/><br/>
@@ -583,7 +582,7 @@ In this example, the audio content resources have durations that do not match th
 * The content resources for PointAudio and SpotAudio use the property [`timeMode`][prezi-40-model-timeMode] to specify different ways of handling mismatches between content resource audio length and Scene duration.
 * A commenting Annotation targets the Scene at the instant corresponding to 30 seconds of the Scene duration to highlight the point at which the percussion PointAudio stops playing and the tuba SpotAudio begins.
 * It is an error to select a temporal region of a Scene that does not have a [`duration`][prezi-40-model-duration], or to select a temporal region that is not within the Scene's temporal extent.  A Canvas or Scene with a [`duration`][prezi-40-model-duration] may not be annotated as a content resource into a Scene that does not itself have a [`duration`][prezi-40-model-duration].
-{: .note}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [FragmentSelector][prezi-40-model-FragmentSelector], [AmbientAudio][prezi-40-model-AmbientAudio], [PointAudio][prezi-40-model-PointAudio], [SpotAudio][prezi-40-model-SpotAudio]<br/><br/>
@@ -606,7 +605,7 @@ This example paints the chess piece Scene from the previous examples into a pare
 * A PointSelector on each Annotation's target places one instance to the left and one to the right of the parent Scene's origin, resulting in two groups of chess pieces side by side.
 * The [`backgroundColor`][prezi-40-model-backgroundColor] of the nested chess Scene is ignored in the parent Scene.
 * Because the parent Scene has no Camera or ImageBasedLight of its own, the Camera and ImageBasedLight Annotations from the nested chess Scene are imported into the parent Scene.
-{: .note}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector]
@@ -642,7 +641,7 @@ This example paints both the chess piece Scene and a Canvas containing a chessbo
 * A RotateTransform rotates the Canvas 90 degrees around the x-axis, so it lies flat in the XZ plane of the Scene rather than facing toward the positive z axis.
 * A ScaleTransform adjusts the size of the Canvas relative to the other Scene contents.
 * A PointSelector on the Annotation's target positions the top-left corner of the Canvas at a specific point in the Scene.
-{: .note}
+{: .callout}
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Canvas][prezi-40-model-Canvas], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]
@@ -680,7 +679,7 @@ A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only
 In the examples so far, Annotations have been used to associate the images, audio and other Content Resources with their Containers for presentation. IIIF uses the same W3C standard for the perhaps more familiar _annotation_ concepts of commenting, tagging, describing and so on. 
 
 
-## Use Case 8: Commenting
+## Use Case 8: Commenting on Specific Features
 
 Commentary can be associated with a Timeline, Canvas, or Scene via Annotations with a `commenting` motivation.
 
@@ -694,6 +693,7 @@ This example is a Manifest with a Canvas that contains a single photograph and a
 >
 **Key Points**
 * Annotations may alternately use a different type of Selector, called a [WKT Selector][prezi-40-model-WktSelector], to align the Annotation to a target region within a Canvas or Scene.
+{: .callout}
 
 ### Commenting about 3D sculpture
 
@@ -932,7 +932,7 @@ It is possible to associate a particular camera with a particular commenting ann
 * The client will render a UI that presents the two commenting annotations in some form and allows the user to navigate between them. An active Camera is not provided. While there is a Camera in the Scene, it has [`behavior`][prezi-40-model-behavior] "hidden", and is inactive and not usable.
 * The commenting annotations are ordered. The client may either allow the user to navigate between annotations freely or mandate they must be explored in the given order.
 * The above example instructs the client to activate the Camera when the user interacts with the first comment. The user is free to move away but any interaction with that comment will bring them back to the specific viewpoint. 
-{: .note}
+{: .callout}
 
 Default camera:
 
@@ -976,7 +976,7 @@ The commenting annotation now looks like this:
 * This example would not include an explicit activating annotation, but it has functionality equivalent to the longer example above that does include an explicit activating annotation. When the user interacts with the comment, the Camera is shown, enabled, and selected to be the active Camera, moving the client viewport to the Camera target position.
 * Compared to the example above, it is much shorter. This is the simplest and more direct approach for the common 3D use case of associating comments with Cameras.
 * Although these examples concern comments and Cameras, it is also possible to use `scope` in other situations where an activating annotation with `action` show, enable, and select is appropriate.
-{: .note}
+{: .callout}
 
 
 
@@ -1194,7 +1194,7 @@ This example is a light switch that can be toggled on and off using activating a
 * When the user interacts with the light switch model, the client processes any activating annotations that target it and are enabled. In this case, the first activating annotation is triggered because while both target the switch, only the first is enabled. This activation shows the light (i.e., removes its "hidden" [`behavior`][prezi-40-model-behavior] and therefore turning it on) and enables the other activating annotation, and disables itself.
 * If the user clicks the light again, the client again processes any activating annotations that target it and are not disabled. This time the second activating annotation is the enabled one - and it hides the light (turning it off) and disables itself, and enables the first activating annotation again.
 * Subsequent clicks simply alternate between these two states, indefinitely.
-
+{: .callout}
 
 ### Triggering Model Animations
 
@@ -1308,7 +1308,7 @@ All the annotations referred to by the activating annotations' [`target`][prezi-
 Interactive examples are provided as recipes in the [IIIF Cookbook][annex-cookbook].
 
 
-#### The `sequence` behavior
+#### The "sequence" behavior
 
 While all Annotation Page [`items`][prezi-40-model-items] are inherently ordered, an Annotation Page with the [`behavior`][prezi-40-model-behavior] "sequence" is explicitly a narrative, and clients should prevent (dissuade) users from jumping about - the annotations, and the effects of them _activating_ other contents of the Container, are intended to be experienced in order and individually. Normally, a client might display all the comments in an Annotation Page in a sidebar so they are all visible in the UI, but for an Annotation Page with [`behavior`][prezi-40-model-behavior] "sequence" only show the currently active annotation text, and next and previous UI.
 
