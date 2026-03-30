@@ -309,7 +309,7 @@ https://github.com/IIIF/api/issues/2118
 
 ### Annotation Page
 
-Annotation Pages are used to group Annotations.  In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
+Annotation Pages are used to group Annotations. In cases where many annotations are present, such as when transcription, translation, and commentary are associated with a manuscript, it can be useful to separate these annotations into groups that can facilitate improved user interactions in a client.
 
 Each Annotation Page can be embedded or externally referenced. Clients should process the Annotation Pages and their items in the order given in the Container.  Publishers may choose to expedite the processing of embedded Annotation Pages by ordering them before external pages, which will need to be dereferenced by the client.  Order can be significant, however. Annotations are assigned an ascending [z-index](https://developer.mozilla.org/en-US/docs/Web/CSS/z-index) from the first annotation encountered. Annotations with a higher z-index will render in front of those with a lower z-index when displayed on a Canvas.
 
@@ -384,7 +384,7 @@ IIIF Ranges are used to represent structure _within_ a Manifest beyond the defau
 
 Ranges may include Containers, parts of Containers via Specific Resources or fragment URIs, or other Ranges, creating tree-like structures that reflect the logical or intellectual organization of the resource, such as a table of contents or an alternative ordering of items.
 
-The required properties of Collections are [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type]. Other commonly used properties include [`label`][prezi-40-model-label] and [`items`][prezi-40-model-items]. See the [Range Documentation](model/#Range) for more detail.
+The required properties of Ranges are [`id`][prezi-40-model-id] and [`type`][prezi-40-model-type]. Other commonly used properties include [`label`][prezi-40-model-label] and [`items`][prezi-40-model-items]. See the [Range Documentation](model/#Range) for more detail.
 
 {% include code_example.html src="08_range.json" from=283 to=311 %}
 
@@ -1481,7 +1481,7 @@ The principles of [Linked Data][org-linked-data] and the [Architecture of the We
 This specification uses the following terms:
 
 * __embedded__: When a resource (A) is embedded within an embedding resource (B), the complete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will not result in additional information. Example: Canvas A is embedded in Manifest B.
-* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
+* __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example: Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
 The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
