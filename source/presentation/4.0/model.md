@@ -3326,14 +3326,6 @@ The `rights`, `partOf`, and `items` properties are defined by both in the same w
 
 The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `none` by the Presentation API [linked data context][prezi40-ldce]. Thus in content conforming to this version of the Presentation API, the only JSON key beginning with `@` will be `@context`. However, the content may include data conforming to older specifications or external specifications that use keywords beginning with `@`. Clients should expect to encounter both syntaxes.
 
-### Registries of Values
-
-TODO: Describe and reference the registries
-{: .warning}
-
-* Provides
-* Unit
-
 
 # Protocol
 
