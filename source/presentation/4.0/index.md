@@ -149,8 +149,8 @@ This document acts as an introduction to the specification through a set of typi
 3. **Periodical** - a IIIF Collection that provides multiple child Collections and Manifests, representing the publication run of a newspaper over many years. The IIIF model provides structural elements to indicate individual articles and other elements.
 4. **45 Single** - a Manifest that represents the digitized audio from the two sides of a vinyl 7 inch record.
 5. **Movie** - a Manifest that represents the digitized video of a film. A transcript of the audio is provided as Web Annotations, and additional machine-readable files provide subtitles and captions.
-6. **3D Chessboard** - a Manifest that represents the 3D modeling of a chessboard with increasing complexity and richness
-7. **Composite of Two Canvases** - TODO REDESCRIBE?: a Manifest that combines two Canvases, each representing a single image, displayed jointly in a single Canvas through Container nesting.{: .warning}
+6. **Reconstruction of a Separated Object** - a Manifest that represents a view of two separated parts, now in different repositories with their own transcriptions
+7. **3D Chessboard** - a Manifest that represents the 3D modeling of a chessboard with increasing complexity and richness
 8. **Commenting on Specific Features** - a Manifest that represents a painting, similar to Use Case 1, with a comment that discusses part of it.
 9. **Interactive Light Switch** - a Manifest that represents a Scene containing a light and a 3D model of a light switch, where a user can click or otherwise interact with the switch to turn the light on and off.
 
@@ -468,29 +468,32 @@ Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [
 Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
+
+# Nesting Containers
+
+A Container can be painted into another Container as an Annotation with [`motivation`][prezi-40-model-motivation] "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene (described in the following section about 3D), and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
+
+## Use Case 6: Reconstruction of a Separated Object
+
+Physical objects such as books, or even individual sheets, can be dispersed amongst multiple institutions, each of which digitizes and publishes the parts of the original that they look after. However, in order to reconstruct how a book might have looked in the past at a particular opening, along with all of the other commentary and other digital affordances available via IIIF, it is possible to embed the Canvas representing the left hand page from one organization, and the Canvas representing the right hand page from another organization, into a single larger Canvas representing the spread.
+
+This example is a Manifest with a Canvas that has two page images displayed side by side. However, instead of painting the images directly as Annotations, each image is painted on to a separate Canvas, and each Canvas is painted into the Manifest Canvas. A practical application of this would be where the single-image Canvases have been created previously and are hosted separately from the Manifest's composite-image Canvas and those Canvases have transcriptions, translations, commentary or other annotations aligned with the image.
+
+{% include code_example.html src="uc07_image_composite.json" %}
+
+>
+**Key Points**
+* The Manifest contains a single Canvas, which has a single Annotation Page, and two painting annotations.
+* Each painting annotation defines a Canvas with its own Annotation Page and a single image annotation. Alternately, each painting annotation could reference an external Canvas through a URI.
+* The two image Canvases are nested within the Manifest Canvas, causing the images to be displayed side by side.
+{: .callout}
+
+
+
 # 3D Content
 
-<!--
 
-// Move to sections where we talk about these
-
-Due to particular considerations of 3D space and rendering content within that space, such as scaling or textures with forward and backward faces, non-3D Content Resources must first be wrapped within an appropriate Container or Resource before being painted into a Scene. Image and video resources should be painted on to a Canvas, where the Canvas can in turn be painted into a Scene. 
-For further detail about painting Containers within other Containers, see [Nesting](#nesting).
-
-Audio resources or Timelines should be referenced by an AudioEmitter and the AudioEmitter can be painted into a Scene. 
-
--->
-
-<!--
-
-### Chessboard is a Canvas with image (not a 3D chessboard)
-
-A Scene or a Canvas may be treated as a content resource, referenced or described within the [`body`][prezi-40-model-body] of an Annotation. As with models and other resources, the Annotation is associated with a Scene into which the Scene or Canvas is to be nested through an Annotation [`target`][prezi-40-model-target]. The content resource Scene will be placed within the [`target`][prezi-40-model-target] Scene by aligning the coordinate origins of the two scenes. Alternately, Scene Annotations may use [Point Selector][prezi-40-model-PointSelector] to place the origin of the resource Scene at a specified coordinate within the [`target`][prezi-40-model-target] Scene.
-
--->
-
-
-## Use Case 6: 3D Chessboard
+## Use Case 7: 3D Chessboard
 
 
 ### Basic Scene
@@ -646,33 +649,6 @@ This example paints both the chess piece Scene and a Canvas containing a chessbo
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Scene][prezi-40-model-Scene], [Canvas][prezi-40-model-Canvas], [SpecificResource][prezi-40-model-SpecificResource], [PointSelector][prezi-40-model-PointSelector], [RotateTransform][prezi-40-model-RotateTransform], [ScaleTransform][prezi-40-model-ScaleTransform]
 {: .note}
-
-
-# Nesting Containers
-
-A Container can be painted into another Container as an Annotation with [`motivation`][prezi-40-model-motivation] "painting". For example, a Timeline may be painted into a Canvas, a Canvas may be painted into another Canvas, a Canvas may be painted into a Scene, and a Scene may be painted into another Scene. Multiple Containers may be hierarchically nested within each other, and so the list of examples above could be implemented as a single nesting sequence of five Containers.
-
-## Use Case 7: What's the _Use Case_?
-
-TODO: Describe the actual use case
-
-This example is a Manifest with a Canvas that represents two images displayed side by side. However, instead of painting the images directly as Annotations, each image is painted on to a separate Canvas, and each Canvas is painted into the Manifest Canvas. A more likely practical application of this example would be where the image Canvases have been created previously and are hosted separately from the Manifest's composite-image Canvas.
-
-{% include code_example.html src="uc07_image_composite.json" %}
-
->
-**Key Points**
-* The Manifest contains a single Canvas, which has a single Annotation Page, and two painting annotations.
-* Each painting annotation defines a Canvas with its own Annotation Page and a single image annotation. Alternately, each painting annotation could reference an external Canvas through a URI.
-* The two image Canvases are nested within the Manifest Canvas, causing the images to be displayed side by side.
-
-### Nesting Containers with Durations
-
-TODO: Describe the use case? Merge with previous use case?
-
-A Timeline, Canvas, or Scene with [`duration`][prezi-40-model-duration] can only be painted into a Container that also has [`duration`][prezi-40-model-duration]. It is possible to associate a Container with [`duration`][prezi-40-model-duration] with a Container that does not have [`duration`][prezi-40-model-duration] as the content of a `commenting` annotation rather than painting it into the Container. If a Container with [`duration`][prezi-40-model-duration] has a shorter or longer [`duration`][prezi-40-model-duration] than the Container into which it is to be painted, the [`timeMode`][prezi-40-model-timeMode] property can be used to instruct clients how to resolve the mismatch.
-
-{% include code_example.html src="uc07_duration_composite.json" from=19 to=58 %}
 
 # Annotations
 
