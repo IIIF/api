@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy-preview
+name: Test internal links
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -9,7 +9,6 @@ on:
     branches:
       - '**'
       - '!main'
-      - '!beta'
 
 jobs: # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   build: # This workflow contains a single job called "build"
@@ -32,31 +31,9 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       run: bundle exec rake build:preview
     - name: Test html
       run: bundle exec rake test:html
-    - name: Create GitHub deployment # Deploy to Preview site
-      uses: glenrobson/deployments@v0.4.2
-      id: deployment
-      with:
-        step: start
-        token: ${{ secrets.GITHUB_TOKEN }}
-        auto_inactive: 'false'
-        env: staging
-    - name: Deploy to S3
-      uses: glenrobson/s3-sync-action@v0.5.1
-      with:
-        args: --acl public-read
-      env:
-        AWS_S3_BUCKET: "preview.iiif.io"
-        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        AWS_REGION: ${{ secrets.AWS_REGION }}
-        SOURCE_DIR: "_site"
-    - name: Update deployment status
-      uses: glenrobson/deployments@v0.4.2
-      if: always()
-      with:
-        step: finish
-        auto_inactive: 'false'
-        token: ${{ secrets.GITHUB_TOKEN }}
-        status: ${{ job.status }}
-        deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-        env_url: "https://preview.iiif.io/${{ env.SITE_ID }}/${{ env.BRANCH_NAME }}/index.html"
+    - name: Test internal links
+      run: bundle exec rake test:links:internal
+    - name: Test *iiif.io* links
+      run: bundle exec rake test:links:iiif
+    - name: Spec tests
+      run: bundle exec rake api:spec
