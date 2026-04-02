@@ -139,7 +139,7 @@
                                 "type": "ImageBasedLight",
                                 "label": { "en": [ "Image-Based Light" ] },
                                 "environmentMap": {
-                                    "id": "https://iiif.io/api/presentation/4.0/example/uc06/light/3/environment.hdr",
+                                    "id": "https://fixtures.iiif.io/3d/polyhaven/spruit_sunrise_4k.hdr",
                                     "type": "Image",
                                     "format": "image/vnd.radiance",
                                     "profile": "equirectangular"
