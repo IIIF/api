@@ -1,0 +1,77 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/uc08_3d_annotation.json",
+    "type": "Manifest",
+    "label": { "en": ["2nd century BC Greek sculpture"] },
+    "items": [
+      {
+        "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+        "type": "Scene",
+        "items": [
+          {
+            "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1/pages/1",
+            "type": "AnnotationPage",
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1/sculpture",
+                    "type": "Annotation",
+                    "motivation": ["painting"] ,
+                    "label": {
+                        "en": ["A 1st century Roman portrait bust."]
+                    },
+                    "body": 
+                      {
+                        "id": "https://fixtures.iiif.io/3d/smk/venus.glb",
+                        "type": "Model"
+                      },
+                    "target": {
+                      "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+                      "type": "Scene"
+                    }
+                }
+            ]
+          }
+        ]
+      }
+    ],
+    "annotations": [
+      {
+        "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1/commenting-annotation-pages/1",
+        "type": "AnnotationPage",
+        "items": [
+          {
+            "id": "https://example.org/iiif/presentation/examples/commenting/anno/3",
+            "type": "Annotation",
+            "motivation": ["commenting"],
+            "body": 
+              {
+                "id": "https://example.org/iiif/presentation/examples/commenting/anno/3/comment1",
+                "type": "TextualBody",
+                "language": "en",
+                "format": "text/plain",
+                "value": "This sculpture embodies the Hellenistic synthesis of idealised form and expressive naturalism that emerged in the late Greek period.",
+                "position": {
+                  "type": "SpecificResource",
+                  "source": {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+                    "type": "Scene"
+                  },
+                  "selector": [
+                    {
+                      "type": "PointSelector",
+                      "x": 0.75,
+                      "y": 1.5,
+                      "z": 0.1
+                    }
+                  ]
+                }
+              },
+            "target": {
+              "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+              "type": "Scene"
+            }
+          }
+        ]
+      }
+    ]
+}
