@@ -1,0 +1,237 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/uc08_3d_comments_with_cameras.json",
+    "type": "Manifest",
+    "label": {
+        "en": [
+            "Whale Cranium and Mandible with Dynamic Commenting Annotations and Custom Per-Anno Views"
+        ]
+    },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+            "type": "Scene",
+            "label": {
+                "en": [
+                    "A Scene Containing a Whale Cranium and Mandible"
+                ]
+            },
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno/1",
+                            "type": "Annotation",
+                            "motivation": [
+                                "painting"
+                            ],
+                            "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno/1/body",
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://fixtures.iiif.io/3d/smithsonian/whale/whale_mandible.glb",
+                                    "type": "Model",
+                                    "label": {
+                                        "en": [
+                                            "mandible"
+                                        ]
+                                    },
+                                    "format": "model/gltf-binary"
+                                },
+                                "transform": [
+                                    {
+                                        "type": "ScaleTransform",
+                                        "x": 10,
+                                        "y": 10,
+                                        "z": 10
+                                    },
+                                    {
+                                        "type": "RotateTransform",
+                                        "x": 12.5,
+                                        "y": 0,
+                                        "z": 0
+                                    },
+                                    {
+                                        "type": "TranslateTransform",
+                                        "x": 0,
+                                        "y": 0,
+                                        "z": 0.5
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+                                "type": "Scene"
+                            }
+                        },
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno-that-paints-desired-camera-to-view-tooth",
+                            "type": "Annotation",
+                            "motivation": [
+                                "painting"
+                            ],
+                            "behavior": [
+                                "hidden"
+                            ],
+                            "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/cameras/1",
+                                "type": "PerspectiveCamera",
+                                "label": {
+                                    "en": [
+                                        "Perspective Camera Pointed At Front of Cranium and Mandible"
+                                    ]
+                                },
+                                "fieldOfView": 50.0,
+                                "near": 0.10,
+                                "far": 2000.0
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno/2/target",
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+                                    "type": "Scene"
+                                },
+                                "selector": [
+                                    {
+                                        "type": "PointSelector",
+                                        "x": 0.0,
+                                        "y": 0.15,
+                                        "z": 0.75
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno2",
+                            "type": "Annotation",
+                            "motivation": [
+                                "painting"
+                            ],
+                            "body": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno/3/body",
+                                "type": "SpecificResource",
+                                "source": {
+                                    "id": "https://fixtures.iiif.io/3d/smithsonian/whale/whale_cranium.glb",
+                                    "type": "Model",
+                                    "label": {
+                                        "en": [
+                                            "cranium"
+                                        ]
+                                    },
+                                    "format": "model/gltf-binary"
+                                },
+                                "transform": [
+                                    {
+                                        "type": "ScaleTransform",
+                                        "x": 10,
+                                        "y": 10,
+                                        "z": 10
+                                    },
+                                    {
+                                        "type": "TranslateTransform",
+                                        "x": 0,
+                                        "y": 1.5,
+                                        "z": 0
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+                                "type": "Scene"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "annotations": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1/annotations/page/1",
+            "type": "AnnotationPage",
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/commenting-anno-for-mandibular-tooth",
+                    "type": "Annotation",
+                    "motivation": [
+                        "commenting"
+                    ],
+                    "body": {
+                        "type": "TextualBody",
+                        "value": "Mandibular tooth"
+                    },
+                    "target": {
+                        "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/comment/1/target",
+                        "type": "SpecificResource",
+                        "source": {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+                            "type": "Scene"
+                        },
+                        "selector": [
+                            {
+                                "type": "PointSelector",
+                                "x": -0.447287,
+                                "y": 0.546212,
+                                "z": 1.795195
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/commenting-anno-for-right-pterygoid-hamulus",
+                    "type": "Annotation",
+                    "motivation": [
+                        "commenting"
+                    ],
+                    "body": {
+                        "type": "TextualBody",
+                        "value": "Right pterygoid hamulus"
+                    },
+                    "target": {
+                        "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/comment/2/target",
+                        "type": "SpecificResource",
+                        "source": {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc08/scene/1",
+                            "type": "Scene"
+                        },
+                        "selector": [
+                            {
+                                "type": "PointSelector",
+                                "x": -0.442066,
+                                "y": 0.671795,
+                                "z": 1.288055
+                            }
+                        ]
+                    }
+                },
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno9",
+                    "type": "Annotation",
+                    "motivation": [
+                        "activating"
+                    ],
+                    "target": {
+                        "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/commenting-anno-for-mandibular-tooth",
+                        "type": "Annotation"
+                    },
+                    "body": {
+                        "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/comment/3/body",
+                        "type": "SpecificResource",
+                        "source": {
+                            "id": "https://iiif.io/api/presentation/4.0/example/uc08/3d/anno-that-paints-desired-camera-to-view-tooth",
+                            "type": "Annotation"
+                        },
+                        "action": [
+                            "show",
+                            "enable",
+                            "select"
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}
