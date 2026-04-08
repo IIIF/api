@@ -1901,7 +1901,7 @@ The value of this property _MUST_ be an array of JSON objects, each of which _MU
 ### lookAt
 {: #lookAt}
 
-It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on Directional Light, Spot Light, and all Cameras. The value of the property is either a Point Selector, a WKT Selector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary Container.
+It is useful to be able to rotate a light or camera or audio resource such that it is facing another object or point in the Scene, rather than calculating the angles within the Scene's coordinate space. This is accomplished with a property called `lookAt`, valid on Directional Light, Spot Light, Spot Audio and all Cameras. The value of the property is either a Point Selector, a WKT Selector, the URI of an Annotation which paints something into the current Scene, or a Specific Resource with a selector identifying a point or region in an arbitrary Container.
 
 If the value is a Point Selector, then the light or camera resource is rotated around the x and y axes such that it is facing the given point. If the value is a WKT Selector, then the resource should be rotated to face the given region. If the value is an Annotation which targets a point via a Point Selector, URI fragment or other mechanism, then the resource should be rotated to face that point. If the value is a Specific Resource, the source container for the Specific Resource must be painted into the current Scene, and the Specific Resource selector should identify a point or region in the source container. In this case, the light or camera resource should be rotated to face the point or region in the source container where the point or region is located within the current Scene's coordinate space. This allows light or camera resources to face a specific 2D point on a Canvas painted into a 3D scene.
 
@@ -1912,7 +1912,7 @@ The value _MUST_ be a JSON object, conforming to either a reference to an Annota
 * A Camera _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Cameras.
 * A Spot Light or a Directional Light _MAY_ have the `lookAt` property.<br/>
-  Clients _SHOULD_ process the `lookAt` property on Lights.
+  Clients _SHOULD_ process the `lookAt` property on Spot Light and Directional Light.
 * A Spot Audio _MAY_ have the `lookAt` property.<br/>
   Clients _SHOULD_ process the `lookAt` property on Spot Audio.
 
@@ -3325,14 +3325,6 @@ The `rights`, `partOf`, and `items` properties are defined by both in the same w
 ### Keyword Mappings
 
 The JSON-LD keywords `@id`, `@type` and `@none` are mapped to `id`, `type` and `none` by the Presentation API [linked data context][prezi40-ldce]. Thus in content conforming to this version of the Presentation API, the only JSON key beginning with `@` will be `@context`. However, the content may include data conforming to older specifications or external specifications that use keywords beginning with `@`. Clients should expect to encounter both syntaxes.
-
-### Registries of Values
-
-TODO: Describe and reference the registries
-{: .warning}
-
-* Provides
-* Unit
 
 
 # Protocol

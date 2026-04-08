@@ -321,6 +321,7 @@
 
 [prezi-40-model-Agent]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Agent
 [prezi-40-model-AmbientAudio]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#AmbientAudio
+[prezi-40-model-AmbientLight]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#AmbientLight
 [prezi-40-model-AnimationSelector]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#AnimationSelector
 [prezi-40-model-Annotation]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Annotation
 [prezi-40-model-AnnotationCollection]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#AnnotationCollection
@@ -328,11 +329,14 @@
 [prezi-40-model-Canvas]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Canvas
 [prezi-40-model-Choice]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Choice
 [prezi-40-model-Collection]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Collection
+[prezi-40-model-DirectionalLight]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#DirectionalLight
 [prezi-40-model-FragmentSelector]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#FragmentSelector
+[prezi-40-model-ImageBasedLight]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#ImageBasedLight
 [prezi-40-model-Manifest]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Manifest
 [prezi-40-model-OrthographicCamera]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#OrthographicCamera
 [prezi-40-model-PerspectiveCamera]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#PerspectiveCamera
 [prezi-40-model-PointAudio]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#PointAudio
+[prezi-40-model-PointLight]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#PointLight
 [prezi-40-model-PointSelector]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#PointSelector
 [prezi-40-model-Quantity]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Quantity
 [prezi-40-model-Range]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Range
@@ -389,6 +393,8 @@
 [prezi-40-model-rendering]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#rendering
 [prezi-40-model-requiredStatement]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#requiredStatement
 [prezi-40-model-rights]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#rights
+[prezi-40-model-scope]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#scope
+[prezi-40-model-selector]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#selector
 [prezi-40-model-seeAlso]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#seeAlso
 [prezi-40-model-service]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#service
 [prezi-40-model-source]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#source
