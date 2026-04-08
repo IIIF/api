@@ -53,15 +53,6 @@ pre.highlight code {
   color: #a0f0f0
 }
 
-a > code::after {
-  content: "↗";
-  font-size: 0.65em;
-  opacity: 0.6;
-  margin-left: 0.2em;
-  vertical-align: super;
-  text-decoration: none;
-}
-
 a > code {
  /* text-decoration: underline;*/
   color: var(--link-color);
@@ -108,6 +99,16 @@ a:hover > code {
    font-size: 0.9rem;
    line-height: 1.0;
    font-family: "Courier Prime", monospace;
+ }
+
+ a > code.language-plaintext {
+   color: inherit;
+   font-family: "PT Sans",sans-serif;
+   background-color: transparent;
+   border: none;
+   font-size: 1.1rem;
+   line-height: 1.0;
+   text-decoration: none;
  }
 
   .callout {
