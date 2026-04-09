@@ -161,6 +161,8 @@ These use cases were chosen as a broad sample to introduce IIIF concepts. Many m
 
 This section is what you need to know to make sense of the examples that follow it.
 
+To the right is an overall diagram of the major classes and relationships between them. The details of each class are described in the sections below.
+
 <p style="float: right">
   <img src="presentation_data_model.png" alt="Data Model" width="400"><br/>
 </p>
@@ -221,7 +223,7 @@ A Scene is a Container that represents a 3D boundless space with infinite height
 <img src="https://raw.githubusercontent.com/IIIF/3d/eds/assets/images/right-handed-cartesian.png" title="Right handed cartesian coordinate system" alt="diagram of Right handed cartesian coordinate system" width=200 /><br/>
 (Image: [Wikipedia](https://en.wikipedia.org/wiki/Right-hand_rule))
 
-Scenes may also have a bounded temporal range via the `duration` property, in the same way as Canvases and Timelines. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
+Scenes may also have a bounded temporal range via the [`duration`][prezi-40-model-duration] property, in the same way as Canvases and Timelines. Scenes are typically used for rendering 3D models, and can additionally have Cameras and Lights.
 
 {% include code_example.html src="04_scene.json" from=16 to=49 %}
 
@@ -245,7 +247,7 @@ Audio is supported within Scenes through Audio Emitter classes, in the same way 
 
 IIIF uses the concept of _annotation_ to link resources together from around the web. This specification uses a World Wide Web Consortium (W3C) standard for this called the [Web Annotation Data Model][org-w3c-webanno]. This is a structured linking mechanism useful for making comments about Content Resources, but IIIF's primary use of it is to associate the images, audio and other Content Resources with their Containers for presentation.
 
-In each of the three Containers above, an **Annotation** links the Container to a Content Resource. The Content Resource in the [`body`][prezi-40-model-body] property is _painted_ into the Container by an Annotation whose [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container. In all three simple cases here the [`target`][prezi-40-model-target] property is the [`id`][prezi-40-model-id] of the Container with no further qualification.
+In each of the three Containers above, an Annotation links the Container to a Content Resource. The Content Resource in the [`body`][prezi-40-model-body] property is _painted_ into the Container by an Annotation whose [`target`][prezi-40-model-target] property references the [`id`][prezi-40-model-id] of the Container.
 
 Different uses of Annotation are distinguished through their [`motivation`][prezi-40-model-motivation] property. This specification defines a value for [`motivation`][prezi-40-model-motivation] called `painting` for associating Content Resources with Containers, which this specification calls a Painting Annotation. The verb "paint" is also used to refer to the associating of a Content Resource with a Container by a Painting Annotation. This is from the notion of painting onto a canvas, a metaphor borrowed from art and used for image-based digital applications, and expanded by IIIF into "painting" any Content Resource into a Container of any number of dimensions.
 
@@ -253,7 +255,7 @@ The same linking mechanism is also used in IIIF with other motivations for trans
 
 Annotations are grouped within the [`items`][prezi-40-model-items] property of an Annotation Page, and the [`items`][prezi-40-model-items] property of the Container is a list of Annotation Pages. This allows consistent grouping of Annotations when required. Annotation Pages can be part of Annotation Collections, both described below.
 
-The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body]. See the [Annotation Documentation](model/#Annotation) for more detail.
+The required properties of Annotations, as used in IIIF, are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], [`target`][prezi-40-model-target] and [`motivation`][prezi-40-model-motivation]. Most Annotations also have the [`body`][prezi-40-model-body] property. See the [Annotation Documentation](model/#Annotation) for more detail.
 
 {% include code_example.html src="09_anno_page_1.json" from=14 to=28  %}
 
@@ -302,7 +304,7 @@ Here the Canvas [`id`][prezi-40-model-id] from the earlier example is still the 
 
 URIs with fragments are insufficient for complex referencing, like circular regions or arbitrary text spans, and do not support other useful features such as describing styling or transformation. The Web Annotation Data Model introduces a class called [Specific Resource][prezi-40-model-SpecificResource] that represents the resource in a specific context or role, which IIIF uses to describe these more complex requirements.
 
-Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called [Fragment Selector][prezi-40-model-FragmentSelector]. The fragment is given in the `value` property of the [Fragment Selector][prezi-40-model-FragmentSelector], and the resource it should be applied to is given in [`source`][prezi-40-model-source].
+Several different classes of Selector are used in IIIF, including an alternative implementation of the fragment pattern called [Fragment Selector][prezi-40-model-FragmentSelector]. The fragment is given in the [`value`][prezi-40-model-value] property of the [Fragment Selector][prezi-40-model-FragmentSelector], and the resource it should be applied to is given in [`source`][prezi-40-model-source].
 
 The required properties of Specific Resources are [`id`][prezi-40-model-id], [`type`][prezi-40-model-type], and [`source`][prezi-40-model-source]. Other commonly used properties include [`selector`][prezi-40-model-selector], [`transform`][prezi-40-model-transform], and [`scope`][prezi-40-model-scope]. See the [Specific Resource Documentation](model/#SpecificResource) for more detail.
 
@@ -384,9 +386,9 @@ This example is a Manifest with multiple Canvases, each of which represents a pa
 >
 **Key Points**
 * Canvas labels are not required, but are recommended when a Manifest has more than one Canvas in order to provide visual labels for each Canvas for navigation within the IIIF client UI.
-* As the Presentation API is about displaying content, not describing it semantically, many of the properties are hints to the client as to how to render the resources, such as `behavior`, `viewingDirection` and `start`, or pointers to other resources that also render the content such as `rendering`.
-* The `requiredStatement` property is often used for a rights or legal statement, however can be used for any message that the client _MUST_ render. There can only be one `requiredStatement` to avoid overloading the UI with dozens of popups that need to be closed.
-* The [`rendering`][prezi-40-model-rendering] property provides an alternative representation of the Manifest, in this case a PDF. Clients would typically show links to any `rendering` properties of resources such as Canvases or Manifests, making them available for download. 
+* As the Presentation API is about displaying content, not describing it semantically, many of the properties are hints to the client as to how to render the resources, such as [`behavior`][prezi-40-model-behavior], [`viewingDirection`][prezi-40-model-viewingDirection] and [`start`][prezi-40-model-start], or pointers to other resources that also render the content such as [`rendering`][prezi-40-model-rendering].
+* The [`requiredStatement`][prezi-40-model-requiredStatement] property is often used for a rights or legal statement, however can be used for any message that the client _MUST_ render. There can only be one [`requiredStatement`][prezi-40-model-requiredStatement] to avoid overloading the UI with dozens of popups that need to be closed.
+* The [`rendering`][prezi-40-model-rendering] property provides an alternative representation of the Manifest, in this case a PDF. Clients would typically show links to any [`rendering`][prezi-40-model-rendering] properties of resources such as Canvases or Manifests, making them available for download. 
 {: .callout}
 
 __Definitions__<br/>
@@ -417,8 +419,8 @@ Manifest for the February 16, 1925 issue, with Ranges for table of contents:
 >
 **Key Points**
 * Navigation between Manifests is managed via Collections, potentially in a hierarchy, which are each separate documents.
-* Navigation within a single Manifest (beyond the default order of the Containers) is managed via Ranges in the `structures` property.
-* Further navigation, managed by the client, is possible via the `navPlace` and `navDate` properties. These are not semantic metadata, they are used by the client to generate navigation maps and timelines, respectively.
+* Navigation within a single Manifest (beyond the default order of the Containers) is managed via Ranges in the [`structures`][prezi-40-model-structures] property.
+* Further navigation, managed by the client, is possible via the [`navPlace`][[prezi-40-model-navPlace] and [`navDate`][prezi-40-model-navDate] properties. These are not semantic metadata, they are used by the client to generate navigation maps and timelines, respectively.
 {: .callout}
 
 __Definitions__<br/>
@@ -440,8 +442,8 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 >
 **Key Points**
 * Timeline is a type of Container intended to manage audio content, or other temporal information.
-* Any Container, but especially Timelines, can have a `accompanyingContainer` with additional content to render to make the user experience more attractive. 
-* Information about external resources such as `format`, `language`, `duration` can be added to assist with rendering, especially when the user or client needs to make a choice between representations. See the next use case more for details about Choice.
+* Any Container, but especially Timelines, can have a [`accompanyingContainer`][prezi-40-model-accompanyingContainer] with additional content to render to make the user experience more attractive. 
+* Information about external resources such as [`format`][prezi-40-model-format], [`language`][prezi-40-model-language], [`duration`][prezi-40-model-duration] can be added to assist with rendering, especially when the user or client needs to make a choice between representations. See the next use case more for details about Choice.
 * In the external annotation for the song lyrics, we append `#t=3.5,6.8` to the target URI to define the temporal extent in the target timeline that corresponds to the song lyric.
 {: .callout}
 
@@ -453,20 +455,20 @@ Properties: [duration][prezi-40-model-duration], [format][prezi-40-model-format]
 
 ## Use Case 5: Movie with Subtitles
 
-This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas [`duration`][prezi-40-model-duration]) and its aspect ratio (given by the [`width`][prezi-40-model-width] and [`height`][prezi-40-model-height] of the Canvas). The example demonstrates the use of a [Choice][prezi-40-model-Choice] annotation body to give two alternative versions of the movie, indicated by their [`label`][prezi-40-model-label] and `fileSize` properties as well as [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width]. Subtitles are provided by an annotation that links to a VTT file. The motivation of this annotation is `supplementing` and the [`provides`][prezi-40-model-provides] property of this annotation indicates what accessibility feature it provides, in this case the term `subtitles`. The [`timeMode`][prezi-40-model-timeMode] property in this case is redundant as `trim` is the default value. The Canvas has a [`placeholderContainer`][prezi-40-model-placeholderContainer] that provides a poster image to show in place of the video file before the user initiates playback.
+This example is a Manifest with one Canvas that represents the temporal extent of the movie (the Canvas [`duration`][prezi-40-model-duration]) and its aspect ratio (given by the [`width`][prezi-40-model-width] and [`height`][prezi-40-model-height] of the Canvas). The example demonstrates the use of a [Choice][prezi-40-model-Choice] annotation body to give two alternative versions of the movie, indicated by their [`label`][prezi-40-model-label] and [`fileSize`][prezi-40-model-fileSize] properties as well as [`height`][prezi-40-model-height] and [`width`][prezi-40-model-width]. Subtitles are provided by an annotation that links to a VTT file. The motivation of this annotation is `supplementing` and the [`provides`][prezi-40-model-provides] property of this annotation indicates what accessibility feature it provides, in this case the term `subtitles`. The [`timeMode`][prezi-40-model-timeMode] property in this case is redundant as `trim` is the default value. The Canvas has a [`placeholderContainer`][prezi-40-model-placeholderContainer] that provides a poster image to show in place of the video file before the user initiates playback.
 
 {% include code_example.html src="uc05_movie.json" %}
 
 >
 **Key Points**
-* The decision about which item in the [Choice][prezi-40-model-Choice] to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the [`label`][prezi-40-model-label], or the client might make the decision based on the `fileSize` property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of [Choice][prezi-40-model-Choice] for common image and AV use cases.
+* The decision about which item in the [Choice][prezi-40-model-Choice] to play by default is client dependent. In the absence of any other decision process the client should play the first item. In this specific example, the user might make the decision after reading the [`label`][prezi-40-model-label], or the client might make the decision based on the [`fileSize`][prezi-40-model-fileSize] property and an assessment of the user's available bandwidth. However, the client may have no way of determining why the publisher has offered the choices, and should not prevent the user from making the choice. The cookbook demonstrates several uses of [Choice][prezi-40-model-Choice] for common image and AV use cases.
 * Clients should not interpret **very** minor discrepancies between [`duration`][prezi-40-model-duration] on the different Choices and the Container [`duration`][prezi-40-model-duration] as an instruction to stretch or compress the audio/video stream to match the Container duration. There is no real way to quantify exactly how big a difference would count as not "minor" and thus it is also client dependent.
 {: .callout}
 
 
 __Definitions__<br/>
 Classes: [Manifest][prezi-40-model-Manifest], [Canvas][prezi-40-model-Canvas], [Choice][prezi-40-model-Choice]<br/><br/>
-Properties: [fileSize](model/#fileSize), [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
+Properties: [fileSize][prezi-40-model-fileSize], [format][prezi-40-model-format], [provides][prezi-40-model-provides], [timeMode][prezi-40-model-timeMode], [behavior][prezi-40-model-behavior], [placeholderContainer][prezi-40-model-placeholderContainer]
 {: .note}
 
 
@@ -564,15 +566,15 @@ Properties: [exclude][prezi-40-model-exclude], [interactionMode][prezi-40-model-
 ### Audio in 3D
 
 
-Building on the previous example, this Scene adds spatial audio to the chess game piece arrangement. Three Audio Emitter Annotations are painted into the Scene alongside the chess models, creating a dynamic 3D audio experience timed to the Scene's duration.
+Continuing to build on the previous examples, this Scene adds spatial audio to the chess game piece arrangement. Three Audio Emitter Annotations are painted into the Scene alongside the chess models, creating a dynamic 3D audio experience timed to the Scene's duration.
 
 This example is a Manifest with a single Scene with a duration. The chess game pieces from the previous example are retained, and multiple Audio Emitter Annotations are additionally painted into the Scene, with positional emitters used to create a 3D audio experience. Some of the Audio Emitter Annotations are only painted into the Scene for a limited period of time, producing dynamic change in the sounds heard within the Scene. A commenting Annotation is also provided to highlight the instant in time when a change in sound occurs.
 
-A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector). The FragmentSelector has a `value` property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the [`refinedBy`][prezi-40-model-refinedBy] property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection). When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region. Both patterns are used in this example.
+A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector). The FragmentSelector has a [`value`][prezi-40-model-value] property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the [`refinedBy`][prezi-40-model-refinedBy] property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection). When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region. Both patterns are used in this example.
 
 An Annotation may target a specific point in time using a PointSelector's [`instant`][prezi-40-model-instant] property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration. In this example this is used for a comment Annotation.
 
-In this example, the audio content resources have durations that do not match the Scene's duration. The [`timeMode` property](https://iiif.io/api/presentation/3.0/#timemode) is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
+In this example, the audio content resources have durations that do not match the Scene's duration. The [`timeMode`][prezi-40-model-timeMode] property is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
 
 {% include code_example.html src="uc06_audio_with_3d.json" %}
 
@@ -628,7 +630,7 @@ When a Canvas is painted as an Annotation targeting a Scene, the top-left corner
 
 The Canvas is scaled to the Scene such that the 2D coordinate dimensions correspond to 3D coordinate units - a Canvas 16 units wide and 9 units high will extend 16 coordinate units across the x axis and 9 coordinate units across the y axis. Because Canvas coordinate units and image content resource pixels are not equivalent, any image with a 16:9 aspect ratio painted on this Canvas would extend 16 coordinate units by 9 coordinate units in the 3D space of the Scene, whether it was 160 pixels wide and 90 pixels high or 16,000 pixels wide and 9,000 pixels high. This provides one way to control the size of a Canvas painted into a Scene.
 
-A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property [`backgroundColor`][prezi-40-model-backgroundColor] is used, this color should be used for the backward face of the Canvas. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
+A Canvas in a Scene has a specific forward face and a backward face. By default, the forward face of a Canvas should point in the direction of the positive z axis. If the property [`backgroundColor`][prezi-40-model-backgroundColor] is given on the Canvas, this color should also be used for the backward face of the Canvas as well as the background of the forward face. Otherwise, a reverse view of the forward face of the Canvas should be visible on the backward face.
 
 <div style="background: #A0F0A0; padding: 10px; padding-left: 30px; margin-bottom: 10px">
   To Do: Add an image demonstrating default Canvas placement in Scene
@@ -644,7 +646,7 @@ This example paints both the chess piece Scene and a Canvas containing a chessbo
 **Key Points**
 * The first Annotation paints the chess pieces Scene into the parent Scene by URI reference at the Scene origin.
 * The second Annotation paints a Canvas containing a 2D chessboard image into the Scene. The Canvas is wrapped in a SpecificResource so that Transforms can be applied to it.
-* A RotateTransform rotates the Canvas 90 degrees around the x-axis, so it lies flat in the XZ plane of the Scene rather than facing toward the positive z axis.
+* A RotateTransform rotates the Canvas 90 degrees around the x-axis, so it lies flat in the plane made by the x-axis and z-axis of the Scene rather than facing toward the positive z axis.
 * A ScaleTransform adjusts the size of the Canvas relative to the other Scene contents.
 * A PointSelector on the Annotation's target positions the top-left corner of the Canvas at a specific point in the Scene.
 {: .callout}
@@ -678,16 +680,9 @@ This example is a Manifest with a Canvas that contains a single photograph and a
 
 A commenting annotation can also reference a Content Resource, such as a Model, within a Scene.  This is accomplished by targeting the annotation that paints the resource into the Scene.  In this example, the commenting annotation targets an annotation that paints a model of a portrait bust into a scene.
 
-In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the Container, such as 3D models. In these cases, the [`position`][prezi-40-model-position] property may be used to define the position where a TextualBody should be rendered.  The example shows a [`position`][prezi-40-model-position] that places the annotation at a specific coordinate within the Scene.  The position is a [Specific Resource][prezi-40-model-SpecificResource] that requires a [`source`][prezi-40-model-source] and `selector`.
+In some cases it is desirable to influence the client's positioning of the commenting annotation when rendered.  This may be done to ensure that the annotation does not hide key visual elements or to ensure that the annotation itself is not obscured by resources painted in the Container, such as 3D models. In these cases, the [`position`][prezi-40-model-position] property may be used to define the position where a TextualBody should be rendered.  The example shows a [`position`][prezi-40-model-position] that places the annotation at a specific coordinate within the Scene.  The position is a [Specific Resource][prezi-40-model-SpecificResource] that requires a [`source`][prezi-40-model-source] and [`selector`][prezi-40-model-selector].
 
 {% include code_example.html src="uc08_3d_annotation.json" %}
-
-<!--
-TODO: This is mostly copy-pasted from properties, is it needed here? Use in above example.
-
-It is important to be able to position the textual body of an annotation within the Container's space that the annotation also targets. For example, a description of part of an image in a Canvas should be positioned such that it does not obscure the image region itself and labels to be displayed as part of a Scene should not be rendered such that the text is hidden by the three dimensional geometry of the model. The positioning of the textual body in a container is accomplished through the [`position`][prezi-40-model-position] property, which has as a value a Specific Resource identifying the targeted container as the source and a selector defining how the textual body should be positioned in the targeted container. If this property is not supplied, then the client should do its best to ensure the content is visible to the user.
- -->
-
 
 ### 3D Comments with Cameras
 
@@ -713,7 +708,7 @@ Camera when annotation selected:
 
 #### Using Scope to Select a Camera
 
-The previous example can also be expressed in a more concise form by providing a reference to the Camera in the `scope` property of the commenting annotation. When `scope` is used in this way, it provides a short-hand way of specifying an Annotation with motivation `activating` that will show, enable, and select the resource(s) referenced by the `scope` property when a user interacts with the Annotation containing the `scope` property. 
+The previous example can also be expressed in a more concise form by providing a reference to the Camera in the [`scope`][prezi-40-model-scope] property of the commenting annotation. When [`scope`][prezi-40-model-scope] is used in this way, it provides a short-hand way of specifying an Annotation with motivation `activating` that will show, enable, and select the resource(s) referenced by the [`scope`][prezi-40-model-scope] property when a user interacts with the Annotation containing the [`scope`][prezi-40-model-scope] property. 
 
 The commenting annotation now looks like this:
 
@@ -743,7 +738,7 @@ The commenting annotation now looks like this:
 **Key Points**
 * This example would not include an explicit activating annotation, but it has functionality equivalent to the longer example above that does include an explicit activating annotation. When the user interacts with the comment, the Camera is shown, enabled, and selected to be the active Camera, moving the client viewport to the Camera target position.
 * Compared to the example above, it is much shorter. This is the simplest and more direct approach for the common 3D use case of associating comments with Cameras.
-* Although these examples concern comments and Cameras, it is also possible to use `scope` in other situations where an activating annotation with `action` show, enable, and select is appropriate.
+* Although these examples concern comments and Cameras, it is also possible to use [`scope`][prezi-40-model-scope] in other situations where an activating annotation with an [`action`][prezi-40-model-action] property value of `show`, `enable`, and `select` would be appropriate.
 {: .callout}
 
 
@@ -786,7 +781,7 @@ Activating annotations are provided in a Container's [`annotations`][prezi-40-mo
 
 ### Interactive 3D light switch
 
-This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. As there are multiple annotations being enabled and disabled in order, the `body` of the activating Annotation is an instance of the [List][prezi-40-model-list] class. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
+This example is a light switch that can be toggled on and off using activating annotations that result in behaviors being applied to or removed from a resource. A resource with the [`behavior`][prezi-40-model-behavior] value "hidden" is not rendered by the client. A resource with the [`behavior`][prezi-40-model-behavior] value "disabled" is not available for user interaction and does not trigger any actions. This example demonstrates a painted resource - a light - being shown and hidden, and activating annotations being enabled and disabled. As there are multiple annotations being enabled and disabled in order, the [`body`][prezi-40-model-body] of the activating Annotation is an instance of the [List][prezi-40-model-list] class. Both of these are done by the client processing the action properties of the activating annotation bodies: the actions "show" and "hide" remove or add the behavior value "hidden", and the actions "enable" and "disable" modify the behavior value "disabled".
 
 ```jsonc
 {
@@ -968,9 +963,9 @@ This example is a light switch that can be toggled on and off using activating a
 
 Sometimes a model file has inbuilt animations. While a description of these is outside the scope of IIIF, because it is 3D-implementation-specific, as long as there is a way to refer to a model's animation(s) by name, we can connect the animation to IIIF resources.
 
-This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The [`body`][prezi-40-model-body] is a Specific Resource, where the [`source`][prezi-40-model-source] is the Painting Annotation that paints the model, and the `selector` is an [Animation Selector][prezi-40-model-AnimationSelector] with the `value` being a string that corresponds to the name of the animation in the model.
+This pattern is also achieved with activating annotations, except that the body of the activating annotation references a _named animation_ in the model. The [`body`][prezi-40-model-body] is a Specific Resource, where the [`source`][prezi-40-model-source] is the Painting Annotation that paints the model, and the [`selector`][prezi-40-model-selector] is an [Animation Selector][prezi-40-model-AnimationSelector] with the `value` being a string that corresponds to the name of the animation in the model.
 
-The format of the `value` string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one painted instance of the model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
+The format of the [`value`][prezi-40-model-value] string is implementation-specific, and will depend on how different 3D formats support addressing of animations within models. The same model can be painted multiple times into the scene, and you might want to activate only one painted instance of the model's animation, thus we need to refer to the annotation that paints the model, not the model directly.
 
 
 ```jsonc
@@ -1085,9 +1080,9 @@ While all Annotation Page [`items`][prezi-40-model-items] are inherently ordered
 
 Some IIIF resources have associated resources, such as closed-caption files for video, audio descriptions for images, or tactile graphics for visual materials, that improve access to the content for a wider range of users. These linked resources play a specific accessibility-related role relative to the resource they describe or supplement. See [A/V Use Case 5: Movie with subtitles](#use-case-5-movie-with-subtitles) above.
 
-IIIF uses the `provides` property on supplementing annotations to define the specific accessibility functionality that a linked resource enables for its target, describing why and how a client might use it rather than what the resource is by type or format. For example, a text file linked from a video might provide `closedCaptions`, or an audio file associated with a Canvas might provide an `audioDescription`.
+IIIF uses the [`provides`][prezi-40-model-provides] property on supplementing annotations to define the specific accessibility functionality that a linked resource enables for its target, describing why and how a client might use it rather than what the resource is by type or format. For example, a text file linked from a video might provide `closedCaptions`, or an audio file associated with a Canvas might provide an `audioDescription`.
 
-The value of `provides` is an array of strings, taken from the [IIIF Registry of Accessibility Values][schema-accessibility].
+The value of [`provides`][prezi-40-model-provides] is an array of strings, taken from the [IIIF Registry of Accessibility Values][schema-accessibility].
 
 
 ```json
