@@ -599,16 +599,18 @@ Like Timelines or Canvases, Scenes can be painted into Scenes. As with other res
 
 When a Scene is nested into another Scene, the [`backgroundColor`][prezi-40-model-backgroundColor] of the Scene to be nested should be ignored as it would have no meaningful effect. Similarly, if both Scenes have ImageBasedLight Annotations, the ImageBasedLight Annotation of the Scene into which the Scene will be nested takes precedence. All other Annotations painted into the Scene to be nested will be painted into the Scene into which content is being nested, including Light or Camera resources. If the Scene to be nested has one or more Camera Annotations while the Scene into which content is being nested does not, the first Camera Annotation from the nested Scene will become the default Camera for the overall Scene.
 
-This example paints the chess piece Scene from the previous examples into a parent Scene twice, placing the two groups of chess pieces side by side.
+This example paints the chess piece Scene from the previous examples into a parent Scene twice, placing the two chess pieces side by side.
 
 {% include code_example.html src="uc06_scene_in_scene.json" %}
 
 >
 **Key Points**
-* Each Annotation's body references the chess pieces Scene by its URI.
-* A PointSelector on each Annotation's target places one instance to the left and one to the right of the parent Scene's origin, resulting in two groups of chess pieces side by side.
-* The [`backgroundColor`][prezi-40-model-backgroundColor] of the nested chess Scene is ignored in the parent Scene.
+* Each Annotation's body references the chess piece's Scene by its URI.
+* A PointSelector on each Annotation's target places one instance to the left and one to the right of the parent Scene's origin, resulting in two chess pieces side by side.
+* The [`backgroundColor`][prezi-40-model-backgroundColor] of the nested chess piece Scene is ignored in the parent Scene.
 * Because the parent Scene has no Camera or ImageBasedLight of its own, the Camera and ImageBasedLight Annotations from the nested chess Scene are imported into the parent Scene.
+* The [`structures`][prezi-40-model-structures] property has a [`Range`][prezi-40-model-Range] with the [`behavior`][prezi-40-model-behavior] value "sequence", indicating that the client should use the order within this Range, rather than the default order of `items`. This Range omits the chess piece Scene.
+* The [`start`][prezi-40-model-start] property is used to indicate to the client that rendering should start with the second `Scene`, the parent, rather than the `Scene` holding the individual chess piece. This is technically redundant given the previous point, but is shown here for reference.
 {: .callout}
 
 __Definitions__<br/>

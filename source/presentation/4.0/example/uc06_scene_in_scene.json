@@ -7,6 +7,10 @@
             "Chess Pieces — Scene in Scene"
         ]
     },
+    "start": {
+        "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/parent",
+        "type": "Scene"
+    },
     "items": [
         {
             "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
