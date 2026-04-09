@@ -10,7 +10,7 @@
             "label": { "en": [ "Side A: 99 Luftballons - 10min duration" ] },
             "width": 100,
             "height": 100,
-            "duration": 36000,
+            "duration": 600,
             "items": [
                 {
                     "id": "https://iiif.io/api/presentation/4.0/example/uc07_audio/canvas/1/page/1",
