@@ -316,7 +316,7 @@ The fragment example above can be expressed using a Specific Resource:
 
 When painting resources into Scenes, it is often necessary to resize, rotate or move them relative to the coordinate space of the Scene. These operations are specified using three Transforms: [ScaleTransform][prezi-40-model-ScaleTransform], [RotateTransform][prezi-40-model-RotateTransform] and [TranslateTransform][prezi-40-model-TranslateTransform]. Each Transform has three properties, [`x`][prezi-40-model-x], [`y`][prezi-40-model-y] and [`z`][prezi-40-model-z] which determine how the Transform affects that axis in the local coordinate space.
 
-Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it.
+Transforms are added to a SpecificResource using the [`transform`][prezi-40-model-transform] property, and there may be more than one applied when adding a model to a Scene. Different orders of the same set of transforms can have different results, so attention must be paid when creating the array and when processing it. Note that the effect of including a Transform in a Specific Resource is only defined when the target is a Scene, and not for other painting content into other types of container or for other uses of Specific Resource.
 
 
 ## Navigational Resources
