@@ -102,13 +102,13 @@ a:hover > code {
  }
 
  a > code.language-plaintext {
-   color: inherit;
-   font-family: "PT Sans",sans-serif;
-   background-color: transparent;
-   border: none;
-   font-size: 1.1rem;
+   color: #3032fd;
    line-height: 1.0;
    text-decoration: none;
+ }
+
+ a:hover > code.language-plaintext {
+   text-decoration: underline;
  }
 
   .callout {
