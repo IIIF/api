@@ -13,7 +13,7 @@
             "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
             "type": "Scene",
             "label": { "en": [ "A Scene" ] },
-            "backgroundColor": "#FF00FE",
+            "backgroundColor": "#99CCFF",
             "items": [
                 {
                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/page/1",
