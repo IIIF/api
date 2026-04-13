@@ -8,7 +8,7 @@
             "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
             "type": "Scene",
             "label": { "en": [ "Chess Game Pieces" ] },
-            "backgroundColor": "#FF00FE",
+            "backgroundColor": "#99CCFF",
             "interactionMode": [ "hemisphere-orbit" ],
             "items": [
                 {

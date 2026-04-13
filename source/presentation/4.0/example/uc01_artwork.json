@@ -114,6 +114,7 @@
             "type": "Canvas",
             "width": 6000,
             "height": 3813,
+            "backgroundColor": "#99CCFF",
             "items": [
                 {
                     "id": "https://iiif.io/api/presentation/4.0/example/09/page/p2",
