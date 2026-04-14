@@ -22,7 +22,7 @@
             {
               "id": "https://iiif.io/api/presentation/4.0/example/uc07_image_composite_source_b/canvas/1/annotations/1",
               "type": "Annotation",
-              "motivation": "painting",
+              "motivation": ["painting"],
               "body": {
                 "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux/full/max/0/default.jpg",
                 "type": "Image",
