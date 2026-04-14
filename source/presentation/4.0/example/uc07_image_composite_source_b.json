@@ -1,0 +1,56 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "id": "https://iiif.io/api/presentation/4.0/example/uc07_image_composite_source_b.json",
+  "type": "Manifest",
+  "label": {
+    "en": [ "Folio from Grandes Chroniques de France, ca. 1460" ]
+  },
+  "items": [
+    {
+      "id": "https://iiif.io/api/presentation/4.0/example/uc07_image_composite_source_b/canvas/1",
+      "type": "Canvas",
+      "label": {
+        "fr": [ "f. 033v-034r [Chilpéric Ier tue Galswinthe, se remarie et est assassiné]" ]
+      },
+      "width": 7216,
+      "height": 5412,
+      "items": [
+        {
+          "id": "https://iiif.io/api/presentation/4.0/example/uc07_image_composite_source_b/canvas/1/annotations",
+          "type": "AnnotationPage",
+          "items": [
+            {
+              "id": "https://iiif.io/api/presentation/4.0/example/uc07_image_composite_source_b/canvas/1/annotations/1",
+              "type": "Annotation",
+              "motivation": ["painting"],
+              "body": {
+                "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux/full/max/0/default.jpg",
+                "type": "Image",
+                "format": "image/jpeg",
+                "width": 7216,
+                "height": 5412,
+                "service": [
+                  {
+                    "id": "https://iiif.io/api/image/3.0/example/reference/899da506920824588764bc12b10fc800-bnf_chateauroux",
+                    "type": "ImageService3",
+                    "profile": "level1"
+                  }
+                ]
+              },
+              "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/uc07_image_composite_source_b/canvas/1",
+                "type": "Canvas"
+              }
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "id": "https://example.org/annotations/large-body-of-annotations-on-Chilperic-kills-Galswintha-folio",
+          "type": "AnnotationPage"
+        }
+      ]
+    }
+  ]
+}

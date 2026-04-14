@@ -479,17 +479,18 @@ A Container can be painted into another Container as an Annotation with [`motiva
 
 ## Use Case 6: Reconstruction of a Separated Object
 
-Physical objects such as books, or even individual sheets, can be dispersed amongst multiple institutions, each of which digitizes and publishes the parts of the original that they look after. However, in order to reconstruct how a book might have looked in the past at a particular opening, along with all of the other commentary and other digital affordances available via IIIF, it is possible to embed the Canvas representing the left hand page from one organization, and the Canvas representing the right hand page from another organization, into a single larger Canvas representing the spread.
+Physical objects such as manuscripts, or even individual folios, can be dispersed amongst multiple institutions, each of which digitizes and publishes the parts of the original that they look after. However, in order to reconstruct how a manuscript might have looked in the past, along with all of the other commentary and other digital affordances available via IIIF, it is possible to reference Canvases from external Manifests.
 
-This example is a Manifest with a Canvas that has two page images displayed side by side. However, instead of painting the images directly as Annotations, each image is painted on to a separate Canvas, and each Canvas is painted into the Manifest Canvas. A practical application of this would be where the single-image Canvases have been created previously and are hosted separately from the Manifest's composite-image Canvas and those Canvases have transcriptions, translations, commentary or other annotations aligned with the image.
+This example comprises three Manifests. The first contains a miniature - an illustration from a manuscript that has been cut out at some point, acquired as an independent object by institution A, and digitized. A large number of annotations have accumulated for this miniature, they are referenced from the Canvas in this Manifest. The second Manifest contains a Canvas that represents the page from which the miniature was cut - the image painted onto this Canvas has a hole in it. This Canvas too has accumulated a large body of annotations. While it would be possible in a third Manifest to create a new Canvas and simply paint the two source images onto it, the example here instead paints the two Canvases by referencing them and their source Manifests. A client rendering this reconstruction can bring in any transcriptions, translations, commentary or other annotations aligned with their respective images from both sources, including those made after the reconstruction itself was made.
 
 {% include code_example.html src="uc07_image_composite.json" %}
 
 >
 **Key Points**
 * The Manifest contains a single Canvas, which has a single Annotation Page, and two painting annotations.
-* Each painting annotation defines a Canvas with its own Annotation Page and a single image annotation. Alternately, each painting annotation could reference an external Canvas through a URI.
-* The two image Canvases are nested within the Manifest Canvas, causing the images to be displayed side by side.
+* Each painting annotation paints a Canvas that is defined in a different Manifest. 
+* The [`partOf`][prezi-40-model-partOf] property is essential. It allows the client to load the Manifest that contains the Canvases. Sometimes individual Canvases may be available online at the URIs given by their `id` properties, but this is not usually the case.
+* Both source Canvases are scaled. The Folio Canvas happens to be the same aspect ration as the new Canvas (but only half its actual width and height). The `target` property for painting the Folio image into the new Canvas therefore simply uses the Canvas `id`, and the client will fill the new Canvas with the source Canvas. The miniature Canvas `target` is a region of the new Canvas, and it is scaled to fit that region.
 {: .callout}
 
 
