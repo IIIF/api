@@ -283,7 +283,7 @@ In addition to the required properties [`id`][prezi-40-model-id] and [`type`][pr
 
 ### Containers as Content Resources
 
-Containers may also be treated as Content Resources and painted into other Containers. This allows composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene. This capability is described further in the [Nesting Containers section](#nesting-containeras).
+Containers may also be treated as Content Resources and painted into other Containers. This allows composition of content, such as painting a Canvas bearing a Video into a Scene, or painting a 3D model along with its associated Lights into an encompassing Scene. This capability is described further in [Nesting Containers](#nesting-containers).
 
 ### Referencing Parts of Resources
 
@@ -530,7 +530,7 @@ The Light is green and has a position, but has its default orientation of lookin
 
 >
 **Key Points**
-* This example uses some of the Scene-Specific resources introduced in [3D Supporting Resources](#3d-supporting-resources).
+* This example uses some of the Scene-specific resources introduced in [Scene](#scene).
 * A Point Selector explicitly places the model in the Scene via the Painting Annotation's [`target`][prezi-40-model-target] property. In the previous example, there was an implicit Point Selector placing the model at (0,0,0) because no explicit Point Selector was provided.
 * The provided Light should replace any default lighting the client might have.
 {: .callout}
