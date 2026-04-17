@@ -175,9 +175,14 @@
                                 "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/lights/1",
                                 "type": "SpotLight",
                                 "label": { "en": [ "Spot Light 1" ] },
-                                "angle": 90.0,
-                                "color": "#A0FFA0"
-                            },
+                                "angle": 35.0,
+                                "color": "#A0FFA0",
+                                "intensity": {
+                                    "type": "Value",
+                                    "value": 5,
+                                    "unit": "relative"
+                                  }
+                                } ,
                             "target": {
                                 "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/light1/specificResource/1",
                                 "type": "SpecificResource",
@@ -189,8 +194,8 @@
                                     {
                                         "type": "PointSelector",
                                         "x": 0.0,
-                                        "y": 3.0,
-                                        "z": 1.0
+                                        "y": 0.2,
+                                        "z": 0.0
                                     }
                                 ]
                             }
