@@ -181,8 +181,15 @@
                                     "type": "Value",
                                     "value": 5,
                                     "unit": "relative"
-                                  }
-                                } ,
+                                },
+                                "lookAt": {
+                                    "type": "PointSelector",
+                                    "id"  : "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/lights/1/PointSelector/1",
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                }
+                            } ,
                             "target": {
                                 "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/light1/specificResource/1",
                                 "type": "SpecificResource",
