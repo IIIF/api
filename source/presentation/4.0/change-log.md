@@ -23,6 +23,8 @@ Version 4.0 introduces an abstract **Container** class with three concrete subty
 
 Canvas-based Manifests conforming to version 3.0 remain valid. Publishers with audio-only resources currently modelled as Canvases without spatial dimensions should migrate those resources to Timeline.
 
+*Related issues: [#2279](https://github.com/IIIF/api/issues/2279), [#2254](https://github.com/IIIF/api/issues/2254), [#2363](https://github.com/IIIF/api/issues/2363)*
+
 #### 1.1.2. Canvas now requires `height` and `width`
 
 In version 3.0, `height` and `width` were recommended on Canvas but could be omitted for audio resources. Because audio-only content now has its own Timeline container, Canvas `height` and `width` become required in version 4.0. Publishers who previously omitted these properties on audio Canvases must migrate to Timeline.
@@ -33,9 +35,13 @@ In version 3.0, `height` and `width` were recommended on Canvas but could be omi
 
 The `placeholderCanvas` property introduced in version 3.0 has been renamed `placeholderContainer`. The semantics are unchanged—the referenced Container provides content displayed before the primary resource loads or when it cannot be rendered—but the name now correctly reflects that any Container type (Canvas, Timeline, or Scene) may serve this role.
 
+*Related issues: [#2317](https://github.com/IIIF/api/issues/2317), [#1605](https://github.com/IIIF/api/issues/1605)*
+
 #### 1.2.2. Rename `accompanyingCanvas` to `accompanyingContainer`
 
 Similarly, `accompanyingCanvas` has been renamed `accompanyingContainer`. The referenced Container still provides supplementary content rendered alongside the primary resource (such as a still image shown during audio playback), but the name is generalised to accommodate the full Container hierarchy.
+
+*Related issues: [#2317](https://github.com/IIIF/api/issues/2317)*
 
 ### 1.3. Protocol
 
@@ -55,23 +61,33 @@ The Scene Container class represents an infinite three-dimensional space using a
 
 Scene provides a first-class container for 3D models, spatial compositions, and interactive three-dimensional experiences, complementing Canvas for two-dimensional and Timeline for audio-only content.
 
+*Related issues: [#2254](https://github.com/IIIF/api/issues/2254), [#1992](https://github.com/IIIF/api/issues/1992), [#2279](https://github.com/IIIF/api/issues/2279)*
+
 #### 2.1.2. Add Lights for illuminating Scenes
 
 Five light types are defined for Scenes. **AmbientLight** provides non-directional uniform illumination across the entire Scene. **DirectionalLight** simulates a distant source with parallel rays from a specified direction. **PointLight** radiates from a specific position in all directions. **SpotLight** emits a cone of light from a position and direction, with a configurable angle. **ImageBasedLight** uses an environment map to provide both illumination and reflections, enabling physically-based rendering.
 
 Scenes should include at least one light; clients may supply a default if none is specified.
 
+*Related issues: [#2258](https://github.com/IIIF/api/issues/2258), [#2397](https://github.com/IIIF/api/issues/2397), [#2296](https://github.com/IIIF/api/issues/2296)*
+
 #### 2.1.3. Add Cameras for viewpoints into Scenes
 
 Two Camera types define viewpoints into Scene space. **PerspectiveCamera** simulates the human eye with a field-of-view angle and near/far clipping planes. **OrthographicCamera** uses parallel projection, useful for technical, architectural, or orthographic visualisations. Cameras specify their position and orientation, and the client presents this viewpoint to the user on load.
+
+*Related issues: [#2257](https://github.com/IIIF/api/issues/2257), [#2289](https://github.com/IIIF/api/issues/2289), [#2430](https://github.com/IIIF/api/issues/2430), [#2288](https://github.com/IIIF/api/issues/2288)*
 
 #### 2.1.4. Add Audio Emitters for spatial audio in Scenes
 
 Three audio emitter types enable spatially-positioned audio within Scenes. **AmbientAudio** applies equally throughout the Scene regardless of viewer position. **PointAudio** emanates from a specific three-dimensional position, with volume attenuating by distance. **SpotAudio** emits a cone of audio from a position and direction with a configurable angle. Emitters have `source` and `volume` properties, associating them with audio content resources.
 
+*Related issues: [#2420](https://github.com/IIIF/api/issues/2420), [#2440](https://github.com/IIIF/api/issues/2440)*
+
 #### 2.1.5. Add Transforms for positioning content within Scenes
 
 Three Transform types modify the local coordinate space when placing content inside a Scene. **TranslateTransform** moves the origin to a new position. **RotateTransform** rotates around a named axis by a given angle. **ScaleTransform** scales dimensions uniformly or independently per axis. Transforms are specified as part of Specific Resource descriptors in painting Annotations, and are applied in the order listed.
+
+*Related issues: [#2256](https://github.com/IIIF/api/issues/2256), [#2268](https://github.com/IIIF/api/issues/2268), [#2288](https://github.com/IIIF/api/issues/2288), [#2302](https://github.com/IIIF/api/issues/2302)*
 
 #### 2.1.6. Add AnimationSelector for three-dimensional content
 
@@ -91,9 +107,13 @@ The WktSelector accepts Well-Known Text (WKT) geometry strings to identify regio
 
 AudioContentSelector and VisualContentSelector select, respectively, only the audio or only the visual track from a combined audio-visual resource such as a video file. This enables, for example, painting only the audio component of a video file onto a Timeline, or presenting the visual component of a video independently of its audio.
 
+*Related issues: [#1332](https://github.com/IIIF/api/issues/1332)*
+
 #### 2.2.3. Incorporate ImageApiSelector into the core specification
 
 The ImageApiSelector, previously defined as an extension, is incorporated into the core specification. It allows Specific Resources to reference an image through IIIF Image API parameters rather than a pre-formed URI, enabling resolution-independent and crop-aware image references.
+
+*Related issues: [#2230](https://github.com/IIIF/api/issues/2230), [#2228](https://github.com/IIIF/api/issues/2228)*
 
 ### 2.3. New Properties
 
@@ -101,21 +121,31 @@ The ImageApiSelector, previously defined as an extension, is incorporated into t
 
 The `backgroundColor` property specifies the background colour for a Container as a hex RGB value (e.g., `#ffffff`). Clients should render this colour behind any content painted onto the Container. This is useful when the background colour of an object is significant, such as an artwork customarily displayed against a particular ground, or a film that begins and ends on black.
 
+*Related issues: [#2244](https://github.com/IIIF/api/issues/2244), [#2259](https://github.com/IIIF/api/issues/2259), [#2283](https://github.com/IIIF/api/issues/2283)*
+
 #### 2.3.2. Add `spatialScale` on Canvas
 
 The `spatialScale` property maps the coordinate units of a Canvas to real-world physical measurements using the new Quantity class. This enables publishers to express the actual physical dimensions of a depicted object, supporting applications such as on-screen measurement tools, comparison views across objects of different scales, and augmented-reality placement.
+
+*Related issues: [#2401](https://github.com/IIIF/api/issues/2401), [#2355](https://github.com/IIIF/api/issues/2355), [#209](https://github.com/IIIF/api/issues/209)*
 
 #### 2.3.3. Add `provides` for accessibility feature declarations
 
 The `provides` property declares what accessibility features a resource makes available, such as subtitles, captions, audio description, or sign language. This allows clients to present this information to users and to make appropriate interface choices before a resource is loaded or rendered.
 
+*Related issues: [#2308](https://github.com/IIIF/api/issues/2308), [#2319](https://github.com/IIIF/api/issues/2319), [#2320](https://github.com/IIIF/api/issues/2320)*
+
 #### 2.3.4. Incorporate `navPlace` into the core specification
 
 The `navPlace` property, previously available as a registered community extension, is incorporated into the core specification in version 4.0. It accepts GeoJSON Feature or Feature Collection values and enables geographic navigation interfaces for Collections and Manifests. This complements the existing `navDate` property, which serves the equivalent role for temporal navigation.
 
+*Related issues: [#2242](https://github.com/IIIF/api/issues/2242), [#1246](https://github.com/IIIF/api/issues/1246), [#2303](https://github.com/IIIF/api/issues/2303), [#2019](https://github.com/IIIF/api/issues/2019)*
+
 #### 2.3.5. Add `fileSize` on content resources
 
 The `fileSize` property declares the size of a content resource in bytes. This allows clients to present file-size information to users before they choose to download or stream a resource, and to make informed decisions about network usage.
+
+*Related issues: [#2358](https://github.com/IIIF/api/issues/2358)*
 
 ### 2.4. Data Model Additions
 
@@ -123,9 +153,13 @@ The `fileSize` property declares the size of a content resource in bytes. This a
 
 The Quantity class pairs a numerical value (`quantityValue`) with a unit of measurement (`unit`). It is used by `spatialScale` and by other properties where a bare number is insufficient without knowing its unit. This avoids encoding unit information in property names and enables unambiguous machine processing of physical measurements.
 
+*Related issues: [#2401](https://github.com/IIIF/api/issues/2401), [#2355](https://github.com/IIIF/api/issues/2355)*
+
 #### 2.4.2. Reintroduce Collection paging via Collection Page
 
 A Collection Page class, based on the Activity Streams paging model, enables large Collections to be distributed across multiple HTTP responses. Paging was removed from version 3.0 on the grounds that it was not implemented and was insufficiently specified. Version 4.0 reintroduces it with a clearer definition aligned with Activity Streams conventions.
+
+*Related issues: [#2174](https://github.com/IIIF/api/issues/2174), [#1343](https://github.com/IIIF/api/issues/1343), [#740](https://github.com/IIIF/api/issues/740)*
 
 ---
 
