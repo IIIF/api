@@ -284,8 +284,8 @@ Examples:
       </td>
       <td>
         <img src="img/size_up_max.png" alt="Size by Height Above Maximum" style="max-width: 350px;" />
-        <p><strong>3</strong> size=,^240</p>
-        <p><code>.../full/,^240/0/default.jpg</code></p>
+        <p><strong>3</strong> size=^,240</p>
+        <p><code>.../full/^,240/0/default.jpg</code></p>
       </td>
     </tr>
     <tr>
