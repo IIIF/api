@@ -445,7 +445,7 @@ This example is a Manifest with two Timelines, each of which represent a tempora
 * Timeline is a type of Container intended to manage audio content, or other temporal information.
 * Any Container, but especially Timelines, can have a [`accompanyingContainer`][prezi-40-model-accompanyingContainer] with additional content to render to make the user experience more attractive. 
 * Information about external resources such as [`format`][prezi-40-model-format], [`language`][prezi-40-model-language], [`duration`][prezi-40-model-duration] can be added to assist with rendering, especially when the user or client needs to make a choice between representations. See the next use case more for details about Choice.
-* In the external annotation for the song lyrics, we append `#t=3.5,6.8` to the target URI to define the temporal extent in the target timeline that corresponds to the song lyric.
+* In the external annotation for the song lyrics, we append `#t=8,10` to the target URI to define the temporal extent in the target timeline that corresponds to the song lyric.
 {: .callout}
 
 __Definitions__<br/>
