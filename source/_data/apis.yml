@@ -17,7 +17,7 @@ presentation:
   image: assets/images/icons/location-info@2x.webp
   alt_text: Presentation API icon
   draft:
-    major: 3
+    major: 4
     minor: 0
     patch: 0
   stable:
