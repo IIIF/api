@@ -13,6 +13,7 @@ The process for having an entry included in one of the IIIF extension registries
 
 ## Presentation API Registries
 
+* [Accessibility Terms][registry-accessibility]
 * [Behaviors][registry-behaviors]
 * [Presentation API Extensions][extensions]
 * [Motivations][registry-motivations]

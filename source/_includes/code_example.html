@@ -1,0 +1,10 @@
+{% assign _title = include.title | default: 'Full JSON example' %}
+{% assign _target = include.target | default: "_blank" %}
+
+<div class="code-example">
+  <div class="code-example__header">
+    <a href="example/{{ include.src }}" target="{{ _target }}">{{ _title }}</a></div>
+  {% highlight json %}
+  {% include_lines presentation/4.0/example/{{ include.src }} from:{{ include.from }} to:{{ include.to }} %}
+  {% endhighlight %}
+</div>

@@ -1,0 +1,14 @@
+{
+  "@context": "http://iiif.io/api/presentation/4/context.json",
+  "type": "Collection",
+  "id": "https://iiif.io/api/presentation/4.0/example/uc03_vol2.json",
+  "label": {
+    "en": [
+      "Berliner Tageblatt - 1926 - note there are no issues in this example"
+    ]
+  },
+  "rights": "http://creativecommons.org/publicdomain/mark/1.0/",
+  "behavior": ["multi-part"],
+  "items": [
+  ]
+}

@@ -20,7 +20,7 @@ jobs: # A workflow run is made up of one or more jobs that can run sequentially 
       JEKYLL_ENV: 'production'
     steps: # Steps represent a sequence of tasks that will be executed as part of the job
     - name: Checkout # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      uses: actions/checkout@v2
+      uses: actions/checkout@v6
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:

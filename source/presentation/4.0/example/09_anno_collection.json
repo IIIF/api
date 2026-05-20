@@ -1,0 +1,15 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/09_anno_collection.json",
+    "type": "AnnotationCollection",
+    "label": { "en": [ "Diplomatic Transcription" ] },
+    "total": 5,
+    "first": {
+        "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_1.json",
+        "type": "AnnotationPage"
+    },
+    "last": {
+        "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_2.json",
+        "type": "AnnotationPage"
+    }
+}

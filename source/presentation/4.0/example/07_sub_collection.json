@@ -1,0 +1,21 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/07_sub_collection.json",
+    "type": "Collection",
+    "label": {
+        "en": [
+            "Sub-Collection"
+        ]
+    },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/06_specific_resource.json",
+            "type": "Manifest",
+            "label": {
+                "en": [
+                    "Sub collection - Manifest 1"
+                ]
+            }
+        }
+    ]
+}

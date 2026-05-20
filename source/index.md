@@ -22,13 +22,12 @@ api_current_table:
 
 {% include api/api-listing-table.html table=page.api_current_table %}
 
-<!--
 ## Draft specifications
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
+| Presentation API | [4.0.0][prezi40] (Release candidate) |
 {: .api-table}
--->
 
 ### Feedback requested
 {: #feedback}

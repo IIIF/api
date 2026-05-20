@@ -1,0 +1,47 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_2.json",
+    "type": "AnnotationPage",
+    "prev": {
+        "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_1.json",
+        "type": "AnnotationPage"
+    },
+    "partOf": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/09_anno_collection.json",
+            "type": "AnnotationCollection"
+        }
+    ],
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/6ad3ab0c-cbab-403a-b4ee-93983675fcdf",
+            "type": "Annotation",
+            "motivation": [
+                "supplementing"
+            ],
+            "body": {
+                "type": "TextualBody",
+                "value": "we started out to find the hotel which had been recommended to us. We were beset by a dozen dif-ferent porters of the various hotels. The rivalry was intense and caused great annoyance to travellers. We insisted upon finding our hotel by ourselves although there were several paters from the same at the station. Still one of them accompanied us to a carriage & invited us to enter. He explained to him in French that we were strong and accus-tomed to hoofing it. But still he accompanied us on ft. fearing, I think, that we would go to another hotel. After supper we wrote a little & then retired at 10. Sun. Jan. 4. 1891. After having a French Cafe we hunted about for a cheaper hotel. This we easily found in the Greek XereiSyror ETA dior, while we obtained a room for the both of us everything included. for 20 francs, or 40 French francs = F1.60 each."
+            },
+            "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/2#xywh=3,1552,2268,1559",
+                "type": "Canvas"
+            }
+        },
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/96b020c4-6a0a-437f-bca4-8463dd4f595f",
+            "type": "Annotation",
+            "motivation": [
+                "supplementing"
+            ],
+            "body": {
+                "type": "TextualBody",
+                "value": "The guide book mentions rigorously all the sights celebrated in ancient annals. Let the guide book suffice for that. Anything I should attempt would fall so far short. Just beyond Corinth an extra engine was attached to our train to pull us up the low range of hills which forms the narrow Isthmus of Corinth. Here we had a good opportunity to see the Ships canal in progress. It will still take 2 yrs. to complete. It's a stupendous undertaking. The cold north wind blowing into the windows forced us to close them & rest satisfied in seeing the sights from the inside. The bit of railroad along the Saronic gulf, is very picturesque, built along the face of a cliff rising precipitously from the waters of the gulf where hardly a space can be blasted out in which to lay the track, it gives a tingle some feelings of insecurity. It affords a fine view of the gulf with the interesting old islands and mountains. Late in afternoon, in darkness 7.30 we steamed into Athens. After seeing to our bicycles"
+            },
+            "target": {
+                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/2#xywh=12,16,2236,1539",
+                "type": "Canvas"
+            }
+        }
+    ]
+}

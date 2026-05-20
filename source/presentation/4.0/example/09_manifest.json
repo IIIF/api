@@ -1,0 +1,165 @@
+{
+    "@context": "http://iiif.io/api/presentation/4/context.json",
+    "id": "https://iiif.io/api/presentation/4.0/example/09_manifest.json",
+    "type": "Manifest",
+    "label": {
+        "en": [
+            "William Lewis Sachtleben Athens travel diary"
+        ]
+    },
+    "summary": {
+        "en": [
+            "Example demonstrating an AnnotationCollection"
+        ]
+    },
+    "items": [
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/1",
+            "type": "Canvas",
+            "height": 3152,
+            "width": 2251,
+            "label": {
+                "en": [
+                    "uclamss_1841_diary_07_02"
+                ]
+            },
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/1/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/09/annotation/1",
+                            "type": "Annotation",
+                            "motivation": [
+                                "painting"
+                            ],
+                            "body": {
+                                "id": "https://iiif.io/api/image/3.0/example/reference/9ee11092dfd2782634f5e8e2c87c16d5-uclamss_1841_diary_07_02/full/max/0/default.jpg",
+                                "type": "Image",
+                                "format": "image/jpeg",
+                                "height": 3152,
+                                "width": 2251,
+                                "service": [
+                                    {
+                                        "@context": "http://iiif.io/api/image/3/context.json",
+                                        "extraFormats": [
+                                            "jpg",
+                                            "png"
+                                        ],
+                                        "extraQualities": [
+                                            "default",
+                                            "color",
+                                            "gray"
+                                        ],
+                                        "height": 3152,
+                                        "id": "https://iiif.io/api/image/3.0/example/reference/9ee11092dfd2782634f5e8e2c87c16d5-uclamss_1841_diary_07_02",
+                                        "profile": "level1",
+                                        "protocol": "http://iiif.io/api/image",
+                                        "tiles": [
+                                            {
+                                                "height": 512,
+                                                "scaleFactors": [
+                                                    1,
+                                                    2,
+                                                    4
+                                                ],
+                                                "width": 512
+                                            }
+                                        ],
+                                        "type": "ImageService3",
+                                        "width": 2251
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/1",
+                                "type": "Canvas"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "annotations": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_1.json",
+                    "type": "AnnotationPage"
+                }
+            ]
+        },
+        {
+            "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/2",
+            "type": "Canvas",
+            "height": 3135,
+            "width": 2268,
+            "label": {
+                "en": [
+                    "uclamss_1841_diary_07_03"
+                ]
+            },
+            "items": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/2/page/1",
+                    "type": "AnnotationPage",
+                    "items": [
+                        {
+                            "id": "https://iiif.io/api/presentation/4.0/example/09/annotation/2",
+                            "type": "Annotation",
+                            "motivation": [
+                                "painting"
+                            ],
+                            "body": {
+                                "id": "https://iiif.io/api/image/3.0/example/reference/9ee11092dfd2782634f5e8e2c87c16d5-uclamss_1841_diary_07_03/full/max/0/default.jpg",
+                                "type": "Image",
+                                "format": "image/jpeg",
+                                "height": 3135,
+                                "width": 2268,
+                                "service": [
+                                    {
+                                        "@context": "http://iiif.io/api/image/3/context.json",
+                                        "extraFormats": [
+                                            "jpg",
+                                            "png"
+                                        ],
+                                        "extraQualities": [
+                                            "default",
+                                            "color",
+                                            "gray"
+                                        ],
+                                        "height": 3135,
+                                        "id": "https://iiif.io/api/image/3.0/example/reference/9ee11092dfd2782634f5e8e2c87c16d5-uclamss_1841_diary_07_03",
+                                        "profile": "level1",
+                                        "protocol": "http://iiif.io/api/image",
+                                        "tiles": [
+                                            {
+                                                "height": 512,
+                                                "scaleFactors": [
+                                                    1,
+                                                    2,
+                                                    4
+                                                ],
+                                                "width": 512
+                                            }
+                                        ],
+                                        "type": "ImageService3",
+                                        "width": 2268
+                                    }
+                                ]
+                            },
+                            "target": {
+                                "id": "https://iiif.io/api/presentation/4.0/example/09/canvas/2",
+                                "type": "Canvas"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "annotations": [
+                {
+                    "id": "https://iiif.io/api/presentation/4.0/example/09_anno_page_2.json",
+                    "type": "AnnotationPage"
+                }
+            ]
+        }
+    ]
+}
