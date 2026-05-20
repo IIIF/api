@@ -409,6 +409,7 @@
 [prezi-40-model-timeMode]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#timeMode
 [prezi-40-model-transform]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#transform
 [prezi-40-model-type]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#type
+[prezi-40-model-value]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#value
 [prezi-40-model-viewingDirection]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#viewingDirection
 [prezi-40-model-volume]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#volume
 [prezi-40-model-width]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#width
