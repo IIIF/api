@@ -1,1 +1,511 @@
-{}
+{
+  "@context": {
+    "@version": 1.1,
+
+    "iiif_prezi": "http://iiif.io/api/presentation/3#",
+    "iiif_image": "http://iiif.io/api/image/3#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
+    "oa": "http://www.w3.org/ns/oa#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "as": "http://www.w3.org/ns/activitystreams#",
+    "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
+    "schema": "https://schema.org/",
+    "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+
+    "id": "@id",
+    "type": "@type",
+
+    "Collection": {
+      "@id": "iiif_prezi:Collection",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "CollectionPage": {
+      "@id": "iiif_prezi:CollectionPage",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Manifest": {
+      "@id": "iiif_prezi:Manifest",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Canvas": {
+      "@id": "iiif_prezi:Canvas",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Timeline": {
+      "@id": "iiif_prezi:Timeline",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Scene": {
+      "@id": "iiif_prezi:Scene",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "Range": {
+      "@id": "iiif_prezi:Range",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+
+    "AnnotationCollection": {
+      "@id": "as:OrderedCollection",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json",
+        {
+          "partOf": {
+            "@id": "dcterms:isPartOf",
+            "@type": "@id",
+            "@container": "@set"
+          }
+        }
+      ]
+    },
+    "AnnotationPage": {
+      "@id": "as:OrderedCollectionPage",
+      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+    },
+
+    "Annotation": {
+      "@id": "oa:Annotation",
+      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+    },
+
+    "SpecificResource": {
+      "@id": "oa:SpecificResource",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json",
+        {
+          "transform": {
+            "@id": "iiif_prezi:transform",
+            "@type": "@id",
+            "@container": "@list"
+          }
+        }
+      ]
+    },
+
+    "Composite": {
+      "@id": "oa:Composite",
+      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+    },
+    "List": {
+      "@id": "oa:List",
+      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+    },
+    "Independents": {
+      "@id": "oa:Independents",
+      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+    },
+
+    "PointSelector": "iiif_prezi:PointSelector",
+    "WktSelector": "iiif_prezi:WktSelector",
+    "AudioContentSelector": "iiif_prezi:AudioContentSelector",
+    "VisualContentSelector": "iiif_prezi:VisualContentSelector",
+    "AnimationSelector": "iiif_prezi:AnimationSelector",
+
+    "ImageApiSelector": {
+      "@id": "iiif_image:ImageApiSelector",
+      "@context": {
+        "region": "iiif_image:region",
+        "size": "iiif_image:size",
+        "rotation": "iiif_image:rotation",
+        "quality": "iiif_image:quality",
+        "format": "iiif_image:format",
+        "version": "iiif_image:version"
+      }
+    },
+
+    "OrthographicCamera": {
+      "@id": "iiif_prezi:OrthographicCamera"
+    },
+    "PerspectiveCamera": {
+      "@id": "iiif_prezi:PerspectiveCamera"
+    },
+
+    "AmbientLight": {
+      "@id": "iiif_prezi:AmbientLight"
+    },
+    "DirectionalLight": {
+      "@id": "iiif_prezi:DirectionalLight"
+    },
+    "ImageBasedLight": {
+      "@id": "iiif_prezi:ImageBasedLight"
+    },
+    "PointLight": {
+      "@id": "iiif_prezi:PointLight"
+    },
+    "SpotLight": {
+      "@id": "iiif_prezi:SpotLight"
+    },
+
+    "AmbientAudio": {
+      "@id": "iiif_prezi:AmbientAudio"
+    },
+    "PointAudio": {
+      "@id": "iiif_prezi:PointAudio"
+    },
+    "SpotAudio": {
+      "@id": "iiif_prezi:SpotAudio"
+    },
+
+    "RotateTransform": {
+      "@id": "iiif_prezi:RotateTransform"
+    },
+    "ScaleTransform": {
+      "@id": "iiif_prezi:RotateTransform"
+    },
+    "TranslateTransform": {
+      "@id": "iiif_prezi:RotateTransform"
+    },
+
+    "Dataset": "dctypes:Dataset",
+    "Image": "dctypes:StillImage",
+    "Video": "dctypes:MovingImage",
+    "Audio": "dctypes:Sound",
+    "Sound": "dctypes:Sound",
+    "Text": "dctypes:Text",
+    "Service": "schema:WebAPI",
+    "Agent": "dcterms:Agent",
+    "Model": "schema:3DModel",
+
+    "Quantity": "crm:E54_Dimension",
+
+    "label": {
+      "@id": "rdfs:label",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+    "value": {
+      "@id": "rdf:value",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+    "metadata": {
+      "@type": "@id",
+      "@id": "iiif_prezi:metadataEntries",
+      "@container": "@list"
+    },
+    "summary": {
+      "@id": "as:summary",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+    "requiredStatement": {
+      "@id": "iiif_prezi:requiredStatement",
+      "@type": "@id"
+    },
+    "rights": {
+      "@type": "@id",
+      "@id": "dcterms:rights"
+    },
+    "provider": {
+      "@type": "@id",
+      "@id": "schema:provider",
+      "@container": "@set"
+    },
+    "logo": {
+      "@type": "@id",
+      "@id": "foaf:logo",
+      "@container": "@set"
+    },
+    "thumbnail": {
+      "@type": "@id",
+      "@id": "iiif_prezi:thumbnail",
+      "@container": "@set"
+    },
+    "navDate": {
+      "@id": "iiif_prezi:navigationDate"
+    },
+
+    "backgroundColor": {
+      "@id": "iiif_prezi:backgroundColor"
+    },
+
+    "accompanyingContainer": {
+      "@type": "@id",
+      "@id": "iiif_prezi:accompanyingContainer"
+    },
+    "placeholderContainer": {
+      "@type": "@id",
+      "@id": "iiif_prezi:placeholderContainer"
+    },
+
+    "format": {
+      "@id": "dc:format"
+    },
+    "language": {
+      "@id": "dc:language",
+      "@container": "@set"
+    },
+    "profile": {
+      "@type": "@vocab",
+      "@id": "dcterms:conformsTo"
+    },
+    "height": {
+      "@id": "exif:height",
+      "@type": "xsd:integer"
+    },
+    "width": {
+      "@id": "exif:width",
+      "@type": "xsd:integer"
+    },
+    "angle": {
+      "@id": "iiif_prezi:angle",
+      "@type": "xsd:double"
+    },
+
+    "duration": {
+      "@id": "ebu:duration"
+    },
+    "viewingDirection": {
+      "@id": "iiif_prezi:viewingDirection",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "left-to-right": "iiif_prezi:leftToRightDirection",
+        "right-to-left": "iiif_prezi:rightToLeftDirection",
+        "top-to-bottom": "iiif_prezi:topToBottomDirection",
+        "bottom-to-top": "iiif_prezi:bottomToTopDirection"
+      }
+    },
+
+    "action": {
+      "@id": "iiif_prezi:action",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "enable": "iiif_prezi:enable",
+        "disable": "iiif_prezi:disable",
+        "show": "iiif_prezi:show",
+        "hide": "iiif_prezi:hide",
+        "reset": "iiif_prezi:reset",
+        "start": "iiif_prezi:start",
+        "stop": "iiif_prezi:stop",
+        "select": "iiif_prezi:select"
+      }
+    },
+
+    "behavior": {
+      "@id": "iiif_prezi:behavior",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "auto-advance": "iiif_prezi:autoAdvanceHint",
+        "no-auto-advance": "iiif_prezi:noAutoAdvanceHint",
+        "repeat": "iiif_prezi:repeatHint",
+        "no-repeat": "iiif_prezi:noRepeatHint",
+        "unordered": "iiif_prezi:unordered",
+        "individuals": "iiif_prezi:individualsHint",
+        "continuous": "iiif_prezi:continuousHint",
+        "paged": "iiif_prezi:pagedHint",
+        "facing-pages": "iiif_prezi:facingPagesHint",
+        "non-paged": "iiif_prezi:nonPagedHint",
+        "multi-part": "iiif_prezi:multiPartHint",
+        "together": "iiif_prezi:togetherHint",
+        "sequence": "iiif_prezi:sequenceHint",
+        "thumbnail-nav": "iiif_prezi:thumbnailNavHint",
+        "no-nav": "iiif_prezi:noNavHint",
+        "hidden": "iiif_prezi:noneHint"
+      }
+    },
+
+    "timeMode": {
+      "@id": "iiif_prezi:timeMode",
+      "@type": "@vocab",
+      "@context": {
+        "trim": "iiif_prezi:trimMode",
+        "scale": "iiif_prezi:scaleMode",
+        "loop": "iiif_prezi:loopMode"
+      }
+    },
+
+    "homepage": {
+      "@type": "@id",
+      "@id": "foaf:homepage",
+      "@container": "@set"
+    },
+    "rendering": {
+      "@id": "dcterms:hasFormat",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "service": {
+      "@type": "@id",
+      "@id": "schema:potentialAction",
+      "@container": "@set",
+      "@context": {
+        "ImageService1": {
+          "@id": "http://iiif.io/api/image/1#ImageService",
+          "@context": [
+            "http://iiif.io/api/image/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "ImageService2": {
+          "@id": "http://iiif.io/api/image/2#ImageService",
+          "@context": [
+            "http://iiif.io/api/image/2/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "ImageService3": {
+          "@id": "http://iiif.io/api/image/3#ImageService",
+          "@context": "http://iiif.io/api/image/3/context.json"
+        },
+        "SearchService1": {
+          "@id": "http://iiif.io/api/search/1#SearchService",
+          "@context": [
+            "http://iiif.io/api/search/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AutoCompleteService1": {
+          "@id": "http://iiif.io/api/search/1#AutoCompleteService",
+          "@context": [
+            "http://iiif.io/api/search/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AuthCookieService1": {
+          "@id": "http://iiif.io/api/auth/1#CookieService",
+          "@context": [
+            "http://iiif.io/api/auth/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AuthTokenService1": {
+          "@id": "http://iiif.io/api/auth/1#TokenService",
+          "@context": [
+            "http://iiif.io/api/auth/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AuthLogoutService1": {
+          "@id": "http://iiif.io/api/auth/1#LogoutService",
+          "@context": [
+            "http://iiif.io/api/auth/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        }
+      }
+    },
+
+    "seeAlso": {
+      "@type": "@id",
+      "@id": "rdfs:seeAlso",
+      "@container": "@set"
+    },
+
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:selector",
+      "@container": "@set",
+      "@context": ["https://iiif.io/api/registry/selectors/context.json", "http://www.w3.org/ns/anno.jsonld"]
+    },
+
+    "start": {
+      "@type": "@id",
+      "@id": "iiif_prezi:start"
+    },
+    "supplementary": {
+      "@type": "@id",
+      "@id": "iiif_prezi:supplementary"
+    },
+
+    "items": {
+      "@type": "@id",
+      "@id": "as:items",
+      "@container": "@list"
+    },
+    "structures": {
+      "@type": "@id",
+      "@id": "iiif_prezi:structures",
+      "@container": "@list"
+    },
+    "annotations": {
+      "@type": "@id",
+      "@id": "iiif_prezi:annotations",
+      "@container": "@list"
+    },
+
+    "painting": "iiif_prezi:painting",
+    "supplementing": "iiif_prezi:supplementing"
+  }
+}
