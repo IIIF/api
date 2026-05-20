@@ -1,0 +1,32 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "iiif_prezi": "http://iiif.io/api/presentation/3#",
+    "iiif_image": "http://iiif.io/api/image/3#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
+    "oa": "http://www.w3.org/ns/oa#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "as": "http://www.w3.org/ns/activitystreams#",
+    "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
+    "schema": "https://schema.org/",
+
+    "label": {
+      "@id": "rdfs:label",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+    "homepage": {
+      "@type": "@id",
+      "@id": "foaf:homepage",
+      "@container": "@set"
+    }
+  }
+}
