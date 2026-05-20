@@ -16,7 +16,7 @@
                     "Chess Pieces with Spatial Audio"
                 ]
             },
-            "backgroundColor": "#FF00FE",
+            "backgroundColor": "#99CCFF",
             "interactionMode": [ "hemisphere-orbit" ],
             "duration": 60,
             "items": [
