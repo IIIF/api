@@ -2013,7 +2013,7 @@ The value _MUST_ be an [XSD dateTime literal][org-w3c-xsd-datetime]. The value _
 
 A geographic location that clients may use for navigation purposes when presenting the resource to the user in a map-based user interface. The location is identified using structured data, described below, with latitude and longitude based points or polygons. If the location is only textual, then the information should instead be included in the `metadata` property.
 
-The value of the property _MUST_ be a [GeoJSON Feature Collection][link] containing one or more [Features][link].  The value _SHOULD_ be embedded and _MAY_ be a reference. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties and _MUST NOT_ have the `features` property.
+The value of the property _MUST_ be a [GeoJSON][org-rfc-7946] Feature Collection containing one or more Features.  The value _SHOULD_ be embedded and _MAY_ be a reference. Feature Collections referenced in the `navPlace` property _MUST_ have the `id` and `type` properties and _MUST NOT_ have the `features` property.
 
 * A Collection _MAY_ have the `navPlace` property.<br/>
   Clients _MAY_ render `navPlace` on a Collection.
@@ -2232,9 +2232,9 @@ The organization or person is represented as an Agent resource.
 * Agents _MUST_ have the `id` property, and its value _MUST_ be a string. The string _MUST_ be a URI that identifies the agent.
 * Agents _MUST_ have the `type` property, and its value _MUST_ be `Agent`.
 * Agents _MUST_ have the `label` property, and its value _MUST_ be a JSON object as described in the [languages][prezi40-languages] section.
-* Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi40-homepage] section.
-* Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi40-logo] section.
-* Agents _MAY_ have the `seeAlso` property, and its value _MUST_ be an array of JSON objects as described in the [seeAlso][prezi40-seealso] section.
+* Agents _SHOULD_ have the `homepage` property, and its value _MUST_ be an array of JSON objects as described in the [homepage][prezi-40-model-homepage] section.
+* Agents _SHOULD_ have the `logo` property, and its value _MUST_ be an array of JSON objects as described in the [logo][prezi-40-model-logo] section.
+* Agents _MAY_ have the `seeAlso` property, and its value _MUST_ be an array of JSON objects as described in the [seeAlso][prezi-40-model-seealso] section.
 
 The value _MUST_ be an array of JSON objects, where each item in the array conforms to the structure of an Agent, as described above.
 
@@ -3306,7 +3306,7 @@ The JSON representation _MUST NOT_ include the `@graph` key at the top level. Th
 
 There are some common terms used in more than one JSON-LD context document. Every attempt has been made to minimize these collisions, but some are inevitable. In order to know which specification is in effect at any given point, the class of the resource that has the property is the primary governing factor. Thus properties on Annotation based resources use the context from the [Web Annotation Data Model][org-w3c-webanno], whereas properties on classes defined by this specification use the IIIF Presentation API context's definition.
 
-There is one property that is in direct conflict - the `label` property is defined by both and is available for every resource. The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi40-languages], also allowing multiple languages to be used. The Web Annotation Data Model uses it only for [Annotation Collections][prezi40-annocoll], and mandates the format is a string. For this property, the API overrides the definition from the Annotation model to ensure that labels can consistently be represented in multiple languages.
+There is one property that is in direct conflict - the `label` property is defined by both and is available for every resource. The use of `label` in IIIF follows modern best practices for internationalization by allowing the language to be associated with the value using the language map construction [described above][prezi40-languages], also allowing multiple languages to be used. The Web Annotation Data Model uses it only for [Annotation Collections][prezi-40-model-AnnotationCollection], and mandates the format is a string. For this property, the API overrides the definition from the Annotation model to ensure that labels can consistently be represented in multiple languages.
 
 __Incompatibility Warning__<br/>
 The definition of `label` in the Web Annotation specification does not produce JSON conformant with the structure defined in this specification for languages. Given the absolute requirement for internationalized labels and the strong desire for consistently handling properties, the `label` property on Annotation model classes does not conform to the string requirement of the Web Annotation Data Model.  This [issue has been filed with the W3C][github-webanno-437] and will hopefully be addressed in a future version of the standard.

@@ -421,7 +421,7 @@ Manifest for the February 16, 1925 issue, with Ranges for table of contents:
 **Key Points**
 * Navigation between Manifests is managed via Collections, potentially in a hierarchy, which are each separate documents.
 * Navigation within a single Manifest (beyond the default order of the Containers) is managed via Ranges in the [`structures`][prezi-40-model-structures] property.
-* Further navigation, managed by the client, is possible via the [`navPlace`][[prezi-40-model-navPlace] and [`navDate`][prezi-40-model-navDate] properties. These are not semantic metadata, they are used by the client to generate navigation maps and timelines, respectively.
+* Further navigation, managed by the client, is possible via the [`navPlace`][prezi-40-model-navPlace] and [`navDate`][prezi-40-model-navDate] properties. These are not semantic metadata, they are used by the client to generate navigation maps and timelines, respectively.
 {: .callout}
 
 __Definitions__<br/>
