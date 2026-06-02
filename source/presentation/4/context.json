@@ -17,6 +17,7 @@
     "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
     "schema": "https://schema.org/",
     "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+    "geojson": "https://purl.org/geojson/vocab#",
 
     "id": "@id",
     "type": "@type",
@@ -41,7 +42,6 @@
         }
       }
     },
-
     "Manifest": {
       "@id": "iiif_prezi:Manifest",
       "@context": {
@@ -52,7 +52,6 @@
         }
       }
     },
-
     "Canvas": {
       "@id": "iiif_prezi:Canvas",
       "@context": {
@@ -83,7 +82,6 @@
         }
       }
     },
-
     "Range": {
       "@id": "iiif_prezi:Range",
       "@context": {
@@ -94,7 +92,6 @@
         }
       }
     },
-
     "AnnotationCollection": {
       "@id": "as:OrderedCollection",
       "@context": [
@@ -111,14 +108,18 @@
     },
     "AnnotationPage": {
       "@id": "as:OrderedCollectionPage",
-      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
     },
-
     "Annotation": {
       "@id": "oa:Annotation",
-      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
     },
-
     "SpecificResource": {
       "@id": "oa:SpecificResource",
       "@context": [
@@ -133,26 +134,32 @@
         }
       ]
     },
-
     "Composite": {
       "@id": "oa:Composite",
-      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
     },
     "List": {
       "@id": "oa:List",
-      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
     },
     "Independents": {
       "@id": "oa:Independents",
-      "@context": ["http://www.w3.org/ns/anno.jsonld", "http://iiif.io/api/presentation/4/overrides.json"]
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
     },
-
     "PointSelector": "iiif_prezi:PointSelector",
     "WktSelector": "iiif_prezi:WktSelector",
     "AudioContentSelector": "iiif_prezi:AudioContentSelector",
     "VisualContentSelector": "iiif_prezi:VisualContentSelector",
     "AnimationSelector": "iiif_prezi:AnimationSelector",
-
     "ImageApiSelector": {
       "@id": "iiif_image:ImageApiSelector",
       "@context": {
@@ -164,14 +171,23 @@
         "version": "iiif_image:version"
       }
     },
-
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector",
+      "@context": [
+        {
+          "conformsTo": {
+            "@type": "@vocab",
+            "@id": "dcterms:conformsTo"
+          }
+        }
+      ]
+    },
     "OrthographicCamera": {
       "@id": "iiif_prezi:OrthographicCamera"
     },
     "PerspectiveCamera": {
       "@id": "iiif_prezi:PerspectiveCamera"
     },
-
     "AmbientLight": {
       "@id": "iiif_prezi:AmbientLight"
     },
@@ -187,7 +203,6 @@
     "SpotLight": {
       "@id": "iiif_prezi:SpotLight"
     },
-
     "AmbientAudio": {
       "@id": "iiif_prezi:AmbientAudio"
     },
@@ -197,7 +212,6 @@
     "SpotAudio": {
       "@id": "iiif_prezi:SpotAudio"
     },
-
     "RotateTransform": {
       "@id": "iiif_prezi:RotateTransform"
     },
@@ -207,7 +221,6 @@
     "TranslateTransform": {
       "@id": "iiif_prezi:RotateTransform"
     },
-
     "Dataset": "dctypes:Dataset",
     "Image": "dctypes:StillImage",
     "Video": "dctypes:MovingImage",
@@ -217,8 +230,124 @@
     "Service": "schema:WebAPI",
     "Agent": "dcterms:Agent",
     "Model": "schema:3DModel",
-
     "Quantity": "crm:E54_Dimension",
+    "FeatureCollection": {
+      "@id": "geojson:FeatureCollection",
+      "@context": [
+        "https://geojson.org/geojson-ld/geojson-context.jsonld",
+        {
+          "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms/#",
+          "transformation": {
+            "@id": "iiif_georef:transformation"
+          }
+        }
+      ]
+    },
+
+    "accompanyingContainer": {
+      "@type": "@id",
+      "@id": "iiif_prezi:accompanyingContainer"
+    },
+
+    "action": {
+      "@id": "iiif_prezi:action",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "enable": "iiif_prezi:enable",
+        "disable": "iiif_prezi:disable",
+        "show": "iiif_prezi:show",
+        "hide": "iiif_prezi:hide",
+        "reset": "iiif_prezi:reset",
+        "start": "iiif_prezi:start",
+        "stop": "iiif_prezi:stop",
+        "select": "iiif_prezi:select"
+      }
+    },
+
+    "angle": {
+      "@id": "iiif_prezi:angle",
+      "@type": "xsd:double"
+    },
+
+    "annotations": {
+      "@type": "@id",
+      "@id": "iiif_prezi:annotations",
+      "@container": "@list"
+    },
+
+    "backgroundColor": {
+      "@id": "iiif_prezi:backgroundColor"
+    },
+
+    "behavior": {
+      "@id": "iiif_prezi:behavior",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "auto-advance": "iiif_prezi:autoAdvanceHint",
+        "no-auto-advance": "iiif_prezi:noAutoAdvanceHint",
+        "repeat": "iiif_prezi:repeatHint",
+        "no-repeat": "iiif_prezi:noRepeatHint",
+        "unordered": "iiif_prezi:unordered",
+        "individuals": "iiif_prezi:individualsHint",
+        "continuous": "iiif_prezi:continuousHint",
+        "paged": "iiif_prezi:pagedHint",
+        "facing-pages": "iiif_prezi:facingPagesHint",
+        "non-paged": "iiif_prezi:nonPagedHint",
+        "multi-part": "iiif_prezi:multiPartHint",
+        "together": "iiif_prezi:togetherHint",
+        "sequence": "iiif_prezi:sequenceHint",
+        "thumbnail-nav": "iiif_prezi:thumbnailNavHint",
+        "no-nav": "iiif_prezi:noNavHint",
+        "hidden": "iiif_prezi:noneHint"
+      }
+    },
+
+    "body": {
+      "@id": "oa:hasBody",
+      "@type": "@id"
+    },
+
+    "canonical": {
+      "@type": "@id",
+      "@id": "oa:canonical"
+    },
+
+    "color": "iiif_prezi:color",
+
+    "duration": {
+      "@id": "ebu:duration"
+    },
+
+    "environmentMap": {
+      "@id": "iiif_prezi:environmentMap",
+      "@type": "@id"
+    },
+
+    "exclude": {
+      "@id": "iiif_prezi:exclude",
+      "@type": "@vocab",
+      "@context": {
+        "audio": "iiif_prezi:audioExclusion",
+        "animations": "iiif_prezi:animationsExclusion",
+        "cameras": "iiif_prezi:camerasExclusion",
+        "lights": "iiif_prezi:lightsExclusion"
+      }
+    },
+
+    "far": "iiif_prezi:far",
+    "fieldOfView": "iiif_prezi:fieldOfView",
+    "fileSize": "iiif_prezi:fileSize",
+    "first": { "@id": "as:first", "@type": "@id" },
+    "format": "dc:format",
+    "height": "exif:height",
+
+    "homepage": {
+      "@type": "@id",
+      "@id": "foaf:homepage",
+      "@container": "@set"
+    },
 
     "label": {
       "@id": "rdfs:label",
@@ -227,6 +356,16 @@
         "none": "@none"
       }
     },
+
+    "language": {
+      "@id": "dc:language",
+      "@container": "@set"
+    },
+    "profile": {
+      "@type": "@vocab",
+      "@id": "dcterms:conformsTo"
+    },
+
     "value": {
       "@id": "rdf:value",
       "@container": ["@language", "@set"],
@@ -273,46 +412,16 @@
       "@id": "iiif_prezi:navigationDate"
     },
 
-    "backgroundColor": {
-      "@id": "iiif_prezi:backgroundColor"
-    },
-
-    "accompanyingContainer": {
-      "@type": "@id",
-      "@id": "iiif_prezi:accompanyingContainer"
-    },
     "placeholderContainer": {
       "@type": "@id",
       "@id": "iiif_prezi:placeholderContainer"
     },
 
-    "format": {
-      "@id": "dc:format"
-    },
-    "language": {
-      "@id": "dc:language",
-      "@container": "@set"
-    },
-    "profile": {
-      "@type": "@vocab",
-      "@id": "dcterms:conformsTo"
-    },
-    "height": {
-      "@id": "exif:height",
-      "@type": "xsd:integer"
-    },
     "width": {
       "@id": "exif:width",
       "@type": "xsd:integer"
     },
-    "angle": {
-      "@id": "iiif_prezi:angle",
-      "@type": "xsd:double"
-    },
 
-    "duration": {
-      "@id": "ebu:duration"
-    },
     "viewingDirection": {
       "@id": "iiif_prezi:viewingDirection",
       "@type": "@vocab",
@@ -322,46 +431,6 @@
         "right-to-left": "iiif_prezi:rightToLeftDirection",
         "top-to-bottom": "iiif_prezi:topToBottomDirection",
         "bottom-to-top": "iiif_prezi:bottomToTopDirection"
-      }
-    },
-
-    "action": {
-      "@id": "iiif_prezi:action",
-      "@type": "@vocab",
-      "@container": "@set",
-      "@context": {
-        "enable": "iiif_prezi:enable",
-        "disable": "iiif_prezi:disable",
-        "show": "iiif_prezi:show",
-        "hide": "iiif_prezi:hide",
-        "reset": "iiif_prezi:reset",
-        "start": "iiif_prezi:start",
-        "stop": "iiif_prezi:stop",
-        "select": "iiif_prezi:select"
-      }
-    },
-
-    "behavior": {
-      "@id": "iiif_prezi:behavior",
-      "@type": "@vocab",
-      "@container": "@set",
-      "@context": {
-        "auto-advance": "iiif_prezi:autoAdvanceHint",
-        "no-auto-advance": "iiif_prezi:noAutoAdvanceHint",
-        "repeat": "iiif_prezi:repeatHint",
-        "no-repeat": "iiif_prezi:noRepeatHint",
-        "unordered": "iiif_prezi:unordered",
-        "individuals": "iiif_prezi:individualsHint",
-        "continuous": "iiif_prezi:continuousHint",
-        "paged": "iiif_prezi:pagedHint",
-        "facing-pages": "iiif_prezi:facingPagesHint",
-        "non-paged": "iiif_prezi:nonPagedHint",
-        "multi-part": "iiif_prezi:multiPartHint",
-        "together": "iiif_prezi:togetherHint",
-        "sequence": "iiif_prezi:sequenceHint",
-        "thumbnail-nav": "iiif_prezi:thumbnailNavHint",
-        "no-nav": "iiif_prezi:noNavHint",
-        "hidden": "iiif_prezi:noneHint"
       }
     },
 
@@ -375,11 +444,6 @@
       }
     },
 
-    "homepage": {
-      "@type": "@id",
-      "@id": "foaf:homepage",
-      "@container": "@set"
-    },
     "rendering": {
       "@id": "dcterms:hasFormat",
       "@type": "@id",
@@ -477,7 +541,10 @@
       "@type": "@id",
       "@id": "oa:selector",
       "@container": "@set",
-      "@context": ["https://iiif.io/api/registry/selectors/context.json", "http://www.w3.org/ns/anno.jsonld"]
+      "@context": [
+        "https://iiif.io/api/registry/selectors/context.json",
+        "http://www.w3.org/ns/anno.jsonld"
+      ]
     },
 
     "start": {
@@ -497,11 +564,6 @@
     "structures": {
       "@type": "@id",
       "@id": "iiif_prezi:structures",
-      "@container": "@list"
-    },
-    "annotations": {
-      "@type": "@id",
-      "@id": "iiif_prezi:annotations",
       "@container": "@list"
     },
 
