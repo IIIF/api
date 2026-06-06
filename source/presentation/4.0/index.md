@@ -1109,6 +1109,7 @@ The value of [`provides`][prezi-40-model-provides] is an array of strings, taken
 ]
 ```
 
+>
 **Key Points**
 * The `provides` property is placed on the annotation and not on the target of the annotation.
 * The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcript`.
