@@ -349,6 +349,31 @@
       "@container": "@set"
     },
 
+    "instant": "iiif_prezi:instant",
+    "intensity": {
+      "@id": "iiif_prezi:intensity",
+      "@type": "@id"
+    },
+
+    "interactionMode": {
+      "@id": "iiif_prezi:interactionMode",
+      "@container": "@set",
+      "@type": "@vocab",
+      "@context": {
+        "locked": "iiif_prezi:lockedMode",
+        "orbit": "iiif_prezi:orbitMode",
+        "hemisphere-orbit": "iiif_prezi:hemisphereOrbitMode",
+        "free": "iiif_prezi:freeMode",
+        "free-direction": "iiif_prezi:freeDirectionMode"
+      }
+    },
+
+    "items": {
+      "@type": "@id",
+      "@id": "as:items",
+      "@container": "@list"
+    },
+
     "label": {
       "@id": "rdfs:label",
       "@container": ["@language", "@set"],
@@ -361,55 +386,74 @@
       "@id": "dc:language",
       "@container": "@set"
     },
-    "profile": {
-      "@type": "@vocab",
-      "@id": "dcterms:conformsTo"
-    },
 
-    "value": {
-      "@id": "rdf:value",
-      "@container": ["@language", "@set"],
-      "@context": {
-        "none": "@none"
-      }
-    },
-    "metadata": {
-      "@type": "@id",
-      "@id": "iiif_prezi:metadataEntries",
-      "@container": "@list"
-    },
-    "summary": {
-      "@id": "as:summary",
-      "@container": ["@language", "@set"],
-      "@context": {
-        "none": "@none"
-      }
-    },
-    "requiredStatement": {
-      "@id": "iiif_prezi:requiredStatement",
+    "last": {
+      "@id": "as:last",
       "@type": "@id"
     },
-    "rights": {
-      "@type": "@id",
-      "@id": "dcterms:rights"
-    },
-    "provider": {
-      "@type": "@id",
-      "@id": "schema:provider",
-      "@container": "@set"
-    },
+
     "logo": {
       "@type": "@id",
       "@id": "foaf:logo",
       "@container": "@set"
     },
-    "thumbnail": {
-      "@type": "@id",
-      "@id": "iiif_prezi:thumbnail",
-      "@container": "@set"
+
+    "lookAt": {
+      "@id": "iiif_prezi:lookAt",
+      "@type": "@id"
     },
+
+    "metadata": {
+      "@type": "@id",
+      "@id": "iiif_prezi:metadataEntries",
+      "@container": "@list"
+    },
+
+    "motivation": {
+      "@id": "oa:motivatedBy",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "bookmarking": "oa:bookmarking",
+        "classifying": "oa:classifying",
+        "commenting": "oa:commenting",
+        "describing": "oa:describing",
+        "editing": "oa:editing",
+        "highlighting": "oa:highlighting",
+        "identifying": "oa:identifying",
+        "linking": "oa:linking",
+        "moderating": "oa:moderating",
+        "questioning": "oa:questioning",
+        "replying": "oa:replying",
+        "reviewing": "oa:reviewing",
+        "assessing": "oa:assessing",
+        "tagging": "oa:tagging",
+        "painting": "iiif_prezi:painting",
+        "supplementing": "iiif_prezi:supplementing"
+      }
+    },
+
     "navDate": {
       "@id": "iiif_prezi:navigationDate"
+    },
+
+    "navPlace": {
+      "@id": "iiif_prezi:navigationPlace",
+      "@type": "@id",
+      "@context": ["https://geojson.org/geojson-ld/geojson-context.jsonld"]
+    },
+
+    "near": "iiif_prezi:near",
+
+    "next": {
+      "@id": "oa:next",
+      "@type": "@id"
+    },
+
+    "partOf": {
+      "@id": "as:partOf",
+      "@type": "@id",
+      "@container": "@set"
     },
 
     "placeholderContainer": {
@@ -417,38 +461,92 @@
       "@id": "iiif_prezi:placeholderContainer"
     },
 
-    "width": {
-      "@id": "exif:width",
-      "@type": "xsd:integer"
+    "position": {
+      "@id": "iiif_prezi:position",
+      "@type": "@id"
     },
 
-    "viewingDirection": {
-      "@id": "iiif_prezi:viewingDirection",
+    "prev": {
+      "@id": "as:prev",
+      "@type": "@id"
+    },
+
+    "profile": {
+      "@type": "@vocab",
+      "@id": "dcterms:conformsTo"
+    },
+
+    "provider": {
+      "@type": "@id",
+      "@id": "schema:provider",
+      "@container": "@set"
+    },
+
+    "provides": {
+      "@id": "iiif_prezi:provides",
       "@type": "@vocab",
       "@container": "@set",
       "@context": {
-        "left-to-right": "iiif_prezi:leftToRightDirection",
-        "right-to-left": "iiif_prezi:rightToLeftDirection",
-        "top-to-bottom": "iiif_prezi:topToBottomDirection",
-        "bottom-to-top": "iiif_prezi:bottomToTopDirection"
+        "closedCaptions": "closedCaptions",
+        "alternativeText": "",
+        "longDescription": "",
+        "highContrastAudio": "",
+        "highContrastDisplay": "",
+        "transcript": "",
+        "translation": ""
       }
     },
 
-    "timeMode": {
-      "@id": "iiif_prezi:timeMode",
-      "@type": "@vocab",
-      "@context": {
-        "trim": "iiif_prezi:trimMode",
-        "scale": "iiif_prezi:scaleMode",
-        "loop": "iiif_prezi:loopMode"
-      }
+    "quality": "iiif_prezi:quality",
+    "quantityValue": "crm:P90_has_value",
+
+    "refinedBy": {
+      "@id": "oa:refinedBy",
+      "@type": "@id"
     },
+
+    "region": "iiif_prezi:region",
 
     "rendering": {
       "@id": "dcterms:hasFormat",
       "@type": "@id",
       "@container": "@set"
     },
+
+    "requiredStatement": {
+      "@id": "iiif_prezi:requiredStatement",
+      "@type": "@id"
+    },
+
+    "rights": {
+      "@type": "@id",
+      "@id": "dcterms:rights"
+    },
+
+    "rotation": "iiif_prezi:rotation",
+
+    "scope": {
+      "@id": "oa:hasScope",
+      "@type": "@id",
+      "@container": "@set"
+    },
+
+    "seeAlso": {
+      "@type": "@id",
+      "@id": "rdfs:seeAlso",
+      "@container": "@set"
+    },
+
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:selector",
+      "@container": "@set",
+      "@context": [
+        "https://iiif.io/api/registry/selectors/context.json",
+        "http://www.w3.org/ns/anno.jsonld"
+      ]
+    },
+
     "service": {
       "@type": "@id",
       "@id": "schema:potentialAction",
@@ -531,43 +629,129 @@
       }
     },
 
-    "seeAlso": {
+    "services": {
+      "@id": "iiif_prezi:services",
       "@type": "@id",
-      "@id": "rdfs:seeAlso",
       "@container": "@set"
     },
 
-    "selector": {
-      "@type": "@id",
-      "@id": "oa:selector",
-      "@container": "@set",
-      "@context": [
-        "https://iiif.io/api/registry/selectors/context.json",
-        "http://www.w3.org/ns/anno.jsonld"
-      ]
+    "size": "iiif_image:size",
+
+    "source": {
+      "@id": "oa:hasSource",
+      "@type": "@id"
     },
+
+    "spatialScale": "iiif_prezi:spatialScale",
 
     "start": {
       "@type": "@id",
       "@id": "iiif_prezi:start"
     },
-    "supplementary": {
-      "@type": "@id",
-      "@id": "iiif_prezi:supplementary"
-    },
 
-    "items": {
-      "@type": "@id",
-      "@id": "as:items",
-      "@container": "@list"
-    },
     "structures": {
       "@type": "@id",
       "@id": "iiif_prezi:structures",
       "@container": "@list"
     },
 
-    "painting": "iiif_prezi:painting",
-    "supplementing": "iiif_prezi:supplementing"
+    "styleClass": "oa:styleClass",
+    "stylesheet": {
+      "@id": "oa:styledBy",
+      "@type": "@id"
+    },
+
+    "summary": {
+      "@id": "as:summary",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+
+    "supplementary": {
+      "@type": "@id",
+      "@id": "iiif_prezi:supplementary"
+    },
+
+    "target": {
+      "@id": "oa:hasTarget",
+      "@type": "@id"
+    },
+
+    "temporalScale": "iiif_prezi:temporalScale",
+
+    "thumbnail": {
+      "@type": "@id",
+      "@id": "iiif_prezi:thumbnail",
+      "@container": "@set"
+    },
+
+    "timeMode": {
+      "@id": "iiif_prezi:timeMode",
+      "@type": "@vocab",
+      "@context": {
+        "trim": "iiif_prezi:trimMode",
+        "scale": "iiif_prezi:scaleMode",
+        "loop": "iiif_prezi:loopMode"
+      }
+    },
+
+    "total": {
+      "@id": "as:totalItems",
+      "@type": "xsd:nonNegativeInteger"
+    },
+    "totalItems": {
+      "@id": "as:totalItems",
+      "@type": "xsd:nonNegativeInteger"
+    },
+    "transform": {
+      "@id": "iiif_prezi:transform",
+      "@container": "@list",
+      "@type": "@id"
+    },
+
+    "unit": "crm:P91_has_unit",
+
+    "value": {
+      "@id": "rdf:value",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+
+    "version": "iiif_image:version",
+    "via": {
+      "@id": "oa:via",
+      "@type": "@id"
+    },
+
+    "viewHeight": "iiif_prezi:viewHeight",
+
+    "viewingDirection": {
+      "@id": "iiif_prezi:viewingDirection",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "left-to-right": "iiif_prezi:leftToRightDirection",
+        "right-to-left": "iiif_prezi:rightToLeftDirection",
+        "top-to-bottom": "iiif_prezi:topToBottomDirection",
+        "bottom-to-top": "iiif_prezi:bottomToTopDirection"
+      }
+    },
+
+    "volume": {
+      "@id": "iiif_prezi:volume"
+    },
+
+    "width": {
+      "@id": "exif:width",
+      "@type": "xsd:integer"
+    },
+
+    "x": "iiif_prezi:x",
+    "y": "iiif_prezi:y",
+    "z": "iiif_prezi:z"
   }
 }
