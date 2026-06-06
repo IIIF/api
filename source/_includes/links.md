@@ -318,8 +318,7 @@
 [prezi40]: {{ site.api_url | absolute_url }}/presentation/4.0/
 [prezi40-terminology]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#terminology
 
-
-[prezi-40-model]: {{ site.api_url | absolute_url }}/presentation/4.0/model/
+[prezi40-model]: {{ site.api_url | absolute_url }}/presentation/4.0/model/
 
 [prezi40-ldce]: {{ site.api_url | absolute_url }}/presentation/4.{{ site.data.apis.presentation.latest.minor }}/#json-ld-and-extensions "Linked Data Context and Extensions"
 
