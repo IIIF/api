@@ -31,7 +31,7 @@
       "@id": "auth:failureHeader"
     },
     "failureDescription": {
-      "@id": "auth:failureDescriptiom"
+      "@id": "auth:failureDescription"
     }
   }
 }
