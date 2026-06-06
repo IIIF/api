@@ -2964,7 +2964,7 @@ The value of this property _MUST_ be a non-negative integer.
 ### transform
 {: #transform}
 
-An ordered list of 3D transform operations (translation, rotation, and scale) to be performed on a resource prior to painting that resource into a Scene. Transforms _MUST_ be applied to the resource in the order given. The resulting state of the resource after applying a transform _MUST_ be the input state for the subsequent transform in the ordered list. Therefore, transforms are not independent, and different orders of the same set of transforms can produce different results. The list of transforms _MAY_ include multiple transforms of the same type, e.g., multiple rotation operations.
+An ordered list of transformation operations (Transform instances) to be performed on a resource prior to painting that resource into a Container. The Transforms _MUST_ be applied to the resource in the order given. The resulting state of the resource after applying a transform _MUST_ be the input state for the subsequent transform in the ordered list. Therefore, transforms are not independent, and different orders of the same set of transforms can produce different results. The list of transforms _MAY_ include multiple transforms of the same type, e.g., multiple rotation operations.
 
 The value of this property _MUST_ be array of JSON objects, each of which _MUST_ be a Transform.
 
