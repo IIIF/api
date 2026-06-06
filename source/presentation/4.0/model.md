@@ -2644,7 +2644,12 @@ The value _MUST_ be a JSON Object with the `id` and `type` properties. The value
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "source": "https://example.org/museum/images/1" }
+{ 
+  "source": {
+    "@id": "https://example.org/museum/images/1",
+    "@type": "Image"
+  }
+}
 ```
 
 
