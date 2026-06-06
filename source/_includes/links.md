@@ -322,7 +322,7 @@
 [prezi40-ldce]: {{ site.api_url | absolute_url }}/presentation/4.{{ site.data.apis.presentation.latest.minor }}/#json-ld-and-extensions "Linked Data Context and Extensions"
 
 [prezi40-context-collisions]: {{ site.api_url | absolute_url }}/presentation/4.{{ site.data.apis.presentation.latest.minor }}/#term-collisions-between-contexts
-
+[prezi-40-model]: {{ site.api_url | absolute_url }}/presentation/4.0/model/
 [prezi-40-model-Agent]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#Agent
 [prezi-40-model-AmbientAudio]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#AmbientAudio
 [prezi-40-model-AmbientLight]: {{ site.api_url | absolute_url }}/presentation/4.0/model/#AmbientLight
