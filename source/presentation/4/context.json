@@ -1,1 +1,789 @@
-{}
+{
+  "@context": {
+    "@version": 1.1,
+
+    "iiif_prezi": "http://iiif.io/api/presentation/3#",
+    "iiif_image": "http://iiif.io/api/image/3#",
+    "exif": "http://www.w3.org/2003/12/exif/ns#",
+    "oa": "http://www.w3.org/ns/oa#",
+    "dc": "http://purl.org/dc/elements/1.1/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "dctypes": "http://purl.org/dc/dcmitype/",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdf": "http://www.w3.org/1999/02/22-rdf-syntax-ns#",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "as": "http://www.w3.org/ns/activitystreams#",
+    "ebu": "http://www.ebu.ch/metadata/ontologies/ebucore/ebucore#",
+    "schema": "https://schema.org/",
+    "crm": "http://www.cidoc-crm.org/cidoc-crm/",
+    "geojson": "https://purl.org/geojson/vocab#",
+
+    "id": "@id",
+    "type": "@type",
+
+    "Collection": {
+      "@id": "iiif_prezi:Collection",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "CollectionPage": {
+      "@id": "iiif_prezi:CollectionPage",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Manifest": {
+      "@id": "iiif_prezi:Manifest",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Canvas": {
+      "@id": "iiif_prezi:Canvas",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Timeline": {
+      "@id": "iiif_prezi:Timeline",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Scene": {
+      "@id": "iiif_prezi:Scene",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "Range": {
+      "@id": "iiif_prezi:Range",
+      "@context": {
+        "partOf": {
+          "@id": "dcterms:isPartOf",
+          "@type": "@id",
+          "@container": "@set"
+        }
+      }
+    },
+    "AnnotationCollection": {
+      "@id": "as:OrderedCollection",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json",
+        {
+          "partOf": {
+            "@id": "dcterms:isPartOf",
+            "@type": "@id",
+            "@container": "@set"
+          }
+        }
+      ]
+    },
+    "AnnotationPage": {
+      "@id": "as:OrderedCollectionPage",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
+    },
+    "Annotation": {
+      "@id": "oa:Annotation",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
+    },
+    "SpecificResource": {
+      "@id": "oa:SpecificResource",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json",
+        {
+          "transform": {
+            "@id": "iiif_prezi:transform",
+            "@type": "@id",
+            "@container": "@list"
+          }
+        }
+      ]
+    },
+    "Composite": {
+      "@id": "oa:Composite",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
+    },
+    "List": {
+      "@id": "oa:List",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
+    },
+    "Independents": {
+      "@id": "oa:Independents",
+      "@context": [
+        "http://www.w3.org/ns/anno.jsonld",
+        "http://iiif.io/api/presentation/4/overrides.json"
+      ]
+    },
+    "PointSelector": "iiif_prezi:PointSelector",
+    "WktSelector": "iiif_prezi:WktSelector",
+    "AudioContentSelector": "iiif_prezi:AudioContentSelector",
+    "VisualContentSelector": "iiif_prezi:VisualContentSelector",
+    "AnimationSelector": "iiif_prezi:AnimationSelector",
+    "ImageApiSelector": {
+      "@id": "iiif_image:ImageApiSelector",
+      "@context": {
+        "region": "iiif_image:region",
+        "size": "iiif_image:size",
+        "rotation": "iiif_image:rotation",
+        "quality": "iiif_image:quality",
+        "format": "iiif_image:format",
+        "version": "iiif_image:version"
+      }
+    },
+    "FragmentSelector": {
+      "@id": "oa:FragmentSelector",
+      "@context": [
+        {
+          "conformsTo": {
+            "@type": "@vocab",
+            "@id": "dcterms:conformsTo"
+          }
+        }
+      ]
+    },
+    "OrthographicCamera": {
+      "@id": "iiif_prezi:OrthographicCamera"
+    },
+    "PerspectiveCamera": {
+      "@id": "iiif_prezi:PerspectiveCamera"
+    },
+    "AmbientLight": {
+      "@id": "iiif_prezi:AmbientLight"
+    },
+    "DirectionalLight": {
+      "@id": "iiif_prezi:DirectionalLight"
+    },
+    "ImageBasedLight": {
+      "@id": "iiif_prezi:ImageBasedLight"
+    },
+    "PointLight": {
+      "@id": "iiif_prezi:PointLight"
+    },
+    "SpotLight": {
+      "@id": "iiif_prezi:SpotLight"
+    },
+    "AmbientAudio": {
+      "@id": "iiif_prezi:AmbientAudio"
+    },
+    "PointAudio": {
+      "@id": "iiif_prezi:PointAudio"
+    },
+    "SpotAudio": {
+      "@id": "iiif_prezi:SpotAudio"
+    },
+    "RotateTransform": {
+      "@id": "iiif_prezi:RotateTransform"
+    },
+    "ScaleTransform": {
+      "@id": "iiif_prezi:RotateTransform"
+    },
+    "TranslateTransform": {
+      "@id": "iiif_prezi:RotateTransform"
+    },
+    "Dataset": "dctypes:Dataset",
+    "Image": "dctypes:StillImage",
+    "Video": "dctypes:MovingImage",
+    "Audio": "dctypes:Sound",
+    "Sound": "dctypes:Sound",
+    "Text": "dctypes:Text",
+    "Service": "schema:WebAPI",
+    "Agent": "dcterms:Agent",
+    "Model": "schema:3DModel",
+    "Quantity": "crm:E54_Dimension",
+    "FeatureCollection": {
+      "@id": "geojson:FeatureCollection",
+      "@context": [
+        "https://geojson.org/geojson-ld/geojson-context.jsonld",
+        {
+          "iiif_georef": "http://iiif.io/api/extension/georef/vocab/georef-terms/#",
+          "transformation": {
+            "@id": "iiif_georef:transformation"
+          }
+        }
+      ]
+    },
+
+    "accompanyingContainer": {
+      "@type": "@id",
+      "@id": "iiif_prezi:accompanyingContainer"
+    },
+
+    "action": {
+      "@id": "iiif_prezi:action",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "enable": "iiif_prezi:enable",
+        "disable": "iiif_prezi:disable",
+        "show": "iiif_prezi:show",
+        "hide": "iiif_prezi:hide",
+        "reset": "iiif_prezi:reset",
+        "start": "iiif_prezi:start",
+        "stop": "iiif_prezi:stop",
+        "select": "iiif_prezi:select"
+      }
+    },
+
+    "angle": {
+      "@id": "iiif_prezi:angle",
+      "@type": "xsd:double"
+    },
+
+    "annotations": {
+      "@type": "@id",
+      "@id": "iiif_prezi:annotations",
+      "@container": "@list"
+    },
+
+    "backgroundColor": {
+      "@id": "iiif_prezi:backgroundColor"
+    },
+
+    "behavior": {
+      "@id": "iiif_prezi:behavior",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "auto-advance": "iiif_prezi:autoAdvanceHint",
+        "no-auto-advance": "iiif_prezi:noAutoAdvanceHint",
+        "repeat": "iiif_prezi:repeatHint",
+        "no-repeat": "iiif_prezi:noRepeatHint",
+        "unordered": "iiif_prezi:unordered",
+        "individuals": "iiif_prezi:individualsHint",
+        "continuous": "iiif_prezi:continuousHint",
+        "paged": "iiif_prezi:pagedHint",
+        "facing-pages": "iiif_prezi:facingPagesHint",
+        "non-paged": "iiif_prezi:nonPagedHint",
+        "multi-part": "iiif_prezi:multiPartHint",
+        "together": "iiif_prezi:togetherHint",
+        "sequence": "iiif_prezi:sequenceHint",
+        "thumbnail-nav": "iiif_prezi:thumbnailNavHint",
+        "no-nav": "iiif_prezi:noNavHint",
+        "hidden": "iiif_prezi:noneHint"
+      }
+    },
+
+    "body": {
+      "@id": "oa:hasBody",
+      "@type": "@id"
+    },
+
+    "canonical": {
+      "@type": "@id",
+      "@id": "oa:canonical"
+    },
+
+    "color": "iiif_prezi:color",
+
+    "duration": {
+      "@id": "ebu:duration"
+    },
+
+    "environmentMap": {
+      "@id": "iiif_prezi:environmentMap",
+      "@type": "@id"
+    },
+
+    "exclude": {
+      "@id": "iiif_prezi:exclude",
+      "@type": "@vocab",
+      "@context": {
+        "audio": "iiif_prezi:audioExclusion",
+        "animations": "iiif_prezi:animationsExclusion",
+        "cameras": "iiif_prezi:camerasExclusion",
+        "lights": "iiif_prezi:lightsExclusion"
+      }
+    },
+
+    "far": "iiif_prezi:far",
+    "fieldOfView": "iiif_prezi:fieldOfView",
+    "fileSize": "iiif_prezi:fileSize",
+    "first": { "@id": "as:first", "@type": "@id" },
+    "format": "dc:format",
+    "height": "exif:height",
+
+    "homepage": {
+      "@type": "@id",
+      "@id": "foaf:homepage",
+      "@container": "@set"
+    },
+
+    "instant": "iiif_prezi:instant",
+    "intensity": {
+      "@id": "iiif_prezi:intensity",
+      "@type": "@id"
+    },
+
+    "interactionMode": {
+      "@id": "iiif_prezi:interactionMode",
+      "@container": "@set",
+      "@type": "@vocab",
+      "@context": {
+        "locked": "iiif_prezi:lockedMode",
+        "orbit": "iiif_prezi:orbitMode",
+        "hemisphere-orbit": "iiif_prezi:hemisphereOrbitMode",
+        "free": "iiif_prezi:freeMode",
+        "free-direction": "iiif_prezi:freeDirectionMode"
+      }
+    },
+
+    "items": {
+      "@type": "@id",
+      "@id": "as:items",
+      "@container": "@list"
+    },
+
+    "label": {
+      "@id": "rdfs:label",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+
+    "language": {
+      "@id": "dc:language",
+      "@container": "@set"
+    },
+
+    "last": {
+      "@id": "as:last",
+      "@type": "@id"
+    },
+
+    "logo": {
+      "@type": "@id",
+      "@id": "foaf:logo",
+      "@container": "@set"
+    },
+
+    "lookAt": {
+      "@id": "iiif_prezi:lookAt",
+      "@type": "@id"
+    },
+
+    "metadata": {
+      "@type": "@id",
+      "@id": "iiif_prezi:metadataEntries",
+      "@container": "@list",
+      "@context": {
+        "value": {
+          "@id": "rdf:value",
+          "@container": ["@language", "@set"],
+          "@context": {
+            "none": "@none"
+          }
+        }
+      }
+    },
+
+    "motivation": {
+      "@id": "oa:motivatedBy",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "bookmarking": "oa:bookmarking",
+        "classifying": "oa:classifying",
+        "commenting": "oa:commenting",
+        "describing": "oa:describing",
+        "editing": "oa:editing",
+        "highlighting": "oa:highlighting",
+        "identifying": "oa:identifying",
+        "linking": "oa:linking",
+        "moderating": "oa:moderating",
+        "questioning": "oa:questioning",
+        "replying": "oa:replying",
+        "reviewing": "oa:reviewing",
+        "assessing": "oa:assessing",
+        "tagging": "oa:tagging",
+        "painting": "iiif_prezi:painting",
+        "supplementing": "iiif_prezi:supplementing"
+      }
+    },
+
+    "navDate": {
+      "@id": "iiif_prezi:navigationDate"
+    },
+
+    "navPlace": {
+      "@id": "iiif_prezi:navigationPlace",
+      "@type": "@id",
+      "@context": ["https://geojson.org/geojson-ld/geojson-context.jsonld"]
+    },
+
+    "near": "iiif_prezi:near",
+
+    "next": {
+      "@id": "oa:next",
+      "@type": "@id"
+    },
+
+    "partOf": {
+      "@id": "as:partOf",
+      "@type": "@id",
+      "@container": "@set"
+    },
+
+    "placeholderContainer": {
+      "@type": "@id",
+      "@id": "iiif_prezi:placeholderContainer"
+    },
+
+    "position": {
+      "@id": "iiif_prezi:position",
+      "@type": "@id"
+    },
+
+    "prev": {
+      "@id": "as:prev",
+      "@type": "@id"
+    },
+
+    "profile": {
+      "@type": "@vocab",
+      "@id": "dcterms:conformsTo"
+    },
+
+    "provider": {
+      "@type": "@id",
+      "@id": "schema:provider",
+      "@container": "@set"
+    },
+
+    "provides": {
+      "@id": "iiif_prezi:provides",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "closedCaptions": "closedCaptions",
+        "alternativeText": "",
+        "longDescription": "",
+        "highContrastAudio": "",
+        "highContrastDisplay": "",
+        "transcript": "",
+        "translation": ""
+      }
+    },
+
+    "quality": "iiif_prezi:quality",
+
+    "quantityValue": {
+      "@id": "crm:P90_has_value",
+      "type": "xsd:double"
+    },
+
+    "refinedBy": {
+      "@id": "oa:refinedBy",
+      "@type": "@id"
+    },
+
+    "region": "iiif_prezi:region",
+
+    "rendering": {
+      "@id": "dcterms:hasFormat",
+      "@type": "@id",
+      "@container": "@set"
+    },
+
+    "requiredStatement": {
+      "@id": "iiif_prezi:requiredStatement",
+      "@type": "@id",
+      "@context": {
+        "value": {
+          "@id": "rdf:value",
+          "@container": ["@language", "@set"],
+          "@context": {
+            "none": "@none"
+          }
+        }
+      }
+    },
+
+    "rights": {
+      "@type": "@id",
+      "@id": "dcterms:rights"
+    },
+
+    "rotation": "iiif_prezi:rotation",
+
+    "scope": {
+      "@id": "oa:hasScope",
+      "@type": "@id",
+      "@container": "@set"
+    },
+
+    "seeAlso": {
+      "@type": "@id",
+      "@id": "rdfs:seeAlso",
+      "@container": "@set"
+    },
+
+    "selector": {
+      "@type": "@id",
+      "@id": "oa:selector",
+      "@container": "@set",
+      "@context": [
+        "https://iiif.io/api/registry/selectors/context.json",
+        "http://www.w3.org/ns/anno.jsonld"
+      ]
+    },
+
+    "service": {
+      "@type": "@id",
+      "@id": "schema:potentialAction",
+      "@container": "@set",
+      "@context": {
+        "ImageService1": {
+          "@id": "http://iiif.io/api/image/1#ImageService",
+          "@context": [
+            "http://iiif.io/api/image/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "ImageService2": {
+          "@id": "http://iiif.io/api/image/2#ImageService",
+          "@context": [
+            "http://iiif.io/api/image/2/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "ImageService3": {
+          "@id": "http://iiif.io/api/image/3#ImageService",
+          "@context": "http://iiif.io/api/image/3/context.json"
+        },
+        "SearchService1": {
+          "@id": "http://iiif.io/api/search/1#SearchService",
+          "@context": [
+            "http://iiif.io/api/search/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AutoCompleteService1": {
+          "@id": "http://iiif.io/api/search/1#AutoCompleteService",
+          "@context": [
+            "http://iiif.io/api/search/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AuthCookieService1": {
+          "@id": "http://iiif.io/api/auth/1#CookieService",
+          "@context": [
+            "http://iiif.io/api/auth/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AuthTokenService1": {
+          "@id": "http://iiif.io/api/auth/1#TokenService",
+          "@context": [
+            "http://iiif.io/api/auth/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        },
+        "AuthLogoutService1": {
+          "@id": "http://iiif.io/api/auth/1#LogoutService",
+          "@context": [
+            "http://iiif.io/api/auth/1/context.json",
+            {
+              "id": null,
+              "type": null
+            }
+          ]
+        }
+      }
+    },
+
+    "services": {
+      "@id": "iiif_prezi:services",
+      "@type": "@id",
+      "@container": "@set"
+    },
+
+    "size": "iiif_image:size",
+
+    "source": {
+      "@id": "oa:hasSource",
+      "@type": "@id"
+    },
+
+    "spatialScale": "iiif_prezi:spatialScale",
+
+    "start": {
+      "@type": "@id",
+      "@id": "iiif_prezi:start"
+    },
+
+    "structures": {
+      "@type": "@id",
+      "@id": "iiif_prezi:structures",
+      "@container": "@list"
+    },
+
+    "styleClass": "oa:styleClass",
+    "stylesheet": {
+      "@id": "oa:styledBy",
+      "@type": "@id"
+    },
+
+    "summary": {
+      "@id": "as:summary",
+      "@container": ["@language", "@set"],
+      "@context": {
+        "none": "@none"
+      }
+    },
+
+    "supplementary": {
+      "@type": "@id",
+      "@id": "iiif_prezi:supplementary"
+    },
+
+    "target": {
+      "@id": "oa:hasTarget",
+      "@type": "@id"
+    },
+
+    "temporalScale": "iiif_prezi:temporalScale",
+
+    "thumbnail": {
+      "@type": "@id",
+      "@id": "iiif_prezi:thumbnail",
+      "@container": "@set"
+    },
+
+    "timeMode": {
+      "@id": "iiif_prezi:timeMode",
+      "@type": "@vocab",
+      "@context": {
+        "trim": "iiif_prezi:trimMode",
+        "scale": "iiif_prezi:scaleMode",
+        "loop": "iiif_prezi:loopMode"
+      }
+    },
+
+    "total": {
+      "@id": "as:totalItems",
+      "@type": "xsd:nonNegativeInteger"
+    },
+    "totalItems": {
+      "@id": "as:totalItems",
+      "@type": "xsd:nonNegativeInteger"
+    },
+    "transform": {
+      "@id": "iiif_prezi:transform",
+      "@container": "@list",
+      "@type": "@id"
+    },
+
+    "unit": "crm:P91_has_unit",
+
+    "value": {
+      "@id": "rdf:value"
+    },
+
+    "version": "iiif_image:version",
+
+    "via": {
+      "@id": "oa:via",
+      "@type": "@id",
+      "@container": "@list"
+    },
+
+    "viewHeight": "iiif_prezi:viewHeight",
+
+    "viewingDirection": {
+      "@id": "iiif_prezi:viewingDirection",
+      "@type": "@vocab",
+      "@container": "@set",
+      "@context": {
+        "left-to-right": "iiif_prezi:leftToRightDirection",
+        "right-to-left": "iiif_prezi:rightToLeftDirection",
+        "top-to-bottom": "iiif_prezi:topToBottomDirection",
+        "bottom-to-top": "iiif_prezi:bottomToTopDirection"
+      }
+    },
+
+    "volume": {
+      "@id": {
+        "@id": "iiif_prezi:volume",
+        "type": "xsd:double"
+      }
+    },
+
+    "width": {
+      "@id": "exif:width",
+      "@type": "xsd:integer"
+    },
+
+    "x": {
+      "@id": "iiif_prezi:x",
+      "type": "xsd:double"
+    },
+    "y": {
+      "@id": "iiif_prezi:y",
+      "type": "xsd:double"
+    },
+    "z": {
+      "@id": "iiif_prezi:z",
+      "type": "xsd:double"
+    }
+  }
+}
