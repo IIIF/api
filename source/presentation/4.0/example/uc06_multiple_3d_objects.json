@@ -178,8 +178,8 @@
                                 "angle": 35.0,
                                 "color": "#A0FFA0",
                                 "intensity": {
-                                    "type": "Value",
-                                    "value": 5,
+                                    "type": "Quantity",
+                                    "quantityValue": 1,
                                     "unit": "relative"
                                 },
                                 "lookAt": {
