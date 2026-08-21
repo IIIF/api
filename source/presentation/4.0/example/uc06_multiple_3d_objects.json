@@ -32,14 +32,10 @@
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
                                     "type": "Scene"
                                 },
-                                "selector": [
-                                    {
-                                        "type": "PointSelector",
-                                        "x": 1.0,
-                                        "y": 0.0,
-                                        "z": 0.0
-                                    }
-                                ]
+                                "selector": {
+                                    "type": "PointSelector",
+                                    "x": 0.005669057369232178
+                                }
                             }
                         },
                         {
@@ -58,15 +54,7 @@
                                 "transform": [
                                     {
                                         "type": "RotateTransform",
-                                        "x": 0.0,
-                                        "y": 0.0,
-                                        "z": -90.0
-                                    },
-                                    {
-                                        "type": "TranslateTransform",
-                                        "x": 0.0,
-                                        "y": 1.0,
-                                        "z": 0.0
+                                        "z": -90.00000933466734
                                     }
                                 ]
                             },
@@ -77,14 +65,12 @@
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
                                     "type": "Scene"
                                 },
-                                "selector": [
-                                    {
-                                        "type": "PointSelector",
-                                        "x": 2.0,
-                                        "y": 0.0,
-                                        "z": 3.0
-                                    }
-                                ]
+                                "selector": {
+                                    "type": "PointSelector",
+                                    "x": 0.10791834443807602,
+                                    "y": 0.00017559528350830078,
+                                    "z": -0.00039706751704216003
+                                }
                             }
                         },
                         {
@@ -120,14 +106,12 @@
                                     "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1",
                                     "type": "Scene"
                                 },
-                                "selector": [
-                                    {
-                                        "type": "PointSelector",
-                                        "x": 1.0,
-                                        "y": 0.0,
-                                        "z": 2.0
-                                    }
-                                ]
+                                "selector": {
+                                    "type": "PointSelector",
+                                    "x": -0.14137426018714905,
+                                    "y": -0.007910683751106262,
+                                    "z": -0.009444952011108398
+                                }
                             }
                         },
                         {
@@ -177,8 +161,8 @@
                                     {
                                         "type": "PointSelector",
                                         "x": 0.0,
-                                        "y": 6.0,
-                                        "z": 10.0
+                                        "y": 0.2,
+                                        "z": 1.0
                                     }
                                 ]
                             }
@@ -191,9 +175,21 @@
                                 "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/lights/1",
                                 "type": "SpotLight",
                                 "label": { "en": [ "Spot Light 1" ] },
-                                "angle": 90.0,
-                                "color": "#A0FFA0"
-                            },
+                                "angle": 35.0,
+                                "color": "#A0FFA0",
+                                "intensity": {
+                                    "type": "Quantity",
+                                    "quantityValue": 1,
+                                    "unit": "relative"
+                                },
+                                "lookAt": {
+                                    "type": "PointSelector",
+                                    "id"  : "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/lights/1/PointSelector/1",
+                                    "x": 0.0,
+                                    "y": 0.0,
+                                    "z": 0.0
+                                }
+                            } ,
                             "target": {
                                 "id": "https://iiif.io/api/presentation/4.0/example/uc06/scene/1/anno/light1/specificResource/1",
                                 "type": "SpecificResource",
@@ -205,8 +201,8 @@
                                     {
                                         "type": "PointSelector",
                                         "x": 0.0,
-                                        "y": 3.0,
-                                        "z": 1.0
+                                        "y": 0.2,
+                                        "z": 0.0
                                     }
                                 ]
                             }
