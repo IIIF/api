@@ -124,7 +124,7 @@ This specification uses the following terms:
 * __referenced__: When a resource (A) is referenced from a referencing resource (B), an incomplete JSON representation of resource A is present within the JSON representation of resource B, and dereferencing the URI of resource A will result in additional information. Example:  Manifest A is referenced from Collection B.
 * __HTTP(S)__: The HTTP or HTTPS URI scheme and internet protocol.
 
-The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification.
+The terms _array_, _JSON object_, _number_, _string_, and _boolean_ in this document are to be interpreted as defined by the [Javascript Object Notation (JSON)][org-rfc-8259] specification. A number may have a fractional part, and may be written in any form permitted by JSON: for example, `1985`, `1985.0` and `1.985E3` are all the same number. Where a value is required to be an _integer_, this is stated explicitly, and the value _MUST_ be a number without a fractional part.
 
 The key words _MUST_, _MUST NOT_, _REQUIRED_, _SHALL_, _SHALL NOT_, _SHOULD_, _SHOULD NOT_, _RECOMMENDED_, _MAY_, and _OPTIONAL_ in this document are to be interpreted as described in [RFC 2119][org-rfc-2119].
 
@@ -1276,7 +1276,7 @@ The value of `action` _MUST_ be an array of strings, where each item in the arra
 
 The `angle` property of Spot Lights and Spot Audio Emitters defines the dispersion of the cone of emitted light or sound from its direction. In other words, the angle extends from the center of the cone to the edge of the cone (the half-angle).
 
-The value _MUST_ be a floating point number greater than 0.0 and less than or equal to 90.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a number greater than 0.0 and less than or equal to 90.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A Spot Light _SHOULD_ have the `angle` property.<br/>
   Clients _SHOULD_ process the `angle` property on Spot Lights.
@@ -1285,7 +1285,7 @@ The value _MUST_ be a floating point number greater than 0.0 and less than or eq
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "angle": 15.0 }
+{ "angle": 15 }
 ```
 
 ### annotations
@@ -1471,7 +1471,7 @@ The value _MUST_ be a string, and _MUST_ be an absolute URI.
 
 The duration of a container or external content resource, given in seconds.
 
-The value _MUST_ be a positive floating point number.
+The value _MUST_ be a positive number.
 
 * A Timeline _MUST_ have the `duration` property.<br/>
   Clients _MUST_ process `duration` on a Timeline.
@@ -1482,7 +1482,7 @@ The value _MUST_ be a positive floating point number.
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "duration": 125.0 }
+{ "duration": 125 }
 ```
 
 
@@ -1534,14 +1534,14 @@ The value of `exclude` _MUST_ be an array of strings, each of which is one of th
 
 This property gives the distance along the axis of the camera's orientation after which objects are no longer visible. Objects further from the camera than the `far` distance cannot be seen.
 
-The value _MUST_ be a non-negative floating point number in the units of the coordinate space of the Scene in which the Camera with the property is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a non-negative number in the units of the coordinate space of the Scene in which the Camera with the property is positioned. The value _MUST_ be greater than the value for `near` of the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `far` property.<br/>
   Clients _SHOULD_ process the `far` property on Cameras.
 
 {% include api/code_header.html %}
 ```json-doc
-{ "far": 200.0 }
+{ "far": 200 }
 ```
 
 ### fieldOfView
@@ -1549,14 +1549,14 @@ The value _MUST_ be a non-negative floating point number in the units of the coo
 
 The vertical projection angle from the top plane to the bottom plane of the camera's field of view, specified in degrees. The horizontal projection angle is dependent on the aspect ratio of the client's viewport.
 
-The value _MUST_ be a floating point number greater than 0.0 and less than 180.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a number greater than 0.0 and less than 180.0, and is measured in degrees. If this property is not specified, then the default value is client-dependent.
 
 * A Perspective Camera _SHOULD_ have the `fieldOfView` property.<br/>
   Clients _SHOULD_ process the `fieldOfView` property on a Perspective Camera.
 
 {% include api/code_header.html %}
 ```json-doc
-{ "fieldOfView": 50.0 }
+{ "fieldOfView": 50 }
 ```
 
 ### fileSize
@@ -1697,9 +1697,9 @@ If a publisher wishes for a resource to be able to be referenced, such as in an 
 ### instant
 {: #instant}
 
-A floating point number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of `4.5` means the exact point 4.5 seconds from the beginning of the resource.
+A number giving the time of the point in seconds from the beginning of the temporal resource. For example, an `instant` value of `4.5` means the exact point 4.5 seconds from the beginning of the resource.
 
-The value _MUST_ be a non-negative floating point number.
+The value _MUST_ be a non-negative number.
 
 * Point Selector _MAY_ have the `instant` property.<br/>
   Clients _SHOULD_ process the `instant` property on a Point Selector.
@@ -2056,7 +2056,7 @@ The value of the property _MUST_ be a [GeoJSON][org-rfc-7946] Feature Collection
 
 This property gives the distance along the Camera's axis of orientation from which objects are visible. Objects closer to the camera than the `near` distance cannot be seen.
 
-The value _MUST_ be a non-negative floating point number, in the units of the coordinate space of the Scene in which the Camera that has the property is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a non-negative number, in the units of the coordinate space of the Scene in which the Camera that has the property is positioned. The value _MUST_ be less than the value for `far` for the same Camera. If this property is not specified, then the default value is client-dependent.
 
 * A Camera _MAY_ have the `near` property.<br/>
   Clients _SHOULD_ process the `near` property on Cameras.
@@ -2331,7 +2331,7 @@ The value of `quality` _MUST_ be a string, drawn from the list of acceptable qua
 
 The `quantityValue` property of a Quantity conveys its numerical component, used with `unit` to determine how to interpret the number relative to quantities.
 
-The value of `quantityValue` _MUST_ be a floating point number.
+The value of `quantityValue` _MUST_ be a number.
 
 * A Quantity _MUST_ have the `quantityValue` property.<br/>
   Clients _MUST_ process the `quantityValue` property on a Quantity.
@@ -3095,14 +3095,14 @@ The value of the `via` property _MUST_ be an array of strings, and each string _
 
 The height of the visible region for an Orthographic Camera, in the coordinate space of the Scene. Unlike a Perspective Camera which uses a field of view angle, an Orthographic Camera defines its visible region by a rectangular volume. The `viewHeight` gives the vertical extent of that region in Scene coordinate units; the corresponding horizontal extent is derived proportionally from the aspect ratio of the client's viewport.
 
-The value _MUST_ be a positive floating point number in the coordinate space of the Scene. If this property is not specified, then the default value is client-dependent.
+The value _MUST_ be a positive number in the coordinate space of the Scene. If this property is not specified, then the default value is client-dependent.
 
 * An Orthographic Camera _SHOULD_ have the `viewHeight` property.<br/>
   Clients _SHOULD_ process the `viewHeight` property on Orthographic Cameras.
 
 {% include api/code_header.html %}
 ```json-doc
-{ "viewHeight": 40.0 }
+{ "viewHeight": 40 }
 ```
 
 ### viewingDirection
@@ -3178,7 +3178,7 @@ The value _MUST_ be a positive integer.
 
 A number giving the x coordinate of a point on the horizontal or width axis (e.g. for Point Selector), an angular value in degrees around the x axis (e.g. for Rotate Transform), a scale factor to multiply another x value by (e.g. for Scale Transform), or an offset along the x axis to add to another x value (e.g. for Translate Transform). The interpretation of the value is, thus, dependent on the class of the resource that has the `x` property.
 
-The value _MUST_ be a number (floating point or integer).
+The value _MUST_ be a number.
 
 * A Point Selector _MAY_ have the `x` property.<br/>
   Clients _MUST_ process `x` on a Point Selector.
@@ -3187,7 +3187,7 @@ The value _MUST_ be a number (floating point or integer).
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "x": 100.0 }
+{ "x": 100 }
 ```
 
 ### y
@@ -3195,7 +3195,7 @@ The value _MUST_ be a number (floating point or integer).
 
 A number giving the y coordinate of a point on the vertical or height axis (e.g. for Point Selector), an angular value in degrees around the y axis (e.g. for Rotate Transform), a scale factor to multiply another y value by (e.g. for Scale Transform), or an offset along the y axis to add to another y value (e.g. for Translate Transform). The interpretation of the value is, thus, dependent on the class of the resource that has the `y` property.
 
-The value _MUST_ be a number (floating point or integer).
+The value _MUST_ be a number.
 
 * A Point Selector _MAY_ have the `y` property.<br/>
   Clients _MUST_ process `y` on a Point Selector.
@@ -3206,7 +3206,7 @@ The value _MUST_ be a number (floating point or integer).
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "y": 100.0 }
+{ "y": 100 }
 ```
 
 ### z
@@ -3214,7 +3214,7 @@ The value _MUST_ be a number (floating point or integer).
 
 A number giving the z coordinate of a point on the "depth" axis (e.g. for Point Selector), an angular value in degrees around the z axis (e.g. for Rotate Transform), a scale factor to multiply another z value by (e.g. for Scale Transform), or an offset along the z axis to add to another z value (e.g. for Translate Transform). The interpretation of the value is, thus, dependent on the class of the resource that has the `z` property.
 
-The value _MUST_ be a number (floating point or integer).
+The value _MUST_ be a number.
 
 * A Point Selector _MAY_ have the `z` property.<br/>
   Clients _MUST_ process `z` on a Point Selector.
@@ -3224,7 +3224,7 @@ The value _MUST_ be a number (floating point or integer).
 
 {% include api/code_header.html %}
 ``` json-doc
-{ "z": 100.0 }
+{ "z": 100 }
 ```
 
 

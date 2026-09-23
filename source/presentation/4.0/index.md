@@ -204,7 +204,7 @@ The Container sub-classes are discussed below.
 
 A Container that represents a bounded temporal range, without any spatial coordinates. It is typically used for audio-only content.
 
-Timelines have an additional required property of [`duration`][prezi-40-model-duration], which gives the extent of the Timeline as a floating point number of seconds. 
+Timelines have an additional required property of [`duration`][prezi-40-model-duration], which gives the extent of the Timeline as a number of seconds. 
 
 {% include code_example.html src="02_timeline.json" from=11 to=35 %}
 
@@ -574,7 +574,7 @@ This example is a Manifest with a single Scene with a duration. The chess game p
 
 A content resource may be annotated into a Scene for a period of time by use of a PointSelector that is temporally scoped by a [FragmentSelector](https://www.w3.org/TR/annotation-model/#fragment-selector). The FragmentSelector has a [`value`][prezi-40-model-value] property, the value of which follows the [media fragment syntax](https://www.w3.org/TR/media-frags/#naming-time) of `t=`.  This annotation pattern uses the [`refinedBy`][prezi-40-model-refinedBy] property [defined by the W3C Web Annotation Data Model](https://www.w3.org/TR/annotation-model/#refinement-of-selection). When using a URL fragment in place of a SpecificResource, the parameter `t` can be used to select the temporal region. Both patterns are used in this example.
 
-An Annotation may target a specific point in time using a PointSelector's [`instant`][prezi-40-model-instant] property.  The property's value must be a positive floating point number indicating a value in seconds that falls within the Scene's duration. In this example this is used for a comment Annotation.
+An Annotation may target a specific point in time using a PointSelector's [`instant`][prezi-40-model-instant] property.  The property's value must be a non-negative number indicating a value in seconds that falls within the Scene's duration. In this example this is used for a comment Annotation.
 
 In this example, the audio content resources have durations that do not match the Scene's duration. The [`timeMode`][prezi-40-model-timeMode] property is used to indicate the desired behavior when the duration of the content resource that is not equal to the temporal region targeted by the annotation.
 
