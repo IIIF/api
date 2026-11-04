@@ -90,7 +90,7 @@ Thanks to the members of the [IIIF][iiif-community] for their continuous engagem
 
 | Date       | Description                                        |
 | ---------- | -------------------------------------------------- |
-| 2026-XX-YY | New Version 4 Registries                           |
+| 2026-11-04 | New Presentation 4 `provides` Properties           |
 
 {% include acronyms.md %}
 {% include links.md %}
