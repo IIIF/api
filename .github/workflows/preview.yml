@@ -13,7 +13,7 @@ on:
 
 jobs: # A workflow run is made up of one or more jobs that can run sequentially or in parallel
   build: # This workflow contains a single job called "build"
-    runs-on: ubuntu-latest # The type of runner that the job will run on
+    runs-on: ubuntu-24.04 # The type of runner that the job will run on
     env:
       BUNDLE_WITH: test jekyll_plugins
       SITE_ID:  'api' # which iiif site this is
