@@ -141,7 +141,7 @@ The purpose of the IIIF Presentation API specification is to provide a [model](m
 
 The IIIF Presentation API is concerned with enabling user experiences---providing enough information to present objects in compatible software, and leaving the meaning of the objects to external descriptive metadata standards.
 
-This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. The [Presentation API 4.0 Data Model](model) document provides the formal specification of the model and terms used in this introduction.
+This document acts as an introduction to the specification through a set of typical (but non-exhaustive) use cases. **The [Presentation API 4.0 Data Model](model) document provides the formal specification of the model and terms used in this introduction.**
 
 ## IIIF Use cases
 
@@ -1109,6 +1109,7 @@ The value of [`provides`][prezi-40-model-provides] is an array of strings, taken
 ]
 ```
 
+>
 **Key Points**
 * The `provides` property is placed on the annotation and not on the target of the annotation.
 * The property is primarily used to define accessibility features, but can be used to define other types of functionality, such as `transcript`.

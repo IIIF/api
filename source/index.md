@@ -26,7 +26,7 @@ api_current_table:
 
 | API                  | Draft Version (Status) |
 | -------------------- | ---------------------- |
-| Presentation API | [4.0.0][prezi40] (Release candidate) |
+| Presentation API | [4.0.0 Base][prezi40] and [4.0.0 Model][prezi40-model] (Release candidate) |
 {: .api-table}
 
 ### Feedback requested
